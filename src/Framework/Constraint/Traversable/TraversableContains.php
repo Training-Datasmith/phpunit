@@ -18,11 +18,8 @@ use PHPUnit\Util\Exporter;
  */
 abstract class TraversableContains extends Constraint
 {
-    private readonly mixed $value;
-
-    public function __construct(mixed $value)
+    public function __construct(private readonly mixed $value)
     {
-        $this->value = $value;
     }
 
     /**

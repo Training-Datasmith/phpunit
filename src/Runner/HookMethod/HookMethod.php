@@ -17,18 +17,10 @@ namespace PHPUnit\Runner;
 final readonly class HookMethod
 {
     /**
-     * @var non-empty-string
-     */
-    private string $methodName;
-    private int $priority;
-
-    /**
      * @param non-empty-string $methodName
      */
-    public function __construct(string $methodName, int $priority)
+    public function __construct(private string $methodName, private int $priority)
     {
-        $this->methodName = $methodName;
-        $this->priority   = $priority;
     }
 
     /**

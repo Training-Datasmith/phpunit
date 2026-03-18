@@ -46,15 +46,12 @@ use PHPUnit\TextUI\Output\Printer;
  */
 final class TeamCityLogger
 {
-    private readonly Printer $printer;
     private bool $isSummaryTestCountPrinted = false;
     private ?HRTime $time                   = null;
     private ?int $flowId                    = null;
 
-    public function __construct(Printer $printer, Facade $facade)
+    public function __construct(private readonly Printer $printer, Facade $facade)
     {
-        $this->printer = $printer;
-
         $this->registerSubscribers($facade);
         $this->setFlowId();
     }

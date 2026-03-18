@@ -17,18 +17,10 @@ namespace PHPUnit\TextUI\Configuration;
 final readonly class FilterFile
 {
     /**
-     * @var non-empty-string
-     */
-    private string $path;
-    private bool $includeInCodeCoverage;
-
-    /**
      * @param non-empty-string $path
      */
-    public function __construct(string $path, bool $includeInCodeCoverage = true)
+    public function __construct(private string $path, private bool $includeInCodeCoverage = true)
     {
-        $this->path                  = $path;
-        $this->includeInCodeCoverage = $includeInCodeCoverage;
     }
 
     /**

@@ -16,16 +16,13 @@ namespace PHPUnit\Event\Telemetry;
  */
 final readonly class MemoryUsage
 {
-    private int $bytes;
-
     public static function fromBytes(int $bytes): self
     {
         return new self($bytes);
     }
 
-    private function __construct(int $bytes)
+    private function __construct(private int $bytes)
     {
-        $this->bytes = $bytes;
     }
 
     public function bytes(): int

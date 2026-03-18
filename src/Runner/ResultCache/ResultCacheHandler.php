@@ -30,14 +30,11 @@ use PHPUnit\Framework\TestStatus\TestStatus;
  */
 final class ResultCacheHandler
 {
-    private readonly ResultCache $cache;
     private ?HRTime $time  = null;
     private int $testSuite = 0;
 
-    public function __construct(ResultCache $cache, Facade $facade)
+    public function __construct(private readonly ResultCache $cache, Facade $facade)
     {
-        $this->cache = $cache;
-
         $this->registerSubscribers($facade);
     }
 

@@ -18,26 +18,12 @@ namespace PHPUnit\Framework;
  */
 final class PhptAssertionFailedError extends AssertionFailedError
 {
-    private readonly string $syntheticFile;
-    private readonly int $syntheticLine;
-
     /**
-     * @var list<array{file: string, line: int, function: string, type: string}>
+     * @param list<array{file: string, line: int, function: string, type: string}> $syntheticTrace
      */
-    private readonly array $syntheticTrace;
-    private readonly string $diff;
-
-    /**
-     * @param list<array{file: string, line: int, function: string, type: string}> $trace
-     */
-    public function __construct(string $message, int $code, string $file, int $line, array $trace, string $diff)
+    public function __construct(string $message, int $code, private readonly string $syntheticFile, private readonly int $syntheticLine, private readonly array $syntheticTrace, private readonly string $diff)
     {
         parent::__construct($message, $code);
-
-        $this->syntheticFile  = $file;
-        $this->syntheticLine  = $line;
-        $this->syntheticTrace = $trace;
-        $this->diff           = $diff;
     }
 
     public function syntheticFile(): string

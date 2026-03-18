@@ -20,23 +20,11 @@ use Attribute;
 final readonly class RequiresSetting
 {
     /**
-     * @var non-empty-string
-     */
-    private string $setting;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $value;
-
-    /**
      * @param non-empty-string $setting
      * @param non-empty-string $value
      */
-    public function __construct(string $setting, string $value)
+    public function __construct(private string $setting, private string $value)
     {
-        $this->setting = $setting;
-        $this->value   = $value;
     }
 
     /**

@@ -20,8 +20,6 @@ use PHPUnit\Runner\Extension\Extension;
  */
 abstract readonly class Metadata
 {
-    private Level $level;
-
     public static function after(int $priority): After
     {
         return new After(Level::METHOD_LEVEL, $priority);
@@ -561,9 +559,8 @@ abstract readonly class Metadata
         return new IgnorePhpunitWarnings(Level::METHOD_LEVEL, $messagePattern);
     }
 
-    protected function __construct(Level $level)
+    protected function __construct(private Level $level)
     {
-        $this->level = $level;
     }
 
     public function isClassLevel(): bool

@@ -43,7 +43,6 @@ use PHPUnit\Util\Xml;
  */
 final class JunitXmlLogger
 {
-    private readonly Printer $printer;
     private DOMDocument $document;
     private DOMElement $root;
 
@@ -88,10 +87,8 @@ final class JunitXmlLogger
     private bool $preparationFailed      = false;
     private ?string $unexpectedOutput    = null;
 
-    public function __construct(Printer $printer, Facade $facade)
+    public function __construct(private readonly Printer $printer, Facade $facade)
     {
-        $this->printer = $printer;
-
         $this->registerSubscribers($facade);
         $this->createDocument();
     }

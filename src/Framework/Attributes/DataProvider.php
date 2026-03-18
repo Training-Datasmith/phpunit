@@ -20,18 +20,10 @@ use Attribute;
 final readonly class DataProvider
 {
     /**
-     * @var non-empty-string
-     */
-    private string $methodName;
-    private bool $validateArgumentCount;
-
-    /**
      * @param non-empty-string $methodName
      */
-    public function __construct(string $methodName, bool $validateArgumentCount = true)
+    public function __construct(private string $methodName, private bool $validateArgumentCount = true)
     {
-        $this->methodName            = $methodName;
-        $this->validateArgumentCount = $validateArgumentCount;
     }
 
     /**

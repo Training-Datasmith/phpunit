@@ -22,15 +22,8 @@ use PHPUnit\Framework\TestStatus\TestStatus;
  */
 final readonly class TestResult
 {
-    private TestMethod $test;
-    private TestStatus $status;
-    private ?Throwable $throwable;
-
-    public function __construct(TestMethod $test, TestStatus $status, ?Throwable $throwable)
+    public function __construct(private TestMethod $test, private TestStatus $status, private ?Throwable $throwable)
     {
-        $this->test      = $test;
-        $this->status    = $status;
-        $this->throwable = $throwable;
     }
 
     public function test(): TestMethod

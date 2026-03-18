@@ -19,11 +19,8 @@ use PHPUnit\Event\Telemetry;
  */
 final readonly class Started implements Event
 {
-    private Telemetry\Info $telemetryInfo;
-
-    public function __construct(Telemetry\Info $telemetryInfo)
+    public function __construct(private Telemetry\Info $telemetryInfo)
     {
-        $this->telemetryInfo = $telemetryInfo;
     }
 
     public function telemetryInfo(): Telemetry\Info

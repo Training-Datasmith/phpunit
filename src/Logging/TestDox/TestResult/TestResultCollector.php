@@ -48,8 +48,6 @@ use ReflectionMethod;
  */
 final class TestResultCollector
 {
-    private readonly IssueFilter $issueFilter;
-
     /**
      * @var array<string, list<TestDoxTestMethod>>
      */
@@ -58,10 +56,8 @@ final class TestResultCollector
     private ?Throwable $throwable = null;
     private bool $prepared        = false;
 
-    public function __construct(Facade $facade, IssueFilter $issueFilter)
+    public function __construct(Facade $facade, private readonly IssueFilter $issueFilter)
     {
-        $this->issueFilter = $issueFilter;
-
         $this->registerSubscribers($facade);
     }
 
@@ -88,10 +84,7 @@ final class TestResultCollector
             foreach ($testsByDeclaringClass as $declaringClassName) {
                 usort(
                     $declaringClassName,
-                    static function (TestDoxTestMethod $a, TestDoxTestMethod $b): int
-                    {
-                        return $a->test()->line() <=> $b->test()->line();
-                    },
+                    static fn(TestDoxTestMethod $a, TestDoxTestMethod $b): int => $a->test()->line() <=> $b->test()->line(),
                 );
             }
 

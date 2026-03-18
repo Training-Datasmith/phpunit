@@ -16,17 +16,12 @@ namespace PHPUnit\Metadata;
  */
 final readonly class IgnorePhpunitWarnings extends Metadata
 {
-    /** @var null|non-empty-string */
-    private ?string $messagePattern;
-
     /**
      * @param null|non-empty-string $messagePattern
      */
-    protected function __construct(Level $level, null|string $messagePattern)
+    protected function __construct(Level $level, private ?string $messagePattern)
     {
         parent::__construct($level);
-
-        $this->messagePattern = $messagePattern;
     }
 
     public function isIgnorePhpunitWarnings(): true

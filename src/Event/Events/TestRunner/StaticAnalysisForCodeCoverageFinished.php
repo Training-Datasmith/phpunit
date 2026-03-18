@@ -20,27 +20,12 @@ use PHPUnit\Event\Telemetry;
  */
 final readonly class StaticAnalysisForCodeCoverageFinished implements Event
 {
-    private Telemetry\Info $telemetryInfo;
-
-    /**
-     * @var non-negative-int
-     */
-    private int $cacheHits;
-
-    /**
-     * @var non-negative-int
-     */
-    private int $cacheMisses;
-
     /**
      * @param non-negative-int $cacheHits
      * @param non-negative-int $cacheMisses
      */
-    public function __construct(Telemetry\Info $telemetryInfo, int $cacheHits, int $cacheMisses)
+    public function __construct(private Telemetry\Info $telemetryInfo, private int $cacheHits, private int $cacheMisses)
     {
-        $this->telemetryInfo = $telemetryInfo;
-        $this->cacheHits     = $cacheHits;
-        $this->cacheMisses   = $cacheMisses;
     }
 
     public function telemetryInfo(): Telemetry\Info

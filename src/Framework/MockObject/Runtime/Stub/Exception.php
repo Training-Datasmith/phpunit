@@ -19,11 +19,8 @@ use Throwable;
  */
 final readonly class Exception implements Stub
 {
-    private Throwable $exception;
-
-    public function __construct(Throwable $exception)
+    public function __construct(private Throwable $exception)
     {
-        $this->exception = $exception;
     }
 
     /**

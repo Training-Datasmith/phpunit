@@ -19,17 +19,8 @@ use PHPUnit\Event\Telemetry;
  */
 final readonly class Sorted implements Event
 {
-    private Telemetry\Info $telemetryInfo;
-    private int $executionOrder;
-    private int $executionOrderDefects;
-    private bool $resolveDependencies;
-
-    public function __construct(Telemetry\Info $telemetryInfo, int $executionOrder, int $executionOrderDefects, bool $resolveDependencies)
+    public function __construct(private Telemetry\Info $telemetryInfo, private int $executionOrder, private int $executionOrderDefects, private bool $resolveDependencies)
     {
-        $this->telemetryInfo         = $telemetryInfo;
-        $this->executionOrder        = $executionOrder;
-        $this->executionOrderDefects = $executionOrderDefects;
-        $this->resolveDependencies   = $resolveDependencies;
     }
 
     public function telemetryInfo(): Telemetry\Info

@@ -17,18 +17,11 @@ namespace PHPUnit\Metadata;
 final readonly class ExcludeGlobalVariableFromBackup extends Metadata
 {
     /**
-     * @var non-empty-string
-     */
-    private string $globalVariableName;
-
-    /**
      * @param non-empty-string $globalVariableName
      */
-    protected function __construct(Level $level, string $globalVariableName)
+    protected function __construct(Level $level, private string $globalVariableName)
     {
         parent::__construct($level);
-
-        $this->globalVariableName = $globalVariableName;
     }
 
     public function isExcludeGlobalVariableFromBackup(): true

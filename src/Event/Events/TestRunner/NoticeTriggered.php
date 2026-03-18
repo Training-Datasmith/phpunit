@@ -20,13 +20,8 @@ use PHPUnit\Event\Telemetry;
  */
 final readonly class NoticeTriggered implements Event
 {
-    private Telemetry\Info $telemetryInfo;
-    private string $message;
-
-    public function __construct(Telemetry\Info $telemetryInfo, string $message)
+    public function __construct(private Telemetry\Info $telemetryInfo, private string $message)
     {
-        $this->telemetryInfo = $telemetryInfo;
-        $this->message       = $message;
     }
 
     public function telemetryInfo(): Telemetry\Info

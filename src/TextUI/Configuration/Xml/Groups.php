@@ -20,13 +20,8 @@ use PHPUnit\TextUI\Configuration\GroupCollection;
  */
 final readonly class Groups
 {
-    private GroupCollection $include;
-    private GroupCollection $exclude;
-
-    public function __construct(GroupCollection $include, GroupCollection $exclude)
+    public function __construct(private GroupCollection $include, private GroupCollection $exclude)
     {
-        $this->include = $include;
-        $this->exclude = $exclude;
     }
 
     public function hasInclude(): bool

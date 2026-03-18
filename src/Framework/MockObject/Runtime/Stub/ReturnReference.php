@@ -16,7 +16,7 @@ use PHPUnit\Framework\MockObject\Invocation;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ReturnReference implements Stub
+final readonly class ReturnReference implements Stub
 {
     private mixed $reference;
 

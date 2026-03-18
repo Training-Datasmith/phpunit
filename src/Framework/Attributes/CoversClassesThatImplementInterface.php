@@ -20,16 +20,10 @@ use Attribute;
 final readonly class CoversClassesThatImplementInterface
 {
     /**
-     * @var class-string
-     */
-    private string $interfaceName;
-
-    /**
      * @param class-string $interfaceName
      */
-    public function __construct(string $interfaceName)
+    public function __construct(private string $interfaceName)
     {
-        $this->interfaceName = $interfaceName;
     }
 
     /**

@@ -16,15 +16,8 @@ namespace PHPUnit\Event\Code;
  */
 final readonly class ComparisonFailure
 {
-    private string $expected;
-    private string $actual;
-    private string $diff;
-
-    public function __construct(string $expected, string $actual, string $diff)
+    public function __construct(private string $expected, private string $actual, private string $diff)
     {
-        $this->expected = $expected;
-        $this->actual   = $actual;
-        $this->diff     = $diff;
     }
 
     public function expected(): string

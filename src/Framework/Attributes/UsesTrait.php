@@ -20,16 +20,10 @@ use Attribute;
 final readonly class UsesTrait
 {
     /**
-     * @var trait-string
-     */
-    private string $traitName;
-
-    /**
      * @param trait-string $traitName
      */
-    public function __construct(string $traitName)
+    public function __construct(private string $traitName)
     {
-        $this->traitName = $traitName;
     }
 
     /**

@@ -16,11 +16,8 @@ namespace PHPUnit\Runner\DeprecationCollector;
  */
 abstract class Subscriber
 {
-    private readonly Collector|InIsolationCollector $collector;
-
-    public function __construct(Collector|InIsolationCollector $collector)
+    public function __construct(private readonly Collector|InIsolationCollector $collector)
     {
-        $this->collector = $collector;
     }
 
     protected function collector(): Collector|InIsolationCollector

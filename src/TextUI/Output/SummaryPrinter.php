@@ -21,14 +21,10 @@ use PHPUnit\Util\Color;
  */
 final class SummaryPrinter
 {
-    private readonly Printer $printer;
-    private readonly bool $colors;
     private bool $countPrinted = false;
 
-    public function __construct(Printer $printer, bool $colors)
+    public function __construct(private readonly Printer $printer, private readonly bool $colors)
     {
-        $this->printer = $printer;
-        $this->colors  = $colors;
     }
 
     public function print(TestResult $result): void

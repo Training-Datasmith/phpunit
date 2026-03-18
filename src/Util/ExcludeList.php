@@ -189,7 +189,7 @@ final class ExcludeList
 
         return array_any(
             self::$directories,
-            static fn (string $directory) => str_starts_with($file, $directory),
+            static fn (string $directory): bool => str_starts_with($file, $directory),
         );
     }
 

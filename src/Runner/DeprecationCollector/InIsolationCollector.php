@@ -19,8 +19,6 @@ use PHPUnit\TestRunner\IssueFilter;
  */
 final class InIsolationCollector
 {
-    private readonly IssueFilter $issueFilter;
-
     /**
      * @var list<non-empty-string>
      */
@@ -31,9 +29,8 @@ final class InIsolationCollector
      */
     private array $filteredDeprecations = [];
 
-    public function __construct(IssueFilter $issueFilter)
+    public function __construct(private readonly IssueFilter $issueFilter)
     {
-        $this->issueFilter = $issueFilter;
     }
 
     /**

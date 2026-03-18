@@ -19,31 +19,11 @@ use PHPUnit\Util\VersionComparisonOperator;
 final readonly class TestDirectory
 {
     /**
-     * @var non-empty-string
-     */
-    private string $path;
-    private string $prefix;
-    private string $suffix;
-    private string $phpVersion;
-    private VersionComparisonOperator $phpVersionOperator;
-
-    /**
-     * @var list<non-empty-string>
-     */
-    private array $groups;
-
-    /**
      * @param non-empty-string       $path
      * @param list<non-empty-string> $groups
      */
-    public function __construct(string $path, string $prefix, string $suffix, string $phpVersion, VersionComparisonOperator $phpVersionOperator, array $groups)
+    public function __construct(private string $path, private string $prefix, private string $suffix, private string $phpVersion, private VersionComparisonOperator $phpVersionOperator, private array $groups)
     {
-        $this->path               = $path;
-        $this->prefix             = $prefix;
-        $this->suffix             = $suffix;
-        $this->phpVersion         = $phpVersion;
-        $this->phpVersionOperator = $phpVersionOperator;
-        $this->groups             = $groups;
     }
 
     /**

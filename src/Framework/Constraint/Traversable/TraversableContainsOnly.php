@@ -18,7 +18,6 @@ use PHPUnit\Framework\NativeType;
 final class TraversableContainsOnly extends Constraint
 {
     private readonly Constraint $constraint;
-    private readonly string $type;
 
     public static function forNativeType(NativeType $type): self
     {
@@ -33,10 +32,9 @@ final class TraversableContainsOnly extends Constraint
         return new self(new IsInstanceOf($type), $type);
     }
 
-    private function __construct(IsInstanceOf|IsType $constraint, string $type)
+    private function __construct(IsInstanceOf|IsType $constraint, private readonly string $type)
     {
         $this->constraint = $constraint;
-        $this->type       = $type;
     }
 
     /**

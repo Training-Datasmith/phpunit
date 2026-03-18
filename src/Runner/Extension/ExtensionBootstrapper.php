@@ -27,13 +27,8 @@ use Throwable;
  */
 final readonly class ExtensionBootstrapper
 {
-    private Configuration $configuration;
-    private Facade $facade;
-
-    public function __construct(Configuration $configuration, Facade $facade)
+    public function __construct(private Configuration $configuration, private Facade $facade)
     {
-        $this->configuration = $configuration;
-        $this->facade        = $facade;
     }
 
     /**

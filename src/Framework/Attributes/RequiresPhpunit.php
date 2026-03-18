@@ -20,16 +20,10 @@ use Attribute;
 final readonly class RequiresPhpunit
 {
     /**
-     * @var non-empty-string
-     */
-    private string $versionRequirement;
-
-    /**
      * @param non-empty-string $versionRequirement
      */
-    public function __construct(string $versionRequirement)
+    public function __construct(private string $versionRequirement)
     {
-        $this->versionRequirement = $versionRequirement;
     }
 
     /**

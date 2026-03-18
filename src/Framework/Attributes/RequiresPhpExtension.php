@@ -20,23 +20,11 @@ use Attribute;
 final readonly class RequiresPhpExtension
 {
     /**
-     * @var non-empty-string
-     */
-    private string $extension;
-
-    /**
-     * @var null|non-empty-string
-     */
-    private ?string $versionRequirement;
-
-    /**
      * @param non-empty-string      $extension
      * @param null|non-empty-string $versionRequirement
      */
-    public function __construct(string $extension, ?string $versionRequirement = null)
+    public function __construct(private string $extension, private ?string $versionRequirement = null)
     {
-        $this->extension          = $extension;
-        $this->versionRequirement = $versionRequirement;
     }
 
     /**

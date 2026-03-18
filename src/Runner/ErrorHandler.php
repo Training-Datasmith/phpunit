@@ -63,10 +63,9 @@ final class ErrorHandler
     private const int INSUPPRESSIBLE_LEVELS = E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR;
     private static ?self $instance          = null;
     private ?Baseline $baseline             = null;
-    private ExcludeList $excludeList;
+    private readonly ExcludeList $excludeList;
     private bool $enabled                     = false;
     private ?int $originalErrorReportingLevel = null;
-    private readonly bool $identifyIssueTrigger;
 
     /**
      * @var list<array{int, string, string, int}>
@@ -106,10 +105,9 @@ final class ErrorHandler
         return self::$instance ?? self::$instance = new self($identifyIssueTrigger);
     }
 
-    private function __construct(bool $identifyIssueTrigger)
+    private function __construct(private readonly bool $identifyIssueTrigger)
     {
         $this->excludeList           = new ExcludeList;
-        $this->identifyIssueTrigger  = $identifyIssueTrigger;
         $this->issueTriggerResolvers = [new DefaultIssueTriggerResolver];
     }
 

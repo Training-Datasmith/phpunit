@@ -28,33 +28,8 @@ use PHPUnit\TextUI\XmlConfiguration\Exception;
  */
 final readonly class CodeCoverage
 {
-    private bool $pathCoverage;
-    private bool $includeUncoveredFiles;
-    private bool $ignoreDeprecatedCodeUnits;
-    private bool $disableCodeCoverageIgnore;
-    private ?Clover $clover;
-    private ?Cobertura $cobertura;
-    private ?Crap4j $crap4j;
-    private ?Html $html;
-    private ?OpenClover $openClover;
-    private ?Php $php;
-    private ?Text $text;
-    private ?Xml $xml;
-
-    public function __construct(bool $pathCoverage, bool $includeUncoveredFiles, bool $ignoreDeprecatedCodeUnits, bool $disableCodeCoverageIgnore, ?Clover $clover, ?Cobertura $cobertura, ?Crap4j $crap4j, ?Html $html, ?OpenClover $openClover, ?Php $php, ?Text $text, ?Xml $xml)
+    public function __construct(private bool $pathCoverage, private bool $includeUncoveredFiles, private bool $ignoreDeprecatedCodeUnits, private bool $disableCodeCoverageIgnore, private ?Clover $clover, private ?Cobertura $cobertura, private ?Crap4j $crap4j, private ?Html $html, private ?OpenClover $openClover, private ?Php $php, private ?Text $text, private ?Xml $xml)
     {
-        $this->pathCoverage              = $pathCoverage;
-        $this->includeUncoveredFiles     = $includeUncoveredFiles;
-        $this->ignoreDeprecatedCodeUnits = $ignoreDeprecatedCodeUnits;
-        $this->disableCodeCoverageIgnore = $disableCodeCoverageIgnore;
-        $this->clover                    = $clover;
-        $this->cobertura                 = $cobertura;
-        $this->crap4j                    = $crap4j;
-        $this->html                      = $html;
-        $this->openClover                = $openClover;
-        $this->php                       = $php;
-        $this->text                      = $text;
-        $this->xml                       = $xml;
     }
 
     public function pathCoverage(): bool

@@ -136,13 +136,22 @@ final class HookMethods
         }
 
         $metadata = Registry::parser()->forMethod($method->getDeclaringClass()->getName(), $method->getName());
-
-        return $metadata->isBeforeClass()->isNotEmpty() ||
-            $metadata->isBefore()->isNotEmpty() ||
-            $metadata->isPreCondition()->isNotEmpty() ||
-            $metadata->isPostCondition()->isNotEmpty() ||
-            $metadata->isAfter()->isNotEmpty() ||
-            $metadata->isAfterClass()->isNotEmpty();
+        if ($metadata->isBeforeClass()->isNotEmpty()) {
+            return true;
+        }
+        if ($metadata->isBefore()->isNotEmpty()) {
+            return true;
+        }
+        if ($metadata->isPreCondition()->isNotEmpty()) {
+            return true;
+        }
+        if ($metadata->isPostCondition()->isNotEmpty()) {
+            return true;
+        }
+        if ($metadata->isAfter()->isNotEmpty()) {
+            return true;
+        }
+        return $metadata->isAfterClass()->isNotEmpty();
     }
 
     /**

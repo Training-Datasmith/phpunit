@@ -19,11 +19,8 @@ use PHPUnit\Util\Exporter;
  */
 final class ExceptionCode extends Constraint
 {
-    private readonly int|string $expectedCode;
-
-    public function __construct(int|string $expected)
+    public function __construct(private readonly int|string $expectedCode)
     {
-        $this->expectedCode = $expected;
     }
 
     public function toString(): string

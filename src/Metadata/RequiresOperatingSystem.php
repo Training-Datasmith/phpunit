@@ -17,18 +17,11 @@ namespace PHPUnit\Metadata;
 final readonly class RequiresOperatingSystem extends Metadata
 {
     /**
-     * @var non-empty-string
-     */
-    private string $operatingSystem;
-
-    /**
      * @param non-empty-string $operatingSystem
      */
-    protected function __construct(Level $level, string $operatingSystem)
+    protected function __construct(Level $level, private string $operatingSystem)
     {
         parent::__construct($level);
-
-        $this->operatingSystem = $operatingSystem;
     }
 
     public function isRequiresOperatingSystem(): true

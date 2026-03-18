@@ -18,15 +18,9 @@ use Closure;
  */
 final readonly class DataProviderClosure extends Metadata
 {
-    private Closure $closure;
-    private bool $validateArgumentCount;
-
-    protected function __construct(Level $level, Closure $closure, bool $validateArgumentCount)
+    protected function __construct(Level $level, private Closure $closure, private bool $validateArgumentCount)
     {
         parent::__construct($level);
-
-        $this->closure               = $closure;
-        $this->validateArgumentCount = $validateArgumentCount;
     }
 
     public function isDataProviderClosure(): true

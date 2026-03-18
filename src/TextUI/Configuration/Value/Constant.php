@@ -16,13 +16,8 @@ namespace PHPUnit\TextUI\Configuration;
  */
 final readonly class Constant
 {
-    private string $name;
-    private bool|string $value;
-
-    public function __construct(string $name, bool|string $value)
+    public function __construct(private string $name, private bool|string $value)
     {
-        $this->name  = $name;
-        $this->value = $value;
     }
 
     public function name(): string

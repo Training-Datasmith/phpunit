@@ -20,16 +20,10 @@ use Attribute;
 final readonly class RequiresOperatingSystem
 {
     /**
-     * @var non-empty-string
-     */
-    private string $regularExpression;
-
-    /**
      * @param non-empty-string $regularExpression
      */
-    public function __construct(string $regularExpression)
+    public function __construct(private string $regularExpression)
     {
-        $this->regularExpression = $regularExpression;
     }
 
     /**

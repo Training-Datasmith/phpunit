@@ -104,7 +104,7 @@ final class Facade
 
         return array_any(
             $deprecations,
-            static fn (string $deprecation) => str_contains(
+            static fn (string $deprecation): bool => str_contains(
                 $deprecation,
                 $configuration->specificDeprecationToStopOn(),
             ),

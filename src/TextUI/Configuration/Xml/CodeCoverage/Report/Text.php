@@ -20,15 +20,8 @@ use PHPUnit\TextUI\Configuration\File;
  */
 final readonly class Text
 {
-    private File $target;
-    private bool $showUncoveredFiles;
-    private bool $showOnlySummary;
-
-    public function __construct(File $target, bool $showUncoveredFiles, bool $showOnlySummary)
+    public function __construct(private File $target, private bool $showUncoveredFiles, private bool $showOnlySummary)
     {
-        $this->target             = $target;
-        $this->showUncoveredFiles = $showUncoveredFiles;
-        $this->showOnlySummary    = $showOnlySummary;
     }
 
     public function target(): File

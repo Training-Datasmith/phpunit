@@ -19,27 +19,12 @@ use PHPUnit\Framework\MockObject\ConfigurableMethod;
  */
 final readonly class DoubledClass
 {
-    private string $classCode;
-
-    /**
-     * @var class-string
-     */
-    private string $mockName;
-
-    /**
-     * @var list<ConfigurableMethod>
-     */
-    private array $configurableMethods;
-
     /**
      * @param class-string             $mockName
      * @param list<ConfigurableMethod> $configurableMethods
      */
-    public function __construct(string $classCode, string $mockName, array $configurableMethods)
+    public function __construct(private string $classCode, private string $mockName, private array $configurableMethods)
     {
-        $this->classCode           = $classCode;
-        $this->mockName            = $mockName;
-        $this->configurableMethods = $configurableMethods;
     }
 
     /**

@@ -16,22 +16,13 @@ namespace PHPUnit\Framework\MockObject;
  */
 final class TestDoubleState
 {
-    /**
-     * @var list<ConfigurableMethod>
-     */
-    private readonly array $configurableMethods;
-    private readonly bool $generateReturnValues;
-    private readonly bool $isMockObject;
     private ?InvocationHandler $invocationHandler = null;
 
     /**
      * @param list<ConfigurableMethod> $configurableMethods
      */
-    public function __construct(array $configurableMethods, bool $generateReturnValues, bool $isMockObject = false)
+    public function __construct(private readonly array $configurableMethods, private readonly bool $generateReturnValues, private readonly bool $isMockObject = false)
     {
-        $this->configurableMethods  = $configurableMethods;
-        $this->generateReturnValues = $generateReturnValues;
-        $this->isMockObject         = $isMockObject;
     }
 
     public function invocationHandler(): InvocationHandler

@@ -22,15 +22,8 @@ use PHPUnit\Util\Http\Downloader;
  */
 final readonly class VersionCheckCommand implements Command
 {
-    private Downloader $downloader;
-    private int $majorVersionNumber;
-    private string $versionId;
-
-    public function __construct(Downloader $downloader, int $majorVersionNumber, string $versionId)
+    public function __construct(private Downloader $downloader, private int $majorVersionNumber, private string $versionId)
     {
-        $this->downloader         = $downloader;
-        $this->majorVersionNumber = $majorVersionNumber;
-        $this->versionId          = $versionId;
     }
 
     public function execute(): Result

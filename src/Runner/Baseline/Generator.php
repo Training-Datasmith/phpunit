@@ -28,9 +28,8 @@ use PHPUnit\TextUI\Configuration\SourceFilter;
 final readonly class Generator
 {
     private Baseline $baseline;
-    private Source $source;
 
-    public function __construct(Facade $facade, Source $source)
+    public function __construct(Facade $facade, private Source $source)
     {
         $facade->registerSubscribers(
             new TestTriggeredDeprecationSubscriber($this),
@@ -42,7 +41,6 @@ final readonly class Generator
         );
 
         $this->baseline = new Baseline;
-        $this->source   = $source;
     }
 
     public function baseline(): Baseline

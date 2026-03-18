@@ -24,26 +24,6 @@ use PHPUnit\Runner\FileDoesNotExistException;
 final readonly class Issue
 {
     /**
-     * @var non-empty-string
-     */
-    private string $file;
-
-    /**
-     * @var positive-int
-     */
-    private int $line;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $hash;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $description;
-
-    /**
      * @param non-empty-string  $file
      * @param positive-int      $line
      * @param ?non-empty-string $hash
@@ -67,12 +47,8 @@ final readonly class Issue
      * @param non-empty-string $hash
      * @param non-empty-string $description
      */
-    private function __construct(string $file, int $line, string $hash, string $description)
+    private function __construct(private string $file, private int $line, private string $hash, private string $description)
     {
-        $this->file        = $file;
-        $this->line        = $line;
-        $this->hash        = $hash;
-        $this->description = $description;
     }
 
     /**

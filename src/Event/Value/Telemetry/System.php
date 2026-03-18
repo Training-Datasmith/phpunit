@@ -16,15 +16,8 @@ namespace PHPUnit\Event\Telemetry;
  */
 final readonly class System
 {
-    private StopWatch $stopWatch;
-    private MemoryMeter $memoryMeter;
-    private GarbageCollectorStatusProvider $garbageCollectorStatusProvider;
-
-    public function __construct(StopWatch $stopWatch, MemoryMeter $memoryMeter, GarbageCollectorStatusProvider $garbageCollectorStatusProvider)
+    public function __construct(private StopWatch $stopWatch, private MemoryMeter $memoryMeter, private GarbageCollectorStatusProvider $garbageCollectorStatusProvider)
     {
-        $this->stopWatch                      = $stopWatch;
-        $this->memoryMeter                    = $memoryMeter;
-        $this->garbageCollectorStatusProvider = $garbageCollectorStatusProvider;
     }
 
     public function snapshot(): Snapshot

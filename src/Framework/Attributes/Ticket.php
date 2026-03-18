@@ -20,16 +20,10 @@ use Attribute;
 final readonly class Ticket
 {
     /**
-     * @var non-empty-string
-     */
-    private string $text;
-
-    /**
      * @param non-empty-string $text
      */
-    public function __construct(string $text)
+    public function __construct(private string $text)
     {
-        $this->text = $text;
     }
 
     /**

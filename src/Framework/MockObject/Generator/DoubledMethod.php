@@ -39,33 +39,7 @@ use SebastianBergmann\Type\UnknownType;
 final class DoubledMethod
 {
     use TemplateLoader;
-
-    /**
-     * @var class-string
-     */
-    private readonly string $className;
-
-    /**
-     * @var non-empty-string
-     */
-    private readonly string $methodName;
-    private readonly string $modifier;
-    private readonly string $argumentsForDeclaration;
-    private readonly string $argumentsForCall;
     private readonly Type $returnType;
-    private readonly string $reference;
-    private readonly bool $static;
-    private readonly ?string $deprecation;
-
-    /**
-     * @var array<int, mixed>
-     */
-    private readonly array $defaultParameterValues;
-
-    /**
-     * @var non-negative-int
-     */
-    private readonly int $numberOfParameters;
 
     /**
      * @throws ReflectionException
@@ -96,7 +70,7 @@ final class DoubledMethod
         if (is_string($docComment) &&
             preg_match('#\*[ \t]*+@deprecated[ \t]*+(.*?)\r?+\n[ \t]*+\*(?:[ \t]*+@|/$)#s', $docComment, $deprecation) > 0
         ) {
-            $deprecation = trim(preg_replace('#[ \t]*\r?\n[ \t]*+\*[ \t]*+#', ' ', $deprecation[1]));
+            $deprecation = trim((string) preg_replace('#[ \t]*\r?\n[ \t]*+\*[ \t]*+#', ' ', $deprecation[1]));
         } else {
             $deprecation = null;
         }
@@ -143,19 +117,9 @@ final class DoubledMethod
      * @param array<int, mixed> $defaultParameterValues
      * @param non-negative-int  $numberOfParameters
      */
-    private function __construct(string $className, string $methodName, string $modifier, string $argumentsForDeclaration, string $argumentsForCall, array $defaultParameterValues, int $numberOfParameters, Type $returnType, string $reference, bool $static, ?string $deprecation)
+    private function __construct(private readonly string $className, private readonly string $methodName, private readonly string $modifier, private readonly string $argumentsForDeclaration, private readonly string $argumentsForCall, private readonly array $defaultParameterValues, private readonly int $numberOfParameters, Type $returnType, private readonly string $reference, private readonly bool $static, private readonly ?string $deprecation)
     {
-        $this->className               = $className;
-        $this->methodName              = $methodName;
-        $this->modifier                = $modifier;
-        $this->argumentsForDeclaration = $argumentsForDeclaration;
-        $this->argumentsForCall        = $argumentsForCall;
-        $this->defaultParameterValues  = $defaultParameterValues;
-        $this->numberOfParameters      = $numberOfParameters;
         $this->returnType              = $returnType;
-        $this->reference               = $reference;
-        $this->static                  = $static;
-        $this->deprecation             = $deprecation;
     }
 
     /**

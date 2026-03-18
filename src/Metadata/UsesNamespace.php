@@ -17,18 +17,11 @@ namespace PHPUnit\Metadata;
 final readonly class UsesNamespace extends Metadata
 {
     /**
-     * @var non-empty-string
-     */
-    private string $namespace;
-
-    /**
      * @param non-empty-string $namespace
      */
-    protected function __construct(Level $level, string $namespace)
+    protected function __construct(Level $level, private string $namespace)
     {
         parent::__construct($level);
-
-        $this->namespace = $namespace;
     }
 
     public function isUsesNamespace(): true

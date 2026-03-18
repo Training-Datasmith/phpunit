@@ -30,8 +30,6 @@ final class ExecutionOrderDependency implements Stringable
 {
     private string $className  = '';
     private string $methodName = '';
-    private readonly bool $shallowClone;
-    private readonly bool $deepClone;
 
     public static function invalid(): self
     {
@@ -73,7 +71,7 @@ final class ExecutionOrderDependency implements Stringable
         return array_values(
             array_filter(
                 $dependencies,
-                static fn (self $d) => $d->isValid(),
+                static fn (self $d): bool => $d->isValid(),
             ),
         );
     }
@@ -87,7 +85,7 @@ final class ExecutionOrderDependency implements Stringable
     public static function mergeUnique(array $existing, array $additional): array
     {
         $existingTargets = array_map(
-            static fn (ExecutionOrderDependency $dependency) => $dependency->getTarget(),
+            static fn (ExecutionOrderDependency $dependency): string => $dependency->getTarget(),
             $existing,
         );
 
@@ -123,7 +121,7 @@ final class ExecutionOrderDependency implements Stringable
 
         $diff         = [];
         $rightTargets = array_map(
-            static fn (ExecutionOrderDependency $dependency) => $dependency->getTarget(),
+            static fn (ExecutionOrderDependency $dependency): string => $dependency->getTarget(),
             $right,
         );
 
@@ -138,11 +136,8 @@ final class ExecutionOrderDependency implements Stringable
         return $diff;
     }
 
-    public function __construct(string $classOrCallableName, ?string $methodName = null, bool $deepClone = false, bool $shallowClone = false)
+    public function __construct(string $classOrCallableName, ?string $methodName = null, private readonly bool $deepClone = false, private readonly bool $shallowClone = false)
     {
-        $this->deepClone    = $deepClone;
-        $this->shallowClone = $shallowClone;
-
         if ($classOrCallableName === '') {
             return;
         }

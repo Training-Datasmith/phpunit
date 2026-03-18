@@ -19,11 +19,8 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 final readonly class PreCondition
 {
-    private int $priority;
-
-    public function __construct(int $priority = 0)
+    public function __construct(private int $priority = 0)
     {
-        $this->priority = $priority;
     }
 
     public function priority(): int

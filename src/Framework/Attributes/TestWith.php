@@ -20,23 +20,11 @@ use Attribute;
 final readonly class TestWith
 {
     /**
-     * @var array<mixed>
-     */
-    private array $data;
-
-    /**
-     * @var ?non-empty-string
-     */
-    private ?string $name;
-
-    /**
      * @param array<mixed>      $data
      * @param ?non-empty-string $name
      */
-    public function __construct(array $data, ?string $name = null)
+    public function __construct(private array $data, private ?string $name = null)
     {
-        $this->data = $data;
-        $this->name = $name;
     }
 
     /**

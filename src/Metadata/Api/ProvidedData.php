@@ -17,18 +17,10 @@ namespace PHPUnit\Metadata\Api;
 final readonly class ProvidedData
 {
     /**
-     * @var non-empty-string
-     */
-    private string $label;
-    private mixed $value;
-
-    /**
      * @param non-empty-string $label
      */
-    public function __construct(string $label, mixed $value)
+    public function __construct(private string $label, private mixed $value)
     {
-        $this->label = $label;
-        $this->value = $value;
     }
 
     /**

@@ -31,16 +31,10 @@ use function trim;
 final readonly class RelativePathCalculator
 {
     /**
-     * @var non-empty-string
-     */
-    private string $baselineDirectory;
-
-    /**
      * @param non-empty-string $baselineDirectory
      */
-    public function __construct(string $baselineDirectory)
+    public function __construct(private string $baselineDirectory)
     {
-        $this->baselineDirectory = $baselineDirectory;
     }
 
     /**

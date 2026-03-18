@@ -17,29 +17,12 @@ namespace PHPUnit\Metadata;
 final readonly class DependsOnMethod extends Metadata
 {
     /**
-     * @var class-string
-     */
-    private string $className;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $methodName;
-    private bool $deepClone;
-    private bool $shallowClone;
-
-    /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    protected function __construct(Level $level, string $className, string $methodName, bool $deepClone, bool $shallowClone)
+    protected function __construct(Level $level, private string $className, private string $methodName, private bool $deepClone, private bool $shallowClone)
     {
         parent::__construct($level);
-
-        $this->className    = $className;
-        $this->methodName   = $methodName;
-        $this->deepClone    = $deepClone;
-        $this->shallowClone = $shallowClone;
     }
 
     public function isDependsOnMethod(): true

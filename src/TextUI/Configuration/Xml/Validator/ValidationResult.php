@@ -24,11 +24,6 @@ use LibXMLError;
 final readonly class ValidationResult
 {
     /**
-     * @var array<int, list<string>>
-     */
-    private array $validationErrors;
-
-    /**
      * @param array<int, LibXMLError> $errors
      */
     public static function fromArray(array $errors): self
@@ -49,9 +44,8 @@ final readonly class ValidationResult
     /**
      * @param array<int, list<string>> $validationErrors
      */
-    private function __construct(array $validationErrors)
+    private function __construct(private array $validationErrors)
     {
-        $this->validationErrors = $validationErrors;
     }
 
     public function hasValidationErrors(): bool

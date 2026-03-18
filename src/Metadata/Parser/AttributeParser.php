@@ -1022,7 +1022,7 @@ final readonly class AttributeParser implements Parser
             $testMethodName !== null ? 'method' : 'class',
             $testClassName,
             $testMethodName !== null ? '::' : '',
-            $testMethodName !== null ? $testMethodName : '',
+            $testMethodName ?? '',
         );
     }
 }

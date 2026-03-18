@@ -16,13 +16,9 @@ namespace PHPUnit\Metadata;
  */
 final readonly class BackupStaticProperties extends Metadata
 {
-    private bool $enabled;
-
-    protected function __construct(Level $level, bool $enabled)
+    protected function __construct(Level $level, private bool $enabled)
     {
         parent::__construct($level);
-
-        $this->enabled = $enabled;
     }
 
     public function isBackupStaticProperties(): true

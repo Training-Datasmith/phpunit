@@ -17,20 +17,11 @@ namespace PHPUnit\Metadata;
 final readonly class WithEnvironmentVariable extends Metadata
 {
     /**
-     * @var non-empty-string
-     */
-    private string $environmentVariableName;
-    private null|string $value;
-
-    /**
      * @param non-empty-string $environmentVariableName
      */
-    protected function __construct(Level $level, string $environmentVariableName, null|string $value)
+    protected function __construct(Level $level, private string $environmentVariableName, private null|string $value)
     {
         parent::__construct($level);
-
-        $this->environmentVariableName = $environmentVariableName;
-        $this->value                   = $value;
     }
 
     public function isWithEnvironmentVariable(): true

@@ -17,18 +17,11 @@ namespace PHPUnit\Metadata;
 final readonly class TestDox extends Metadata
 {
     /**
-     * @var non-empty-string
-     */
-    private string $text;
-
-    /**
      * @param non-empty-string $text
      */
-    protected function __construct(Level $level, string $text)
+    protected function __construct(Level $level, private string $text)
     {
         parent::__construct($level);
-
-        $this->text = $text;
     }
 
     public function isTestDox(): true

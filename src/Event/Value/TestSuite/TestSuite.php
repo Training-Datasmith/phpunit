@@ -19,20 +19,10 @@ use PHPUnit\Event\Code\TestCollection;
 abstract readonly class TestSuite
 {
     /**
-     * @var non-empty-string
-     */
-    private string $name;
-    private int $count;
-    private TestCollection $tests;
-
-    /**
      * @param non-empty-string $name
      */
-    public function __construct(string $name, int $size, TestCollection $tests)
+    public function __construct(private string $name, private int $count, private TestCollection $tests)
     {
-        $this->name  = $name;
-        $this->count = $size;
-        $this->tests = $tests;
     }
 
     /**

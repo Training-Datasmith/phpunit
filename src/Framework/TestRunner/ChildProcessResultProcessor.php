@@ -24,17 +24,8 @@ use PHPUnit\TestRunner\TestResult\PassedTests;
  */
 final readonly class ChildProcessResultProcessor
 {
-    private Facade $eventFacade;
-    private Emitter $emitter;
-    private PassedTests $passedTests;
-    private CodeCoverage $codeCoverage;
-
-    public function __construct(Facade $eventFacade, Emitter $emitter, PassedTests $passedTests, CodeCoverage $codeCoverage)
+    public function __construct(private Facade $eventFacade, private Emitter $emitter, private PassedTests $passedTests, private CodeCoverage $codeCoverage)
     {
-        $this->eventFacade  = $eventFacade;
-        $this->emitter      = $emitter;
-        $this->passedTests  = $passedTests;
-        $this->codeCoverage = $codeCoverage;
     }
 
     public function process(Test $test, string $serializedProcessResult, string $stderr): void

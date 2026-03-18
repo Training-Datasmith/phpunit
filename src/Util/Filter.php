@@ -127,7 +127,7 @@ final readonly class Filter
     {
         return array_any(
             $trace,
-            static fn (array $frame) => isset($frame['file'], $frame['line']) && $frame['file'] === $file && $frame['line'] === $line,
+            static fn (array $frame): bool => isset($frame['file'], $frame['line']) && $frame['file'] === $file && $frame['line'] === $line,
         );
     }
 }

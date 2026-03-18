@@ -17,18 +17,11 @@ namespace PHPUnit\Metadata;
 final readonly class CoversClassesThatExtendClass extends Metadata
 {
     /**
-     * @var class-string
-     */
-    private string $className;
-
-    /**
      * @param class-string $className
      */
-    protected function __construct(Level $level, string $className)
+    protected function __construct(Level $level, private string $className)
     {
         parent::__construct($level);
-
-        $this->className = $className;
     }
 
     public function isCoversClassesThatExtendClass(): true

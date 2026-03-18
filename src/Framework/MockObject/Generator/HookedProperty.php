@@ -18,25 +18,14 @@ use SebastianBergmann\Type\Type;
  */
 final readonly class HookedProperty
 {
-    /**
-     * @var non-empty-string
-     */
-    private string $name;
     private Type $type;
-    private bool $getHook;
-    private bool $setHook;
-    private ?Type $setterType;
 
     /**
      * @param non-empty-string $name
      */
-    public function __construct(string $name, Type $type, bool $getHook, bool $setHook, ?Type $setterType)
+    public function __construct(private string $name, Type $type, private bool $getHook, private bool $setHook, private ?Type $setterType)
     {
-        $this->name       = $name;
         $this->type       = $type;
-        $this->getHook    = $getHook;
-        $this->setHook    = $setHook;
-        $this->setterType = $setterType;
     }
 
     public function name(): string

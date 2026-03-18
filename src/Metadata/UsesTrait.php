@@ -17,18 +17,11 @@ namespace PHPUnit\Metadata;
 final readonly class UsesTrait extends Metadata
 {
     /**
-     * @var trait-string
-     */
-    private string $traitName;
-
-    /**
      * @param trait-string $traitName
      */
-    protected function __construct(Level $level, string $traitName)
+    protected function __construct(Level $level, private string $traitName)
     {
         parent::__construct($level);
-
-        $this->traitName = $traitName;
     }
 
     public function isUsesTrait(): true

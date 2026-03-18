@@ -23,11 +23,8 @@ use SebastianBergmann\Comparator\Factory as ComparatorFactory;
  */
 final class IsEqualCanonicalizing extends Constraint
 {
-    private readonly mixed $value;
-
-    public function __construct(mixed $value)
+    public function __construct(private readonly mixed $value)
     {
-        $this->value = $value;
     }
 
     /**

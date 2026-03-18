@@ -21,16 +21,10 @@ use PHPUnit\Runner\Extension\Extension;
 final readonly class RequiresPhpunitExtension
 {
     /**
-     * @var class-string<Extension>
-     */
-    private string $extensionClass;
-
-    /**
      * @param class-string<Extension> $extensionClass
      */
-    public function __construct(string $extensionClass)
+    public function __construct(private string $extensionClass)
     {
-        $this->extensionClass = $extensionClass;
     }
 
     /**

@@ -20,34 +20,13 @@ use PHPUnit\Event\Telemetry;
  */
 final readonly class ExtensionLoadedFromPhar implements Event
 {
-    private Telemetry\Info $telemetryInfo;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $filename;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $name;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $version;
-
     /**
      * @param non-empty-string $filename
      * @param non-empty-string $name
      * @param non-empty-string $version
      */
-    public function __construct(Telemetry\Info $telemetryInfo, string $filename, string $name, string $version)
+    public function __construct(private Telemetry\Info $telemetryInfo, private string $filename, private string $name, private string $version)
     {
-        $this->telemetryInfo = $telemetryInfo;
-        $this->filename      = $filename;
-        $this->name          = $name;
-        $this->version       = $version;
     }
 
     public function telemetryInfo(): Telemetry\Info

@@ -35,7 +35,7 @@ final class UnorderedParameterSets implements ParametersRule
      * @var list<Parameters>
      */
     private array $applied = [];
-    private int $numberOfConfiguredParameterSets;
+    private readonly int $numberOfConfiguredParameterSets;
 
     /**
      * @param list<Parameters> $stack
@@ -76,7 +76,7 @@ final class UnorderedParameterSets implements ParametersRule
                 $parameters->apply($invocation);
 
                 break;
-            } catch (ExpectationFailedException $e) {
+            } catch (ExpectationFailedException) {
                 $this->unapplied[] = $parameters;
             }
         }

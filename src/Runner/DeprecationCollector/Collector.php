@@ -20,8 +20,6 @@ use PHPUnit\TestRunner\IssueFilter;
  */
 final class Collector
 {
-    private readonly IssueFilter $issueFilter;
-
     /**
      * @var list<non-empty-string>
      */
@@ -32,14 +30,12 @@ final class Collector
      */
     private array $filteredDeprecations = [];
 
-    public function __construct(Facade $facade, IssueFilter $issueFilter)
+    public function __construct(Facade $facade, private readonly IssueFilter $issueFilter)
     {
         $facade->registerSubscribers(
             new TestPreparedSubscriber($this),
             new TestTriggeredDeprecationSubscriber($this),
         );
-
-        $this->issueFilter = $issueFilter;
     }
 
     /**

@@ -17,18 +17,11 @@ namespace PHPUnit\Metadata;
 final readonly class UsesClassesThatImplementInterface extends Metadata
 {
     /**
-     * @var class-string
-     */
-    private string $interfaceName;
-
-    /**
      * @param class-string $interfaceName
      */
-    protected function __construct(Level $level, string $interfaceName)
+    protected function __construct(Level $level, private string $interfaceName)
     {
         parent::__construct($level);
-
-        $this->interfaceName = $interfaceName;
     }
 
     public function isUsesClassesThatImplementInterface(): true

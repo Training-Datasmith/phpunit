@@ -883,19 +883,19 @@ final readonly class Application
             return;
         }
 
-        $classMapFile = dirname(PHPUNIT_COMPOSER_INSTALL) . '/composer/autoload_classmap.php';
+        $classMapFile = dirname((string) PHPUNIT_COMPOSER_INSTALL) . '/composer/autoload_classmap.php';
 
         if (!is_file($classMapFile)) {
             return;
         }
 
         foreach (require $classMapFile as $codeUnitName => $sourceCodeFile) {
-            if (!str_starts_with($codeUnitName, 'PHPUnit\\') &&
-                !str_starts_with($codeUnitName, 'SebastianBergmann\\')) {
+            if (!str_starts_with((string) $codeUnitName, 'PHPUnit\\') &&
+                !str_starts_with((string) $codeUnitName, 'SebastianBergmann\\')) {
                 continue;
             }
 
-            if (str_contains($sourceCodeFile, '/tests/')) {
+            if (str_contains((string) $sourceCodeFile, '/tests/')) {
                 continue;
             }
 

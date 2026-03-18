@@ -47,7 +47,7 @@ final class LogicalOr extends BinaryOperator
     {
         return array_any(
             $this->constraints(),
-            static fn (Constraint $constraint) => $constraint->evaluate($other, '', true),
+            static fn (Constraint $constraint): ?bool => $constraint->evaluate($other, '', true),
         );
     }
 }

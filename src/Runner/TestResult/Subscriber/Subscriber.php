@@ -16,11 +16,8 @@ namespace PHPUnit\TestRunner\TestResult;
  */
 abstract readonly class Subscriber
 {
-    private Collector $collector;
-
-    public function __construct(Collector $collector)
+    public function __construct(private Collector $collector)
     {
-        $this->collector = $collector;
     }
 
     protected function collector(): Collector

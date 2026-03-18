@@ -21,15 +21,10 @@ use PHPUnit\Event\Facade;
  */
 final class GarbageCollectionHandler
 {
-    private readonly Facade $facade;
-    private readonly int $threshold;
     private int $tests = 0;
 
-    public function __construct(Facade $facade, int $threshold)
+    public function __construct(private readonly Facade $facade, private readonly int $threshold)
     {
-        $this->facade    = $facade;
-        $this->threshold = $threshold;
-
         $this->registerSubscribers();
     }
 

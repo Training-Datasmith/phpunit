@@ -19,30 +19,13 @@ use PHPUnit\Event\Code\TestCollection;
 final readonly class TestSuiteForTestMethodWithDataProvider extends TestSuite
 {
     /**
-     * @var class-string
-     */
-    private string $className;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $methodName;
-    private string $file;
-    private int $line;
-
-    /**
      * @param non-empty-string $name
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function __construct(string $name, int $size, TestCollection $tests, string $className, string $methodName, string $file, int $line)
+    public function __construct(string $name, int $size, TestCollection $tests, private string $className, private string $methodName, private string $file, private int $line)
     {
         parent::__construct($name, $size, $tests);
-
-        $this->className  = $className;
-        $this->methodName = $methodName;
-        $this->file       = $file;
-        $this->line       = $line;
     }
 
     /**

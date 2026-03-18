@@ -18,9 +18,6 @@ use function str_replace;
  */
 final readonly class Generator
 {
-    /**
-     * @var string
-     */
     private const string TEMPLATE = <<<'EOT'
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

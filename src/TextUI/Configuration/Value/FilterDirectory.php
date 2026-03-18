@@ -17,22 +17,10 @@ namespace PHPUnit\TextUI\Configuration;
 final readonly class FilterDirectory
 {
     /**
-     * @var non-empty-string
-     */
-    private string $path;
-    private string $prefix;
-    private string $suffix;
-    private bool $includeInCodeCoverage;
-
-    /**
      * @param non-empty-string $path
      */
-    public function __construct(string $path, string $prefix, string $suffix, bool $includeInCodeCoverage = true)
+    public function __construct(private string $path, private string $prefix, private string $suffix, private bool $includeInCodeCoverage = true)
     {
-        $this->path                  = $path;
-        $this->prefix                = $prefix;
-        $this->suffix                = $suffix;
-        $this->includeInCodeCoverage = $includeInCodeCoverage;
     }
 
     /**

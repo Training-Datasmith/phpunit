@@ -19,27 +19,11 @@ use PHPUnit\Util\VersionComparisonOperator;
 final readonly class TestFile
 {
     /**
-     * @var non-empty-string
-     */
-    private string $path;
-    private string $phpVersion;
-    private VersionComparisonOperator $phpVersionOperator;
-
-    /**
-     * @var list<non-empty-string>
-     */
-    private array $groups;
-
-    /**
      * @param non-empty-string       $path
      * @param list<non-empty-string> $groups
      */
-    public function __construct(string $path, string $phpVersion, VersionComparisonOperator $phpVersionOperator, array $groups)
+    public function __construct(private string $path, private string $phpVersion, private VersionComparisonOperator $phpVersionOperator, private array $groups)
     {
-        $this->path               = $path;
-        $this->phpVersion         = $phpVersion;
-        $this->phpVersionOperator = $phpVersionOperator;
-        $this->groups             = $groups;
     }
 
     /**

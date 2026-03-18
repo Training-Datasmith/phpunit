@@ -60,11 +60,6 @@ use Throwable;
 class TestSuite implements IteratorAggregate, Reorderable, Test
 {
     /**
-     * @var non-empty-string
-     */
-    private string $name;
-
-    /**
      * @var array<non-empty-string, list<non-empty-string>>
      */
     private array $groups = [];
@@ -137,9 +132,8 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
     /**
      * @param non-empty-string $name
      */
-    final private function __construct(string $name)
+    final private function __construct(private readonly string $name)
     {
-        $this->name = $name;
     }
 
     /**
@@ -418,7 +412,7 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
         $iterator = new TestSuiteIterator($this);
 
         if ($this->iteratorFilter !== null) {
-            $iterator = $this->iteratorFilter->factory($iterator, $this);
+            return $this->iteratorFilter->factory($iterator, $this);
         }
 
         return $iterator;
@@ -577,15 +571,16 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
      */
     private function containsOnlyVirtualGroups(array $groups): bool
     {
-        return array_all($groups, static fn (string $group) => str_starts_with($group, '__phpunit_'));
+        return array_all($groups, static fn (string $group): bool => str_starts_with($group, '__phpunit_'));
     }
 
     private function methodDoesNotExistOrIsDeclaredInTestCase(string $methodName): bool
     {
         $reflector = new ReflectionClass($this->name);
-
-        return !$reflector->hasMethod($methodName) ||
-               $reflector->getMethod($methodName)->getDeclaringClass()->getName() === TestCase::class;
+        if (!$reflector->hasMethod($methodName)) {
+            return true;
+        }
+        return $reflector->getMethod($methodName)->getDeclaringClass()->getName() === TestCase::class;
     }
 
     /**

@@ -28,12 +28,6 @@ final readonly class BackedUpEnvironmentVariable
     private string $from;
 
     /**
-     * @var non-empty-string
-     */
-    private string $name;
-    private null|string $value;
-
-    /**
      * @param non-empty-string $name
      *
      * @return array{0: self, 1: self}
@@ -56,11 +50,9 @@ final readonly class BackedUpEnvironmentVariable
      * @param self::FROM_GETENV|self::FROM_SUPERGLOBAL $from
      * @param non-empty-string                         $name
      */
-    private function __construct(string $from, string $name, null|string $value)
+    private function __construct(string $from, private string $name, private null|string $value)
     {
         $this->from  = $from;
-        $this->name  = $name;
-        $this->value = $value;
     }
 
     public function restore(): void

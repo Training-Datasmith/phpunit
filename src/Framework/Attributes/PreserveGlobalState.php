@@ -19,11 +19,8 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
 final readonly class PreserveGlobalState
 {
-    private bool $enabled;
-
-    public function __construct(bool $enabled)
+    public function __construct(private bool $enabled)
     {
-        $this->enabled = $enabled;
     }
 
     public function enabled(): bool

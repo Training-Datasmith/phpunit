@@ -20,13 +20,8 @@ use PHPUnit\TextUI\Configuration\File;
  */
 final readonly class Crap4j
 {
-    private File $target;
-    private int $threshold;
-
-    public function __construct(File $target, int $threshold)
+    public function __construct(private File $target, private int $threshold)
     {
-        $this->target    = $target;
-        $this->threshold = $threshold;
     }
 
     public function target(): File

@@ -23,11 +23,8 @@ use Throwable;
  */
 final readonly class MigrateConfigurationCommand implements Command
 {
-    private string $filename;
-
-    public function __construct(string $filename)
+    public function __construct(private string $filename)
     {
-        $this->filename = $filename;
     }
 
     public function execute(): Result

@@ -17,66 +17,12 @@ namespace PHPUnit\TextUI\Configuration;
 final readonly class Source
 {
     /**
-     * @var non-empty-string
-     */
-    private ?string $baseline;
-    private bool $ignoreBaseline;
-    private FilterDirectoryCollection $includeDirectories;
-    private FilterFileCollection $includeFiles;
-    private FilterDirectoryCollection $excludeDirectories;
-    private FilterFileCollection $excludeFiles;
-    private bool $restrictNotices;
-    private bool $restrictWarnings;
-    private bool $ignoreSuppressionOfDeprecations;
-    private bool $ignoreSuppressionOfPhpDeprecations;
-    private bool $ignoreSuppressionOfErrors;
-    private bool $ignoreSuppressionOfNotices;
-    private bool $ignoreSuppressionOfPhpNotices;
-    private bool $ignoreSuppressionOfWarnings;
-    private bool $ignoreSuppressionOfPhpWarnings;
-    private bool $ignoreSelfDeprecations;
-    private bool $ignoreDirectDeprecations;
-    private bool $ignoreIndirectDeprecations;
-    private bool $identifyIssueTrigger;
-
-    /**
-     * @var array{functions: list<non-empty-string>, methods: list<non-empty-string>}
-     */
-    private array $deprecationTriggers;
-
-    /**
-     * @var list<class-string>
-     */
-    private array $issueTriggerResolvers;
-
-    /**
      * @param ?non-empty-string                                                         $baseline
      * @param array{functions: list<non-empty-string>, methods: list<non-empty-string>} $deprecationTriggers
      * @param list<class-string>                                                        $issueTriggerResolvers
      */
-    public function __construct(?string $baseline, bool $ignoreBaseline, FilterDirectoryCollection $includeDirectories, FilterFileCollection $includeFiles, FilterDirectoryCollection $excludeDirectories, FilterFileCollection $excludeFiles, bool $restrictNotices, bool $restrictWarnings, bool $ignoreSuppressionOfDeprecations, bool $ignoreSuppressionOfPhpDeprecations, bool $ignoreSuppressionOfErrors, bool $ignoreSuppressionOfNotices, bool $ignoreSuppressionOfPhpNotices, bool $ignoreSuppressionOfWarnings, bool $ignoreSuppressionOfPhpWarnings, array $deprecationTriggers, bool $ignoreSelfDeprecations, bool $ignoreDirectDeprecations, bool $ignoreIndirectDeprecations, bool $identifyIssueTrigger, array $issueTriggerResolvers = [])
+    public function __construct(private ?string $baseline, private bool $ignoreBaseline, private FilterDirectoryCollection $includeDirectories, private FilterFileCollection $includeFiles, private FilterDirectoryCollection $excludeDirectories, private FilterFileCollection $excludeFiles, private bool $restrictNotices, private bool $restrictWarnings, private bool $ignoreSuppressionOfDeprecations, private bool $ignoreSuppressionOfPhpDeprecations, private bool $ignoreSuppressionOfErrors, private bool $ignoreSuppressionOfNotices, private bool $ignoreSuppressionOfPhpNotices, private bool $ignoreSuppressionOfWarnings, private bool $ignoreSuppressionOfPhpWarnings, private array $deprecationTriggers, private bool $ignoreSelfDeprecations, private bool $ignoreDirectDeprecations, private bool $ignoreIndirectDeprecations, private bool $identifyIssueTrigger, private array $issueTriggerResolvers = [])
     {
-        $this->baseline                           = $baseline;
-        $this->ignoreBaseline                     = $ignoreBaseline;
-        $this->includeDirectories                 = $includeDirectories;
-        $this->includeFiles                       = $includeFiles;
-        $this->excludeDirectories                 = $excludeDirectories;
-        $this->excludeFiles                       = $excludeFiles;
-        $this->restrictNotices                    = $restrictNotices;
-        $this->restrictWarnings                   = $restrictWarnings;
-        $this->ignoreSuppressionOfDeprecations    = $ignoreSuppressionOfDeprecations;
-        $this->ignoreSuppressionOfPhpDeprecations = $ignoreSuppressionOfPhpDeprecations;
-        $this->ignoreSuppressionOfErrors          = $ignoreSuppressionOfErrors;
-        $this->ignoreSuppressionOfNotices         = $ignoreSuppressionOfNotices;
-        $this->ignoreSuppressionOfPhpNotices      = $ignoreSuppressionOfPhpNotices;
-        $this->ignoreSuppressionOfWarnings        = $ignoreSuppressionOfWarnings;
-        $this->ignoreSuppressionOfPhpWarnings     = $ignoreSuppressionOfPhpWarnings;
-        $this->deprecationTriggers                = $deprecationTriggers;
-        $this->ignoreSelfDeprecations             = $ignoreSelfDeprecations;
-        $this->ignoreDirectDeprecations           = $ignoreDirectDeprecations;
-        $this->ignoreIndirectDeprecations         = $ignoreIndirectDeprecations;
-        $this->identifyIssueTrigger               = $identifyIssueTrigger;
-        $this->issueTriggerResolvers              = $issueTriggerResolvers;
     }
 
     /**
@@ -131,7 +77,10 @@ final readonly class Source
 
     public function notEmpty(): bool
     {
-        return $this->includeDirectories->notEmpty() || $this->includeFiles->notEmpty();
+        if ($this->includeDirectories->notEmpty()) {
+            return true;
+        }
+        return $this->includeFiles->notEmpty();
     }
 
     public function restrictNotices(): bool

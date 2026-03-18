@@ -16,13 +16,9 @@ namespace PHPUnit\Metadata;
  */
 final readonly class PreCondition extends Metadata
 {
-    private int $priority;
-
-    protected function __construct(Level $level, int $priority)
+    protected function __construct(Level $level, private int $priority)
     {
         parent::__construct($level);
-
-        $this->priority = $priority;
     }
 
     public function isPreCondition(): true

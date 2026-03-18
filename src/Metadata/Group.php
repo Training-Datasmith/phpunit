@@ -17,18 +17,11 @@ namespace PHPUnit\Metadata;
 final readonly class Group extends Metadata
 {
     /**
-     * @var non-empty-string
-     */
-    private string $groupName;
-
-    /**
      * @param non-empty-string $groupName
      */
-    protected function __construct(Level $level, string $groupName)
+    protected function __construct(Level $level, private string $groupName)
     {
         parent::__construct($level);
-
-        $this->groupName = $groupName;
     }
 
     public function isGroup(): true

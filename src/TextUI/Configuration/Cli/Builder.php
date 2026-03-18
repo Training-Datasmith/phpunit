@@ -442,7 +442,7 @@ final class Builder
                     break;
 
                 case 'd':
-                    $tmp = explode('=', $option[1]);
+                    $tmp = explode('=', (string) $option[1]);
 
                     if (isset($tmp[0])) {
                         assert($tmp[0] !== '');
@@ -494,7 +494,7 @@ final class Builder
                 case '--generate-baseline':
                     $generateBaseline = $option[1];
 
-                    if (basename($generateBaseline) === $generateBaseline) {
+                    if (basename((string) $generateBaseline) === $generateBaseline) {
                         $generateBaseline = getcwd() . DIRECTORY_SEPARATOR . $generateBaseline;
                     }
 
@@ -503,7 +503,7 @@ final class Builder
                 case '--use-baseline':
                     $useBaseline = $option[1];
 
-                    if (basename($useBaseline) === $useBaseline && !is_file($useBaseline)) {
+                    if (basename((string) $useBaseline) === $useBaseline && !is_file($useBaseline)) {
                         $useBaseline = getcwd() . DIRECTORY_SEPARATOR . $useBaseline;
                     }
 
@@ -551,7 +551,7 @@ final class Builder
                         $testsCovering = [];
                     }
 
-                    $testsCovering[] = strtolower($option[1]);
+                    $testsCovering[] = strtolower((string) $option[1]);
 
                     $optionAllowedMultipleTimes = true;
 
@@ -562,7 +562,7 @@ final class Builder
                         $testsUsing = [];
                     }
 
-                    $testsUsing[] = strtolower($option[1]);
+                    $testsUsing[] = strtolower((string) $option[1]);
 
                     $optionAllowedMultipleTimes = true;
 
@@ -573,7 +573,7 @@ final class Builder
                         $testsRequiringPhpExtension = [];
                     }
 
-                    $testsRequiringPhpExtension[] = strtolower($option[1]);
+                    $testsRequiringPhpExtension[] = strtolower((string) $option[1]);
 
                     $optionAllowedMultipleTimes = true;
 
@@ -641,7 +641,7 @@ final class Builder
                     break;
 
                 case '--order-by':
-                    foreach (explode(',', $option[1]) as $order) {
+                    foreach (explode(',', (string) $option[1]) as $order) {
                         switch ($order) {
                             case 'default':
                                 $executionOrder        = TestSuiteSorter::ORDER_DEFAULT;

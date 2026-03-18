@@ -18,8 +18,6 @@ namespace PHPUnit\Framework\TestStatus;
  */
 abstract readonly class TestStatus
 {
-    private string $message;
-
     public static function from(int $status): self
     {
         return match ($status) {
@@ -86,9 +84,8 @@ abstract readonly class TestStatus
         return new Risky($message);
     }
 
-    private function __construct(string $message = '')
+    private function __construct(private string $message = '')
     {
-        $this->message = $message;
     }
 
     /**

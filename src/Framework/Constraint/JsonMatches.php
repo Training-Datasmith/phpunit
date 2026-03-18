@@ -21,11 +21,8 @@ use SebastianBergmann\Comparator\ComparisonFailure;
  */
 final class JsonMatches extends Constraint
 {
-    private readonly string $value;
-
-    public function __construct(string $value)
+    public function __construct(private readonly string $value)
     {
-        $this->value = $value;
     }
 
     /**
@@ -85,7 +82,7 @@ final class JsonMatches extends Constraint
 
             $comparisonFailure = new ComparisonFailure(
                 json_decode($this->value),
-                json_decode($other),
+                json_decode((string) $other),
                 Json::prettify($recodedValue),
                 Json::prettify($recodedOther),
                 'Failed asserting that two json values are equal.',

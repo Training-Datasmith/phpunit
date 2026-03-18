@@ -20,25 +20,11 @@ use Attribute;
 final readonly class DataProviderExternal
 {
     /**
-     * @var class-string
-     */
-    private string $className;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $methodName;
-    private bool $validateArgumentCount;
-
-    /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function __construct(string $className, string $methodName, bool $validateArgumentCount = true)
+    public function __construct(private string $className, private string $methodName, private bool $validateArgumentCount = true)
     {
-        $this->className             = $className;
-        $this->methodName            = $methodName;
-        $this->validateArgumentCount = $validateArgumentCount;
     }
 
     /**

@@ -17,18 +17,11 @@ namespace PHPUnit\Metadata;
 final readonly class CoversFunction extends Metadata
 {
     /**
-     * @var non-empty-string
-     */
-    private string $functionName;
-
-    /**
      * @param non-empty-string $functionName
      */
-    protected function __construct(Level $level, string $functionName)
+    protected function __construct(Level $level, private string $functionName)
     {
         parent::__construct($level);
-
-        $this->functionName = $functionName;
     }
 
     public function isCoversFunction(): true

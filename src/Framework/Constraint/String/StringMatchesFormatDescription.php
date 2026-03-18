@@ -29,11 +29,8 @@ use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
  */
 final class StringMatchesFormatDescription extends Constraint
 {
-    private readonly string $formatDescription;
-
-    public function __construct(string $formatDescription)
+    public function __construct(private readonly string $formatDescription)
     {
-        $this->formatDescription = $formatDescription;
     }
 
     public function toString(): string

@@ -19,11 +19,8 @@ use PHPUnit\Framework\Exception as FrameworkException;
  */
 final class RegularExpression extends Constraint
 {
-    private readonly string $pattern;
-
-    public function __construct(string $pattern)
+    public function __construct(private readonly string $pattern)
     {
-        $this->pattern = $pattern;
     }
 
     /**
@@ -45,7 +42,7 @@ final class RegularExpression extends Constraint
      */
     protected function matches(mixed $other): bool
     {
-        $matches = @preg_match($this->pattern, $other);
+        $matches = @preg_match($this->pattern, (string) $other);
 
         if ($matches === false) {
             throw new FrameworkException(

@@ -25,17 +25,15 @@ use PHPUnit\Util\Exporter;
 final class StringContains extends Constraint
 {
     private readonly string $needle;
-    private readonly bool $ignoreCase;
     private readonly bool $ignoreLineEndings;
 
-    public function __construct(string $needle, bool $ignoreCase = false, bool $ignoreLineEndings = false)
+    public function __construct(string $needle, private readonly bool $ignoreCase = false, bool $ignoreLineEndings = false)
     {
         if ($ignoreLineEndings) {
             $needle = $this->normalizeLineEndings($needle);
         }
 
         $this->needle            = $needle;
-        $this->ignoreCase        = $ignoreCase;
         $this->ignoreLineEndings = $ignoreLineEndings;
     }
 

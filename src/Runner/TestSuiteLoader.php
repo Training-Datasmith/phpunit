@@ -94,7 +94,7 @@ final class TestSuiteLoader
         $dotPos    = strpos($className, '.');
 
         if ($dotPos !== false) {
-            $className = substr($className, 0, $dotPos);
+            return substr($className, 0, $dotPos);
         }
 
         return $className;

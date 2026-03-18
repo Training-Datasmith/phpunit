@@ -654,11 +654,6 @@ final class Generator
                 '__clone'         => true,
                 '__halt_compiler' => true,
             ];
-
-            if (version_compare(PHP_VERSION, '8.5', '>=')) {
-                self::$excludedMethodNames['__sleep']  = true;
-                self::$excludedMethodNames['__wakeup'] = true;
-            }
         }
 
         return isset(self::$excludedMethodNames[$name]);

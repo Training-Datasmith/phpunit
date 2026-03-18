@@ -21,8 +21,6 @@ use PHPUnit\Metadata\MetadataCollection;
  */
 final class CachingParser implements Parser
 {
-    private readonly Parser $reader;
-
     /**
      * @var array<class-string, MetadataCollection>
      */
@@ -38,9 +36,8 @@ final class CachingParser implements Parser
      */
     private array $classAndMethodCache = [];
 
-    public function __construct(Parser $reader)
+    public function __construct(private readonly Parser $reader)
     {
-        $this->reader = $reader;
     }
 
     /**

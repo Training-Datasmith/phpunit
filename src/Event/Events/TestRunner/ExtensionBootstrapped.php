@@ -20,27 +20,12 @@ use PHPUnit\Event\Telemetry;
  */
 final readonly class ExtensionBootstrapped implements Event
 {
-    private Telemetry\Info $telemetryInfo;
-
-    /**
-     * @var class-string
-     */
-    private string $className;
-
-    /**
-     * @var array<string, string>
-     */
-    private array $parameters;
-
     /**
      * @param class-string          $className
      * @param array<string, string> $parameters
      */
-    public function __construct(Telemetry\Info $telemetryInfo, string $className, array $parameters)
+    public function __construct(private Telemetry\Info $telemetryInfo, private string $className, private array $parameters)
     {
-        $this->telemetryInfo = $telemetryInfo;
-        $this->className     = $className;
-        $this->parameters    = $parameters;
     }
 
     public function telemetryInfo(): Telemetry\Info

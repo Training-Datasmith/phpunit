@@ -19,12 +19,8 @@ use PHPUnit\TextUI\Output\Printer;
  */
 final readonly class UnexpectedOutputPrinter implements PrintedUnexpectedOutputSubscriber
 {
-    private Printer $printer;
-
-    public function __construct(Printer $printer, Facade $facade)
+    public function __construct(private Printer $printer, Facade $facade)
     {
-        $this->printer = $printer;
-
         $facade->registerSubscriber($this);
     }
 

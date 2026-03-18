@@ -20,16 +20,10 @@ use Attribute;
 final readonly class DependsOnClass
 {
     /**
-     * @var class-string
-     */
-    private string $className;
-
-    /**
      * @param class-string $className
      */
-    public function __construct(string $className)
+    public function __construct(private string $className)
     {
-        $this->className = $className;
     }
 
     /**

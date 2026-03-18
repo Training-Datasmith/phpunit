@@ -21,13 +21,8 @@ use SebastianBergmann\Comparator\Factory as ComparatorFactory;
  */
 final class IsEqualWithDelta extends Constraint
 {
-    private readonly mixed $value;
-    private readonly float $delta;
-
-    public function __construct(mixed $value, float $delta)
+    public function __construct(private readonly mixed $value, private readonly float $delta)
     {
-        $this->value = $value;
-        $this->delta = $delta;
     }
 
     /**

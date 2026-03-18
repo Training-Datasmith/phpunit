@@ -33,7 +33,7 @@ final class OrderedParameterSets implements ParametersRule
      * @var list<Parameters>
      */
     private array $applied = [];
-    private int $numberOfConfiguredParameterSets;
+    private readonly int $numberOfConfiguredParameterSets;
 
     /**
      * @param list<Parameters> $stack

@@ -15,11 +15,6 @@ namespace PHPUnit\Framework\MockObject\Runtime;
 abstract readonly class PropertyHook
 {
     /**
-     * @var non-empty-string
-     */
-    private string $propertyName;
-
-    /**
      * @param non-empty-string $propertyName
      */
     public static function get(string $propertyName): PropertyGetHook
@@ -38,9 +33,8 @@ abstract readonly class PropertyHook
     /**
      * @param non-empty-string $propertyName
      */
-    protected function __construct(string $propertyName)
+    protected function __construct(private string $propertyName)
     {
-        $this->propertyName = $propertyName;
     }
 
     /**

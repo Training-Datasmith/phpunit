@@ -19,18 +19,11 @@ use PHPUnit\Runner\Extension\Extension;
 final readonly class RequiresPhpunitExtension extends Metadata
 {
     /**
-     * @var class-string<Extension>
-     */
-    private string $extensionClass;
-
-    /**
      * @param class-string<Extension> $extensionClass
      */
-    protected function __construct(Level $level, string $extensionClass)
+    protected function __construct(Level $level, private string $extensionClass)
     {
         parent::__construct($level);
-
-        $this->extensionClass = $extensionClass;
     }
 
     public function isRequiresPhpunitExtension(): true

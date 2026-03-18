@@ -16,11 +16,8 @@ namespace PHPUnit\TextUI\Configuration;
  */
 final readonly class Directory
 {
-    private string $path;
-
-    public function __construct(string $path)
+    public function __construct(private string $path)
     {
-        $this->path = $path;
     }
 
     public function path(): string

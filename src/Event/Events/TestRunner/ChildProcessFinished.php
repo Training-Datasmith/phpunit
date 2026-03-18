@@ -19,15 +19,8 @@ use PHPUnit\Event\Telemetry;
  */
 final readonly class ChildProcessFinished implements Event
 {
-    private Telemetry\Info $telemetryInfo;
-    private string $stdout;
-    private string $stderr;
-
-    public function __construct(Telemetry\Info $telemetryInfo, string $stdout, string $stderr)
+    public function __construct(private Telemetry\Info $telemetryInfo, private string $stdout, private string $stderr)
     {
-        $this->telemetryInfo = $telemetryInfo;
-        $this->stdout        = $stdout;
-        $this->stderr        = $stderr;
     }
 
     public function telemetryInfo(): Telemetry\Info

@@ -20,23 +20,11 @@ use Attribute;
 final readonly class ExcludeStaticPropertyFromBackup
 {
     /**
-     * @var class-string
-     */
-    private string $className;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $propertyName;
-
-    /**
      * @param class-string     $className
      * @param non-empty-string $propertyName
      */
-    public function __construct(string $className, string $propertyName)
+    public function __construct(private string $className, private string $propertyName)
     {
-        $this->className    = $className;
-        $this->propertyName = $propertyName;
     }
 
     /**

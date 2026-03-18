@@ -3032,56 +3032,56 @@ if (!function_exists('PHPUnit\Framework\logicalXor')) {
 if (!function_exists('PHPUnit\Framework\anything')) {
     function anything(): IsAnything
     {
-        return Assert::anything(...func_get_args());
+        return Assert::anything();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isTrue')) {
     function isTrue(): IsTrue
     {
-        return Assert::isTrue(...func_get_args());
+        return Assert::isTrue();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isFalse')) {
     function isFalse(): IsFalse
     {
-        return Assert::isFalse(...func_get_args());
+        return Assert::isFalse();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isJson')) {
     function isJson(): IsJson
     {
-        return Assert::isJson(...func_get_args());
+        return Assert::isJson();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isNull')) {
     function isNull(): IsNull
     {
-        return Assert::isNull(...func_get_args());
+        return Assert::isNull();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isFinite')) {
     function isFinite(): IsFinite
     {
-        return Assert::isFinite(...func_get_args());
+        return Assert::isFinite();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isInfinite')) {
     function isInfinite(): IsInfinite
     {
-        return Assert::isInfinite(...func_get_args());
+        return Assert::isInfinite();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isNan')) {
     function isNan(): IsNan
     {
-        return Assert::isNan(...func_get_args());
+        return Assert::isNan();
     }
 }
 
@@ -3102,91 +3102,91 @@ if (!function_exists('PHPUnit\Framework\containsIdentical')) {
 if (!function_exists('PHPUnit\Framework\containsOnlyArray')) {
     function containsOnlyArray(): TraversableContainsOnly
     {
-        return Assert::containsOnlyArray(...func_get_args());
+        return Assert::containsOnlyArray();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\containsOnlyBool')) {
     function containsOnlyBool(): TraversableContainsOnly
     {
-        return Assert::containsOnlyBool(...func_get_args());
+        return Assert::containsOnlyBool();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\containsOnlyCallable')) {
     function containsOnlyCallable(): TraversableContainsOnly
     {
-        return Assert::containsOnlyCallable(...func_get_args());
+        return Assert::containsOnlyCallable();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\containsOnlyFloat')) {
     function containsOnlyFloat(): TraversableContainsOnly
     {
-        return Assert::containsOnlyFloat(...func_get_args());
+        return Assert::containsOnlyFloat();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\containsOnlyInt')) {
     function containsOnlyInt(): TraversableContainsOnly
     {
-        return Assert::containsOnlyInt(...func_get_args());
+        return Assert::containsOnlyInt();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\containsOnlyIterable')) {
     function containsOnlyIterable(): TraversableContainsOnly
     {
-        return Assert::containsOnlyIterable(...func_get_args());
+        return Assert::containsOnlyIterable();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\containsOnlyNull')) {
     function containsOnlyNull(): TraversableContainsOnly
     {
-        return Assert::containsOnlyNull(...func_get_args());
+        return Assert::containsOnlyNull();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\containsOnlyNumeric')) {
     function containsOnlyNumeric(): TraversableContainsOnly
     {
-        return Assert::containsOnlyNumeric(...func_get_args());
+        return Assert::containsOnlyNumeric();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\containsOnlyObject')) {
     function containsOnlyObject(): TraversableContainsOnly
     {
-        return Assert::containsOnlyObject(...func_get_args());
+        return Assert::containsOnlyObject();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\containsOnlyResource')) {
     function containsOnlyResource(): TraversableContainsOnly
     {
-        return Assert::containsOnlyResource(...func_get_args());
+        return Assert::containsOnlyResource();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\containsOnlyClosedResource')) {
     function containsOnlyClosedResource(): TraversableContainsOnly
     {
-        return Assert::containsOnlyClosedResource(...func_get_args());
+        return Assert::containsOnlyClosedResource();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\containsOnlyScalar')) {
     function containsOnlyScalar(): TraversableContainsOnly
     {
-        return Assert::containsOnlyScalar(...func_get_args());
+        return Assert::containsOnlyScalar();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\containsOnlyString')) {
     function containsOnlyString(): TraversableContainsOnly
     {
-        return Assert::containsOnlyString(...func_get_args());
+        return Assert::containsOnlyString();
     }
 }
 
@@ -3207,7 +3207,7 @@ if (!function_exists('PHPUnit\Framework\arrayHasKey')) {
 if (!function_exists('PHPUnit\Framework\isList')) {
     function isList(): IsList
     {
-        return Assert::isList(...func_get_args());
+        return Assert::isList();
     }
 }
 
@@ -3242,35 +3242,35 @@ if (!function_exists('PHPUnit\Framework\equalToWithDelta')) {
 if (!function_exists('PHPUnit\Framework\isEmpty')) {
     function isEmpty(): IsEmpty
     {
-        return Assert::isEmpty(...func_get_args());
+        return Assert::isEmpty();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isWritable')) {
     function isWritable(): IsWritable
     {
-        return Assert::isWritable(...func_get_args());
+        return Assert::isWritable();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isReadable')) {
     function isReadable(): IsReadable
     {
-        return Assert::isReadable(...func_get_args());
+        return Assert::isReadable();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\directoryExists')) {
     function directoryExists(): DirectoryExists
     {
-        return Assert::directoryExists(...func_get_args());
+        return Assert::directoryExists();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\fileExists')) {
     function fileExists(): FileExists
     {
-        return Assert::fileExists(...func_get_args());
+        return Assert::fileExists();
     }
 }
 
@@ -3305,84 +3305,84 @@ if (!function_exists('PHPUnit\Framework\isInstanceOf')) {
 if (!function_exists('PHPUnit\Framework\isArray')) {
     function isArray(): IsType
     {
-        return Assert::isArray(...func_get_args());
+        return Assert::isArray();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isBool')) {
     function isBool(): IsType
     {
-        return Assert::isBool(...func_get_args());
+        return Assert::isBool();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isCallable')) {
     function isCallable(): IsType
     {
-        return Assert::isCallable(...func_get_args());
+        return Assert::isCallable();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isFloat')) {
     function isFloat(): IsType
     {
-        return Assert::isFloat(...func_get_args());
+        return Assert::isFloat();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isInt')) {
     function isInt(): IsType
     {
-        return Assert::isInt(...func_get_args());
+        return Assert::isInt();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isIterable')) {
     function isIterable(): IsType
     {
-        return Assert::isIterable(...func_get_args());
+        return Assert::isIterable();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isNumeric')) {
     function isNumeric(): IsType
     {
-        return Assert::isNumeric(...func_get_args());
+        return Assert::isNumeric();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isObject')) {
     function isObject(): IsType
     {
-        return Assert::isObject(...func_get_args());
+        return Assert::isObject();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isResource')) {
     function isResource(): IsType
     {
-        return Assert::isResource(...func_get_args());
+        return Assert::isResource();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isClosedResource')) {
     function isClosedResource(): IsType
     {
-        return Assert::isClosedResource(...func_get_args());
+        return Assert::isClosedResource();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isScalar')) {
     function isScalar(): IsType
     {
-        return Assert::isScalar(...func_get_args());
+        return Assert::isScalar();
     }
 }
 
 if (!function_exists('PHPUnit\Framework\isString')) {
     function isString(): IsType
     {
-        return Assert::isString(...func_get_args());
+        return Assert::isString();
     }
 }
 

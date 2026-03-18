@@ -56,7 +56,6 @@ use PHPUnit\TestRunner\TestResult\Issues\Issue;
  */
 final class Collector
 {
-    private readonly IssueFilter $issueFilter;
     private int $numberOfTests        = 0;
     private int $numberOfTestsRun     = 0;
     private int $numberOfAssertions   = 0;
@@ -168,7 +167,7 @@ final class Collector
      */
     private array $phpWarnings = [];
 
-    public function __construct(Facade $facade, IssueFilter $issueFilter)
+    public function __construct(Facade $facade, private readonly IssueFilter $issueFilter)
     {
         $facade->registerSubscribers(
             new ExecutionStartedSubscriber($this),
@@ -202,8 +201,6 @@ final class Collector
             new TestRunnerTriggeredWarningSubscriber($this),
             new ChildProcessErroredSubscriber($this),
         );
-
-        $this->issueFilter = $issueFilter;
     }
 
     public function result(): TestResult
@@ -259,7 +256,6 @@ final class Collector
         $testSuite = $event->testSuite();
 
         if (!$testSuite->isForTestClass()) {
-            return;
         }
     }
 
@@ -621,7 +617,7 @@ final class Collector
         $this->testRunnerTriggeredWarningEvents[] = $event;
     }
 
-    public function childProcessErrored(ChildProcessErrored $event): void
+    public function childProcessErrored(): void
     {
         $this->childProcessErrored = true;
     }

@@ -16,22 +16,12 @@ namespace PHPUnit\Metadata;
  */
 final readonly class TestWith extends Metadata
 {
-    private mixed $data;
-
-    /**
-     * @var ?non-empty-string
-     */
-    private ?string $name;
-
     /**
      * @param ?non-empty-string $name
      */
-    protected function __construct(Level $level, mixed $data, ?string $name = null)
+    protected function __construct(Level $level, private mixed $data, private ?string $name = null)
     {
         parent::__construct($level);
-
-        $this->data = $data;
-        $this->name = $name;
     }
 
     public function isTestWith(): true

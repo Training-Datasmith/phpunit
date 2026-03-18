@@ -20,11 +20,8 @@ use PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
  */
 final class InvokedCount extends InvocationOrder
 {
-    private readonly int $expectedCount;
-
-    public function __construct(int $expectedCount)
+    public function __construct(private readonly int $expectedCount)
     {
-        $this->expectedCount = $expectedCount;
     }
 
     public function isNever(): bool

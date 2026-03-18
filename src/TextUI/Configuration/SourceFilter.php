@@ -18,11 +18,6 @@ final class SourceFilter
 {
     private static ?self $instance = null;
 
-    /**
-     * @var array<non-empty-string, true>
-     */
-    private readonly array $map;
-
     public static function instance(): self
     {
         if (self::$instance === null) {
@@ -39,9 +34,8 @@ final class SourceFilter
     /**
      * @param array<non-empty-string, true> $map
      */
-    public function __construct(array $map)
+    public function __construct(private readonly array $map)
     {
-        $this->map = $map;
     }
 
     /**

@@ -20,11 +20,8 @@ use PHPUnit\Util\Exporter;
  */
 final class ExceptionMessageIsOrContains extends Constraint
 {
-    private readonly string $expectedMessage;
-
-    public function __construct(string $expectedMessage)
+    public function __construct(private readonly string $expectedMessage)
     {
-        $this->expectedMessage = $expectedMessage;
     }
 
     public function toString(): string

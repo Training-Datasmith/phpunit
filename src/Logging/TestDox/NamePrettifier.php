@@ -164,13 +164,13 @@ final class NamePrettifier
 
         $buffer = preg_replace_callback_array(
             [
-                '/(?!^)([A-Z])/' => static fn (array $matches) => ' ' . strtolower($matches[1]),
-                '/(\d+)/'        => static fn (array $matches) => ' ' . $matches[1],
+                '/(?!^)([A-Z])/' => static fn (array $matches): string => ' ' . strtolower((string) $matches[1]),
+                '/(\d+)/'        => static fn (array $matches): string => ' ' . $matches[1],
             ],
             $name,
         );
 
-        return trim($buffer);
+        return trim((string) $buffer);
     }
 
     public function prettifyTestCase(TestCase $test, bool $colorize): string
@@ -289,8 +289,8 @@ final class NamePrettifier
         }
 
         if ($colorize) {
-            $providedData = array_map(
-                static fn (mixed $value) => Color::colorize('fg-cyan', Color::visualizeWhitespace((string) $value, true)),
+            return array_map(
+                static fn (mixed $value): string => Color::colorize('fg-cyan', Color::visualizeWhitespace((string) $value, true)),
                 $providedData,
             );
         }

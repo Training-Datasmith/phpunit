@@ -20,16 +20,10 @@ use Attribute;
 final readonly class RequiresOperatingSystemFamily
 {
     /**
-     * @var non-empty-string
-     */
-    private string $operatingSystemFamily;
-
-    /**
      * @param non-empty-string $operatingSystemFamily
      */
-    public function __construct(string $operatingSystemFamily)
+    public function __construct(private string $operatingSystemFamily)
     {
-        $this->operatingSystemFamily = $operatingSystemFamily;
     }
 
     /**

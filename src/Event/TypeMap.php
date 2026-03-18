@@ -56,7 +56,7 @@ final class TypeMap
     {
         return array_any(
             class_implements($subscriber),
-            fn (string $interface) => array_key_exists($interface, $this->mapping),
+            fn (string $interface): bool => array_key_exists($interface, $this->mapping),
         );
     }
 

@@ -22,19 +22,15 @@ final readonly class TestSuiteForTestClass extends TestSuite
      * @var class-string
      */
     private string $className;
-    private string $file;
-    private int $line;
 
     /**
      * @param class-string $name
      */
-    public function __construct(string $name, int $size, TestCollection $tests, string $file, int $line)
+    public function __construct(string $name, int $size, TestCollection $tests, private string $file, private int $line)
     {
         parent::__construct($name, $size, $tests);
 
         $this->className = $name;
-        $this->file      = $file;
-        $this->line      = $line;
     }
 
     /**

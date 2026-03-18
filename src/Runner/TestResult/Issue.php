@@ -21,29 +21,9 @@ use PHPUnit\Event\Code\Test;
 final class Issue
 {
     /**
-     * @var non-empty-string
-     */
-    private readonly string $file;
-
-    /**
-     * @var positive-int
-     */
-    private readonly int $line;
-
-    /**
-     * @var non-empty-string
-     */
-    private readonly string $description;
-
-    /**
      * @var non-empty-array<non-empty-string, array{test: Test, count: int}>
      */
     private array $triggeringTests;
-
-    /**
-     * @var ?non-empty-string
-     */
-    private ?string $stackTrace;
 
     /**
      * @param non-empty-string $file
@@ -60,13 +40,8 @@ final class Issue
      * @param positive-int     $line
      * @param non-empty-string $description
      */
-    private function __construct(string $file, int $line, string $description, Test $triggeringTest, ?string $stackTrace)
+    private function __construct(private readonly string $file, private readonly int $line, private readonly string $description, Test $triggeringTest, private readonly ?string $stackTrace)
     {
-        $this->file        = $file;
-        $this->line        = $line;
-        $this->description = $description;
-        $this->stackTrace  = $stackTrace;
-
         $this->triggeringTests = [
             $triggeringTest->id() => [
                 'test'  => $triggeringTest,

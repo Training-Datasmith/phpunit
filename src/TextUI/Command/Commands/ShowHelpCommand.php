@@ -18,11 +18,8 @@ use PHPUnit\TextUI\Help;
  */
 final readonly class ShowHelpCommand implements Command
 {
-    private int $shellExitCode;
-
-    public function __construct(int $shellExitCode)
+    public function __construct(private int $shellExitCode)
     {
-        $this->shellExitCode = $shellExitCode;
     }
 
     public function execute(): Result

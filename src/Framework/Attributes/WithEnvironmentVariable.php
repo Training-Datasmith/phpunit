@@ -20,18 +20,10 @@ use Attribute;
 final readonly class WithEnvironmentVariable
 {
     /**
-     * @var non-empty-string
-     */
-    private string $environmentVariableName;
-    private null|string $value;
-
-    /**
      * @param non-empty-string $environmentVariableName
      */
-    public function __construct(string $environmentVariableName, null|string $value = null)
+    public function __construct(private string $environmentVariableName, private null|string $value = null)
     {
-        $this->environmentVariableName = $environmentVariableName;
-        $this->value                   = $value;
     }
 
     /**

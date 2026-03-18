@@ -36,23 +36,13 @@ final class InvocationHandler
      * @var array<non-empty-string, Matcher>
      */
     private array $matcherMap = [];
-
-    /**
-     * @var list<ConfigurableMethod>
-     */
-    private readonly array $configurableMethods;
-    private readonly bool $returnValueGeneration;
-    private readonly bool $isMockObject;
     private bool $sealed = false;
 
     /**
      * @param list<ConfigurableMethod> $configurableMethods
      */
-    public function __construct(array $configurableMethods, bool $returnValueGeneration, bool $isMockObject = false)
+    public function __construct(private readonly array $configurableMethods, private readonly bool $returnValueGeneration, private readonly bool $isMockObject = false)
     {
-        $this->configurableMethods   = $configurableMethods;
-        $this->returnValueGeneration = $returnValueGeneration;
-        $this->isMockObject          = $isMockObject;
     }
 
     public function isMockObject(): bool
@@ -64,7 +54,7 @@ final class InvocationHandler
     {
         return array_any(
             $this->matchers,
-            static fn (Matcher $matcher) => $matcher->hasInvocationCountRule(),
+            static fn (Matcher $matcher): bool => $matcher->hasInvocationCountRule(),
         );
     }
 
@@ -72,7 +62,7 @@ final class InvocationHandler
     {
         return array_any(
             $this->matchers,
-            static fn (Matcher $matcher) => $matcher->hasParametersRule(),
+            static fn (Matcher $matcher): bool => $matcher->hasParametersRule(),
         );
     }
 

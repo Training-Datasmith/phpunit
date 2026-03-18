@@ -23,8 +23,6 @@ use Throwable;
  */
 final class DirectDispatcher implements SubscribableDispatcher
 {
-    private readonly TypeMap $typeMap;
-
     /**
      * @var array<class-string, list<Subscriber>>
      */
@@ -35,9 +33,8 @@ final class DirectDispatcher implements SubscribableDispatcher
      */
     private array $tracers = [];
 
-    public function __construct(TypeMap $map)
+    public function __construct(private readonly TypeMap $typeMap)
     {
-        $this->typeMap = $map;
     }
 
     public function registerTracer(Tracer\Tracer $tracer): void

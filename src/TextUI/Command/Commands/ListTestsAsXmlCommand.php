@@ -27,18 +27,10 @@ use XMLWriter;
 final readonly class ListTestsAsXmlCommand implements Command
 {
     /**
-     * @var list<PhptTestCase|TestCase>
-     */
-    private array $tests;
-    private string $filename;
-
-    /**
      * @param list<PhptTestCase|TestCase> $tests
      */
-    public function __construct(array $tests, string $filename)
+    public function __construct(private array $tests, private string $filename)
     {
-        $this->tests    = $tests;
-        $this->filename = $filename;
     }
 
     public function execute(): Result

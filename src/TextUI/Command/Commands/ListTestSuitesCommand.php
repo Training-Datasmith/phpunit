@@ -24,11 +24,8 @@ use PHPUnit\TextUI\Configuration\Registry;
  */
 final readonly class ListTestSuitesCommand implements Command
 {
-    private TestSuite $testSuite;
-
-    public function __construct(TestSuite $testSuite)
+    public function __construct(private TestSuite $testSuite)
     {
-        $this->testSuite = $testSuite;
     }
 
     public function execute(): Result

@@ -18,20 +18,6 @@ use SebastianBergmann\Type\Type;
  */
 final readonly class ConfigurableMethod
 {
-    /**
-     * @var non-empty-string
-     */
-    private string $name;
-
-    /**
-     * @var array<int, mixed>
-     */
-    private array $defaultParameterValues;
-
-    /**
-     * @var non-negative-int
-     */
-    private int $numberOfParameters;
     private Type $returnType;
 
     /**
@@ -39,11 +25,8 @@ final readonly class ConfigurableMethod
      * @param array<int, mixed> $defaultParameterValues
      * @param non-negative-int  $numberOfParameters
      */
-    public function __construct(string $name, array $defaultParameterValues, int $numberOfParameters, Type $returnType)
+    public function __construct(private string $name, private array $defaultParameterValues, private int $numberOfParameters, Type $returnType)
     {
-        $this->name                   = $name;
-        $this->defaultParameterValues = $defaultParameterValues;
-        $this->numberOfParameters     = $numberOfParameters;
         $this->returnType             = $returnType;
     }
 

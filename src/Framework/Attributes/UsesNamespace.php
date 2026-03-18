@@ -20,16 +20,10 @@ use Attribute;
 final readonly class UsesNamespace
 {
     /**
-     * @var non-empty-string
-     */
-    private string $namespace;
-
-    /**
      * @param non-empty-string $namespace
      */
-    public function __construct(string $namespace)
+    public function __construct(private string $namespace)
     {
-        $this->namespace = $namespace;
     }
 
     /**

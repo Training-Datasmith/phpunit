@@ -21,11 +21,8 @@ use PHPUnit\Event\InvalidArgumentException;
  */
 final class SystemStopWatchWithOffset implements StopWatch
 {
-    private ?HRTime $offset;
-
-    public function __construct(HRTime $offset)
+    public function __construct(private ?HRTime $offset)
     {
-        $this->offset = $offset;
     }
 
     /**

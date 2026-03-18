@@ -19,11 +19,8 @@ use PHPUnit\Runner\Version;
  */
 final readonly class AtLeastVersionCommand implements Command
 {
-    private string $version;
-
-    public function __construct(string $version)
+    public function __construct(private string $version)
     {
-        $this->version = $version;
     }
 
     public function execute(): Result

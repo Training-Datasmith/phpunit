@@ -41,7 +41,7 @@ final readonly class ThrowableToStringMapper
             }
 
             if ($buffer !== '') {
-                $buffer = trim($buffer) . "\n";
+                return trim($buffer) . "\n";
             }
 
             return $buffer;

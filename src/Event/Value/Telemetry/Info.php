@@ -18,19 +18,8 @@ use function sprintf;
  */
 final readonly class Info
 {
-    private Snapshot $current;
-    private Duration $durationSinceStart;
-    private MemoryUsage $memorySinceStart;
-    private Duration $durationSincePrevious;
-    private MemoryUsage $memorySincePrevious;
-
-    public function __construct(Snapshot $current, Duration $durationSinceStart, MemoryUsage $memorySinceStart, Duration $durationSincePrevious, MemoryUsage $memorySincePrevious)
+    public function __construct(private Snapshot $current, private Duration $durationSinceStart, private MemoryUsage $memorySinceStart, private Duration $durationSincePrevious, private MemoryUsage $memorySincePrevious)
     {
-        $this->current               = $current;
-        $this->durationSinceStart    = $durationSinceStart;
-        $this->memorySinceStart      = $memorySinceStart;
-        $this->durationSincePrevious = $durationSincePrevious;
-        $this->memorySincePrevious   = $memorySincePrevious;
     }
 
     public function time(): HRTime

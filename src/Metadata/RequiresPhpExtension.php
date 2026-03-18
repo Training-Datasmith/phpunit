@@ -19,20 +19,11 @@ use PHPUnit\Metadata\Version\Requirement;
 final readonly class RequiresPhpExtension extends Metadata
 {
     /**
-     * @var non-empty-string
-     */
-    private string $extension;
-    private ?Requirement $versionRequirement;
-
-    /**
      * @param non-empty-string $extension
      */
-    protected function __construct(Level $level, string $extension, ?Requirement $versionRequirement)
+    protected function __construct(Level $level, private string $extension, private ?Requirement $versionRequirement)
     {
         parent::__construct($level);
-
-        $this->extension          = $extension;
-        $this->versionRequirement = $versionRequirement;
     }
 
     public function isRequiresPhpExtension(): true

@@ -24,11 +24,8 @@ use PHPUnit\Framework\Test;
  */
 abstract readonly class JobRunner
 {
-    private ChildProcessResultProcessor $processor;
-
-    public function __construct(ChildProcessResultProcessor $processor)
+    public function __construct(private ChildProcessResultProcessor $processor)
     {
-        $this->processor = $processor;
     }
 
     /**

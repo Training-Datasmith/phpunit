@@ -20,11 +20,9 @@ use PHPUnit\Runner\DeprecationCollector\TestTriggeredDeprecationSubscriber;
 final class CollectingDispatcher implements Dispatcher
 {
     private EventCollection $events;
-    private DirectDispatcher $isolatedDirectDispatcher;
 
-    public function __construct(DirectDispatcher $directDispatcher)
+    public function __construct(private readonly DirectDispatcher $isolatedDirectDispatcher)
     {
-        $this->isolatedDirectDispatcher = $directDispatcher;
         $this->events                   = new EventCollection;
 
         $this->isolatedDirectDispatcher->registerSubscriber(new TestTriggeredDeprecationSubscriber(DeprecationCollector::collector()));

@@ -40,9 +40,6 @@ use Throwable;
  */
 abstract class AbstractInvocationImplementation implements InvocationStubber
 {
-    protected readonly InvocationHandler $invocationHandler;
-    protected readonly Matcher $matcher;
-
     /**
      * @var list<ConfigurableMethod>
      */
@@ -54,10 +51,8 @@ abstract class AbstractInvocationImplementation implements InvocationStubber
     protected ?array $configurableMethodNames     = null;
     protected bool $createdWithoutExplicitExpects = false;
 
-    final public function __construct(InvocationHandler $handler, Matcher $matcher, ConfigurableMethod ...$configurableMethods)
+    final public function __construct(protected readonly InvocationHandler $invocationHandler, protected readonly Matcher $matcher, ConfigurableMethod ...$configurableMethods)
     {
-        $this->invocationHandler   = $handler;
-        $this->matcher             = $matcher;
         $this->configurableMethods = $configurableMethods;
     }
 
@@ -83,7 +78,7 @@ abstract class AbstractInvocationImplementation implements InvocationStubber
         if (is_string($constraint)) {
             $this->configurableMethodNames ??= array_flip(
                 array_map(
-                    static fn (ConfigurableMethod $configurable) => strtolower($configurable->name()),
+                    static fn (ConfigurableMethod $configurable): string => strtolower($configurable->name()),
                     $this->configurableMethods,
                 ),
             );

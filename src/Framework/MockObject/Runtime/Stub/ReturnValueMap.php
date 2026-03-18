@@ -22,16 +22,10 @@ use PHPUnit\Framework\MockObject\Invocation;
 final readonly class ReturnValueMap implements Stub
 {
     /**
-     * @var array<mixed>
-     */
-    private array $valueMap;
-
-    /**
      * @param array<mixed> $valueMap
      */
-    public function __construct(array $valueMap)
+    public function __construct(private array $valueMap)
     {
-        $this->valueMap = $valueMap;
     }
 
     public function invoke(Invocation $invocation): mixed
@@ -39,10 +33,12 @@ final readonly class ReturnValueMap implements Stub
         $parameterCount = count($invocation->parameters());
 
         foreach ($this->valueMap as $map) {
-            if (!is_array($map) || $parameterCount !== (count($map) - 1)) {
+            if (!is_array($map)) {
                 continue;
             }
-
+            if ($parameterCount !== (count($map) - 1)) {
+                continue;
+            }
             $return = array_pop($map);
 
             if ($invocation->parameters() === $map) {

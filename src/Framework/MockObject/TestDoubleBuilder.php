@@ -20,11 +20,6 @@ use ReflectionClass;
 abstract class TestDoubleBuilder
 {
     /**
-     * @var class-string|trait-string
-     */
-    protected readonly string $type;
-
-    /**
      * @var list<non-empty-string>
      */
     protected array $methods          = [];
@@ -41,9 +36,8 @@ abstract class TestDoubleBuilder
     /**
      * @param class-string|trait-string $type
      */
-    public function __construct(string $type)
+    public function __construct(protected readonly string $type)
     {
-        $this->type = $type;
     }
 
     /**

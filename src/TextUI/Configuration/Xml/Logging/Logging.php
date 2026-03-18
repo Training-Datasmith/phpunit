@@ -22,19 +22,8 @@ use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text as TestDoxText;
  */
 final readonly class Logging
 {
-    private ?Junit $junit;
-    private ?Otr $otr;
-    private ?TeamCity $teamCity;
-    private ?TestDoxHtml $testDoxHtml;
-    private ?TestDoxText $testDoxText;
-
-    public function __construct(?Junit $junit, ?Otr $otr, ?TeamCity $teamCity, ?TestDoxHtml $testDoxHtml, ?TestDoxText $testDoxText)
+    public function __construct(private ?Junit $junit, private ?Otr $otr, private ?TeamCity $teamCity, private ?TestDoxHtml $testDoxHtml, private ?TestDoxText $testDoxText)
     {
-        $this->junit       = $junit;
-        $this->otr         = $otr;
-        $this->teamCity    = $teamCity;
-        $this->testDoxHtml = $testDoxHtml;
-        $this->testDoxText = $testDoxText;
     }
 
     public function hasJunit(): bool

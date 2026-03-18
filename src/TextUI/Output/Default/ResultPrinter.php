@@ -51,40 +51,10 @@ use PHPUnit\TextUI\Output\Printer;
  */
 final class ResultPrinter
 {
-    private readonly Printer $printer;
-    private readonly bool $displayPhpunitDeprecations;
-    private readonly bool $displayPhpunitErrors;
-    private readonly bool $displayPhpunitNotices;
-    private readonly bool $displayPhpunitWarnings;
-    private readonly bool $displayTestsWithErrors;
-    private readonly bool $displayTestsWithFailedAssertions;
-    private readonly bool $displayRiskyTests;
-    private readonly bool $displayDetailsOnIncompleteTests;
-    private readonly bool $displayDetailsOnSkippedTests;
-    private readonly bool $displayDetailsOnTestsThatTriggerDeprecations;
-    private readonly bool $displayDetailsOnTestsThatTriggerErrors;
-    private readonly bool $displayDetailsOnTestsThatTriggerNotices;
-    private readonly bool $displayDetailsOnTestsThatTriggerWarnings;
-    private readonly bool $displayDefectsInReverseOrder;
     private bool $listPrinted = false;
 
-    public function __construct(Printer $printer, bool $displayPhpunitDeprecations, bool $displayPhpunitErrors, bool $displayPhpunitNotices, bool $displayPhpunitWarnings, bool $displayTestsWithErrors, bool $displayTestsWithFailedAssertions, bool $displayRiskyTests, bool $displayDetailsOnIncompleteTests, bool $displayDetailsOnSkippedTests, bool $displayDetailsOnTestsThatTriggerDeprecations, bool $displayDetailsOnTestsThatTriggerErrors, bool $displayDetailsOnTestsThatTriggerNotices, bool $displayDetailsOnTestsThatTriggerWarnings, bool $displayDefectsInReverseOrder)
+    public function __construct(private readonly Printer $printer, private readonly bool $displayPhpunitDeprecations, private readonly bool $displayPhpunitErrors, private readonly bool $displayPhpunitNotices, private readonly bool $displayPhpunitWarnings, private readonly bool $displayTestsWithErrors, private readonly bool $displayTestsWithFailedAssertions, private readonly bool $displayRiskyTests, private readonly bool $displayDetailsOnIncompleteTests, private readonly bool $displayDetailsOnSkippedTests, private readonly bool $displayDetailsOnTestsThatTriggerDeprecations, private readonly bool $displayDetailsOnTestsThatTriggerErrors, private readonly bool $displayDetailsOnTestsThatTriggerNotices, private readonly bool $displayDetailsOnTestsThatTriggerWarnings, private readonly bool $displayDefectsInReverseOrder)
     {
-        $this->printer                                      = $printer;
-        $this->displayPhpunitDeprecations                   = $displayPhpunitDeprecations;
-        $this->displayPhpunitErrors                         = $displayPhpunitErrors;
-        $this->displayPhpunitNotices                        = $displayPhpunitNotices;
-        $this->displayPhpunitWarnings                       = $displayPhpunitWarnings;
-        $this->displayTestsWithErrors                       = $displayTestsWithErrors;
-        $this->displayTestsWithFailedAssertions             = $displayTestsWithFailedAssertions;
-        $this->displayRiskyTests                            = $displayRiskyTests;
-        $this->displayDetailsOnIncompleteTests              = $displayDetailsOnIncompleteTests;
-        $this->displayDetailsOnSkippedTests                 = $displayDetailsOnSkippedTests;
-        $this->displayDetailsOnTestsThatTriggerDeprecations = $displayDetailsOnTestsThatTriggerDeprecations;
-        $this->displayDetailsOnTestsThatTriggerErrors       = $displayDetailsOnTestsThatTriggerErrors;
-        $this->displayDetailsOnTestsThatTriggerNotices      = $displayDetailsOnTestsThatTriggerNotices;
-        $this->displayDetailsOnTestsThatTriggerWarnings     = $displayDetailsOnTestsThatTriggerWarnings;
-        $this->displayDefectsInReverseOrder                 = $displayDefectsInReverseOrder;
     }
 
     public function print(TestResult $result, bool $stackTraceForDeprecations = false): void
@@ -454,7 +424,7 @@ final class ResultPrinter
             $body = trim($issue->description()) . PHP_EOL . PHP_EOL;
 
             if ($stackTrace && $issue->hasStackTrace()) {
-                $body .= trim($issue->stackTrace()) . PHP_EOL . PHP_EOL;
+                $body .= trim((string) $issue->stackTrace()) . PHP_EOL . PHP_EOL;
             }
 
             if (!$issue->triggeredInTest()) {

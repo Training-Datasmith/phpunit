@@ -16,11 +16,8 @@ use PHPUnit\Util\Exporter;
  */
 final class GreaterThan extends Constraint
 {
-    private readonly mixed $value;
-
-    public function __construct(mixed $value)
+    public function __construct(private readonly mixed $value)
     {
-        $this->value = $value;
     }
 
     /**

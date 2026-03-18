@@ -20,11 +20,8 @@ use Throwable;
  */
 final class Exception extends Constraint
 {
-    private readonly string $className;
-
-    public function __construct(string $className)
+    public function __construct(private readonly string $className)
     {
-        $this->className = $className;
     }
 
     /**

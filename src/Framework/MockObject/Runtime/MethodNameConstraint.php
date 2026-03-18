@@ -20,11 +20,8 @@ use PHPUnit\Framework\Constraint\Constraint;
  */
 final class MethodNameConstraint extends Constraint
 {
-    private string $methodName;
-
-    public function __construct(string $methodName)
+    public function __construct(private readonly string $methodName)
     {
-        $this->methodName = $methodName;
     }
 
     public function methodName(): string

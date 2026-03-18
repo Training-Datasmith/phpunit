@@ -16,11 +16,8 @@ namespace PHPUnit\Runner\Baseline;
  */
 abstract readonly class Subscriber
 {
-    private Generator $generator;
-
-    public function __construct(Generator $generator)
+    public function __construct(private Generator $generator)
     {
-        $this->generator = $generator;
     }
 
     protected function generator(): Generator

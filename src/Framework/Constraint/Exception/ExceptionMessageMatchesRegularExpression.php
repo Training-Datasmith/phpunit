@@ -21,11 +21,8 @@ use PHPUnit\Util\Exporter;
  */
 final class ExceptionMessageMatchesRegularExpression extends Constraint
 {
-    private readonly string $regularExpression;
-
-    public function __construct(string $regularExpression)
+    public function __construct(private readonly string $regularExpression)
     {
-        $this->regularExpression = $regularExpression;
     }
 
     public function toString(): string

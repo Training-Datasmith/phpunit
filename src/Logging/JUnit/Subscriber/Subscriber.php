@@ -16,11 +16,8 @@ namespace PHPUnit\Logging\JUnit;
  */
 abstract readonly class Subscriber
 {
-    private JunitXmlLogger $logger;
-
-    public function __construct(JunitXmlLogger $logger)
+    public function __construct(private JunitXmlLogger $logger)
     {
-        $this->logger = $logger;
     }
 
     protected function logger(): JunitXmlLogger

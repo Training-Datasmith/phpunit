@@ -164,7 +164,7 @@ final class ReturnValueGenerator
      */
     private function onlyInterfaces(array $types): bool
     {
-        return array_all($types, static fn (string $type) => interface_exists($type));
+        return array_all($types, static fn (string $type): bool => interface_exists($type));
     }
 
     /**

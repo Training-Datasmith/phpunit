@@ -21,13 +21,8 @@ use PHPUnit\Event\TestSuite\TestSuite;
  */
 final readonly class ExecutionStarted implements Event
 {
-    private Telemetry\Info $telemetryInfo;
-    private TestSuite $testSuite;
-
-    public function __construct(Telemetry\Info $telemetryInfo, TestSuite $testSuite)
+    public function __construct(private Telemetry\Info $telemetryInfo, private TestSuite $testSuite)
     {
-        $this->telemetryInfo = $telemetryInfo;
-        $this->testSuite     = $testSuite;
     }
 
     public function telemetryInfo(): Telemetry\Info

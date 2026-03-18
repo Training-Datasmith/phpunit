@@ -18,11 +18,8 @@ use PHPUnit\Framework\MockObject\Invocation;
  */
 final readonly class ReturnStub implements Stub
 {
-    private mixed $value;
-
-    public function __construct(mixed $value)
+    public function __construct(private mixed $value)
     {
-        $this->value = $value;
     }
 
     public function invoke(Invocation $invocation): mixed

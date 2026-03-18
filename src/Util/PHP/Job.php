@@ -19,48 +19,14 @@ namespace PHPUnit\Util\PHP;
 final readonly class Job
 {
     /**
-     * @var non-empty-string
-     */
-    private string $code;
-
-    /**
-     * @var list<string>
-     */
-    private array $phpSettings;
-
-    /**
-     * @var array<string, string>
-     */
-    private array $environmentVariables;
-
-    /**
-     * @var list<non-empty-string>
-     */
-    private array $arguments;
-
-    /**
-     * @var ?non-empty-string
-     */
-    private ?string $input;
-    private bool $redirectErrors;
-    private bool $requiresXdebug;
-
-    /**
      * @param non-empty-string       $code
      * @param list<string>           $phpSettings
      * @param array<string, string>  $environmentVariables
      * @param list<non-empty-string> $arguments
      * @param ?non-empty-string      $input
      */
-    public function __construct(string $code, array $phpSettings = [], array $environmentVariables = [], array $arguments = [], ?string $input = null, bool $redirectErrors = false, bool $requiresXdebug = false)
+    public function __construct(private string $code, private array $phpSettings = [], private array $environmentVariables = [], private array $arguments = [], private ?string $input = null, private bool $redirectErrors = false, private bool $requiresXdebug = false)
     {
-        $this->code                 = $code;
-        $this->phpSettings          = $phpSettings;
-        $this->environmentVariables = $environmentVariables;
-        $this->arguments            = $arguments;
-        $this->input                = $input;
-        $this->redirectErrors       = $redirectErrors;
-        $this->requiresXdebug       = $requiresXdebug;
     }
 
     /**

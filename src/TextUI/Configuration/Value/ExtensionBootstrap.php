@@ -17,23 +17,11 @@ namespace PHPUnit\TextUI\Configuration;
 final readonly class ExtensionBootstrap
 {
     /**
-     * @var non-empty-string
-     */
-    private string $className;
-
-    /**
-     * @var array<string,string>
-     */
-    private array $parameters;
-
-    /**
      * @param non-empty-string     $className
      * @param array<string,string> $parameters
      */
-    public function __construct(string $className, array $parameters)
+    public function __construct(private string $className, private array $parameters)
     {
-        $this->className  = $className;
-        $this->parameters = $parameters;
     }
 
     /**

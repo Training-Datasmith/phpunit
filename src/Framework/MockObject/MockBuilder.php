@@ -28,8 +28,6 @@ use PHPUnit\Framework\TestCase;
  */
 final class MockBuilder extends TestDoubleBuilder
 {
-    private readonly TestCase $testCase;
-
     /**
      * @var ?class-string
      */
@@ -38,11 +36,9 @@ final class MockBuilder extends TestDoubleBuilder
     /**
      * @param class-string|trait-string $type
      */
-    public function __construct(TestCase $testCase, string $type)
+    public function __construct(private readonly TestCase $testCase, string $type)
     {
         parent::__construct($type);
-
-        $this->testCase = $testCase;
     }
 
     /**

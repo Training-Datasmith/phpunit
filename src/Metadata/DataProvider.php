@@ -17,27 +17,12 @@ namespace PHPUnit\Metadata;
 final readonly class DataProvider extends Metadata
 {
     /**
-     * @var class-string
-     */
-    private string $className;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $methodName;
-    private bool $validateArgumentCount;
-
-    /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    protected function __construct(Level $level, string $className, string $methodName, bool $validateArgumentCount)
+    protected function __construct(Level $level, private string $className, private string $methodName, private bool $validateArgumentCount)
     {
         parent::__construct($level);
-
-        $this->className             = $className;
-        $this->methodName            = $methodName;
-        $this->validateArgumentCount = $validateArgumentCount;
     }
 
     public function isDataProvider(): true

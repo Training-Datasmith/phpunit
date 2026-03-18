@@ -22,53 +22,8 @@ use PHPUnit\TextUI\Configuration\NoHtmlCoverageTargetException;
  */
 final readonly class Html
 {
-    private ?Directory $target;
-    private int $lowUpperBound;
-    private int $highLowerBound;
-    private string $colorSuccessLow;
-    private string $colorSuccessLowDark;
-    private string $colorSuccessMedium;
-    private string $colorSuccessMediumDark;
-    private string $colorSuccessHigh;
-    private string $colorSuccessHighDark;
-    private string $colorSuccessBar;
-    private string $colorSuccessBarDark;
-    private string $colorWarning;
-    private string $colorWarningDark;
-    private string $colorWarningBar;
-    private string $colorWarningBarDark;
-    private string $colorDanger;
-    private string $colorDangerDark;
-    private string $colorDangerBar;
-    private string $colorDangerBarDark;
-    private string $colorBreadcrumbs;
-    private string $colorBreadcrumbsDark;
-    private ?string $customCssFile;
-
-    public function __construct(?Directory $target, int $lowUpperBound, int $highLowerBound, string $colorSuccessLow, string $colorSuccessLowDark, string $colorSuccessMedium, string $colorSuccessMediumDark, string $colorSuccessHigh, string $colorSuccessHighDark, string $colorSuccessBar, string $colorSuccessBarDark, string $colorWarning, string $colorWarningDark, string $colorWarningBar, string $colorWarningBarDark, string $colorDanger, string $colorDangerDark, string $colorDangerBar, string $colorDangerBarDark, string $colorBreadcrumbs, string $colorBreadcrumbsDark, ?string $customCssFile)
+    public function __construct(private ?Directory $target, private int $lowUpperBound, private int $highLowerBound, private string $colorSuccessLow, private string $colorSuccessLowDark, private string $colorSuccessMedium, private string $colorSuccessMediumDark, private string $colorSuccessHigh, private string $colorSuccessHighDark, private string $colorSuccessBar, private string $colorSuccessBarDark, private string $colorWarning, private string $colorWarningDark, private string $colorWarningBar, private string $colorWarningBarDark, private string $colorDanger, private string $colorDangerDark, private string $colorDangerBar, private string $colorDangerBarDark, private string $colorBreadcrumbs, private string $colorBreadcrumbsDark, private ?string $customCssFile)
     {
-        $this->target                 = $target;
-        $this->lowUpperBound          = $lowUpperBound;
-        $this->highLowerBound         = $highLowerBound;
-        $this->colorSuccessLow        = $colorSuccessLow;
-        $this->colorSuccessLowDark    = $colorSuccessLowDark;
-        $this->colorSuccessMedium     = $colorSuccessMedium;
-        $this->colorSuccessMediumDark = $colorSuccessMediumDark;
-        $this->colorSuccessHigh       = $colorSuccessHigh;
-        $this->colorSuccessHighDark   = $colorSuccessHighDark;
-        $this->colorSuccessBar        = $colorSuccessBar;
-        $this->colorSuccessBarDark    = $colorSuccessBarDark;
-        $this->colorWarning           = $colorWarning;
-        $this->colorWarningDark       = $colorWarningDark;
-        $this->colorWarningBar        = $colorWarningBar;
-        $this->colorWarningBarDark    = $colorWarningBarDark;
-        $this->colorDanger            = $colorDanger;
-        $this->colorDangerDark        = $colorDangerDark;
-        $this->colorDangerBar         = $colorDangerBar;
-        $this->colorDangerBarDark     = $colorDangerBarDark;
-        $this->colorBreadcrumbs       = $colorBreadcrumbs;
-        $this->colorBreadcrumbsDark   = $colorBreadcrumbsDark;
-        $this->customCssFile          = $customCssFile;
     }
 
     /**

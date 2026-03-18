@@ -22,18 +22,14 @@ final readonly class Result
     public const int FAILURE   = 1;
     public const int EXCEPTION = 2;
     public const int CRASH     = 255;
-    private string $output;
-    private int $shellExitCode;
 
     public static function from(string $output = '', int $shellExitCode = self::SUCCESS): self
     {
         return new self($output, $shellExitCode);
     }
 
-    private function __construct(string $output, int $shellExitCode)
+    private function __construct(private string $output, private int $shellExitCode)
     {
-        $this->output        = $output;
-        $this->shellExitCode = $shellExitCode;
     }
 
     public function output(): string

@@ -20,13 +20,8 @@ use PHPUnit\Event\Telemetry;
  */
 final readonly class Finished implements Event
 {
-    private Telemetry\Info $telemetryInfo;
-    private int $shellExitCode;
-
-    public function __construct(Telemetry\Info $telemetryInfo, int $shellExitCode)
+    public function __construct(private Telemetry\Info $telemetryInfo, private int $shellExitCode)
     {
-        $this->telemetryInfo = $telemetryInfo;
-        $this->shellExitCode = $shellExitCode;
     }
 
     public function telemetryInfo(): Telemetry\Info

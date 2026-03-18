@@ -170,7 +170,7 @@ final class TestRunner
             } catch (CodeCoverageException $cce) {
                 $error = true;
 
-                $e = $e ?? $cce;
+                $e ??= $cce;
             }
         }
 

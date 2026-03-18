@@ -17,22 +17,10 @@ namespace PHPUnit\TextUI\Configuration;
 final readonly class TestSuite
 {
     /**
-     * @var non-empty-string
-     */
-    private string $name;
-    private TestDirectoryCollection $directories;
-    private TestFileCollection $files;
-    private FileCollection $exclude;
-
-    /**
      * @param non-empty-string $name
      */
-    public function __construct(string $name, TestDirectoryCollection $directories, TestFileCollection $files, FileCollection $exclude)
+    public function __construct(private string $name, private TestDirectoryCollection $directories, private TestFileCollection $files, private FileCollection $exclude)
     {
-        $this->name        = $name;
-        $this->directories = $directories;
-        $this->files       = $files;
-        $this->exclude     = $exclude;
     }
 
     /**

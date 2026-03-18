@@ -20,13 +20,8 @@ use PHPUnit\TextUI\Configuration\File;
  */
 final readonly class Otr
 {
-    private File $target;
-    private bool $includeGitInformation;
-
-    public function __construct(File $target, bool $includeGitInformation)
+    public function __construct(private File $target, private bool $includeGitInformation)
     {
-        $this->target                = $target;
-        $this->includeGitInformation = $includeGitInformation;
     }
 
     public function target(): File

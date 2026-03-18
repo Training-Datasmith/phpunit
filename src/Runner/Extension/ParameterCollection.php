@@ -20,11 +20,6 @@ use PHPUnit\Runner\ParameterDoesNotExistException;
 final readonly class ParameterCollection
 {
     /**
-     * @var array<string, string>
-     */
-    private array $parameters;
-
-    /**
      * @param array<string, string> $parameters
      */
     public static function fromArray(array $parameters): self
@@ -35,9 +30,8 @@ final readonly class ParameterCollection
     /**
      * @param array<string, string> $parameters
      */
-    private function __construct(array $parameters)
+    private function __construct(private array $parameters)
     {
-        $this->parameters = $parameters;
     }
 
     public function has(string $name): bool

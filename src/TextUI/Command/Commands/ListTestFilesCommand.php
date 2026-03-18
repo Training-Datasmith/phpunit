@@ -26,16 +26,10 @@ use ReflectionException;
 final readonly class ListTestFilesCommand implements Command
 {
     /**
-     * @var list<PhptTestCase|TestCase>
-     */
-    private array $tests;
-
-    /**
      * @param list<PhptTestCase|TestCase> $tests
      */
-    public function __construct(array $tests)
+    public function __construct(private array $tests)
     {
-        $this->tests = $tests;
     }
 
     /**

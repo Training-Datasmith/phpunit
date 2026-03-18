@@ -19,8 +19,6 @@ use function usort;
  */
 final class HookMethodCollection
 {
-    private readonly bool $shouldPrepend;
-
     /**
      * @var non-empty-list<HookMethod>
      */
@@ -56,10 +54,9 @@ final class HookMethodCollection
         return new self(new HookMethod('tearDownAfterClass', 0), false);
     }
 
-    private function __construct(HookMethod $default, bool $shouldPrepend)
+    private function __construct(HookMethod $default, private readonly bool $shouldPrepend)
     {
         $this->hookMethods   = [$default];
-        $this->shouldPrepend = $shouldPrepend;
     }
 
     public function add(HookMethod $hookMethod): self
@@ -80,10 +77,10 @@ final class HookMethodCollection
     {
         $hookMethods = $this->hookMethods;
 
-        usort($hookMethods, static fn (HookMethod $a, HookMethod $b) => $b->priority() <=> $a->priority());
+        usort($hookMethods, static fn (HookMethod $a, HookMethod $b): int => $b->priority() <=> $a->priority());
 
         return array_map(
-            static fn (HookMethod $hookMethod) => $hookMethod->methodName(),
+            static fn (HookMethod $hookMethod): string => $hookMethod->methodName(),
             $hookMethods,
         );
     }

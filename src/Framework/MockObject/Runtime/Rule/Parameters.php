@@ -35,7 +35,7 @@ final class Parameters implements ParametersRule
      */
     private array $parameters           = [];
     private ?BaseInvocation $invocation = null;
-    private null|bool|ExpectationFailedException $parameterVerificationResult;
+    private null|bool|ExpectationFailedException $parameterVerificationResult = null;
     private bool $useAssertionCount = true;
 
     /**

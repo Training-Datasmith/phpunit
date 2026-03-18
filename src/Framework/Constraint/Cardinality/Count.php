@@ -27,11 +27,8 @@ use Traversable;
  */
 class Count extends Constraint
 {
-    private readonly int $expectedCount;
-
-    public function __construct(int $expected)
+    public function __construct(private readonly int $expectedCount)
     {
-        $this->expectedCount = $expected;
     }
 
     public function toString(): string

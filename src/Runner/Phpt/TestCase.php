@@ -75,17 +75,10 @@ use Throwable;
 final readonly class TestCase implements Reorderable, SelfDescribing, Test
 {
     /**
-     * @var non-empty-string
-     */
-    private string $filename;
-
-    /**
      * @param non-empty-string $filename
      */
-    public function __construct(string $filename)
+    public function __construct(private string $filename)
     {
-        $this->filename = $filename;
-
         $this->ensureCoverageFileDoesNotExist();
     }
 
@@ -414,7 +407,7 @@ final readonly class TestCase implements Reorderable, SelfDescribing, Test
     private function runCodeInLocalSandbox(string $code): string
     {
         $code = preg_replace('/^<\?(?:php)?|\?>\s*+$/', '', $code);
-        $code = preg_replace('/declare\S?\([^)]+\)\S?;/', '', $code);
+        $code = preg_replace('/declare\S?\([^)]+\)\S?;/', '', (string) $code);
 
         // wrap in immediately invoked function to isolate local-side-effects of $code from our own process
         $code = '(function() {' . $code . '})();';
@@ -581,7 +574,7 @@ final readonly class TestCase implements Reorderable, SelfDescribing, Test
     private function cleanDiffLine(string $line): string
     {
         if (preg_match('/^[\-+]([\'\"]?)(.*)\1$/', $line, $matches)) {
-            $line = $matches[2];
+            return $matches[2];
         }
 
         return $line;

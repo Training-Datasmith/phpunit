@@ -28,8 +28,6 @@ use PHPUnit\Util\ThrowableToStringMapper;
  */
 final class Matcher
 {
-    private readonly InvocationOrder $invocationRule;
-
     /**
      * @var ?non-empty-string
      */
@@ -38,9 +36,8 @@ final class Matcher
     private ?ParametersRule $parametersRule = null;
     private ?Stub $stub                     = null;
 
-    public function __construct(InvocationOrder $rule)
+    public function __construct(private readonly InvocationOrder $invocationRule)
     {
-        $this->invocationRule = $rule;
     }
 
     public function hasInvocationCountRule(): bool

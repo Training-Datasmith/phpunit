@@ -129,56 +129,54 @@ final readonly class ShellExitCodeCalculator
             $failOnWarning = false;
         }
 
-        $returnCode = self::FAILURE_EXIT;
-
         if ($result->wasSuccessful()) {
-            $returnCode = self::SUCCESS_EXIT;
+            return self::SUCCESS_EXIT;
         }
 
         if ($failOnEmptyTestSuite && !$result->hasTests()) {
-            $returnCode = self::FAILURE_EXIT;
+            return self::FAILURE_EXIT;
         }
 
         if ($failOnDeprecation && $result->hasPhpOrUserDeprecations()) {
-            $returnCode = self::FAILURE_EXIT;
+            return self::FAILURE_EXIT;
         }
 
         if ($failOnPhpunitDeprecation && $result->hasPhpunitDeprecations()) {
-            $returnCode = self::FAILURE_EXIT;
+            return self::FAILURE_EXIT;
         }
 
         if ($failOnPhpunitNotice && $result->hasPhpunitNotices()) {
-            $returnCode = self::FAILURE_EXIT;
+            return self::FAILURE_EXIT;
         }
 
         if ($failOnPhpunitWarning && $result->hasPhpunitWarnings()) {
-            $returnCode = self::FAILURE_EXIT;
+            return self::FAILURE_EXIT;
         }
 
         if ($failOnIncomplete && $result->hasIncompleteTests()) {
-            $returnCode = self::FAILURE_EXIT;
+            return self::FAILURE_EXIT;
         }
 
         if ($failOnNotice && $result->hasNotices()) {
-            $returnCode = self::FAILURE_EXIT;
+            return self::FAILURE_EXIT;
         }
 
         if ($failOnRisky && $result->hasRiskyTests()) {
-            $returnCode = self::FAILURE_EXIT;
+            return self::FAILURE_EXIT;
         }
 
         if ($failOnSkipped && $result->hasSkippedTests()) {
-            $returnCode = self::FAILURE_EXIT;
+            return self::FAILURE_EXIT;
         }
 
         if ($failOnWarning && $result->hasWarnings()) {
-            $returnCode = self::FAILURE_EXIT;
+            return self::FAILURE_EXIT;
         }
 
         if ($result->hasErrors()) {
-            $returnCode = self::EXCEPTION_EXIT;
+            return self::EXCEPTION_EXIT;
         }
 
-        return $returnCode;
+        return self::FAILURE_EXIT;
     }
 }

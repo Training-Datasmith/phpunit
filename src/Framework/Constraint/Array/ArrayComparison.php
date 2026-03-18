@@ -24,20 +24,10 @@ use SebastianBergmann\Comparator\ComparisonFailure;
 abstract class ArrayComparison extends Constraint
 {
     /**
-     * @var array<mixed>
-     */
-    protected readonly array $expected;
-    protected readonly bool $keysMatter;
-    protected readonly bool $orderMatters;
-
-    /**
      * @param array<mixed> $expected
      */
-    public function __construct(array $expected, bool $keysMatter, bool $orderMatters)
+    public function __construct(protected readonly array $expected, protected readonly bool $keysMatter, protected readonly bool $orderMatters)
     {
-        $this->expected     = $expected;
-        $this->keysMatter   = $keysMatter;
-        $this->orderMatters = $orderMatters;
     }
 
     /**

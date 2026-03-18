@@ -162,11 +162,6 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     private int|string $dataName = '';
 
     /**
-     * @var non-empty-string
-     */
-    private string $methodName;
-
-    /**
      * @var list<string>
      */
     private array $groups = [];
@@ -230,13 +225,12 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     private false|string $previousErrorLogTarget = false;
 
     /**
-     * @param non-empty-string $name
+     * @param non-empty-string $methodName
      *
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
-    final public function __construct(string $name)
+    final public function __construct(private readonly string $methodName)
     {
-        $this->methodName = $name;
         $this->status     = TestStatus::unknown();
 
         if (is_callable($this->sortId(), true)) {
@@ -464,7 +458,10 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
      */
     final public function expectsOutput(): bool
     {
-        return $this->hasExpectationOnOutput() || $this->outputRetrievedForAssertion;
+        if ($this->hasExpectationOnOutput()) {
+            return true;
+        }
+        return $this->outputRetrievedForAssertion;
     }
 
     /**
@@ -1399,7 +1396,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
 
             $expectedDeprecationTriggered = array_any(
                 DeprecationCollector::deprecations(),
-                static fn (string $deprecation) => @preg_match($deprecationExpectation, $deprecation) > 0,
+                static fn (string $deprecation): bool => @preg_match($deprecationExpectation, $deprecation) > 0,
             );
 
             if (!$expectedDeprecationTriggered) {
@@ -1419,7 +1416,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     private function verifyMockObjects(): void
     {
         $allowsMockObjectsWithoutExpectations = $this->allowsMockObjectsWithoutExpectations();
-        $isPhpunitTestSuite                   = str_starts_with($this::class, 'PHPUnit\\');
+        $isPhpunitTestSuite                   = str_starts_with(static::class, 'PHPUnit\\');
         $requireSealedMockObjects             = ConfigurationRegistry::get()->requireSealedMockObjects();
 
         foreach ($this->mockObjects as $mockObject) {
@@ -1715,7 +1712,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
         $activeErrorHandlers = [];
 
         while (true) {
-            $previousHandler = set_error_handler(static fn () => false);
+            $previousHandler = set_error_handler(static fn (): false => false);
 
             restore_error_handler();
 
@@ -1761,7 +1758,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
         $res = [];
 
         while (true) {
-            $previousHandler = set_exception_handler(static fn () => null);
+            $previousHandler = set_exception_handler(static fn (): null => null);
             restore_exception_handler();
 
             if ($previousHandler === null) {
@@ -2008,8 +2005,8 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
             }
             // @codeCoverageIgnoreEnd
 
-            if ($this->expectedException === 'PHPUnit\Framework\Exception' ||
-                $this->expectedException === '\PHPUnit\Framework\Exception' ||
+            if ($this->expectedException === \PHPUnit\Framework\Exception::class ||
+                $this->expectedException === \PHPUnit\Framework\Exception::class ||
                 $reflector->isSubclassOf(Exception::class)) {
                 $result = true;
             }
@@ -2041,7 +2038,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
 
         $class = new ReflectionClass($className);
 
-        if (!$class->isSubclassOf(__CLASS__)) {
+        if (!$class->isSubclassOf(self::class)) {
             return false;
         }
 
@@ -2267,9 +2264,10 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     private function methodDoesNotExistOrIsDeclaredInTestCase(string $methodName): bool
     {
         $reflector = new ReflectionObject($this);
-
-        return !$reflector->hasMethod($methodName) ||
-               $reflector->getMethod($methodName)->getDeclaringClass()->getName() === self::class;
+        if (!$reflector->hasMethod($methodName)) {
+            return true;
+        }
+        return $reflector->getMethod($methodName)->getDeclaringClass()->getName() === self::class;
     }
 
     /**
@@ -2358,7 +2356,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     {
         return array_any(
             array_keys($this->failureTypes),
-            static fn (string $failureType) => $t instanceof $failureType,
+            static fn (string $failureType): bool => $t instanceof $failureType,
         );
     }
 

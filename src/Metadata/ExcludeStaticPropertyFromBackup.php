@@ -17,25 +17,12 @@ namespace PHPUnit\Metadata;
 final readonly class ExcludeStaticPropertyFromBackup extends Metadata
 {
     /**
-     * @var class-string
-     */
-    private string $className;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $propertyName;
-
-    /**
      * @param class-string     $className
      * @param non-empty-string $propertyName
      */
-    protected function __construct(Level $level, string $className, string $propertyName)
+    protected function __construct(Level $level, private string $className, private string $propertyName)
     {
         parent::__construct($level);
-
-        $this->className    = $className;
-        $this->propertyName = $propertyName;
     }
 
     public function isExcludeStaticPropertyFromBackup(): true

@@ -20,24 +20,10 @@ use PHPUnit\Event\NoPreviousThrowableException;
 final readonly class Throwable
 {
     /**
-     * @var class-string
-     */
-    private string $className;
-    private string $message;
-    private string $description;
-    private string $stackTrace;
-    private ?Throwable $previous;
-
-    /**
      * @param class-string $className
      */
-    public function __construct(string $className, string $message, string $description, string $stackTrace, ?self $previous)
+    public function __construct(private string $className, private string $message, private string $description, private string $stackTrace, private ?Throwable $previous)
     {
-        $this->className   = $className;
-        $this->message     = $message;
-        $this->description = $description;
-        $this->stackTrace  = $stackTrace;
-        $this->previous    = $previous;
     }
 
     /**

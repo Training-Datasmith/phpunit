@@ -18,13 +18,8 @@ namespace PHPUnit\Util\PHP;
  */
 final readonly class Result
 {
-    private string $stdout;
-    private string $stderr;
-
-    public function __construct(string $stdout, string $stderr)
+    public function __construct(private string $stdout, private string $stderr)
     {
-        $this->stdout = $stdout;
-        $this->stderr = $stderr;
     }
 
     public function stdout(): string

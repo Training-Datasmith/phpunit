@@ -56,10 +56,12 @@ final readonly class MoveWhitelistExcludesToCoverage implements Migration
             assert($excludeNode instanceof DOMElement);
 
             foreach (SnapshotNodeList::fromNodeList($excludeNode->childNodes) as $child) {
-                if (!$child instanceof DOMElement || !in_array($child->nodeName, ['directory', 'file'], true)) {
+                if (!$child instanceof DOMElement) {
                     continue;
                 }
-
+                if (!in_array($child->nodeName, ['directory', 'file'], true)) {
+                    continue;
+                }
                 $targetExclude->appendChild($child);
             }
 

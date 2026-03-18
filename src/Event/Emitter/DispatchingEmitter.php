@@ -41,17 +41,12 @@ use SebastianBergmann\Comparator\Comparator;
  */
 final class DispatchingEmitter implements Emitter
 {
-    private readonly Dispatcher $dispatcher;
-    private readonly Telemetry\System $system;
     private readonly Telemetry\Snapshot $startSnapshot;
     private Telemetry\Snapshot $previousSnapshot;
 
-    public function __construct(Dispatcher $dispatcher, Telemetry\System $system)
+    public function __construct(private readonly Dispatcher $dispatcher, private readonly Telemetry\System $system)
     {
-        $this->dispatcher = $dispatcher;
-        $this->system     = $system;
-
-        $this->startSnapshot    = $system->snapshot();
+        $this->startSnapshot    = $this->system->snapshot();
         $this->previousSnapshot = $this->startSnapshot;
     }
 

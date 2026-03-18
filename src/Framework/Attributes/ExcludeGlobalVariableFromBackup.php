@@ -20,16 +20,10 @@ use Attribute;
 final readonly class ExcludeGlobalVariableFromBackup
 {
     /**
-     * @var non-empty-string
-     */
-    private string $globalVariableName;
-
-    /**
      * @param non-empty-string $globalVariableName
      */
-    public function __construct(string $globalVariableName)
+    public function __construct(private string $globalVariableName)
     {
-        $this->globalVariableName = $globalVariableName;
     }
 
     /**

@@ -17,25 +17,12 @@ namespace PHPUnit\Metadata;
 final readonly class RequiresSetting extends Metadata
 {
     /**
-     * @var non-empty-string
-     */
-    private string $setting;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $value;
-
-    /**
      * @param non-empty-string $setting
      * @param non-empty-string $value
      */
-    protected function __construct(Level $level, string $setting, string $value)
+    protected function __construct(Level $level, private string $setting, private string $value)
     {
         parent::__construct($level);
-
-        $this->setting = $setting;
-        $this->value   = $value;
     }
 
     public function isRequiresSetting(): true

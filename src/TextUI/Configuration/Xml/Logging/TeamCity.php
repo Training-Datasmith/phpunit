@@ -20,11 +20,8 @@ use PHPUnit\TextUI\Configuration\File;
  */
 final readonly class TeamCity
 {
-    private File $target;
-
-    public function __construct(File $target)
+    public function __construct(private File $target)
     {
-        $this->target = $target;
     }
 
     public function target(): File

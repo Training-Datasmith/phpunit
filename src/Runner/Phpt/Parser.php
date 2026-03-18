@@ -83,7 +83,7 @@ final readonly class Parser
         }
 
         if (isset($sections['FILEEOF'])) {
-            $sections['FILE'] = rtrim($sections['FILEEOF'], "\r\n");
+            $sections['FILE'] = rtrim((string) $sections['FILEEOF'], "\r\n");
 
             unset($sections['FILEEOF']);
         }

@@ -38,115 +38,6 @@ use PHPUnit\TestRunner\TestResult\Issues\Issue;
  */
 final readonly class TestResult
 {
-    private int $numberOfTests;
-    private int $numberOfTestsRun;
-    private int $numberOfAssertions;
-
-    /**
-     * @var list<AfterLastTestMethodErrored|BeforeFirstTestMethodErrored|Errored>
-     */
-    private array $testErroredEvents;
-
-    /**
-     * @var list<AfterLastTestMethodFailed|BeforeFirstTestMethodFailed|Failed>
-     */
-    private array $testFailedEvents;
-
-    /**
-     * @var list<MarkedIncomplete>
-     */
-    private array $testMarkedIncompleteEvents;
-
-    /**
-     * @var list<TestSuiteSkipped>
-     */
-    private array $testSuiteSkippedEvents;
-
-    /**
-     * @var list<TestSkipped>
-     */
-    private array $testSkippedEvents;
-
-    /**
-     * @var array<string,list<ConsideredRisky>>
-     */
-    private array $testConsideredRiskyEvents;
-
-    /**
-     * @var array<string,list<PhpunitDeprecationTriggered>>
-     */
-    private array $testTriggeredPhpunitDeprecationEvents;
-
-    /**
-     * @var array<string,list<PhpunitErrorTriggered>>
-     */
-    private array $testTriggeredPhpunitErrorEvents;
-
-    /**
-     * @var array<string,list<PhpunitNoticeTriggered>>
-     */
-    private array $testTriggeredPhpunitNoticeEvents;
-
-    /**
-     * @var array<string,list<PhpunitWarningTriggered>>
-     */
-    private array $testTriggeredPhpunitWarningEvents;
-
-    /**
-     * @var list<TestRunnerDeprecationTriggered>
-     */
-    private array $testRunnerTriggeredDeprecationEvents;
-
-    /**
-     * @var list<TestRunnerNoticeTriggered>
-     */
-    private array $testRunnerTriggeredNoticeEvents;
-
-    /**
-     * @var list<TestRunnerWarningTriggered>
-     */
-    private array $testRunnerTriggeredWarningEvents;
-
-    /**
-     * @var list<Issue>
-     */
-    private array $errors;
-
-    /**
-     * @var list<Issue>
-     */
-    private array $deprecations;
-
-    /**
-     * @var list<Issue>
-     */
-    private array $notices;
-
-    /**
-     * @var list<Issue>
-     */
-    private array $warnings;
-
-    /**
-     * @var list<Issue>
-     */
-    private array $phpDeprecations;
-
-    /**
-     * @var list<Issue>
-     */
-    private array $phpNotices;
-
-    /**
-     * @var list<Issue>
-     */
-    private array $phpWarnings;
-
-    /**
-     * @var non-negative-int
-     */
-    private int $numberOfIssuesIgnoredByBaseline;
-
     /**
      * @param list<AfterLastTestMethodErrored|BeforeFirstTestMethodErrored|Errored> $testErroredEvents
      * @param list<AfterLastTestMethodFailed|BeforeFirstTestMethodFailed|Failed>    $testFailedEvents
@@ -170,32 +61,8 @@ final readonly class TestResult
      * @param list<Issue>                                                           $phpWarnings
      * @param non-negative-int                                                      $numberOfIssuesIgnoredByBaseline
      */
-    public function __construct(int $numberOfTests, int $numberOfTestsRun, int $numberOfAssertions, array $testErroredEvents, array $testFailedEvents, array $testConsideredRiskyEvents, array $testSuiteSkippedEvents, array $testSkippedEvents, array $testMarkedIncompleteEvents, array $testTriggeredPhpunitDeprecationEvents, array $testTriggeredPhpunitErrorEvents, array $testTriggeredPhpunitNoticeEvents, array $testTriggeredPhpunitWarningEvents, array $testRunnerTriggeredDeprecationEvents, array $testRunnerTriggeredNoticeEvents, array $testRunnerTriggeredWarningEvents, array $errors, array $deprecations, array $notices, array $warnings, array $phpDeprecations, array $phpNotices, array $phpWarnings, int $numberOfIssuesIgnoredByBaseline)
+    public function __construct(private int $numberOfTests, private int $numberOfTestsRun, private int $numberOfAssertions, private array $testErroredEvents, private array $testFailedEvents, private array $testConsideredRiskyEvents, private array $testSuiteSkippedEvents, private array $testSkippedEvents, private array $testMarkedIncompleteEvents, private array $testTriggeredPhpunitDeprecationEvents, private array $testTriggeredPhpunitErrorEvents, private array $testTriggeredPhpunitNoticeEvents, private array $testTriggeredPhpunitWarningEvents, private array $testRunnerTriggeredDeprecationEvents, private array $testRunnerTriggeredNoticeEvents, private array $testRunnerTriggeredWarningEvents, private array $errors, private array $deprecations, private array $notices, private array $warnings, private array $phpDeprecations, private array $phpNotices, private array $phpWarnings, private int $numberOfIssuesIgnoredByBaseline)
     {
-        $this->numberOfTests                         = $numberOfTests;
-        $this->numberOfTestsRun                      = $numberOfTestsRun;
-        $this->numberOfAssertions                    = $numberOfAssertions;
-        $this->testErroredEvents                     = $testErroredEvents;
-        $this->testFailedEvents                      = $testFailedEvents;
-        $this->testConsideredRiskyEvents             = $testConsideredRiskyEvents;
-        $this->testSuiteSkippedEvents                = $testSuiteSkippedEvents;
-        $this->testSkippedEvents                     = $testSkippedEvents;
-        $this->testMarkedIncompleteEvents            = $testMarkedIncompleteEvents;
-        $this->testTriggeredPhpunitDeprecationEvents = $testTriggeredPhpunitDeprecationEvents;
-        $this->testTriggeredPhpunitErrorEvents       = $testTriggeredPhpunitErrorEvents;
-        $this->testTriggeredPhpunitNoticeEvents      = $testTriggeredPhpunitNoticeEvents;
-        $this->testTriggeredPhpunitWarningEvents     = $testTriggeredPhpunitWarningEvents;
-        $this->testRunnerTriggeredDeprecationEvents  = $testRunnerTriggeredDeprecationEvents;
-        $this->testRunnerTriggeredNoticeEvents       = $testRunnerTriggeredNoticeEvents;
-        $this->testRunnerTriggeredWarningEvents      = $testRunnerTriggeredWarningEvents;
-        $this->errors                                = $errors;
-        $this->deprecations                          = $deprecations;
-        $this->notices                               = $notices;
-        $this->warnings                              = $warnings;
-        $this->phpDeprecations                       = $phpDeprecations;
-        $this->phpNotices                            = $phpNotices;
-        $this->phpWarnings                           = $phpWarnings;
-        $this->numberOfIssuesIgnoredByBaseline       = $numberOfIssuesIgnoredByBaseline;
     }
 
     public function numberOfTestsRun(): int
@@ -456,20 +323,36 @@ final readonly class TestResult
 
     public function hasIssues(): bool
     {
-        return $this->hasTestsWithIssues() ||
-               $this->hasTestRunnerTriggeredWarningEvents();
+        if ($this->hasTestsWithIssues()) {
+            return true;
+        }
+        return $this->hasTestRunnerTriggeredWarningEvents();
     }
 
     public function hasTestsWithIssues(): bool
     {
-        return $this->hasRiskyTests() ||
-               $this->hasIncompleteTests() ||
-               $this->hasDeprecations() ||
-               $this->errors !== [] ||
-               $this->hasNotices() ||
-               $this->hasWarnings() ||
-               $this->hasPhpunitNotices() ||
-               $this->hasPhpunitWarnings();
+        if ($this->hasRiskyTests()) {
+            return true;
+        }
+        if ($this->hasIncompleteTests()) {
+            return true;
+        }
+        if ($this->hasDeprecations()) {
+            return true;
+        }
+        if ($this->errors !== []) {
+            return true;
+        }
+        if ($this->hasNotices()) {
+            return true;
+        }
+        if ($this->hasWarnings()) {
+            return true;
+        }
+        if ($this->hasPhpunitNotices()) {
+            return true;
+        }
+        return $this->hasPhpunitWarnings();
     }
 
     /**

@@ -170,7 +170,7 @@ final readonly class DefaultJobRunner extends JobRunner
         $runtime                        = new Runtime;
         $command                        = [PHP_BINARY];
         $phpSettings                    = $job->phpSettings();
-        $xdebugModeConfiguredExplicitly = array_any($phpSettings, static fn (string $phpSetting) => str_starts_with($phpSetting, 'xdebug.mode'));
+        $xdebugModeConfiguredExplicitly = array_any($phpSettings, static fn (string $phpSetting): bool => str_starts_with($phpSetting, 'xdebug.mode'));
 
         if ($runtime->hasPCOV()) {
             $pcovSettings = ini_get_all('pcov');

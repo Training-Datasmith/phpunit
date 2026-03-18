@@ -19,13 +19,8 @@ use PHPUnit\Util\VersionComparisonOperator;
  */
 final readonly class ComparisonRequirement extends Requirement
 {
-    private string $version;
-    private VersionComparisonOperator $operator;
-
-    public function __construct(string $version, VersionComparisonOperator $operator)
+    public function __construct(private string $version, private VersionComparisonOperator $operator)
     {
-        $this->version  = $version;
-        $this->operator = $operator;
     }
 
     public function isSatisfiedBy(string $version): bool

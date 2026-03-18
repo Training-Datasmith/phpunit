@@ -17,25 +17,12 @@ namespace PHPUnit\Metadata;
 final readonly class CoversMethod extends Metadata
 {
     /**
-     * @var class-string
-     */
-    private string $className;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $methodName;
-
-    /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    protected function __construct(Level $level, string $className, string $methodName)
+    protected function __construct(Level $level, private string $className, private string $methodName)
     {
         parent::__construct($level);
-
-        $this->className  = $className;
-        $this->methodName = $methodName;
     }
 
     public function isCoversMethod(): true

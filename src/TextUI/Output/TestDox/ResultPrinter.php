@@ -36,17 +36,8 @@ use PHPUnit\Util\Color;
  */
 final readonly class ResultPrinter
 {
-    private Printer $printer;
-    private bool $colors;
-    private int $columns;
-    private bool $printSummary;
-
-    public function __construct(Printer $printer, bool $colors, int $columns, bool $printSummary)
+    public function __construct(private Printer $printer, private bool $colors, private int $columns, private bool $printSummary)
     {
-        $this->printer      = $printer;
-        $this->colors       = $colors;
-        $this->columns      = $columns;
-        $this->printSummary = $printSummary;
     }
 
     /**
@@ -362,7 +353,7 @@ final readonly class ResultPrinter
         return implode(
             PHP_EOL,
             array_map(
-                static fn (string $line) => '   ' . $prefix . ($line !== '' ? ' ' . $line : ''),
+                static fn (string $line): string => '   ' . $prefix . ($line !== '' ? ' ' . $line : ''),
                 $lines,
             ),
         );

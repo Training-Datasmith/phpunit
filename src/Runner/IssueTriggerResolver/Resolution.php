@@ -14,13 +14,8 @@ namespace PHPUnit\Runner\IssueTriggerResolver;
  */
 final readonly class Resolution
 {
-    private ?string $callee;
-    private ?string $caller;
-
-    public function __construct(?string $callee, ?string $caller)
+    public function __construct(private ?string $callee, private ?string $caller)
     {
-        $this->callee = $callee;
-        $this->caller = $caller;
     }
 
     /**

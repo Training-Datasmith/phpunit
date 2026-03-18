@@ -38,10 +38,6 @@ use PHPUnit\Util\Color;
  */
 final class ProgressPrinter
 {
-    private readonly Printer $printer;
-    private readonly bool $colors;
-    private readonly int $numberOfColumns;
-    private readonly Source $source;
     private int $column               = 0;
     private int $numberOfTests        = 0;
     private int $numberOfTestsWidth   = 0;
@@ -51,13 +47,8 @@ final class ProgressPrinter
     private bool $prepared            = false;
     private bool $childProcessErrored = false;
 
-    public function __construct(Printer $printer, Facade $facade, bool $colors, int $numberOfColumns, Source $source)
+    public function __construct(private readonly Printer $printer, Facade $facade, private readonly bool $colors, private readonly int $numberOfColumns, private readonly Source $source)
     {
-        $this->printer         = $printer;
-        $this->colors          = $colors;
-        $this->numberOfColumns = $numberOfColumns;
-        $this->source          = $source;
-
         $this->registerSubscribers($facade);
     }
 
@@ -262,14 +253,13 @@ final class ProgressPrinter
         $this->updateTestStatus(TestStatus::failure());
     }
 
-    public function testErrored(Errored $event): void
+    public function testErrored(): void
     {
         if ($this->childProcessErrored) {
             $this->updateTestStatus(TestStatus::error());
 
             return;
         }
-
         if (!$this->prepared) {
             $this->printProgressForError();
         } else {
@@ -304,7 +294,7 @@ final class ProgressPrinter
         $this->childProcessErrored = false;
     }
 
-    public function childProcessErrored(ChildProcessErrored $event): void
+    public function childProcessErrored(): void
     {
         $this->childProcessErrored = true;
     }

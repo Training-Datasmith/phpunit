@@ -16,11 +16,8 @@ namespace PHPUnit\Logging\TestDox;
  */
 abstract readonly class Subscriber
 {
-    private TestResultCollector $collector;
-
-    public function __construct(TestResultCollector $collector)
+    public function __construct(private TestResultCollector $collector)
     {
-        $this->collector = $collector;
     }
 
     protected function collector(): TestResultCollector

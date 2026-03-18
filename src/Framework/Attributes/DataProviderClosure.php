@@ -20,13 +20,8 @@ use Closure;
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 final readonly class DataProviderClosure
 {
-    private Closure $closure;
-    private bool $validateArgumentCount;
-
-    public function __construct(Closure $closure, bool $validateArgumentCount = true)
+    public function __construct(private Closure $closure, private bool $validateArgumentCount = true)
     {
-        $this->closure               = $closure;
-        $this->validateArgumentCount = $validateArgumentCount;
     }
 
     public function closure(): Closure

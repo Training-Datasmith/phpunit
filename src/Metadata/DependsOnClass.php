@@ -17,22 +17,11 @@ namespace PHPUnit\Metadata;
 final readonly class DependsOnClass extends Metadata
 {
     /**
-     * @var class-string
-     */
-    private string $className;
-    private bool $deepClone;
-    private bool $shallowClone;
-
-    /**
      * @param class-string $className
      */
-    protected function __construct(Level $level, string $className, bool $deepClone, bool $shallowClone)
+    protected function __construct(Level $level, private string $className, private bool $deepClone, private bool $shallowClone)
     {
         parent::__construct($level);
-
-        $this->className    = $className;
-        $this->deepClone    = $deepClone;
-        $this->shallowClone = $shallowClone;
     }
 
     public function isDependsOnClass(): true

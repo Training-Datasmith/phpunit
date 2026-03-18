@@ -19,15 +19,11 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
 final readonly class IgnoreDeprecations
 {
-    /** @var null|non-empty-string */
-    private ?string $messagePattern;
-
     /**
      * @param null|non-empty-string $messagePattern
      */
-    public function __construct(null|string $messagePattern = null)
+    public function __construct(private ?string $messagePattern = null)
     {
-        $this->messagePattern = $messagePattern;
     }
 
     /**

@@ -19,16 +19,10 @@ namespace PHPUnit\TextUI\XmlConfiguration;
 final readonly class SuccessfulSchemaDetectionResult extends SchemaDetectionResult
 {
     /**
-     * @var non-empty-string
-     */
-    private string $version;
-
-    /**
      * @param non-empty-string $version
      */
-    public function __construct(string $version)
+    public function __construct(private string $version)
     {
-        $this->version = $version;
     }
 
     public function detected(): bool

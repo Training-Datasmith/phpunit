@@ -26,11 +26,8 @@ use PHPUnit\TextUI\Configuration\SourceFilter;
  */
 final readonly class IssueFilter
 {
-    private Source $source;
-
-    public function __construct(Source $source)
+    public function __construct(private Source $source)
     {
-        $this->source = $source;
     }
 
     public function shouldBeProcessed(DeprecationTriggered|ErrorTriggered|NoticeTriggered|PhpDeprecationTriggered|PhpNoticeTriggered|PhpWarningTriggered|WarningTriggered $event, bool $onlyTestMethods = false): bool

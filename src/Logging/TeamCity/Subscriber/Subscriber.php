@@ -16,11 +16,8 @@ namespace PHPUnit\Logging\TeamCity;
  */
 abstract readonly class Subscriber
 {
-    private TeamCityLogger $logger;
-
-    public function __construct(TeamCityLogger $logger)
+    public function __construct(private TeamCityLogger $logger)
     {
-        $this->logger = $logger;
     }
 
     protected function logger(): TeamCityLogger

@@ -25,37 +25,17 @@ use PHPUnit\Util\Exporter;
  */
 final readonly class Invocation implements SelfDescribing
 {
-    /**
-     * @var class-string
-     */
-    private string $className;
-
-    /**
-     * @var non-empty-string
-     */
-    private string $methodName;
-
-    /**
-     * @var array<mixed>
-     */
-    private array $parameters;
     private string $returnType;
     private bool $isReturnTypeNullable;
-    private MockObjectInternal|StubInternal $object;
 
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      * @param array<mixed>     $parameters
      */
-    public function __construct(string $className, string $methodName, array $parameters, string $returnType, MockObjectInternal|StubInternal $object)
+    public function __construct(private string $className, private string $methodName, private array $parameters, string $returnType, private MockObjectInternal|StubInternal $object)
     {
-        $this->className  = $className;
-        $this->methodName = $methodName;
-        $this->parameters = $parameters;
-        $this->object     = $object;
-
-        if (strtolower($methodName) === '__tostring') {
+        if (strtolower($this->methodName) === '__tostring') {
             $returnType = 'string';
         }
 

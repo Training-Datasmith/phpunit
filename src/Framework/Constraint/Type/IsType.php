@@ -28,11 +28,8 @@ use PHPUnit\Framework\NativeType;
  */
 final class IsType extends Constraint
 {
-    private readonly NativeType $type;
-
-    public function __construct(NativeType $type)
+    public function __construct(private readonly NativeType $type)
     {
-        $this->type = $type;
     }
 
     /**

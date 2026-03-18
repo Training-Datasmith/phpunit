@@ -20,16 +20,10 @@ use Attribute;
 final readonly class UsesFunction
 {
     /**
-     * @var non-empty-string
-     */
-    private string $functionName;
-
-    /**
      * @param non-empty-string $functionName
      */
-    public function __construct(string $functionName)
+    public function __construct(private string $functionName)
     {
-        $this->functionName = $functionName;
     }
 
     /**
