@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,13 +9,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util;
 
-use const PHP_MAJOR_VERSION;
-use const PHP_MINOR_VERSION;
 use function array_reverse;
 use function array_shift;
 use function assert;
+
+use Closure;
+
 use function defined;
 use function get_defined_constants;
 use function get_included_files;
@@ -22,6 +26,10 @@ use function ini_get_all;
 use function is_array;
 use function is_file;
 use function is_scalar;
+
+use const PHP_MAJOR_VERSION;
+use const PHP_MINOR_VERSION;
+
 use function preg_match;
 use function serialize;
 use function sprintf;
@@ -29,7 +37,6 @@ use function str_ends_with;
 use function str_starts_with;
 use function strtr;
 use function var_export;
-use Closure;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -175,7 +182,7 @@ final readonly class GlobalState
      */
     public static function processIncludedFilesAsString(array $files): string
     {
-        $excludeList = new ExcludeList;
+        $excludeList = new ExcludeList();
         $prefix      = false;
         $result      = '';
 

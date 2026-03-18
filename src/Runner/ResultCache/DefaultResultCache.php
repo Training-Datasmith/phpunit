@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,12 +9,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner\ResultCache;
 
-use const DIRECTORY_SEPARATOR;
-use const LOCK_EX;
 use function array_keys;
 use function assert;
+
+use const DIRECTORY_SEPARATOR;
+
 use function dirname;
 use function file_get_contents;
 use function file_put_contents;
@@ -21,6 +25,9 @@ use function is_dir;
 use function is_file;
 use function json_decode;
 use function json_encode;
+
+use const LOCK_EX;
+
 use PHPUnit\Framework\TestStatus\TestStatus;
 use PHPUnit\Runner\DirectoryDoesNotExistException;
 use PHPUnit\Runner\Exception;

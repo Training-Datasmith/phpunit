@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,19 +9,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util;
 
-use const DIRECTORY_SEPARATOR;
-use const PHP_EOL;
 use function array_key_exists;
 use function array_map;
 use function array_walk;
 use function assert;
 use function count;
+
+use const DIRECTORY_SEPARATOR;
+
 use function explode;
 use function implode;
 use function max;
 use function min;
+
+use const PHP_EOL;
+
 use function preg_replace;
 use function preg_replace_callback;
 use function preg_split;
@@ -125,8 +132,7 @@ final class Color
             $maxBoxWidth = min($maxBoxWidth, $columns);
         }
 
-        array_walk($lines, static function (string &$line) use ($color, $maxBoxWidth): void
-        {
+        array_walk($lines, static function (string &$line) use ($color, $maxBoxWidth): void {
             $line = self::colorize($color, str_pad($line, $maxBoxWidth));
         });
 

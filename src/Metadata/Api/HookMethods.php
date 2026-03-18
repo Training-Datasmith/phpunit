@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,12 +9,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Metadata\Api;
 
 use function assert;
 use function class_exists;
 use function in_array;
-use function strtolower;
+
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Metadata\After;
 use PHPUnit\Metadata\AfterClass;
@@ -26,6 +29,8 @@ use PHPUnit\Runner\HookMethodCollection;
 use PHPUnit\Util\Reflection;
 use ReflectionClass;
 use ReflectionMethod;
+
+use function strtolower;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit

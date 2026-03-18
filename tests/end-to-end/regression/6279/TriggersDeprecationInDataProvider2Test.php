@@ -9,14 +9,17 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestFixture\Issue6279;
 
 use const E_USER_DEPRECATED;
-use function trigger_error;
+
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+
+use function trigger_error;
 
 class TriggersDeprecationInDataProvider2Test extends TestCase
 {

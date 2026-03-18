@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,18 +9,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner;
 
 use function array_diff;
 use function basename;
 use function get_declared_classes;
+
+use PHPUnit\Framework\TestCase;
+
 use function realpath;
+
+use ReflectionClass;
+
 use function str_ends_with;
 use function strpos;
 use function strtolower;
 use function substr;
-use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit

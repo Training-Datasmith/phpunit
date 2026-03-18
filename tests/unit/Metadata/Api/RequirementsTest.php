@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Metadata\Api;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -142,7 +145,7 @@ final class RequirementsTest extends TestCase
     {
         $this->assertEquals(
             $result,
-            (new Requirements)->requirementsNotSatisfiedFor(\PHPUnit\TestFixture\RequirementsTest::class, $test),
+            (new Requirements())->requirementsNotSatisfiedFor(\PHPUnit\TestFixture\RequirementsTest::class, $test),
         );
     }
 
@@ -157,7 +160,7 @@ final class RequirementsTest extends TestCase
                 'Environment variable "BAR" is required.',
                 'Environment variable "BAZ" is required.',
             ],
-            (new Requirements)->requirementsNotSatisfiedFor(RequirementsEnvironmentVariableTest::class, 'testRequiresEnvironmentVariable'),
+            (new Requirements())->requirementsNotSatisfiedFor(RequirementsEnvironmentVariableTest::class, 'testRequiresEnvironmentVariable'),
         );
     }
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,11 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner;
 
 use function assert;
-use function sprintf;
-use function sys_get_temp_dir;
+
 use DateTimeImmutable;
 use PHPUnit\Event\Facade as EventFacade;
 use PHPUnit\Framework\TestCase;
@@ -39,6 +41,9 @@ use SebastianBergmann\Environment\Runtime;
 use SebastianBergmann\Timer\NoActiveTimerException;
 use SebastianBergmann\Timer\Timer;
 
+use function sprintf;
+use function sys_get_temp_dir;
+
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -62,7 +67,7 @@ final class CodeCoverage
     public static function instance(): self
     {
         if (self::$instance === null) {
-            self::$instance = new self;
+            self::$instance = new self();
         }
 
         return self::$instance;
@@ -138,7 +143,7 @@ final class CodeCoverage
             EventFacade::emitter()->testRunnerStartedStaticAnalysisForCodeCoverage();
 
             /** @phpstan-ignore new.internalClass,method.internalClass */
-            $statistics = (new CacheWarmer)->warmCache(
+            $statistics = (new CacheWarmer())->warmCache(
                 $coverageCacheDirectory,
                 !$configuration->disableCodeCoverageIgnore(),
                 $configuration->ignoreDeprecatedCodeUnitsFromCodeCoverage(),
@@ -272,7 +277,7 @@ final class CodeCoverage
         if ($configuration->hasCoveragePhp()) {
             $this->codeCoverageGenerationStart($printer, 'PHP');
 
-            $serializer = new Serializer;
+            $serializer = new Serializer();
 
             $serializer->serialize($configuration->coveragePhp(), $this->codeCoverage(), $configuration->includeGitInformation());
 
@@ -413,8 +418,8 @@ final class CodeCoverage
                 $facade->renderXml(
                     $configuration->coverageXml(),
                     $configuration->coverageXmlIncludeSource(),
-                    new Runtime,
-                    new DateTimeImmutable,
+                    new Runtime(),
+                    new DateTimeImmutable(),
                     Version::id(),
                     CodeCoverageVersion::id(),
                     $driverInformation['name'],
@@ -432,9 +437,9 @@ final class CodeCoverage
     {
         try {
             if ($pathCoverage) {
-                $this->driver = (new Selector)->forLineAndPathCoverage($filter);
+                $this->driver = (new Selector())->forLineAndPathCoverage($filter);
             } else {
-                $this->driver = (new Selector)->forLineCoverage($filter);
+                $this->driver = (new Selector())->forLineCoverage($filter);
             }
 
             $this->codeCoverage = new \SebastianBergmann\CodeCoverage\CodeCoverage(
@@ -490,7 +495,7 @@ final class CodeCoverage
     private function timer(): Timer
     {
         if ($this->timer === null) {
-            $this->timer = new Timer;
+            $this->timer = new Timer();
         }
 
         return $this->timer;

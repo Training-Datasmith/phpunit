@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestFixture\Issue5891;
 
 use IteratorAggregate;
@@ -21,7 +24,7 @@ final class Issue5965Test extends TestCase
 {
     public function testOne(): void
     {
-        $exception = new PDOException;
+        $exception = new PDOException();
         $reflector = new ReflectionClass($exception);
 
         $property = $reflector->getProperty('code');
@@ -29,8 +32,7 @@ final class Issue5965Test extends TestCase
 
         $this->assertIsString($exception->getCode());
 
-        $iterator = new class($exception) implements IteratorAggregate
-        {
+        $iterator = new class ($exception) implements IteratorAggregate {
             public PDOException $exception;
 
             public function __construct($exception)

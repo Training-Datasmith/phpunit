@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,16 +9,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\Command;
 
-use const PHP_EOL;
 use function assert;
 use function file_put_contents;
 use function ksort;
-use function sprintf;
+
+use const PHP_EOL;
+
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Runner\Phpt\TestCase as PhptTestCase;
 use ReflectionClass;
+
+use function sprintf;
+
 use XMLWriter;
 
 /**
@@ -35,7 +42,7 @@ final readonly class ListTestsAsXmlCommand implements Command
 
     public function execute(): Result
     {
-        $writer = new XMLWriter;
+        $writer = new XMLWriter();
 
         $writer->openMemory();
         $writer->setIndent(true);

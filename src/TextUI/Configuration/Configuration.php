@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\Configuration;
 
 use function explode;
@@ -71,7 +74,7 @@ final readonly class Configuration
     public function testFilesFile(): string
     {
         if (!$this->hasTestFilesFile()) {
-            throw new NoTestFilesFileException;
+            throw new NoTestFilesFileException();
         }
 
         return $this->testFilesFile;
@@ -91,7 +94,7 @@ final readonly class Configuration
     public function configurationFile(): string
     {
         if (!$this->hasConfigurationFile()) {
-            throw new NoConfigurationFileException;
+            throw new NoConfigurationFileException();
         }
 
         return $this->configurationFile;
@@ -111,7 +114,7 @@ final readonly class Configuration
     public function bootstrap(): string
     {
         if (!$this->hasBootstrap()) {
-            throw new NoBootstrapException;
+            throw new NoBootstrapException();
         }
 
         return $this->bootstrap;
@@ -144,7 +147,7 @@ final readonly class Configuration
     public function cacheDirectory(): string
     {
         if (!$this->hasCacheDirectory()) {
-            throw new NoCacheDirectoryException;
+            throw new NoCacheDirectoryException();
         }
 
         return $this->cacheDirectory;
@@ -164,7 +167,7 @@ final readonly class Configuration
     public function coverageCacheDirectory(): string
     {
         if (!$this->hasCoverageCacheDirectory()) {
-            throw new NoCoverageCacheDirectoryException;
+            throw new NoCoverageCacheDirectoryException();
         }
 
         return $this->coverageCacheDirectory;
@@ -235,7 +238,7 @@ final readonly class Configuration
     public function coverageClover(): string
     {
         if (!$this->hasCoverageClover()) {
-            throw new CodeCoverageReportNotConfiguredException;
+            throw new CodeCoverageReportNotConfiguredException();
         }
 
         return $this->coverageClover;
@@ -255,7 +258,7 @@ final readonly class Configuration
     public function coverageCobertura(): string
     {
         if (!$this->hasCoverageCobertura()) {
-            throw new CodeCoverageReportNotConfiguredException;
+            throw new CodeCoverageReportNotConfiguredException();
         }
 
         return $this->coverageCobertura;
@@ -275,7 +278,7 @@ final readonly class Configuration
     public function coverageCrap4j(): string
     {
         if (!$this->hasCoverageCrap4j()) {
-            throw new CodeCoverageReportNotConfiguredException;
+            throw new CodeCoverageReportNotConfiguredException();
         }
 
         return $this->coverageCrap4j;
@@ -300,7 +303,7 @@ final readonly class Configuration
     public function coverageHtml(): string
     {
         if (!$this->hasCoverageHtml()) {
-            throw new CodeCoverageReportNotConfiguredException;
+            throw new CodeCoverageReportNotConfiguredException();
         }
 
         return $this->coverageHtml;
@@ -420,7 +423,7 @@ final readonly class Configuration
     public function coverageHtmlCustomCssFile(): string
     {
         if (!$this->hasCoverageHtmlCustomCssFile()) {
-            throw new NoCustomCssFileException;
+            throw new NoCustomCssFileException();
         }
 
         return $this->coverageHtmlCustomCssFile;
@@ -440,7 +443,7 @@ final readonly class Configuration
     public function coverageOpenClover(): string
     {
         if (!$this->hasCoverageOpenClover()) {
-            throw new CodeCoverageReportNotConfiguredException;
+            throw new CodeCoverageReportNotConfiguredException();
         }
 
         return $this->coverageOpenClover;
@@ -460,7 +463,7 @@ final readonly class Configuration
     public function coveragePhp(): string
     {
         if (!$this->hasCoveragePhp()) {
-            throw new CodeCoverageReportNotConfiguredException;
+            throw new CodeCoverageReportNotConfiguredException();
         }
 
         return $this->coveragePhp;
@@ -480,7 +483,7 @@ final readonly class Configuration
     public function coverageText(): string
     {
         if (!$this->hasCoverageText()) {
-            throw new CodeCoverageReportNotConfiguredException;
+            throw new CodeCoverageReportNotConfiguredException();
         }
 
         return $this->coverageText;
@@ -510,7 +513,7 @@ final readonly class Configuration
     public function coverageXml(): string
     {
         if (!$this->hasCoverageXml()) {
-            throw new CodeCoverageReportNotConfiguredException;
+            throw new CodeCoverageReportNotConfiguredException();
         }
 
         return $this->coverageXml;
@@ -650,7 +653,7 @@ final readonly class Configuration
     public function specificDeprecationToStopOn(): string
     {
         if (!$this->hasSpecificDeprecationToStopOn()) {
-            throw new SpecificDeprecationToStopOnNotConfiguredException;
+            throw new SpecificDeprecationToStopOnNotConfiguredException();
         }
 
         return $this->specificDeprecationToStopOn;
@@ -722,7 +725,7 @@ final readonly class Configuration
     public function pharExtensionDirectory(): string
     {
         if (!$this->hasPharExtensionDirectory()) {
-            throw new NoPharExtensionDirectoryException;
+            throw new NoPharExtensionDirectoryException();
         }
 
         return $this->pharExtensionDirectory;
@@ -905,7 +908,7 @@ final readonly class Configuration
     public function logfileTeamcity(): string
     {
         if (!$this->hasLogfileTeamcity()) {
-            throw new LoggingNotConfiguredException;
+            throw new LoggingNotConfiguredException();
         }
 
         return $this->logfileTeamcity;
@@ -925,7 +928,7 @@ final readonly class Configuration
     public function logfileJunit(): string
     {
         if (!$this->hasLogfileJunit()) {
-            throw new LoggingNotConfiguredException;
+            throw new LoggingNotConfiguredException();
         }
 
         return $this->logfileJunit;
@@ -945,7 +948,7 @@ final readonly class Configuration
     public function logfileOtr(): string
     {
         if (!$this->hasLogfileOtr()) {
-            throw new LoggingNotConfiguredException;
+            throw new LoggingNotConfiguredException();
         }
 
         return $this->logfileOtr;
@@ -975,7 +978,7 @@ final readonly class Configuration
     public function logfileTestdoxHtml(): string
     {
         if (!$this->hasLogfileTestdoxHtml()) {
-            throw new LoggingNotConfiguredException;
+            throw new LoggingNotConfiguredException();
         }
 
         return $this->logfileTestdoxHtml;
@@ -995,7 +998,7 @@ final readonly class Configuration
     public function logfileTestdoxText(): string
     {
         if (!$this->hasLogfileTestdoxText()) {
-            throw new LoggingNotConfiguredException;
+            throw new LoggingNotConfiguredException();
         }
 
         return $this->logfileTestdoxText;
@@ -1015,7 +1018,7 @@ final readonly class Configuration
     public function logEventsText(): string
     {
         if (!$this->hasLogEventsText()) {
-            throw new LoggingNotConfiguredException;
+            throw new LoggingNotConfiguredException();
         }
 
         return $this->logEventsText;
@@ -1035,7 +1038,7 @@ final readonly class Configuration
     public function logEventsVerboseText(): string
     {
         if (!$this->hasLogEventsVerboseText()) {
-            throw new LoggingNotConfiguredException;
+            throw new LoggingNotConfiguredException();
         }
 
         return $this->logEventsVerboseText;
@@ -1072,7 +1075,7 @@ final readonly class Configuration
     public function testsCovering(): array
     {
         if (!$this->hasTestsCovering()) {
-            throw new FilterNotConfiguredException;
+            throw new FilterNotConfiguredException();
         }
 
         return $this->testsCovering;
@@ -1094,7 +1097,7 @@ final readonly class Configuration
     public function testsUsing(): array
     {
         if (!$this->hasTestsUsing()) {
-            throw new FilterNotConfiguredException;
+            throw new FilterNotConfiguredException();
         }
 
         return $this->testsUsing;
@@ -1116,7 +1119,7 @@ final readonly class Configuration
     public function testsRequiringPhpExtension(): array
     {
         if (!$this->hasTestsRequiringPhpExtension()) {
-            throw new FilterNotConfiguredException;
+            throw new FilterNotConfiguredException();
         }
 
         return $this->testsRequiringPhpExtension;
@@ -1136,7 +1139,7 @@ final readonly class Configuration
     public function filter(): string
     {
         if (!$this->hasFilter()) {
-            throw new FilterNotConfiguredException;
+            throw new FilterNotConfiguredException();
         }
 
         return $this->filter;
@@ -1156,7 +1159,7 @@ final readonly class Configuration
     public function excludeFilter(): string
     {
         if (!$this->hasExcludeFilter()) {
-            throw new FilterNotConfiguredException;
+            throw new FilterNotConfiguredException();
         }
 
         return $this->excludeFilter;
@@ -1178,7 +1181,7 @@ final readonly class Configuration
     public function groups(): array
     {
         if (!$this->hasGroups()) {
-            throw new FilterNotConfiguredException;
+            throw new FilterNotConfiguredException();
         }
 
         return $this->groups;
@@ -1200,7 +1203,7 @@ final readonly class Configuration
     public function excludeGroups(): array
     {
         if (!$this->hasExcludeGroups()) {
-            throw new FilterNotConfiguredException;
+            throw new FilterNotConfiguredException();
         }
 
         return $this->excludeGroups;
@@ -1259,7 +1262,7 @@ final readonly class Configuration
     public function defaultTestSuite(): string
     {
         if (!$this->hasDefaultTestSuite()) {
-            throw new NoDefaultTestSuiteException;
+            throw new NoDefaultTestSuiteException();
         }
 
         return $this->defaultTestSuite;
@@ -1309,7 +1312,7 @@ final readonly class Configuration
     public function generateBaseline(): string
     {
         if (!$this->hasGenerateBaseline()) {
-            throw new NoBaselineException;
+            throw new NoBaselineException();
         }
 
         return $this->generateBaseline;

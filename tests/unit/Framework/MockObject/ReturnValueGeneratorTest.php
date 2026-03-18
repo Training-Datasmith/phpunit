@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject;
 
-use function sprintf;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -25,6 +27,9 @@ use PHPUnit\TestFixture\MockObject\ExtendableClass;
 use PHPUnit\TestFixture\MockObject\InterfaceWithMethodThatReturnsSelf;
 use PHPUnit\TestFixture\MockObject\InterfaceWithMethodThatReturnsStatic;
 use PHPUnit\TestFixture\MockObject\YetAnotherInterface;
+
+use function sprintf;
+
 use stdClass;
 
 #[CoversClass(ReturnValueGenerator::class)]
@@ -260,7 +265,7 @@ final class ReturnValueGeneratorTest extends TestCase
             $testStub = $this->createStub(AnInterface::class);
         }
 
-        return (new ReturnValueGenerator)->generate(
+        return (new ReturnValueGenerator())->generate(
             'OriginalClassName',
             'methodName',
             $testStub,

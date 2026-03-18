@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,12 +9,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestRunner\TestResult;
 
 use function array_merge;
 use function assert;
 use function explode;
 use function in_array;
+
 use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Framework\TestSize\Known;
 use PHPUnit\Framework\TestSize\TestSize;
@@ -45,7 +49,7 @@ final class PassedTests
             return self::$instance;
         }
 
-        self::$instance = new self;
+        self::$instance = new self();
 
         return self::$instance;
     }
@@ -60,7 +64,7 @@ final class PassedTests
 
     public function testMethodPassed(TestMethod $test, mixed $returnValue): void
     {
-        $size = (new Groups)->size(
+        $size = (new Groups())->size(
             $test->className(),
             $test->methodName(),
         );

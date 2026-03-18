@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,11 +9,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Metadata\Version;
 
-use function preg_replace;
 use PharIo\Version\Version;
 use PharIo\Version\VersionConstraint;
+
+use function preg_replace;
 
 /**
  * @immutable

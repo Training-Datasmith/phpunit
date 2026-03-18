@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Event;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -22,7 +25,7 @@ final class CollectingDispatcherTest extends TestCase
 {
     public function testHasNoCollectedEventsWhenFlushedImmediatelyAfterCreation(): void
     {
-        $typeMap = new TypeMap;
+        $typeMap = new TypeMap();
         $typeMap->addMapping(Test\DeprecationTriggeredSubscriber::class, Test\DeprecationTriggered::class);
 
         $dispatcher = new CollectingDispatcher(new DirectDispatcher($typeMap));
@@ -32,7 +35,7 @@ final class CollectingDispatcherTest extends TestCase
 
     public function testCollectsDispatchedEventsUntilFlushed(): void
     {
-        $typeMap = new TypeMap;
+        $typeMap = new TypeMap();
         $typeMap->addMapping(Test\DeprecationTriggeredSubscriber::class, Test\DeprecationTriggered::class);
 
         $dispatcher = new CollectingDispatcher(new DirectDispatcher($typeMap));

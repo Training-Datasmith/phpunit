@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Event\Telemetry;
 
 use function hrtime;
+
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
@@ -23,7 +27,7 @@ final class SystemStopWatchTest extends TestCase
 {
     public function testNowReturnsDateTimeImmutable(): void
     {
-        $clock = new SystemStopWatch;
+        $clock = new SystemStopWatch();
 
         $before = HRTime::fromSecondsAndNanoseconds(...hrtime(false));
 

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,22 +9,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\CliArguments;
 
-use const DIRECTORY_SEPARATOR;
 use function assert;
 use function basename;
+
+use const DIRECTORY_SEPARATOR;
+
 use function explode;
 use function getcwd;
 use function is_file;
 use function is_numeric;
-use function sprintf;
-use function strtolower;
+
 use PHPUnit\Event\Facade as EventFacade;
 use PHPUnit\Runner\TestSuiteSorter;
 use PHPUnit\Util\Filesystem;
 use SebastianBergmann\CliParser\Exception as CliParserException;
 use SebastianBergmann\CliParser\Parser as CliParser;
+
+use function sprintf;
+use function strtolower;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -179,7 +186,7 @@ final class Builder
     public function fromParameters(array $parameters): Configuration
     {
         try {
-            $options = (new CliParser)->parse(
+            $options = (new CliParser())->parse(
                 $parameters,
                 self::SHORT_OPTIONS,
                 self::LONG_OPTIONS,

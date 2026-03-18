@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,10 +9,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner\Phpt;
 
-use const DIRECTORY_SEPARATOR;
 use function assert;
+
+use const DIRECTORY_SEPARATOR;
+
 use function dirname;
 use function explode;
 use function file;
@@ -18,11 +23,13 @@ use function file_get_contents;
 use function is_file;
 use function is_readable;
 use function is_string;
+
+use PHPUnit\Runner\Exception;
+
 use function preg_match;
 use function rtrim;
 use function str_contains;
 use function trim;
-use PHPUnit\Runner\Exception;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -76,7 +83,7 @@ final readonly class Parser
             }
 
             if ($section === '') {
-                throw new InvalidPhptFileException;
+                throw new InvalidPhptFileException();
             }
 
             $sections[$section] .= $line;
@@ -201,13 +208,13 @@ final readonly class Parser
     private function validate(array $sections): void
     {
         if (!isset($sections['FILE'])) {
-            throw new InvalidPhptFileException;
+            throw new InvalidPhptFileException();
         }
 
         if (!isset($sections['EXPECT']) &&
             !isset($sections['EXPECTF']) &&
             !isset($sections['EXPECTREGEX'])) {
-            throw new InvalidPhptFileException;
+            throw new InvalidPhptFileException();
         }
     }
 }

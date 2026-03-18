@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,16 +9,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject;
 
 use function array_map;
 use function implode;
+
+use PHPUnit\Framework\SelfDescribing;
+use PHPUnit\Util\Exporter;
+
 use function sprintf;
 use function str_starts_with;
 use function strtolower;
 use function substr;
-use PHPUnit\Framework\SelfDescribing;
-use PHPUnit\Util\Exporter;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -89,7 +94,7 @@ final readonly class Invocation implements SelfDescribing
             return null;
         }
 
-        return (new ReturnValueGenerator)->generate(
+        return (new ReturnValueGenerator())->generate(
             $this->className,
             $this->methodName,
             $this->object,

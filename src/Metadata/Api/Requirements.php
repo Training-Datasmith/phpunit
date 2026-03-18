@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,11 +9,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Metadata\Api;
 
-use const PHP_OS;
-use const PHP_OS_FAMILY;
-use const PHP_VERSION;
 use function addcslashes;
 use function array_column;
 use function array_key_exists;
@@ -21,9 +21,11 @@ use function function_exists;
 use function in_array;
 use function ini_get;
 use function method_exists;
-use function phpversion;
-use function preg_match;
-use function sprintf;
+
+use const PHP_OS;
+use const PHP_OS_FAMILY;
+use const PHP_VERSION;
+
 use PHPUnit\Metadata\Parser\Registry;
 use PHPUnit\Metadata\RequiresEnvironmentVariable;
 use PHPUnit\Metadata\RequiresFunction;
@@ -37,6 +39,10 @@ use PHPUnit\Metadata\RequiresPhpunitExtension;
 use PHPUnit\Metadata\RequiresSetting;
 use PHPUnit\Runner\Version;
 use PHPUnit\TextUI\Configuration\Registry as ConfigurationRegistry;
+
+use function phpversion;
+use function preg_match;
+use function sprintf;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit

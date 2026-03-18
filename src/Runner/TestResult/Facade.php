@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,15 +9,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestRunner\TestResult;
 
 use function array_any;
-use function str_contains;
+
 use PHPUnit\Event\Facade as EventFacade;
 use PHPUnit\Runner\DeprecationCollector\Facade as DeprecationCollectorFacade;
 use PHPUnit\TestRunner\IssueFilter;
 use PHPUnit\TextUI\Configuration\Configuration;
 use PHPUnit\TextUI\Configuration\Registry as ConfigurationRegistry;
+
+use function str_contains;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit

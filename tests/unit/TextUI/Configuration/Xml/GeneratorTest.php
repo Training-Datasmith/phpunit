@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\XmlConfiguration;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -23,7 +26,7 @@ final class GeneratorTest extends TestCase
 {
     public function testGeneratesConfigurationCorrectly(): void
     {
-        $generator = new Generator;
+        $generator = new Generator();
 
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
-use function PHPUnit\TestFixture\Generator\f;
 use Countable;
 use EmptyIterator;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -18,6 +20,8 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Attributes\TestDox;
+
+use function PHPUnit\TestFixture\Generator\f;
 
 #[CoversMethod(Assert::class, 'assertEmpty')]
 #[CoversClass(GeneratorNotSupportedException::class)]
@@ -39,10 +43,9 @@ final class assertEmptyTest extends TestCase
             [false],
             ['0'],
             [0],
-            [new EmptyIterator],
+            [new EmptyIterator()],
             [
-                new class implements Countable
-                {
+                new class () implements Countable {
                     public function count(): int
                     {
                         return 0;
@@ -62,8 +65,7 @@ final class assertEmptyTest extends TestCase
             [true],
             ['1'],
             [
-                new class implements Countable
-                {
+                new class () implements Countable {
                     public function count(): int
                     {
                         return 1;

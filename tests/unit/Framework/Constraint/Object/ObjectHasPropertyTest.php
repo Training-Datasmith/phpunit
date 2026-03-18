@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -26,17 +29,17 @@ final class ObjectHasPropertyTest extends TestCase
     {
         $constraint = new ObjectHasProperty('theProperty');
 
-        $objectWithProperty              = new stdClass;
+        $objectWithProperty              = new stdClass();
         $objectWithProperty->theProperty = 'value';
 
         $this->assertTrue($constraint->evaluate($objectWithProperty, returnResult: true));
-        $this->assertFalse($constraint->evaluate(new stdClass, returnResult: true));
+        $this->assertFalse($constraint->evaluate(new stdClass(), returnResult: true));
         $this->assertFalse($constraint->evaluate(null, returnResult: true));
 
         $this->expectException(ExpectationFailedException::class);
         $this->expectExceptionMessage('Failed asserting that object of class "stdClass" has property "theProperty".');
 
-        $constraint->evaluate(new stdClass);
+        $constraint->evaluate(new stdClass());
     }
 
     public function testHandlesNonObjectsGracefully(): void

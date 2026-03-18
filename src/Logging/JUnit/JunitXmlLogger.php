@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,17 +9,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Logging\JUnit;
 
-use const PHP_EOL;
 use function assert;
 use function basename;
-use function is_int;
-use function sprintf;
-use function str_replace;
-use function trim;
+
 use DOMDocument;
 use DOMElement;
+
+use function is_int;
+
+use const PHP_EOL;
+
 use PHPUnit\Event\Code\Test;
 use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Event\Facade;
@@ -35,6 +39,10 @@ use PHPUnit\Event\Test\Skipped;
 use PHPUnit\Event\TestSuite\Started;
 use PHPUnit\TextUI\Output\Printer;
 use PHPUnit\Util\Xml;
+
+use function sprintf;
+use function str_replace;
+use function trim;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit

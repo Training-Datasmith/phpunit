@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,14 +9,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Logging\TestDox;
 
 use function array_merge;
 use function assert;
 use function is_subclass_of;
 use function ksort;
-use function uksort;
-use function usort;
+
 use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Event\Code\Throwable;
 use PHPUnit\Event\Facade;
@@ -40,6 +42,9 @@ use PHPUnit\Framework\TestStatus\TestStatus;
 use PHPUnit\Logging\TestDox\TestResult as TestDoxTestMethod;
 use PHPUnit\TestRunner\IssueFilter;
 use ReflectionMethod;
+
+use function uksort;
+use function usort;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -84,7 +89,7 @@ final class TestResultCollector
             foreach ($testsByDeclaringClass as $declaringClassName) {
                 usort(
                     $declaringClassName,
-                    static fn(TestDoxTestMethod $a, TestDoxTestMethod $b): int => $a->test()->line() <=> $b->test()->line(),
+                    static fn (TestDoxTestMethod $a, TestDoxTestMethod $b): int => $a->test()->line() <=> $b->test()->line(),
                 );
             }
 
@@ -94,8 +99,7 @@ final class TestResultCollector
                  * @param class-string $a
                  * @param class-string $b
                  */
-                static function (string $a, string $b): int
-                {
+                static function (string $a, string $b): int {
                     if (is_subclass_of($b, $a)) {
                         return -1;
                     }

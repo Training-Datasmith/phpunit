@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,10 +9,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestFixture\ErrorHandler\PhpDeprecation;
 
-use function strlen;
 use PHPUnit\Framework\TestCase;
+
+use function strlen;
 
 final class PhpDeprecationTest extends TestCase
 {
@@ -23,11 +27,11 @@ final class PhpDeprecationTest extends TestCase
 
     public function testFromFirstParty(): void
     {
-        $this->assertTrue((new FirstPartyClass)->method());
+        $this->assertTrue((new FirstPartyClass())->method());
     }
 
     public function testFromThirdParty(): void
     {
-        $this->assertTrue((new ThirdPartyClass)->method());
+        $this->assertTrue((new ThirdPartyClass())->method());
     }
 }

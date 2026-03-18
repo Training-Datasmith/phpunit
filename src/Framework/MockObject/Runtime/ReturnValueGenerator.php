@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject;
 
 use function array_all;
@@ -14,15 +17,20 @@ use function array_map;
 use function explode;
 use function in_array;
 use function interface_exists;
+
+use PHPUnit\Framework\MockObject\Generator\Generator;
+use ReflectionClass;
+use ReflectionObject;
+
 use function sprintf;
+
+use stdClass;
+
 use function str_contains;
 use function str_ends_with;
 use function str_starts_with;
 use function substr;
-use PHPUnit\Framework\MockObject\Generator\Generator;
-use ReflectionClass;
-use ReflectionObject;
-use stdClass;
+
 use Throwable;
 
 /**
@@ -99,21 +107,19 @@ final class ReturnValueGenerator
             }
 
             if (in_array('object', $lowerTypes, true)) {
-                return new stdClass;
+                return new stdClass();
             }
 
             if (in_array('callable', $lowerTypes, true) ||
                 in_array('closure', $lowerTypes, true)) {
-                return static function (): void
-                {
+                return static function (): void {
                 };
             }
 
             if (in_array('traversable', $lowerTypes, true) ||
                 in_array('generator', $lowerTypes, true) ||
                 in_array('iterable', $lowerTypes, true)) {
-                $generator = static function (): \Generator
-                {
+                $generator = static function (): \Generator {
                     yield from [];
                 };
 
@@ -212,7 +218,7 @@ final class ReturnValueGenerator
     private function testDoubleFor(string $type, string $className, string $methodName): Stub
     {
         try {
-            return (new Generator)->testDouble($type, false, [], [], '', false);
+            return (new Generator())->testDouble($type, false, [], [], '', false);
             // @codeCoverageIgnoreStart
         } catch (Throwable $t) {
             throw new RuntimeException(
@@ -237,7 +243,7 @@ final class ReturnValueGenerator
     private function testDoubleForIntersectionOfInterfaces(array $types, string $className, string $methodName): Stub
     {
         try {
-            return (new Generator)->testDoubleForInterfaceIntersection($types, false);
+            return (new Generator())->testDoubleForInterfaceIntersection($types, false);
             // @codeCoverageIgnoreStart
         } catch (Throwable $t) {
             throw new RuntimeException(

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,19 +9,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Metadata\Parser;
 
-use const JSON_THROW_ON_ERROR;
 use function assert;
 use function class_exists;
+
+use Error;
+
 use function is_numeric;
 use function json_decode;
+
+use const JSON_THROW_ON_ERROR;
+
 use function method_exists;
-use function sprintf;
-use function str_starts_with;
-use function strtolower;
-use function trim;
-use Error;
+
 use PHPUnit\Event\Facade as EventFacade;
 use PHPUnit\Framework\Attributes\After;
 use PHPUnit\Framework\Attributes\AfterClass;
@@ -96,6 +100,11 @@ use PHPUnit\Metadata\MetadataCollection;
 use PHPUnit\Metadata\Version\Requirement;
 use ReflectionClass;
 use ReflectionMethod;
+
+use function sprintf;
+use function str_starts_with;
+use function strtolower;
+use function trim;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit

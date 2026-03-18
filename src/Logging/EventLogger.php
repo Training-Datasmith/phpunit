@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,19 +9,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Logging;
 
 use const FILE_APPEND;
+
+use function file_put_contents;
+use function implode;
+
 use const LOCK_EX;
 use const PHP_EOL;
 use const PHP_OS_FAMILY;
-use function file_put_contents;
-use function implode;
+
+use PHPUnit\Event\Event;
+use PHPUnit\Event\Tracer\Tracer;
+
 use function preg_split;
 use function str_repeat;
 use function strlen;
-use PHPUnit\Event\Event;
-use PHPUnit\Event\Tracer\Tracer;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit

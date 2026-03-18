@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -43,7 +46,7 @@ final class IsWritableTest extends TestCase
     #[DataProvider('provider')]
     public function testCanBeEvaluated(bool $result, string $failureDescription, string $actual): void
     {
-        $constraint = new IsWritable;
+        $constraint = new IsWritable();
 
         $this->assertSame($result, $constraint->evaluate($actual, returnResult: true));
 
@@ -59,11 +62,11 @@ final class IsWritableTest extends TestCase
 
     public function testCanBeRepresentedAsString(): void
     {
-        $this->assertSame('is writable', (new IsWritable)->toString());
+        $this->assertSame('is writable', (new IsWritable())->toString());
     }
 
     public function testIsCountable(): void
     {
-        $this->assertCount(1, (new IsWritable));
+        $this->assertCount(1, (new IsWritable()));
     }
 }

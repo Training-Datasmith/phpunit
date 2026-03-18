@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Metadata;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -581,8 +584,7 @@ final class MetadataCollectionTest extends TestCase
 
     private function collectionWithOneOfEach(): MetadataCollection
     {
-        $closure = static function (): void
-        {
+        $closure = static function (): void {
         };
 
         return MetadataCollection::fromArray(

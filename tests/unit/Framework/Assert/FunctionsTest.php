@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,14 +9,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 use function array_reduce;
 use function file_get_contents;
-use function preg_match_all;
+
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
+
+use function preg_match_all;
 
 #[CoversNothing]
 #[TestDox('Global Assertion Functions')]
@@ -34,8 +39,7 @@ final class FunctionsTest extends TestCase
 
         return array_reduce(
             $matches[1],
-            static function (array $functionNames, string $functionName)
-            {
+            static function (array $functionNames, string $functionName) {
                 $functionNames[$functionName] = [$functionName];
 
                 return $functionNames;

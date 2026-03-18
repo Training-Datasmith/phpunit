@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Metadata\Api;
 
 use function array_keys;
+
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
@@ -37,7 +41,7 @@ final class HookMethodsTest extends TestCase
                 'after'         => HookMethodCollection::defaultAfter(),
                 'afterClass'    => HookMethodCollection::defaultAfterClass(),
             ],
-            (new HookMethods)->hookMethods('does not exist'),
+            (new HookMethods())->hookMethods('does not exist'),
         );
     }
 
@@ -52,13 +56,13 @@ final class HookMethodsTest extends TestCase
                 'after'         => HookMethodCollection::defaultAfter(),
                 'afterClass'    => HookMethodCollection::defaultAfterClass(),
             ],
-            (new HookMethods)->hookMethods(TestWithoutHookMethodsTest::class),
+            (new HookMethods())->hookMethods(TestWithoutHookMethodsTest::class),
         );
     }
 
     public function testFindsHookMethodsInTestClassWithHookMethods(): void
     {
-        $hookMethods = (new HookMethods)->hookMethods(TestWithHookMethodsTest::class);
+        $hookMethods = (new HookMethods())->hookMethods(TestWithHookMethodsTest::class);
         $this->assertSame(['beforeClass', 'before', 'preCondition', 'postCondition', 'after', 'afterClass'], array_keys($hookMethods));
 
         $beforeClassHooks = HookMethodCollection::defaultBeforeClass();
@@ -88,7 +92,7 @@ final class HookMethodsTest extends TestCase
 
     public function testFindsHookMethodsInTestClassWithHookMethodsPrioritized(): void
     {
-        $hookMethods = (new HookMethods)->hookMethods(TestWithHookMethodsPrioritizedTest::class);
+        $hookMethods = (new HookMethods())->hookMethods(TestWithHookMethodsPrioritizedTest::class);
         $this->assertSame(['beforeClass', 'before', 'preCondition', 'postCondition', 'after', 'afterClass'], array_keys($hookMethods));
 
         $beforeClassHooks = HookMethodCollection::defaultBeforeClass();

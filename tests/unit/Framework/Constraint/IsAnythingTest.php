@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -23,16 +26,16 @@ final class IsAnythingTest extends TestCase
 {
     public function testCanBeEvaluated(): void
     {
-        $this->assertTrue((new IsAnything)->evaluate(true, returnResult: true));
+        $this->assertTrue((new IsAnything())->evaluate(true, returnResult: true));
     }
 
     public function testCanBeRepresentedAsString(): void
     {
-        $this->assertSame('is anything', (new IsAnything)->toString());
+        $this->assertSame('is anything', (new IsAnything())->toString());
     }
 
     public function testIsCountable(): void
     {
-        $this->assertCount(0, (new IsAnything));
+        $this->assertCount(0, (new IsAnything()));
     }
 }

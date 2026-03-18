@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner\Baseline;
 
 use function dirname;
@@ -14,6 +17,7 @@ use function file_put_contents;
 use function is_dir;
 use function realpath;
 use function sprintf;
+
 use XMLWriter;
 
 /**
@@ -38,7 +42,7 @@ final readonly class Writer
 
         $pathCalculator = new RelativePathCalculator($normalizedBaselineFile);
 
-        $writer = new XMLWriter;
+        $writer = new XMLWriter();
 
         $writer->openMemory();
         $writer->setIndent(true);

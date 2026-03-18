@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Event\TestSuite;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -40,7 +43,7 @@ final class TestSuiteBuilderTest extends TestCase
     public function testBuildCountWithFilter(): void
     {
         $testSuite     = $this->testSuiteFromXmlConfiguration();
-        $filterFactory = new Factory;
+        $filterFactory = new Factory();
         $filterFactory->addIncludeNameFilter('one');
         $testSuite->injectFilter($filterFactory);
         $testSuite = TestSuiteBuilder::from($testSuite);
@@ -62,11 +65,11 @@ final class TestSuiteBuilderTest extends TestCase
 
     private function testSuiteFromXmlConfiguration(): FrameworkTestSuite
     {
-        $cliConfiguration = (new CliArgumentsBuilder)->fromParameters([]);
-        $xmlConfiguration = (new XmlConfigurationLoader)->load(__DIR__ . '/../../../../end-to-end/_files/groups/phpunit.xml');
-        $configuration    = (new ConfigurationMerger)->merge($cliConfiguration, $xmlConfiguration);
+        $cliConfiguration = (new CliArgumentsBuilder())->fromParameters([]);
+        $xmlConfiguration = (new XmlConfigurationLoader())->load(__DIR__ . '/../../../../end-to-end/_files/groups/phpunit.xml');
+        $configuration    = (new ConfigurationMerger())->merge($cliConfiguration, $xmlConfiguration);
 
-        return (new TestSuiteMapper)->map(
+        return (new TestSuiteMapper())->map(
             $configuration->configurationFile(),
             $configuration->testSuite(),
             $configuration->includeTestSuites(),

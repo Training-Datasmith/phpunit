@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,22 +9,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
-use const DIRECTORY_SEPARATOR;
-use const PHP_EOL;
 use function assert;
+
+use const DIRECTORY_SEPARATOR;
+
 use function explode;
 use function implode;
+
+use const PHP_EOL;
+
+use PHPUnit\Framework\Exception as FrameworkException;
+
 use function preg_last_error_msg;
 use function preg_match;
 use function preg_quote;
 use function preg_replace;
-use function sprintf;
-use function strtr;
-use PHPUnit\Framework\Exception as FrameworkException;
+
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+
+use function sprintf;
+use function strtr;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit

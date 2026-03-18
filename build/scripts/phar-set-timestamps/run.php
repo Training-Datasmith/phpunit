@@ -1,5 +1,7 @@
 #!/usr/bin/env php
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 require __DIR__ . '/vendor/autoload.php';
 
 if (!isset($argv[1]) || !is_file($argv[1])) {
@@ -46,7 +48,7 @@ if (!isset($epoch)) {
     );
 }
 
-$timestamp = new DateTime;
+$timestamp = new DateTime();
 $timestamp->setTimestamp($epoch);
 
 $util = new Timestamps($argv[1]);

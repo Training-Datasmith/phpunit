@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,14 +9,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Metadata\Version;
 
-use function preg_match;
 use PharIo\Version\UnsupportedVersionConstraintException;
 use PharIo\Version\VersionConstraintParser;
 use PHPUnit\Metadata\InvalidVersionRequirementException;
 use PHPUnit\Util\InvalidVersionOperatorException;
 use PHPUnit\Util\VersionComparisonOperator;
+
+use function preg_match;
 
 /**
  * @immutable
@@ -33,7 +37,7 @@ abstract readonly class Requirement
     {
         try {
             return new ConstraintRequirement(
-                (new VersionConstraintParser)->parse(
+                (new VersionConstraintParser())->parse(
                     $versionRequirement,
                 ),
             );
@@ -48,7 +52,7 @@ abstract readonly class Requirement
             }
         }
 
-        throw new InvalidVersionRequirementException;
+        throw new InvalidVersionRequirementException();
     }
 
     abstract public function isSatisfiedBy(string $version): bool;

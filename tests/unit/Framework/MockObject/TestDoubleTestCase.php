@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject;
 
 use Exception;
@@ -169,8 +172,7 @@ abstract class TestDoubleTestCase extends TestCase
         $double = $this->createTestDouble(InterfaceWithReturnTypeDeclaration::class);
 
         $double->method('doSomethingElse')->willReturnCallback(
-            static function (int $x)
-            {
+            static function (int $x) {
                 return match ($x) {
                     1 => 2,
                     3 => 4,
@@ -216,7 +218,7 @@ abstract class TestDoubleTestCase extends TestCase
         $double->method('doSomething')->willReturnOnConsecutiveCalls(
             false,
             true,
-            $this->throwException(new Exception),
+            $this->throwException(new Exception()),
         );
 
         $this->assertFalse($double->doSomething());

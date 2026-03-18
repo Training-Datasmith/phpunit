@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -26,7 +29,7 @@ final class ArraysAreIdenticalTest extends TestCase
 {
     public static function provider(): array
     {
-        $object = new stdClass;
+        $object = new stdClass();
 
         return [
             'empty arrays, keys and order matter' => [
@@ -144,8 +147,8 @@ final class ArraysAreIdenticalTest extends TestCase
             'different object instances, keys and order matter' => [
                 false,
                 'Failed asserting that two arrays are identical',
-                ['obj' => new stdClass],
-                ['obj' => new stdClass],
+                ['obj' => new stdClass()],
+                ['obj' => new stdClass()],
                 true,
                 true,
             ],

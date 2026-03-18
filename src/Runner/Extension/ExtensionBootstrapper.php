@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,17 +9,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner\Extension;
 
-use const PHP_EOL;
 use function assert;
 use function class_exists;
 use function class_implements;
 use function in_array;
-use function sprintf;
+
+use const PHP_EOL;
+
 use PHPUnit\Event\Facade as EventFacade;
 use PHPUnit\TextUI\Configuration\Configuration;
 use ReflectionClass;
+
+use function sprintf;
+
 use Throwable;
 
 /**

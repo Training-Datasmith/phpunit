@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,14 +9,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
-use const NAN;
 use function acos;
 use function array_merge;
-use function fopen;
+
 use DateTimeImmutable;
 use DateTimeZone;
+
+use function fopen;
+
+use const NAN;
+
 use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
@@ -58,18 +65,18 @@ final class assertEqualsTest extends TestCase
     public static function equalValues(): array
     {
         // cyclic dependencies
-        $book1                  = new Book;
+        $book1                  = new Book();
         $book1->author          = new Author('Terry Pratchett');
         $book1->author->books[] = $book1;
-        $book2                  = new Book;
+        $book2                  = new Book();
         $book2->author          = new Author('Terry Pratchett');
         $book2->author->books[] = $book2;
 
         $object1  = new SampleClass(4, 8, 15);
         $object2  = new SampleClass(4, 8, 15);
-        $storage1 = new SplObjectStorage;
+        $storage1 = new SplObjectStorage();
         $storage1->offsetSet($object1);
-        $storage2 = new SplObjectStorage;
+        $storage2 = new SplObjectStorage();
         $storage2->offsetSet($object1);
 
         return [
@@ -83,20 +90,20 @@ final class assertEqualsTest extends TestCase
             [$storage1, $storage2],
             // DOMDocument
             [
-                (new XmlLoader)->load('<root></root>'),
-                (new XmlLoader)->load('<root/>'),
+                (new XmlLoader())->load('<root></root>'),
+                (new XmlLoader())->load('<root/>'),
             ],
             [
-                (new XmlLoader)->load('<root attr="bar"></root>'),
-                (new XmlLoader)->load('<root attr="bar"/>'),
+                (new XmlLoader())->load('<root attr="bar"></root>'),
+                (new XmlLoader())->load('<root attr="bar"/>'),
             ],
             [
-                (new XmlLoader)->load('<root><foo attr="bar"></foo></root>'),
-                (new XmlLoader)->load('<root><foo attr="bar"/></root>'),
+                (new XmlLoader())->load('<root><foo attr="bar"></foo></root>'),
+                (new XmlLoader())->load('<root><foo attr="bar"/></root>'),
             ],
             [
-                (new XmlLoader)->load("<root>\n  <child/>\n</root>"),
-                (new XmlLoader)->load('<root><child/></root>'),
+                (new XmlLoader())->load("<root>\n  <child/>\n</root>"),
+                (new XmlLoader())->load('<root><child/></root>'),
             ],
             [
                 new DateTimeImmutable('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
@@ -135,8 +142,8 @@ final class assertEqualsTest extends TestCase
             [1 - 2 / 3, '0.33333333333333337'],
             [5.5E+123, '5.5E+123'],
             [5.5E-123, '5.5E-123'],
-            ['string representation', new ClassWithToString],
-            [new ClassWithToString, 'string representation'],
+            ['string representation', new ClassWithToString()],
+            [new ClassWithToString(), 'string representation'],
         ];
     }
 
@@ -146,24 +153,24 @@ final class assertEqualsTest extends TestCase
     public static function notEqualValues(): array
     {
         // cyclic dependencies
-        $book1                  = new Book;
+        $book1                  = new Book();
         $book1->author          = new Author('Terry Pratchett');
         $book1->author->books[] = $book1;
-        $book2                  = new Book;
+        $book2                  = new Book();
         $book2->author          = new Author('Terry Pratch');
         $book2->author->books[] = $book2;
 
-        $book3         = new Book;
+        $book3         = new Book();
         $book3->author = 'Terry Pratchett';
-        $book4         = new stdClass;
+        $book4         = new stdClass();
         $book4->author = 'Terry Pratchett';
 
         $object1  = new SampleClass(4, 8, 15);
         $object2  = new SampleClass(16, 23, 42);
         $object3  = new SampleClass(4, 8, 15);
-        $storage1 = new SplObjectStorage;
+        $storage1 = new SplObjectStorage();
         $storage1->offsetSet($object1);
-        $storage2 = new SplObjectStorage;
+        $storage2 = new SplObjectStorage();
         $storage2->offsetSet($object3); // same content, different object
 
         $file = TEST_FILES_PATH . 'foo.xml';
@@ -210,24 +217,24 @@ final class assertEqualsTest extends TestCase
             [$storage1, $storage2],
             // DOMDocument
             [
-                (new XmlLoader)->load('<root></root>'),
-                (new XmlLoader)->load('<bar/>'),
+                (new XmlLoader())->load('<root></root>'),
+                (new XmlLoader())->load('<bar/>'),
             ],
             [
-                (new XmlLoader)->load('<foo attr1="bar"/>'),
-                (new XmlLoader)->load('<foo attr1="foobar"/>'),
+                (new XmlLoader())->load('<foo attr1="bar"/>'),
+                (new XmlLoader())->load('<foo attr1="foobar"/>'),
             ],
             [
-                (new XmlLoader)->load('<foo> bar </foo>'),
-                (new XmlLoader)->load('<foo />'),
+                (new XmlLoader())->load('<foo> bar </foo>'),
+                (new XmlLoader())->load('<foo />'),
             ],
             [
-                (new XmlLoader)->load('<foo xmlns="urn:myns:bar"/>'),
-                (new XmlLoader)->load('<foo xmlns="urn:notmyns:bar"/>'),
+                (new XmlLoader())->load('<foo xmlns="urn:myns:bar"/>'),
+                (new XmlLoader())->load('<foo xmlns="urn:notmyns:bar"/>'),
             ],
             [
-                (new XmlLoader)->load('<foo> bar </foo>'),
-                (new XmlLoader)->load('<foo> bir </foo>'),
+                (new XmlLoader())->load('<foo> bar </foo>'),
+                (new XmlLoader())->load('<foo> bir </foo>'),
             ],
             [
                 new DateTimeImmutable('2013-03-29 04:13:35', new DateTimeZone('America/New_York')),
@@ -276,8 +283,8 @@ final class assertEqualsTest extends TestCase
             [false, new SampleClass(4, 8, 15)],
             [[0 => 1, 1 => 2], false],
             [false, [0 => 1, 1 => 2]],
-            [[], new stdClass],
-            [new stdClass, []],
+            [[], new stdClass()],
+            [new stdClass(), []],
             // PHP: 0 == 'Foobar' => true!
             // We want these values to differ
             [0, 'Foobar'],

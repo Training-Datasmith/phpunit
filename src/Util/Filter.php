@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util;
 
 use function array_any;
@@ -15,11 +18,14 @@ use function defined;
 use function in_array;
 use function is_array;
 use function is_file;
+
+use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\PhptAssertionFailedError;
+
 use function realpath;
 use function sprintf;
 use function str_starts_with;
-use PHPUnit\Framework\Exception;
-use PHPUnit\Framework\PhptAssertionFailedError;
+
 use Throwable;
 
 /**
@@ -69,7 +75,7 @@ final readonly class Filter
     {
         $buffer      = '';
         $prefix      = defined('__PHPUNIT_PHAR_ROOT__') ? __PHPUNIT_PHAR_ROOT__ : false;
-        $excludeList = new ExcludeList;
+        $excludeList = new ExcludeList();
 
         foreach ($frames as $frame) {
             if (self::shouldPrintFrame($frame, $prefix, $excludeList)) {

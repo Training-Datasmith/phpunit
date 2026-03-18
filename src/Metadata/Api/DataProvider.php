@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Metadata\Api;
 
 use function array_key_exists;
@@ -17,7 +20,7 @@ use function is_array;
 use function is_int;
 use function is_iterable;
 use function is_string;
-use function sprintf;
+
 use PHPUnit\Event;
 use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Framework\InvalidDataProviderException;
@@ -29,6 +32,9 @@ use PHPUnit\Metadata\Parser\Registry as MetadataRegistry;
 use PHPUnit\Metadata\TestWith;
 use PHPUnit\Util\Test;
 use ReflectionMethod;
+
+use function sprintf;
+
 use Throwable;
 
 /**

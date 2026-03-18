@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestFixture\Event;
 
 use Iterator;
@@ -17,8 +20,7 @@ final class DataProviderInvalidKeyTest extends TestCase
 {
     public static function provider(): Iterator
     {
-        return new class implements Iterator
-        {
+        return new class () implements Iterator {
             private int $position;
 
             public function current(): string

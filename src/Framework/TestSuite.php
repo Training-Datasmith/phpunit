@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
-use const PHP_EOL;
 use function array_all;
 use function array_merge;
 use function array_pop;
@@ -22,12 +24,12 @@ use function implode;
 use function is_callable;
 use function is_file;
 use function is_subclass_of;
-use function sprintf;
-use function str_ends_with;
-use function str_starts_with;
-use function trim;
+
 use Iterator;
 use IteratorAggregate;
+
+use const PHP_EOL;
+
 use PHPUnit\Event;
 use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Event\NoPreviousThrowableException;
@@ -48,7 +50,14 @@ use ReflectionClass;
 use ReflectionMethod;
 use SebastianBergmann\CodeCoverage\InvalidArgumentException;
 use SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException;
+
+use function sprintf;
+use function str_ends_with;
+use function str_starts_with;
+
 use Throwable;
+
+use function trim;
 
 /**
  * @template-implements IteratorAggregate<non-negative-int, Test>
@@ -102,7 +111,7 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
                 continue;
             }
 
-            if ((new HookMethods)->isHookMethod($method)) {
+            if ((new HookMethods())->isHookMethod($method)) {
                 Event\Facade::emitter()->testRunnerTriggeredPhpunitWarning(
                     sprintf(
                         'Method %s::%s() cannot be used both as a hook method and as a test method',
@@ -229,7 +238,7 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
                 $this->addTest(new PhptTestCase($filename));
             } else {
                 $this->addTestSuite(
-                    (new TestSuiteLoader)->load($filename),
+                    (new TestSuiteLoader())->load($filename),
                     $groups,
                 );
             }
@@ -507,7 +516,7 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
         $methodName = $method->getName();
 
         try {
-            $test = (new TestBuilder)->build($class, $methodName, $groups);
+            $test = (new TestBuilder())->build($class, $methodName, $groups);
         } catch (InvalidDataProviderException $e) {
             if ($e->getProviderLabel() === null) {
                 $message = sprintf(
@@ -555,7 +564,7 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
             $test,
             array_merge(
                 $groups,
-                (new Groups)->groups($class->getName(), $methodName),
+                (new Groups())->groups($class->getName(), $methodName),
             ),
         );
     }
@@ -611,7 +620,7 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
             return true;
         }
 
-        $methods         = (new HookMethods)->hookMethods($this->name)['beforeClass']->methodNamesSortedByPriority();
+        $methods         = (new HookMethods())->hookMethods($this->name)['beforeClass']->methodNamesSortedByPriority();
         $calledMethods   = [];
         $emitCalledEvent = true;
         $result          = true;
@@ -627,7 +636,7 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
             );
 
             try {
-                $missingRequirements = (new Requirements)->requirementsNotSatisfiedFor($this->name, $method);
+                $missingRequirements = (new Requirements())->requirementsNotSatisfiedFor($this->name, $method);
 
                 if ($missingRequirements !== []) {
                     $emitCalledEvent = false;
@@ -696,7 +705,7 @@ class TestSuite implements IteratorAggregate, Reorderable, Test
             return;
         }
 
-        $methods       = (new HookMethods)->hookMethods($this->name)['afterClass']->methodNamesSortedByPriority();
+        $methods       = (new HookMethods())->hookMethods($this->name)['afterClass']->methodNamesSortedByPriority();
         $calledMethods = [];
 
         foreach ($methods as $method) {

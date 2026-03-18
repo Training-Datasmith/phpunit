@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use Exception;
@@ -35,29 +38,28 @@ final class IsInstanceOfTest extends TestCase
                 true,
                 '',
                 stdClass::class,
-                new stdClass,
+                new stdClass(),
             ],
 
             [
                 false,
                 'Failed asserting that an instance of anonymous class created at',
                 stdClass::class,
-                new class
-                {},
+                new class () {},
             ],
 
             [
                 false,
                 'Failed asserting that an instance of class Exception is an instance of class stdClass.',
                 stdClass::class,
-                new Exception,
+                new Exception(),
             ],
 
             [
                 false,
                 'Failed asserting that an instance of class stdClass is an instance of interface Throwable.',
                 Throwable::class,
-                new stdClass,
+                new stdClass(),
             ],
         ];
     }

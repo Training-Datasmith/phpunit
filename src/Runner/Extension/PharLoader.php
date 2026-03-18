@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner\Extension;
 
 use function count;
@@ -14,8 +17,7 @@ use function explode;
 use function extension_loaded;
 use function implode;
 use function is_file;
-use function sprintf;
-use function str_contains;
+
 use PharIo\Manifest\ApplicationName;
 use PharIo\Manifest\Exception as ManifestException;
 use PharIo\Manifest\ManifestLoader;
@@ -23,6 +25,10 @@ use PharIo\Version\Version as PharIoVersion;
 use PHPUnit\Event;
 use PHPUnit\Runner\Version;
 use SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
+
+use function sprintf;
+use function str_contains;
+
 use Throwable;
 
 /**
@@ -42,7 +48,7 @@ final readonly class PharLoader
         $pharExtensionLoaded = extension_loaded('phar');
         $loadedExtensions    = [];
 
-        foreach ((new FileIteratorFacade)->getFilesAsArray($directory, '.phar') as $file) {
+        foreach ((new FileIteratorFacade())->getFilesAsArray($directory, '.phar') as $file) {
             if (!$pharExtensionLoaded) {
                 Event\Facade::emitter()->testRunnerTriggeredPhpunitWarning(
                     sprintf(

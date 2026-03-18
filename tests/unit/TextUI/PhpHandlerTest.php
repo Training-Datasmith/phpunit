@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,21 +9,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\Configuration;
 
 use const BAR;
 use const FOO;
-use const PATH_SEPARATOR;
+
 use function getenv;
 use function ini_get;
 use function ini_set;
-use function putenv;
+
+use const PATH_SEPARATOR;
+
 use PHPUnit\Framework\Attributes\BackupGlobals;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Medium;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\TextUI\XmlConfiguration\Loader;
+
+use function putenv;
 
 #[CoversClass(PhpHandler::class)]
 #[Medium]
@@ -116,8 +123,8 @@ final class PhpHandlerTest extends TestCase
 
     private function handle(): void
     {
-        $configuration = (new Loader)->load(TEST_FILES_PATH . 'configuration.xml')->php();
+        $configuration = (new Loader())->load(TEST_FILES_PATH . 'configuration.xml')->php();
 
-        (new PhpHandler)->handle($configuration);
+        (new PhpHandler())->handle($configuration);
     }
 }

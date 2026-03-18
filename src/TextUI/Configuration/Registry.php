@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,18 +9,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\Configuration;
 
 use function assert;
 use function file_get_contents;
 use function file_put_contents;
-use function serialize;
-use function unserialize;
+
 use PHPUnit\Event\Facade as EventFacade;
 use PHPUnit\TextUI\CliArguments\Configuration as CliConfiguration;
 use PHPUnit\TextUI\CliArguments\Exception;
 use PHPUnit\TextUI\XmlConfiguration\Configuration as XmlConfiguration;
 use PHPUnit\Util\VersionComparisonOperator;
+
+use function serialize;
+use function unserialize;
 
 /**
  * CLI options and XML configuration are static within a single PHPUnit process.
@@ -108,7 +113,7 @@ final class Registry
      */
     public static function init(CliConfiguration $cliConfiguration, XmlConfiguration $xmlConfiguration): Configuration
     {
-        self::$instance = (new Merger)->merge($cliConfiguration, $xmlConfiguration);
+        self::$instance = (new Merger())->merge($cliConfiguration, $xmlConfiguration);
 
         EventFacade::emitter()->testRunnerConfigured(self::$instance);
 

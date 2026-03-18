@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\CliArguments;
 
 /**
@@ -56,7 +59,7 @@ final readonly class Configuration
     public function testFilesFile(): string
     {
         if (!$this->hasTestFilesFile()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->testFilesFile;
@@ -76,7 +79,7 @@ final readonly class Configuration
     public function all(): bool
     {
         if (!$this->hasAll()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->all;
@@ -96,7 +99,7 @@ final readonly class Configuration
     public function atLeastVersion(): string
     {
         if (!$this->hasAtLeastVersion()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->atLeastVersion;
@@ -116,7 +119,7 @@ final readonly class Configuration
     public function backupGlobals(): bool
     {
         if (!$this->hasBackupGlobals()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->backupGlobals;
@@ -136,7 +139,7 @@ final readonly class Configuration
     public function backupStaticProperties(): bool
     {
         if (!$this->hasBackupStaticProperties()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->backupStaticProperties;
@@ -156,7 +159,7 @@ final readonly class Configuration
     public function beStrictAboutChangesToGlobalState(): bool
     {
         if (!$this->hasBeStrictAboutChangesToGlobalState()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->beStrictAboutChangesToGlobalState;
@@ -176,7 +179,7 @@ final readonly class Configuration
     public function bootstrap(): string
     {
         if (!$this->hasBootstrap()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->bootstrap;
@@ -196,7 +199,7 @@ final readonly class Configuration
     public function cacheDirectory(): string
     {
         if (!$this->hasCacheDirectory()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->cacheDirectory;
@@ -216,7 +219,7 @@ final readonly class Configuration
     public function cacheResult(): bool
     {
         if (!$this->hasCacheResult()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->cacheResult;
@@ -246,7 +249,7 @@ final readonly class Configuration
     public function colors(): string
     {
         if (!$this->hasColors()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->colors;
@@ -266,7 +269,7 @@ final readonly class Configuration
     public function columns(): int|string
     {
         if (!$this->hasColumns()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->columns;
@@ -286,7 +289,7 @@ final readonly class Configuration
     public function configurationFile(): string
     {
         if (!$this->hasConfigurationFile()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->configurationFile;
@@ -308,7 +311,7 @@ final readonly class Configuration
     public function coverageFilter(): array
     {
         if (!$this->hasCoverageFilter()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->coverageFilter;
@@ -328,7 +331,7 @@ final readonly class Configuration
     public function coverageClover(): string
     {
         if (!$this->hasCoverageClover()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->coverageClover;
@@ -348,7 +351,7 @@ final readonly class Configuration
     public function coverageCobertura(): string
     {
         if (!$this->hasCoverageCobertura()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->coverageCobertura;
@@ -368,7 +371,7 @@ final readonly class Configuration
     public function coverageCrap4J(): string
     {
         if (!$this->hasCoverageCrap4J()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->coverageCrap4J;
@@ -388,7 +391,7 @@ final readonly class Configuration
     public function coverageHtml(): string
     {
         if (!$this->hasCoverageHtml()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->coverageHtml;
@@ -408,7 +411,7 @@ final readonly class Configuration
     public function coverageOpenClover(): string
     {
         if (!$this->hasCoverageOpenClover()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->coverageOpenClover;
@@ -428,7 +431,7 @@ final readonly class Configuration
     public function coveragePhp(): string
     {
         if (!$this->hasCoveragePhp()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->coveragePhp;
@@ -448,7 +451,7 @@ final readonly class Configuration
     public function coverageText(): string
     {
         if (!$this->hasCoverageText()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->coverageText;
@@ -468,7 +471,7 @@ final readonly class Configuration
     public function coverageTextShowUncoveredFiles(): bool
     {
         if (!$this->hasCoverageTextShowUncoveredFiles()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->coverageTextShowUncoveredFiles;
@@ -488,7 +491,7 @@ final readonly class Configuration
     public function coverageTextShowOnlySummary(): bool
     {
         if (!$this->hasCoverageTextShowOnlySummary()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->coverageTextShowOnlySummary;
@@ -508,7 +511,7 @@ final readonly class Configuration
     public function coverageXml(): string
     {
         if (!$this->hasCoverageXml()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->coverageXml;
@@ -528,7 +531,7 @@ final readonly class Configuration
     public function excludeSourceFromXmlCoverage(): bool
     {
         if (!$this->hasExcludeSourceFromXmlCoverage()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->excludeSourceFromXmlCoverage;
@@ -548,7 +551,7 @@ final readonly class Configuration
     public function pathCoverage(): bool
     {
         if (!$this->hasPathCoverage()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->pathCoverage;
@@ -573,7 +576,7 @@ final readonly class Configuration
     public function defaultTimeLimit(): int
     {
         if (!$this->hasDefaultTimeLimit()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->defaultTimeLimit;
@@ -593,7 +596,7 @@ final readonly class Configuration
     public function disableCodeCoverageIgnore(): bool
     {
         if (!$this->hasDisableCodeCoverageIgnore()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->disableCodeCoverageIgnore;
@@ -613,7 +616,7 @@ final readonly class Configuration
     public function disallowTestOutput(): bool
     {
         if (!$this->hasDisallowTestOutput()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->disallowTestOutput;
@@ -633,7 +636,7 @@ final readonly class Configuration
     public function enforceTimeLimit(): bool
     {
         if (!$this->hasEnforceTimeLimit()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->enforceTimeLimit;
@@ -655,7 +658,7 @@ final readonly class Configuration
     public function excludeGroups(): array
     {
         if (!$this->hasExcludeGroups()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->excludeGroups;
@@ -675,7 +678,7 @@ final readonly class Configuration
     public function executionOrder(): int
     {
         if (!$this->hasExecutionOrder()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->executionOrder;
@@ -695,7 +698,7 @@ final readonly class Configuration
     public function executionOrderDefects(): int
     {
         if (!$this->hasExecutionOrderDefects()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->executionOrderDefects;
@@ -715,7 +718,7 @@ final readonly class Configuration
     public function failOnAllIssues(): bool
     {
         if (!$this->hasFailOnAllIssues()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->failOnAllIssues;
@@ -735,7 +738,7 @@ final readonly class Configuration
     public function failOnDeprecation(): bool
     {
         if (!$this->hasFailOnDeprecation()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->failOnDeprecation;
@@ -755,7 +758,7 @@ final readonly class Configuration
     public function failOnPhpunitDeprecation(): bool
     {
         if (!$this->hasFailOnPhpunitDeprecation()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->failOnPhpunitDeprecation;
@@ -775,7 +778,7 @@ final readonly class Configuration
     public function failOnPhpunitNotice(): bool
     {
         if (!$this->hasFailOnPhpunitNotice()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->failOnPhpunitNotice;
@@ -795,7 +798,7 @@ final readonly class Configuration
     public function failOnPhpunitWarning(): bool
     {
         if (!$this->hasFailOnPhpunitWarning()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->failOnPhpunitWarning;
@@ -815,7 +818,7 @@ final readonly class Configuration
     public function failOnEmptyTestSuite(): bool
     {
         if (!$this->hasFailOnEmptyTestSuite()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->failOnEmptyTestSuite;
@@ -835,7 +838,7 @@ final readonly class Configuration
     public function failOnIncomplete(): bool
     {
         if (!$this->hasFailOnIncomplete()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->failOnIncomplete;
@@ -855,7 +858,7 @@ final readonly class Configuration
     public function failOnNotice(): bool
     {
         if (!$this->hasFailOnNotice()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->failOnNotice;
@@ -875,7 +878,7 @@ final readonly class Configuration
     public function failOnRisky(): bool
     {
         if (!$this->hasFailOnRisky()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->failOnRisky;
@@ -895,7 +898,7 @@ final readonly class Configuration
     public function failOnSkipped(): bool
     {
         if (!$this->hasFailOnSkipped()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->failOnSkipped;
@@ -915,7 +918,7 @@ final readonly class Configuration
     public function failOnWarning(): bool
     {
         if (!$this->hasFailOnWarning()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->failOnWarning;
@@ -935,7 +938,7 @@ final readonly class Configuration
     public function doNotFailOnDeprecation(): bool
     {
         if (!$this->hasDoNotFailOnDeprecation()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->doNotFailOnDeprecation;
@@ -955,7 +958,7 @@ final readonly class Configuration
     public function doNotFailOnPhpunitDeprecation(): bool
     {
         if (!$this->hasDoNotFailOnPhpunitDeprecation()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->doNotFailOnPhpunitDeprecation;
@@ -975,7 +978,7 @@ final readonly class Configuration
     public function doNotFailOnPhpunitNotice(): bool
     {
         if (!$this->hasDoNotFailOnPhpunitNotice()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->doNotFailOnPhpunitNotice;
@@ -995,7 +998,7 @@ final readonly class Configuration
     public function doNotFailOnPhpunitWarning(): bool
     {
         if (!$this->hasDoNotFailOnPhpunitWarning()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->doNotFailOnPhpunitWarning;
@@ -1015,7 +1018,7 @@ final readonly class Configuration
     public function doNotFailOnEmptyTestSuite(): bool
     {
         if (!$this->hasDoNotFailOnEmptyTestSuite()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->doNotFailOnEmptyTestSuite;
@@ -1035,7 +1038,7 @@ final readonly class Configuration
     public function doNotFailOnIncomplete(): bool
     {
         if (!$this->hasDoNotFailOnIncomplete()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->doNotFailOnIncomplete;
@@ -1055,7 +1058,7 @@ final readonly class Configuration
     public function doNotFailOnNotice(): bool
     {
         if (!$this->hasDoNotFailOnNotice()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->doNotFailOnNotice;
@@ -1075,7 +1078,7 @@ final readonly class Configuration
     public function doNotFailOnRisky(): bool
     {
         if (!$this->hasDoNotFailOnRisky()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->doNotFailOnRisky;
@@ -1095,7 +1098,7 @@ final readonly class Configuration
     public function doNotFailOnSkipped(): bool
     {
         if (!$this->hasDoNotFailOnSkipped()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->doNotFailOnSkipped;
@@ -1115,7 +1118,7 @@ final readonly class Configuration
     public function doNotFailOnWarning(): bool
     {
         if (!$this->hasDoNotFailOnWarning()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->doNotFailOnWarning;
@@ -1135,7 +1138,7 @@ final readonly class Configuration
     public function stopOnDefect(): bool
     {
         if (!$this->hasStopOnDefect()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->stopOnDefect;
@@ -1155,7 +1158,7 @@ final readonly class Configuration
     public function stopOnDeprecation(): bool
     {
         if (!$this->hasStopOnDeprecation()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->stopOnDeprecation;
@@ -1175,7 +1178,7 @@ final readonly class Configuration
     public function specificDeprecationToStopOn(): string
     {
         if (!$this->hasSpecificDeprecationToStopOn()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->specificDeprecationToStopOn;
@@ -1195,7 +1198,7 @@ final readonly class Configuration
     public function stopOnError(): bool
     {
         if (!$this->hasStopOnError()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->stopOnError;
@@ -1215,7 +1218,7 @@ final readonly class Configuration
     public function stopOnFailure(): bool
     {
         if (!$this->hasStopOnFailure()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->stopOnFailure;
@@ -1235,7 +1238,7 @@ final readonly class Configuration
     public function stopOnIncomplete(): bool
     {
         if (!$this->hasStopOnIncomplete()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->stopOnIncomplete;
@@ -1255,7 +1258,7 @@ final readonly class Configuration
     public function stopOnNotice(): bool
     {
         if (!$this->hasStopOnNotice()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->stopOnNotice;
@@ -1275,7 +1278,7 @@ final readonly class Configuration
     public function stopOnRisky(): bool
     {
         if (!$this->hasStopOnRisky()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->stopOnRisky;
@@ -1295,7 +1298,7 @@ final readonly class Configuration
     public function stopOnSkipped(): bool
     {
         if (!$this->hasStopOnSkipped()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->stopOnSkipped;
@@ -1315,7 +1318,7 @@ final readonly class Configuration
     public function stopOnWarning(): bool
     {
         if (!$this->hasStopOnWarning()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->stopOnWarning;
@@ -1335,7 +1338,7 @@ final readonly class Configuration
     public function excludeFilter(): string
     {
         if (!$this->hasExcludeFilter()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->excludeFilter;
@@ -1355,7 +1358,7 @@ final readonly class Configuration
     public function filter(): string
     {
         if (!$this->hasFilter()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->filter;
@@ -1375,7 +1378,7 @@ final readonly class Configuration
     public function generateBaseline(): string
     {
         if (!$this->hasGenerateBaseline()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->generateBaseline;
@@ -1395,7 +1398,7 @@ final readonly class Configuration
     public function useBaseline(): string
     {
         if (!$this->hasUseBaseline()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->useBaseline;
@@ -1432,7 +1435,7 @@ final readonly class Configuration
     public function groups(): array
     {
         if (!$this->hasGroups()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->groups;
@@ -1454,7 +1457,7 @@ final readonly class Configuration
     public function testsCovering(): array
     {
         if (!$this->hasTestsCovering()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->testsCovering;
@@ -1476,7 +1479,7 @@ final readonly class Configuration
     public function testsUsing(): array
     {
         if (!$this->hasTestsUsing()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->testsUsing;
@@ -1498,7 +1501,7 @@ final readonly class Configuration
     public function testsRequiringPhpExtension(): array
     {
         if (!$this->hasTestsRequiringPhpExtension()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->testsRequiringPhpExtension;
@@ -1523,7 +1526,7 @@ final readonly class Configuration
     public function includePath(): string
     {
         if (!$this->hasIncludePath()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->includePath;
@@ -1545,7 +1548,7 @@ final readonly class Configuration
     public function iniSettings(): array
     {
         if (!$this->hasIniSettings()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->iniSettings;
@@ -1565,7 +1568,7 @@ final readonly class Configuration
     public function junitLogfile(): string
     {
         if (!$this->hasJunitLogfile()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->junitLogfile;
@@ -1585,7 +1588,7 @@ final readonly class Configuration
     public function otrLogfile(): string
     {
         if (!$this->hasOtrLogfile()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->otrLogfile;
@@ -1605,7 +1608,7 @@ final readonly class Configuration
     public function includeGitInformation(): bool
     {
         if (!$this->hasIncludeGitInformation()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->includeGitInformation;
@@ -1645,7 +1648,7 @@ final readonly class Configuration
     public function listTestsXml(): string
     {
         if (!$this->hasListTestsXml()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->listTestsXml;
@@ -1665,7 +1668,7 @@ final readonly class Configuration
     public function noCoverage(): bool
     {
         if (!$this->hasNoCoverage()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->noCoverage;
@@ -1685,7 +1688,7 @@ final readonly class Configuration
     public function noExtensions(): bool
     {
         if (!$this->hasNoExtensions()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->noExtensions;
@@ -1705,7 +1708,7 @@ final readonly class Configuration
     public function noOutput(): bool
     {
         if ($this->noOutput === null) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->noOutput;
@@ -1725,7 +1728,7 @@ final readonly class Configuration
     public function noProgress(): bool
     {
         if ($this->noProgress === null) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->noProgress;
@@ -1745,7 +1748,7 @@ final readonly class Configuration
     public function noResults(): bool
     {
         if ($this->noResults === null) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->noResults;
@@ -1765,7 +1768,7 @@ final readonly class Configuration
     public function noLogging(): bool
     {
         if (!$this->hasNoLogging()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->noLogging;
@@ -1785,7 +1788,7 @@ final readonly class Configuration
     public function processIsolation(): bool
     {
         if (!$this->hasProcessIsolation()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->processIsolation;
@@ -1805,7 +1808,7 @@ final readonly class Configuration
     public function randomOrderSeed(): int
     {
         if (!$this->hasRandomOrderSeed()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->randomOrderSeed;
@@ -1825,7 +1828,7 @@ final readonly class Configuration
     public function reportUselessTests(): bool
     {
         if (!$this->hasReportUselessTests()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->reportUselessTests;
@@ -1845,7 +1848,7 @@ final readonly class Configuration
     public function resolveDependencies(): bool
     {
         if (!$this->hasResolveDependencies()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->resolveDependencies;
@@ -1865,7 +1868,7 @@ final readonly class Configuration
     public function reverseList(): bool
     {
         if (!$this->hasReverseList()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->reverseList;
@@ -1885,7 +1888,7 @@ final readonly class Configuration
     public function stderr(): bool
     {
         if (!$this->hasStderr()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->stderr;
@@ -1905,7 +1908,7 @@ final readonly class Configuration
     public function strictCoverage(): bool
     {
         if (!$this->hasStrictCoverage()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->strictCoverage;
@@ -1925,7 +1928,7 @@ final readonly class Configuration
     public function teamcityLogfile(): string
     {
         if (!$this->hasTeamcityLogfile()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->teamcityLogfile;
@@ -1945,7 +1948,7 @@ final readonly class Configuration
     public function teamCityPrinter(): bool
     {
         if (!$this->hasTeamCityPrinter()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->teamCityPrinter;
@@ -1965,7 +1968,7 @@ final readonly class Configuration
     public function testdoxHtmlFile(): string
     {
         if (!$this->hasTestdoxHtmlFile()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->testdoxHtmlFile;
@@ -1985,7 +1988,7 @@ final readonly class Configuration
     public function testdoxTextFile(): string
     {
         if (!$this->hasTestdoxTextFile()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->testdoxTextFile;
@@ -2005,7 +2008,7 @@ final readonly class Configuration
     public function testdoxPrinter(): bool
     {
         if (!$this->hasTestDoxPrinter()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->testdoxPrinter;
@@ -2025,7 +2028,7 @@ final readonly class Configuration
     public function testdoxPrinterSummary(): bool
     {
         if (!$this->hasTestDoxPrinterSummary()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->testdoxPrinterSummary;
@@ -2047,7 +2050,7 @@ final readonly class Configuration
     public function testSuffixes(): array
     {
         if (!$this->hasTestSuffixes()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->testSuffixes;
@@ -2067,7 +2070,7 @@ final readonly class Configuration
     public function testSuite(): string
     {
         if (!$this->hasTestSuite()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->testSuite;
@@ -2087,7 +2090,7 @@ final readonly class Configuration
     public function excludedTestSuite(): string
     {
         if (!$this->hasExcludedTestSuite()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->excludeTestSuite;
@@ -2112,7 +2115,7 @@ final readonly class Configuration
     public function displayDetailsOnAllIssues(): bool
     {
         if (!$this->hasDisplayDetailsOnAllIssues()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->displayDetailsOnAllIssues;
@@ -2132,7 +2135,7 @@ final readonly class Configuration
     public function displayDetailsOnIncompleteTests(): bool
     {
         if (!$this->hasDisplayDetailsOnIncompleteTests()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->displayDetailsOnIncompleteTests;
@@ -2152,7 +2155,7 @@ final readonly class Configuration
     public function displayDetailsOnSkippedTests(): bool
     {
         if (!$this->hasDisplayDetailsOnSkippedTests()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->displayDetailsOnSkippedTests;
@@ -2172,7 +2175,7 @@ final readonly class Configuration
     public function displayDetailsOnTestsThatTriggerDeprecations(): bool
     {
         if (!$this->hasDisplayDetailsOnTestsThatTriggerDeprecations()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->displayDetailsOnTestsThatTriggerDeprecations;
@@ -2192,7 +2195,7 @@ final readonly class Configuration
     public function displayDetailsOnPhpunitDeprecations(): bool
     {
         if (!$this->hasDisplayDetailsOnPhpunitDeprecations()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->displayDetailsOnPhpunitDeprecations;
@@ -2212,7 +2215,7 @@ final readonly class Configuration
     public function displayDetailsOnPhpunitNotices(): bool
     {
         if (!$this->hasDisplayDetailsOnPhpunitNotices()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->displayDetailsOnPhpunitNotices;
@@ -2232,7 +2235,7 @@ final readonly class Configuration
     public function displayDetailsOnTestsThatTriggerErrors(): bool
     {
         if (!$this->hasDisplayDetailsOnTestsThatTriggerErrors()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->displayDetailsOnTestsThatTriggerErrors;
@@ -2252,7 +2255,7 @@ final readonly class Configuration
     public function displayDetailsOnTestsThatTriggerNotices(): bool
     {
         if (!$this->hasDisplayDetailsOnTestsThatTriggerNotices()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->displayDetailsOnTestsThatTriggerNotices;
@@ -2272,7 +2275,7 @@ final readonly class Configuration
     public function displayDetailsOnTestsThatTriggerWarnings(): bool
     {
         if (!$this->hasDisplayDetailsOnTestsThatTriggerWarnings()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->displayDetailsOnTestsThatTriggerWarnings;
@@ -2297,7 +2300,7 @@ final readonly class Configuration
     public function logEventsText(): string
     {
         if (!$this->hasLogEventsText()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->logEventsText;
@@ -2317,7 +2320,7 @@ final readonly class Configuration
     public function logEventsVerboseText(): string
     {
         if (!$this->hasLogEventsVerboseText()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->logEventsVerboseText;
@@ -2349,7 +2352,7 @@ final readonly class Configuration
     public function extensions(): array
     {
         if (!$this->hasExtensions()) {
-            throw new Exception;
+            throw new Exception();
         }
 
         return $this->extensions;

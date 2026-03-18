@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,12 +9,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
+
+use function fclose;
+use function fopen;
 
 use const INF;
 use const NAN;
-use function fclose;
-use function fopen;
+
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\Attributes\Group;
@@ -133,8 +138,8 @@ final class assertThatTest extends TestCase
 
     public function testAssertThatContainsOnlyCallable(): void
     {
-        $callable = static function (): void
-        {};
+        $callable = static function (): void {
+        };
 
         $this->assertThat([$callable], $this->containsOnlyCallable());
     }
@@ -166,7 +171,7 @@ final class assertThatTest extends TestCase
 
     public function testAssertThatContainsOnlyObject(): void
     {
-        $this->assertThat([new stdClass], $this->containsOnlyObject());
+        $this->assertThat([new stdClass()], $this->containsOnlyObject());
     }
 
     public function testAssertThatContainsOnlyResource(): void
@@ -197,7 +202,7 @@ final class assertThatTest extends TestCase
 
     public function testAssertThatContainsOnlyInstancesOf(): void
     {
-        $this->assertThat([new Book], $this->containsOnlyInstancesOf(Book::class));
+        $this->assertThat([new Book()], $this->containsOnlyInstancesOf(Book::class));
     }
 
     public function testAssertThatArrayHasKey(): void
@@ -232,7 +237,7 @@ final class assertThatTest extends TestCase
 
     public function testAssertThatIdenticalTo(): void
     {
-        $value      = new stdClass;
+        $value      = new stdClass();
         $constraint = $this->identicalTo($value);
 
         $this->assertThat($value, $constraint);
@@ -240,7 +245,7 @@ final class assertThatTest extends TestCase
 
     public function testAssertThatIsInstanceOf(): void
     {
-        $this->assertThat(new stdClass, $this->isInstanceOf(stdClass::class));
+        $this->assertThat(new stdClass(), $this->isInstanceOf(stdClass::class));
     }
 
     public function testAssertThatIsArray(): void
@@ -255,8 +260,8 @@ final class assertThatTest extends TestCase
 
     public function testAssertThatIsCallable(): void
     {
-        $this->assertThat(static function (): void
-        {}, $this->isCallable());
+        $this->assertThat(static function (): void {
+        }, $this->isCallable());
     }
 
     public function testAssertThatIsFloat(): void
@@ -281,7 +286,7 @@ final class assertThatTest extends TestCase
 
     public function testAssertThatIsObject(): void
     {
-        $this->assertThat(new stdClass, $this->isObject());
+        $this->assertThat(new stdClass(), $this->isObject());
     }
 
     public function testAssertThatIsResource(): void

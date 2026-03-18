@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,13 +9,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
-use const PHP_EOL;
-use function func_get_args;
-use function function_exists;
 use ArrayAccess;
 use Countable;
+
+use function func_get_args;
+use function function_exists;
+
+use const PHP_EOL;
+
 use PHPUnit\Event\Facade as EventFacade;
 use PHPUnit\Framework\Constraint\ArrayHasKey;
 use PHPUnit\Framework\Constraint\Callback;
@@ -3479,7 +3485,7 @@ if (!function_exists('PHPUnit\Framework\any')) {
      */
     function any(): AnyInvokedCountMatcher
     {
-        return new AnyInvokedCountMatcher;
+        return new AnyInvokedCountMatcher();
     }
 }
 
@@ -3520,7 +3526,7 @@ if (!function_exists('PHPUnit\Framework\atLeastOnce')) {
      */
     function atLeastOnce(): InvokedAtLeastOnceMatcher
     {
-        return new InvokedAtLeastOnceMatcher;
+        return new InvokedAtLeastOnceMatcher();
     }
 }
 

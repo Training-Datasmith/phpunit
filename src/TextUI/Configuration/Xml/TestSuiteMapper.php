@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,15 +9,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\XmlConfiguration;
 
-use const PHP_VERSION;
 use function in_array;
 use function is_dir;
 use function is_file;
-use function sprintf;
-use function str_contains;
-use function version_compare;
+
+use const PHP_VERSION;
+
 use PHPUnit\Event\Facade as EventFacade;
 use PHPUnit\Framework\Exception as FrameworkException;
 use PHPUnit\Framework\TestSuite as TestSuiteObject;
@@ -24,6 +26,10 @@ use PHPUnit\TextUI\RuntimeException;
 use PHPUnit\TextUI\TestDirectoryNotFoundException;
 use PHPUnit\TextUI\TestFileNotFoundException;
 use SebastianBergmann\FileIterator\Facade;
+
+use function sprintf;
+use function str_contains;
+use function version_compare;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -75,7 +81,7 @@ final readonly class TestSuiteMapper
                         continue;
                     }
 
-                    $files = (new Facade)->getFilesAsArray(
+                    $files = (new Facade())->getFilesAsArray(
                         $directory->path(),
                         $directory->suffix(),
                         $directory->prefix(),

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 use ArrayAccess;
@@ -30,10 +33,10 @@ final class assertArrayHasKeyTest extends TestCase
      */
     public static function successProvider(): array
     {
-        $arrayAccess        = new SampleArrayAccess;
+        $arrayAccess        = new SampleArrayAccess();
         $arrayAccess['foo'] = 'bar';
 
-        $arrayObject        = new ArrayObject;
+        $arrayObject        = new ArrayObject();
         $arrayObject['foo'] = 'bar';
 
         return [
@@ -49,10 +52,10 @@ final class assertArrayHasKeyTest extends TestCase
      */
     public static function failureProvider(): array
     {
-        $arrayAccess        = new SampleArrayAccess;
+        $arrayAccess        = new SampleArrayAccess();
         $arrayAccess['foo'] = 'bar';
 
-        $arrayObject        = new ArrayObject;
+        $arrayObject        = new ArrayObject();
         $arrayObject['foo'] = 'bar';
 
         return [

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,19 +9,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use function count;
-use function is_countable;
-use function iterator_count;
-use function sprintf;
+
 use EmptyIterator;
 use Generator;
+
+use function is_countable;
+
 use Iterator;
+
+use function iterator_count;
+
 use IteratorAggregate;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\GeneratorNotSupportedException;
 use SebastianBergmann\RecursionContext\Context;
+
+use function sprintf;
+
 use Traversable;
 
 /**
@@ -64,7 +74,7 @@ class Count extends Constraint
         }
 
         if ($other instanceof Traversable) {
-            $context = new Context;
+            $context = new Context();
 
             while ($other instanceof IteratorAggregate) {
                 if ($context->contains($other) !== false) {
@@ -87,7 +97,7 @@ class Count extends Constraint
             $iterator = $other;
 
             if ($iterator instanceof Generator) {
-                throw new GeneratorNotSupportedException;
+                throw new GeneratorNotSupportedException();
             }
 
             if (!$iterator instanceof Iterator) {

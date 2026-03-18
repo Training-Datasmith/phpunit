@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 use PHPUnit\Framework\Attributes\CoversMethod;
@@ -28,10 +31,10 @@ final class assertContainsEqualsTest extends TestCase
      */
     public static function successProvider(): array
     {
-        $a      = new stdClass;
+        $a      = new stdClass();
         $a->foo = 'bar';
 
-        $b      = new stdClass;
+        $b      = new stdClass();
         $b->foo = 'bar';
 
         return [
@@ -51,10 +54,10 @@ final class assertContainsEqualsTest extends TestCase
      */
     public static function failureProvider(): array
     {
-        $a      = new stdClass;
+        $a      = new stdClass();
         $a->foo = 'bar';
 
-        $b      = new stdClass;
+        $b      = new stdClass();
         $b->foo = 'baz';
 
         return [

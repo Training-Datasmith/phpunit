@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Event\TestRunner;
 
 use PHPUnit\Event\AbstractEventTestCase;
@@ -50,8 +53,8 @@ final class ConfiguredTest extends AbstractEventTestCase
 
     private function configuration(): Configuration
     {
-        return (new Merger)->merge(
-            (new Builder)->fromParameters([]),
+        return (new Merger())->merge(
+            (new Builder())->fromParameters([]),
             DefaultConfiguration::create(),
         );
     }

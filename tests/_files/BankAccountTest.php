@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestFixture;
 
 use PHPUnit\Framework\Attributes\CoversFunction;
@@ -22,7 +25,7 @@ final class BankAccountTest extends TestCase
     public function testBalanceIsInitiallyZero(): void
     {
         /* @Given a fresh bank account */
-        $ba = new BankAccount;
+        $ba = new BankAccount();
 
         /* @When I ask it for its balance */
         $balance = $ba->getBalance();
@@ -35,7 +38,7 @@ final class BankAccountTest extends TestCase
     #[Group('specification')]
     public function testBalanceCannotBecomeNegative(): void
     {
-        $ba = new BankAccount;
+        $ba = new BankAccount();
 
         try {
             $ba->withdrawMoney(1);
@@ -52,7 +55,7 @@ final class BankAccountTest extends TestCase
     #[Group('specification')]
     public function testBalanceCannotBecomeNegative2(): void
     {
-        $ba = new BankAccount;
+        $ba = new BankAccount();
 
         try {
             $ba->depositMoney(-1);

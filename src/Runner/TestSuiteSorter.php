@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner;
 
 use function array_diff;
@@ -17,8 +20,7 @@ use function assert;
 use function count;
 use function in_array;
 use function max;
-use function shuffle;
-use function usort;
+
 use PHPUnit\Framework\DataProviderTestSuite;
 use PHPUnit\Framework\Reorderable;
 use PHPUnit\Framework\Test;
@@ -27,6 +29,9 @@ use PHPUnit\Framework\TestSuite;
 use PHPUnit\Runner\ResultCache\NullResultCache;
 use PHPUnit\Runner\ResultCache\ResultCache;
 use PHPUnit\Runner\ResultCache\ResultCacheId;
+
+use function shuffle;
+use function usort;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -57,7 +62,7 @@ final class TestSuiteSorter
      */
     private array $defectSortOrder = [];
 
-    public function __construct(private readonly ?ResultCache $cache = new NullResultCache)
+    public function __construct(private readonly ?ResultCache $cache = new NullResultCache())
     {
     }
 
@@ -76,7 +81,7 @@ final class TestSuiteSorter
 
         if (!in_array($order, $allowedOrders, true)) {
             // @codeCoverageIgnoreStart
-            throw new InvalidOrderException;
+            throw new InvalidOrderException();
             // @codeCoverageIgnoreEnd
         }
 
@@ -87,7 +92,7 @@ final class TestSuiteSorter
 
         if (!in_array($orderDefects, $allowedOrderDefects, true)) {
             // @codeCoverageIgnoreStart
-            throw new InvalidOrderException;
+            throw new InvalidOrderException();
             // @codeCoverageIgnoreEnd
         }
 

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,10 +9,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use function acos;
 use function log;
+
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
@@ -25,7 +29,7 @@ final class IsNanTest extends TestCase
 {
     public function testCanBeEvaluated(): void
     {
-        $constraint = new IsNan;
+        $constraint = new IsNan();
 
         $this->assertTrue($constraint->evaluate(acos(2), returnResult: true));
         $this->assertFalse($constraint->evaluate(log(0), returnResult: true));
@@ -34,11 +38,11 @@ final class IsNanTest extends TestCase
 
     public function testCanBeRepresentedAsString(): void
     {
-        $this->assertSame('is nan', (new IsNan)->toString());
+        $this->assertSame('is nan', (new IsNan())->toString());
     }
 
     public function testIsCountable(): void
     {
-        $this->assertCount(1, (new IsNan));
+        $this->assertCount(1, (new IsNan()));
     }
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestFixture\LogEventsText;
 
 use function fopen;
+
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -43,7 +47,7 @@ final class Test extends TestCase
 
     public function testExportObject(): void
     {
-        $this->assertSame(new stdClass, new stdClass);
+        $this->assertSame(new stdClass(), new stdClass());
     }
 
     public function testExportResource(): void

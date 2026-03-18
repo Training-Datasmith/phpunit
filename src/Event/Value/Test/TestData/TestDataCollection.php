@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Event\TestData;
 
 use function count;
+
 use Countable;
 use IteratorAggregate;
 
@@ -75,7 +79,7 @@ final readonly class TestDataCollection implements Countable, IteratorAggregate
     public function dataFromDataProvider(): DataFromDataProvider
     {
         if (!$this->hasDataFromDataProvider()) {
-            throw new NoDataSetFromDataProviderException;
+            throw new NoDataSetFromDataProviderException();
         }
 
         return $this->fromDataProvider;

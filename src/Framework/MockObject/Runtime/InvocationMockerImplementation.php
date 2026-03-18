@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject;
 
 use PHPUnit\Event\Facade as EventFacade;
@@ -67,7 +70,7 @@ final class InvocationMockerImplementation extends AbstractInvocationImplementat
         $this->ensureParametersCanBeConfigured();
         $this->emitDeprecationWhenCreatedWithoutExplicitExpects();
 
-        $this->matcher->setParametersRule(new Rule\AnyParameters);
+        $this->matcher->setParametersRule(new Rule\AnyParameters());
 
         return $this;
     }

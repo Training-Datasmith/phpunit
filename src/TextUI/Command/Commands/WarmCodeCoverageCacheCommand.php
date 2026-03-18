@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,13 +9,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\Command;
 
 use const PHP_EOL;
-use function printf;
+
 use PHPUnit\TextUI\Configuration\CodeCoverageFilterRegistry;
 use PHPUnit\TextUI\Configuration\Configuration;
 use PHPUnit\TextUI\Configuration\NoCoverageCacheDirectoryException;
+
+use function printf;
+
 use SebastianBergmann\CodeCoverage\StaticAnalysis\CacheWarmer;
 use SebastianBergmann\Timer\NoActiveTimerException;
 use SebastianBergmann\Timer\Timer;
@@ -53,13 +59,13 @@ final readonly class WarmCodeCoverageCacheCommand implements Command
             );
         }
 
-        $timer = new Timer;
+        $timer = new Timer();
         $timer->start();
 
         print 'Warming cache for static analysis ... ';
 
         /** @phpstan-ignore new.internalClass,method.internalClass */
-        $statistics = (new CacheWarmer)->warmCache(
+        $statistics = (new CacheWarmer())->warmCache(
             $this->configuration->coverageCacheDirectory(),
             !$this->configuration->disableCodeCoverageIgnore(),
             $this->configuration->ignoreDeprecatedCodeUnitsFromCodeCoverage(),

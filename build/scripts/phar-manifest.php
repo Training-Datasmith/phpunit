@@ -1,5 +1,7 @@
 #!/usr/bin/env php
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 if ($argc !== 3) {
     fwrite(
         STDERR,
@@ -44,7 +46,7 @@ function manifest(string $outputFilename, array $package, string $version, array
 
 function sbom(string $outputFilename, array $package, string $version, array $dependencies): void
 {
-    $writer = new XMLWriter;
+    $writer = new XMLWriter();
 
     $writer->openMemory();
     $writer->setIndent(true);

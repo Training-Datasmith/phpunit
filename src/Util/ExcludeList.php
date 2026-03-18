@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,24 +9,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util;
 
-use const PHP_OS_FAMILY;
 use function array_any;
 use function assert;
 use function class_exists;
+
+use Composer\Autoload\ClassLoader;
+use DeepCopy\DeepCopy;
+
 use function defined;
 use function dirname;
 use function is_dir;
-use function realpath;
-use function str_starts_with;
-use function sys_get_temp_dir;
-use Composer\Autoload\ClassLoader;
-use DeepCopy\DeepCopy;
+
 use PharIo\Manifest\Manifest;
 use PharIo\Version\Version as PharIoVersion;
+
+use const PHP_OS_FAMILY;
+
 use PhpParser\Parser;
 use PHPUnit\Framework\TestCase;
+
+use function realpath;
+
 use ReflectionClass;
 use SebastianBergmann\CliParser\Parser as CliParser;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
@@ -45,6 +53,10 @@ use SebastianBergmann\Timer\Timer;
 use SebastianBergmann\Type\TypeName;
 use SebastianBergmann\Version;
 use staabm\SideEffectsDetector\SideEffectsDetector;
+
+use function str_starts_with;
+use function sys_get_temp_dir;
+
 use TheSeer\Tokenizer\Tokenizer;
 
 /**

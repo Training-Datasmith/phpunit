@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\XmlConfiguration;
 
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -53,8 +56,8 @@ final class MigratorTest extends TestCase
     public function testCanMigrateConfigurationFileThatValidatesAgainstPreviousSchema(string $output, string $input): void
     {
         $this->assertEquals(
-            (new XmlLoader)->loadFile($output),
-            (new XmlLoader)->load((new Migrator)->migrate($input)),
+            (new XmlLoader())->loadFile($output),
+            (new XmlLoader())->load((new Migrator())->migrate($input)),
         );
     }
 }

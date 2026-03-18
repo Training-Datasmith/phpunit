@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use function json_encode;
+
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
@@ -56,7 +60,7 @@ final class IsJsonTest extends TestCase
     #[DataProvider('provider')]
     public function testCanBeEvaluated(bool $result, string $failureDescription, mixed $actual): void
     {
-        $constraint = new IsJson;
+        $constraint = new IsJson();
 
         $this->assertSame($result, $constraint->evaluate($actual, returnResult: true));
 
@@ -72,11 +76,11 @@ final class IsJsonTest extends TestCase
 
     public function testCanBeRepresentedAsString(): void
     {
-        $this->assertSame('is valid JSON', (new IsJson)->toString());
+        $this->assertSame('is valid JSON', (new IsJson())->toString());
     }
 
     public function testIsCountable(): void
     {
-        $this->assertCount(1, (new IsJson));
+        $this->assertCount(1, (new IsJson()));
     }
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,13 +9,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestFixture;
 
 use function current;
+
+use Iterator;
+
 use function key;
 use function next;
 use function reset;
-use Iterator;
 
 final class TestIterator2 implements Iterator
 {

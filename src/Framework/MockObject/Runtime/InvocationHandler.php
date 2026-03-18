@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,17 +9,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject;
 
 use function array_any;
 use function array_unique;
 use function array_values;
-use function in_array;
-use function strtolower;
+
 use Exception;
+
+use function in_array;
+
 use PHPUnit\Framework\MockObject\Rule\InvocationOrder;
 use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 use PHPUnit\Framework\MockObject\Rule\MethodName;
+
+use function strtolower;
+
 use Throwable;
 
 /**
@@ -99,7 +107,7 @@ final class InvocationHandler
     public function expects(InvocationOrder $rule): InvocationMocker|InvocationStubber
     {
         if ($this->sealed) {
-            throw new TestDoubleSealedException;
+            throw new TestDoubleSealedException();
         }
 
         $matcher = new Matcher($rule);

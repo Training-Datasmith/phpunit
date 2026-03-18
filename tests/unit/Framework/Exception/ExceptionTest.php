@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -18,7 +21,7 @@ final class ExceptionTest extends TestCase
 {
     public function testExceptionSerialize(): void
     {
-        $actual = (new Exception)->__serialize();
+        $actual = (new Exception())->__serialize();
 
         $this->assertCount(5, $actual);
         $this->assertArrayHasKey('serializableTrace', $actual);

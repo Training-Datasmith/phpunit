@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\Output\Default;
 
 use const PHP_OS_FAMILY;
+
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\Attributes\Medium;
@@ -60,8 +64,7 @@ final class SummaryPrinterTest extends TestCase
 
     private function printer(): Printer
     {
-        return new class implements Printer
-        {
+        return new class () implements Printer {
             private string $buffer = '';
 
             public function print(string $buffer): void

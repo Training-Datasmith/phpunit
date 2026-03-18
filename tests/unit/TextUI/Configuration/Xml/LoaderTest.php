@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,17 +9,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\XmlConfiguration;
 
 use const DIRECTORY_SEPARATOR;
-use const PHP_EOL;
-use const PHP_VERSION;
+
 use function file_put_contents;
 use function iterator_to_array;
-use function realpath;
-use function sys_get_temp_dir;
-use function uniqid;
-use function unlink;
+
+use const PHP_EOL;
+use const PHP_VERSION;
+
 use PHPUnit\Framework\Attributes\CoversNamespace;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
@@ -25,8 +27,15 @@ use PHPUnit\Framework\Attributes\Medium;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Runner\TestSuiteSorter;
 use PHPUnit\TextUI\Configuration\Configuration;
+
+use function realpath;
+
 use SebastianBergmann\CodeCoverage\Report\Html\Colors;
 use SebastianBergmann\CodeCoverage\Report\Thresholds;
+
+use function sys_get_temp_dir;
+use function uniqid;
+use function unlink;
 
 #[CoversNamespace('PHPUnit\TextUI\XmlConfiguration')]
 #[Medium]
@@ -116,7 +125,7 @@ final class LoaderTest extends TestCase
         $xml         = "<phpunit {$optionName}='{$optionValue}'></phpunit>" . PHP_EOL;
         file_put_contents($tmpFilename, $xml);
 
-        $configuration = (new Loader)->load($tmpFilename);
+        $configuration = (new Loader())->load($tmpFilename);
 
         $this->assertFalse($configuration->hasValidationErrors());
 
@@ -131,7 +140,7 @@ final class LoaderTest extends TestCase
         $xml         = "<phpunit executionOrder='depends,defects'></phpunit>" . PHP_EOL;
         file_put_contents($tmpFilename, $xml);
 
-        $configuration = (new Loader)->load($tmpFilename);
+        $configuration = (new Loader())->load($tmpFilename);
 
         $this->assertFalse($configuration->hasValidationErrors());
 
@@ -453,6 +462,6 @@ final class LoaderTest extends TestCase
 
     private function configuration(string $filename): LoadedFromFileConfiguration
     {
-        return (new Loader)->load(TEST_FILES_PATH . $filename);
+        return (new Loader())->load(TEST_FILES_PATH . $filename);
     }
 }

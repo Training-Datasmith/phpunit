@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use ArrayIterator;
@@ -55,7 +58,7 @@ final class CountTest extends TestCase
                 true,
                 '',
                 0,
-                new EmptyIterator,
+                new EmptyIterator(),
             ],
 
             [
@@ -211,7 +214,7 @@ final class CountTest extends TestCase
 
         $this->expectException(Exception::class);
 
-        $constraint->evaluate(new ExceptionThrowingIteratorAggregate);
+        $constraint->evaluate(new ExceptionThrowingIteratorAggregate());
     }
 
     private function generator(): Generator

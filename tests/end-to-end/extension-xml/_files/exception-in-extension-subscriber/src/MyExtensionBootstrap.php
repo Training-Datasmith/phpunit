@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestFixture\Event\MyExtension;
 
 use PHPUnit\Runner\Extension\Extension;
@@ -18,6 +21,6 @@ final class MyExtensionBootstrap implements Extension
 {
     public function bootstrap(Configuration $configuration, Facade $facade, ParameterCollection $parameters): void
     {
-        $facade->registerSubscriber(new MyExecutionFinishedSubscriber);
+        $facade->registerSubscriber(new MyExecutionFinishedSubscriber());
     }
 }

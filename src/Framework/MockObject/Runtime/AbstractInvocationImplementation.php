@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject;
 
 use function array_flip;
@@ -17,8 +20,7 @@ use function array_pop;
 use function assert;
 use function count;
 use function is_string;
-use function range;
-use function strtolower;
+
 use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\InvalidArgumentException;
 use PHPUnit\Framework\MockObject\Runtime\PropertyHook;
@@ -31,6 +33,10 @@ use PHPUnit\Framework\MockObject\Stub\ReturnSelf;
 use PHPUnit\Framework\MockObject\Stub\ReturnStub;
 use PHPUnit\Framework\MockObject\Stub\ReturnValueMap;
 use PHPUnit\Framework\MockObject\Stub\Stub;
+
+use function range;
+use function strtolower;
+
 use Throwable;
 
 /**
@@ -68,7 +74,7 @@ abstract class AbstractInvocationImplementation implements InvocationStubber
     final public function method(Constraint|PropertyHook|string $constraint): InvocationStubber
     {
         if ($this->matcher->hasMethodNameRule()) {
-            throw new MethodNameAlreadyConfiguredException;
+            throw new MethodNameAlreadyConfiguredException();
         }
 
         if ($constraint instanceof PropertyHook) {
@@ -193,7 +199,7 @@ abstract class AbstractInvocationImplementation implements InvocationStubber
 
     final public function willReturnSelf(): InvocationStubber
     {
-        $stub = new ReturnSelf;
+        $stub = new ReturnSelf();
 
         return $this->will($stub);
     }
@@ -234,11 +240,11 @@ abstract class AbstractInvocationImplementation implements InvocationStubber
     final protected function ensureParametersCanBeConfigured(): void
     {
         if (!$this->matcher->hasMethodNameRule()) {
-            throw new MethodNameNotConfiguredException;
+            throw new MethodNameNotConfiguredException();
         }
 
         if ($this->matcher->hasParametersRule()) {
-            throw new MethodParametersAlreadyConfiguredException;
+            throw new MethodParametersAlreadyConfiguredException();
         }
     }
 

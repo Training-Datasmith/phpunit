@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -50,8 +53,7 @@ final class CallbackTest extends TestCase
 
     public function testIsVariadic(): void
     {
-        $class = new class
-        {
+        $class = new class () {
             public function __invoke(string ...$values): void
             {
             }
@@ -62,8 +64,7 @@ final class CallbackTest extends TestCase
 
     public function testIsNotVariadic(): void
     {
-        $class = new class
-        {
+        $class = new class () {
             public function __invoke(string $value): void
             {
             }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,17 +9,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\Configuration;
 
-use const DIRECTORY_SEPARATOR;
-use const PATH_SEPARATOR;
 use function array_diff;
 use function assert;
+
+use const DIRECTORY_SEPARATOR;
+
 use function dirname;
 use function explode;
 use function is_int;
-use function realpath;
-use function time;
+
+use const PATH_SEPARATOR;
+
 use PHPUnit\Event\Facade as EventFacade;
 use PHPUnit\Runner\TestSuiteSorter;
 use PHPUnit\TextUI\CliArguments\Configuration as CliConfiguration;
@@ -26,10 +31,15 @@ use PHPUnit\TextUI\XmlConfiguration\Configuration as XmlConfiguration;
 use PHPUnit\TextUI\XmlConfiguration\LoadedFromFileConfiguration;
 use PHPUnit\TextUI\XmlConfiguration\SchemaDetector;
 use PHPUnit\Util\Filesystem;
+
+use function realpath;
+
 use SebastianBergmann\CodeCoverage\Report\Html\Colors;
 use SebastianBergmann\CodeCoverage\Report\Thresholds;
 use SebastianBergmann\Environment\Console;
 use SebastianBergmann\Invoker\Invoker;
+
+use function time;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -306,7 +316,7 @@ final readonly class Merger
         }
 
         if ($columns === 'max') {
-            $columns = (new Console)->getNumberOfColumns();
+            $columns = (new Console())->getNumberOfColumns();
         }
 
         if ($columns < 16) {
@@ -531,7 +541,7 @@ final readonly class Merger
             $enforceTimeLimit = $xmlConfiguration->phpunit()->enforceTimeLimit();
         }
 
-        if ($enforceTimeLimit && !(new Invoker)->canInvokeWithTimeout()) {
+        if ($enforceTimeLimit && !(new Invoker())->canInvokeWithTimeout()) {
             EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
                 'The pcntl extension is required for enforcing time limits',
             );
@@ -649,7 +659,7 @@ final readonly class Merger
         }
 
         $colors          = false;
-        $colorsSupported = (new Console)->hasColorSupport();
+        $colorsSupported = (new Console())->hasColorSupport();
 
         if ($cliConfiguration->hasColors()) {
             if ($cliConfiguration->colors() === Configuration::COLOR_ALWAYS) {
@@ -823,7 +833,7 @@ final readonly class Merger
         }
 
         if ($xmlConfiguration->wasLoadedFromFile() && $xmlConfiguration->hasValidationErrors()) {
-            if ((new SchemaDetector)->detect($xmlConfiguration->filename())->detected()) {
+            if ((new SchemaDetector())->detect($xmlConfiguration->filename())->detected()) {
                 EventFacade::emitter()->testRunnerTriggeredPhpunitDeprecation(
                     'Your XML configuration validates against a deprecated schema. Migrate your XML configuration using "--migrate-configuration"!',
                 );

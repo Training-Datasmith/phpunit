@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Logging\TestDox;
 
-use const PHP_EOL;
 use function array_key_exists;
 use function array_keys;
 use function array_map;
@@ -27,20 +29,9 @@ use function is_object;
 use function is_scalar;
 use function is_string;
 use function method_exists;
-use function preg_quote;
-use function preg_replace;
-use function preg_replace_callback_array;
-use function rtrim;
-use function sprintf;
-use function str_contains;
-use function str_ends_with;
-use function str_replace;
-use function str_starts_with;
-use function strlen;
-use function strtolower;
-use function substr;
-use function trim;
-use function ucfirst;
+
+use const PHP_EOL;
+
 use PHPUnit\Event\Code\TestMethodBuilder;
 use PHPUnit\Event\Facade as EventFacade;
 use PHPUnit\Framework\TestCase;
@@ -50,10 +41,29 @@ use PHPUnit\Metadata\TestDoxFormatter;
 use PHPUnit\Util\Color;
 use PHPUnit\Util\Exporter;
 use PHPUnit\Util\Filter;
+
+use function preg_quote;
+use function preg_replace;
+use function preg_replace_callback_array;
+
 use ReflectionEnum;
 use ReflectionMethod;
 use ReflectionObject;
+
+use function rtrim;
+use function sprintf;
+use function str_contains;
+use function str_ends_with;
+use function str_replace;
+use function str_starts_with;
+use function strlen;
+use function strtolower;
+use function substr;
+
 use Throwable;
+
+use function trim;
+use function ucfirst;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit

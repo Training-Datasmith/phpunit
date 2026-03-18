@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,18 +9,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\Output\TestDox;
 
-use const PHP_EOL;
 use function array_map;
 use function explode;
 use function implode;
-use function preg_match;
-use function preg_split;
-use function rtrim;
-use function sprintf;
-use function str_starts_with;
-use function trim;
+
+use const PHP_EOL;
+
 use PHPUnit\Event\Code\Throwable;
 use PHPUnit\Event\Test\AfterLastTestMethodErrored;
 use PHPUnit\Event\Test\BeforeFirstTestMethodErrored;
@@ -28,6 +27,13 @@ use PHPUnit\Logging\TestDox\TestResultCollection;
 use PHPUnit\TestRunner\TestResult\TestResult;
 use PHPUnit\TextUI\Output\Printer;
 use PHPUnit\Util\Color;
+
+use function preg_match;
+use function preg_split;
+use function rtrim;
+use function sprintf;
+use function str_starts_with;
+use function trim;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit

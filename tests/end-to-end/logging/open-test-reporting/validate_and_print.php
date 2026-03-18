@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,22 +9,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestFixture;
 
-use const PHP_EOL;
+use DOMDocument;
+
 use function file_get_contents;
 use function libxml_clear_errors;
 use function libxml_get_errors;
 use function libxml_use_internal_errors;
+
+use const PHP_EOL;
+
 use function printf;
 use function trim;
-use DOMDocument;
 
 function validate_and_print(string $logfile): void
 {
     libxml_use_internal_errors(true);
 
-    $document = new DOMDocument;
+    $document = new DOMDocument();
     $document->load($logfile);
 
     if (!$document->schemaValidate(__DIR__ . '/../../../../src/Logging/OpenTestReporting/schema/otr.xsd')) {

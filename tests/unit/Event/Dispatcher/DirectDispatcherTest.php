@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Event;
 
 use PHPUnit\Event\Tracer\Tracer;
@@ -26,7 +29,7 @@ final class DirectDispatcherTest extends TestCase
 {
     public function testDispatchesEventToKnownSubscribers(): void
     {
-        $event   = new DummyEvent;
+        $event   = new DummyEvent();
         $typeMap = $this->typeMap();
 
         $dispatcher = new DirectDispatcher($typeMap);
@@ -45,7 +48,7 @@ final class DirectDispatcherTest extends TestCase
 
     public function testDispatchesEventToTracers(): void
     {
-        $event   = new DummyEvent;
+        $event   = new DummyEvent();
         $typeMap = $this->typeMap();
 
         $dispatcher = new DirectDispatcher($typeMap);
@@ -66,7 +69,7 @@ final class DirectDispatcherTest extends TestCase
     {
         $subscriber = $this->createStub(Subscriber::class);
 
-        $dispatcher = new DirectDispatcher(new TypeMap);
+        $dispatcher = new DirectDispatcher(new TypeMap());
 
         $this->expectException(RuntimeException::class);
 
@@ -75,9 +78,9 @@ final class DirectDispatcherTest extends TestCase
 
     public function testDispatchRejectsUnknownEventType(): void
     {
-        $event = new DummyEvent;
+        $event = new DummyEvent();
 
-        $dispatcher = new DirectDispatcher(new TypeMap);
+        $dispatcher = new DirectDispatcher(new TypeMap());
 
         $this->expectException(RuntimeException::class);
 
@@ -86,7 +89,7 @@ final class DirectDispatcherTest extends TestCase
 
     private function typeMap(): TypeMap
     {
-        $typeMap = new TypeMap;
+        $typeMap = new TypeMap();
 
         $typeMap->addMapping(DummySubscriber::class, DummyEvent::class);
 

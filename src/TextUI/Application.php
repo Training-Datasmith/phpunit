@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,10 +9,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI;
 
-use const PHP_EOL;
-use const PHP_VERSION;
 use function array_reverse;
 use function assert;
 use function class_exists;
@@ -22,13 +23,10 @@ use function function_exists;
 use function in_array;
 use function is_file;
 use function method_exists;
-use function printf;
-use function realpath;
-use function sprintf;
-use function str_contains;
-use function str_starts_with;
-use function trim;
-use function unlink;
+
+use const PHP_EOL;
+use const PHP_VERSION;
+
 use PHPUnit\Event\EventFacadeIsSealedException;
 use PHPUnit\Event\Facade as EventFacade;
 use PHPUnit\Event\UnknownSubscriberTypeException;
@@ -98,8 +96,20 @@ use PHPUnit\TextUI\XmlConfiguration\Configuration as XmlConfiguration;
 use PHPUnit\TextUI\XmlConfiguration\DefaultConfiguration;
 use PHPUnit\TextUI\XmlConfiguration\Loader;
 use PHPUnit\Util\Http\PhpDownloader;
+
+use function printf;
+use function realpath;
+
 use SebastianBergmann\Timer\Timer;
+
+use function sprintf;
+use function str_contains;
+use function str_starts_with;
+
 use Throwable;
+
+use function trim;
+use function unlink;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -119,7 +129,7 @@ final readonly class Application
             EventFacade::emitter()->applicationStarted();
 
             $cliConfiguration           = $this->buildCliConfiguration($argv);
-            $pathToXmlConfigurationFile = (new XmlConfigurationFileFinder)->find($cliConfiguration);
+            $pathToXmlConfigurationFile = (new XmlConfigurationFileFinder())->find($cliConfiguration);
 
             $this->executeCommandsThatOnlyRequireCliConfiguration($cliConfiguration, $pathToXmlConfigurationFile);
 
@@ -130,10 +140,10 @@ final readonly class Application
                 $xmlConfiguration,
             );
 
-            (new PhpHandler)->handle($configuration->php());
+            (new PhpHandler())->handle($configuration->php());
 
             try {
-                (new BootstrapLoader)->handle($configuration);
+                (new BootstrapLoader())->handle($configuration);
             } catch (BootstrapScriptDoesNotExistException|BootstrapScriptException $e) {
                 $this->exitWithErrorMessage($e->getMessage());
             }
@@ -148,7 +158,7 @@ final readonly class Application
 
             if (!$configuration->noExtensions()) {
                 if ($configuration->hasPharExtensionDirectory()) {
-                    $pharExtensions = (new PharLoader)->loadPharExtensionsInDirectory(
+                    $pharExtensions = (new PharLoader())->loadPharExtensionsInDirectory(
                         $configuration->pharExtensionDirectory(),
                     );
                 }
@@ -224,12 +234,12 @@ final readonly class Application
             $this->configureDeprecationTriggers($configuration);
             $this->configureIssueTriggerResolvers($configuration);
 
-            $timer = new Timer;
+            $timer = new Timer();
             $timer->start();
 
             if ($coverageInitializationStatus === CodeCoverageInitializationStatus::NOT_REQUESTED ||
                 $coverageInitializationStatus === CodeCoverageInitializationStatus::SUCCEEDED) {
-                $runner = new TestRunner;
+                $runner = new TestRunner();
 
                 $runner->run(
                     $configuration,
@@ -250,7 +260,7 @@ final readonly class Application
                 $configuration->hasLogfileTestdoxHtml()) {
                 try {
                     OutputFacade::printerFor($configuration->logfileTestdoxHtml())->print(
-                        (new TestDoxHtmlRenderer)->render($testDoxResult),
+                        (new TestDoxHtmlRenderer())->render($testDoxResult),
                     );
                 } catch (DirectoryDoesNotExistException|InvalidSocketException $e) {
                     EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
@@ -267,7 +277,7 @@ final readonly class Application
                 $configuration->hasLogfileTestdoxText()) {
                 try {
                     OutputFacade::printerFor($configuration->logfileTestdoxText())->print(
-                        (new TestDoxTextRenderer)->render($testDoxResult),
+                        (new TestDoxTextRenderer())->render($testDoxResult),
                     );
                 } catch (DirectoryDoesNotExistException|InvalidSocketException $e) {
                     EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
@@ -294,7 +304,7 @@ final readonly class Application
             CodeCoverage::instance()->generateReports($printer, $configuration);
 
             if (isset($baselineGenerator)) {
-                (new Writer)->write(
+                (new Writer())->write(
                     $configuration->generateBaseline(),
                     $baselineGenerator->baseline(),
                 );
@@ -307,7 +317,7 @@ final readonly class Application
                 );
             }
 
-            $shellExitCode = (new ShellExitCodeCalculator)->calculate(
+            $shellExitCode = (new ShellExitCodeCalculator())->calculate(
                 $configuration,
                 $result,
             );
@@ -367,7 +377,7 @@ final readonly class Application
     private function buildCliConfiguration(array $argv): CliConfiguration
     {
         try {
-            $cliConfiguration = (new Builder)->fromParameters($argv);
+            $cliConfiguration = (new Builder())->fromParameters($argv);
         } catch (ArgumentsException $e) {
             $this->exitWithErrorMessage($e->getMessage());
         }
@@ -382,7 +392,7 @@ final readonly class Application
         }
 
         try {
-            return (new Loader)->load($configurationFile);
+            return (new Loader())->load($configurationFile);
         } catch (Throwable $e) {
             $this->exitWithErrorMessage($e->getMessage());
         }
@@ -391,7 +401,7 @@ final readonly class Application
     private function buildTestSuite(Configuration $configuration): TestSuite
     {
         try {
-            return (new TestSuiteBuilder)->build($configuration);
+            return (new TestSuiteBuilder())->build($configuration);
         } catch (Exception $e) {
             $this->exitWithErrorMessage($e->getMessage());
         }
@@ -402,7 +412,7 @@ final readonly class Application
      */
     private function bootstrapExtensions(Configuration $configuration): array
     {
-        $facade = new ExtensionFacade;
+        $facade = new ExtensionFacade();
 
         $extensionBootstrapper = new ExtensionBootstrapper(
             $configuration,
@@ -427,7 +437,7 @@ final readonly class Application
     private function executeCommandsThatOnlyRequireCliConfiguration(CliConfiguration $cliConfiguration, false|string $configurationFile): void
     {
         if ($cliConfiguration->generateConfiguration()) {
-            $this->execute(new GenerateConfigurationCommand);
+            $this->execute(new GenerateConfigurationCommand());
         }
 
         if ($cliConfiguration->migrateConfiguration()) {
@@ -443,15 +453,15 @@ final readonly class Application
         }
 
         if ($cliConfiguration->version()) {
-            $this->execute(new ShowVersionCommand);
+            $this->execute(new ShowVersionCommand());
         }
 
         if ($cliConfiguration->checkPhpConfiguration()) {
-            $this->execute(new CheckPhpConfigurationCommand);
+            $this->execute(new CheckPhpConfigurationCommand());
         }
 
         if ($cliConfiguration->checkVersion()) {
-            $this->execute(new VersionCheckCommand(new PhpDownloader, Version::majorVersionNumber(), Version::id()));
+            $this->execute(new VersionCheckCommand(new PhpDownloader(), Version::majorVersionNumber(), Version::id()));
         }
 
         if ($cliConfiguration->help()) {
@@ -694,7 +704,7 @@ final readonly class Application
             return $cache;
         }
 
-        return new NullResultCache;
+        return new NullResultCache();
     }
 
     private function configureBaseline(Configuration $configuration): ?BaselineGenerator
@@ -711,7 +721,7 @@ final readonly class Application
             $baseline     = null;
 
             try {
-                $baseline = (new Reader)->read($baselineFile);
+                $baseline = (new Reader())->read($baselineFile);
             } catch (CannotLoadBaselineException $e) {
                 EventFacade::emitter()->testRunnerTriggeredPhpunitWarning($e->getMessage());
             }
@@ -781,7 +791,7 @@ final readonly class Application
      */
     private function filteredTests(Configuration $configuration, TestSuite $suite): array
     {
-        (new TestSuiteFilterProcessor)->process($configuration, $suite);
+        (new TestSuiteFilterProcessor())->process($configuration, $suite);
 
         return $suite->collect();
     }
@@ -873,7 +883,7 @@ final readonly class Application
                 continue;
             }
 
-            ErrorHandler::instance()->addIssueTriggerResolver(new $className);
+            ErrorHandler::instance()->addIssueTriggerResolver(new $className());
         }
     }
 

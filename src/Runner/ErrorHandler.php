@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner;
 
+use function array_keys;
+use function array_unshift;
+use function array_values;
+use function assert;
+use function count;
+use function debug_backtrace;
+
 use const DEBUG_BACKTRACE_IGNORE_ARGS;
+
+use function defined;
+
 use const E_COMPILE_ERROR;
 use const E_COMPILE_WARNING;
 use const E_CORE_ERROR;
@@ -24,18 +37,9 @@ use const E_USER_ERROR;
 use const E_USER_NOTICE;
 use const E_USER_WARNING;
 use const E_WARNING;
-use function array_keys;
-use function array_unshift;
-use function array_values;
-use function assert;
-use function count;
-use function debug_backtrace;
-use function defined;
+
 use function error_reporting;
-use function preg_match;
-use function restore_error_handler;
-use function set_error_handler;
-use function sprintf;
+
 use PHPUnit\Event;
 use PHPUnit\Event\Code\IssueTrigger\Code;
 use PHPUnit\Event\Code\IssueTrigger\IssueTrigger;
@@ -51,6 +55,11 @@ use PHPUnit\Runner\IssueTriggerResolver\Resolver as IssueTriggerResolver;
 use PHPUnit\TextUI\Configuration\Registry as ConfigurationRegistry;
 use PHPUnit\TextUI\Configuration\SourceFilter;
 use PHPUnit\Util\ExcludeList;
+
+use function preg_match;
+use function restore_error_handler;
+use function set_error_handler;
+use function sprintf;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -107,8 +116,8 @@ final class ErrorHandler
 
     private function __construct(private readonly bool $identifyIssueTrigger)
     {
-        $this->excludeList           = new ExcludeList;
-        $this->issueTriggerResolvers = [new DefaultIssueTriggerResolver];
+        $this->excludeList           = new ExcludeList();
+        $this->issueTriggerResolvers = [new DefaultIssueTriggerResolver()];
     }
 
     /**

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use ArrayIterator;
@@ -38,13 +41,13 @@ final class IsEmptyTest extends TestCase
             [
                 true,
                 '',
-                new EmptyIterator,
+                new EmptyIterator(),
             ],
 
             [
                 true,
                 '',
-                new ArrayObject,
+                new ArrayObject(),
             ],
 
             [
@@ -64,7 +67,7 @@ final class IsEmptyTest extends TestCase
     #[DataProvider('provider')]
     public function testCanBeEvaluated(bool $result, string $failureDescription, mixed $actual): void
     {
-        $constraint = new IsEmpty;
+        $constraint = new IsEmpty();
 
         $this->assertSame($result, $constraint->evaluate($actual, returnResult: true));
 
@@ -80,11 +83,11 @@ final class IsEmptyTest extends TestCase
 
     public function testCanBeRepresentedAsString(): void
     {
-        $this->assertSame('is empty', (new IsEmpty)->toString());
+        $this->assertSame('is empty', (new IsEmpty())->toString());
     }
 
     public function testIsCountable(): void
     {
-        $this->assertCount(1, new IsEmpty);
+        $this->assertCount(1, new IsEmpty());
     }
 }

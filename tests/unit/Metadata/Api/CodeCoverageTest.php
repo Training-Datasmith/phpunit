@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Metadata\Api;
 
 use function array_shift;
+
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
@@ -50,7 +54,7 @@ final class CodeCoverageTest extends TestCase
     #[TestDox('Maps #[Covers*()] metadata to phpunit/php-code-coverage TargetCollection')]
     public function testMapsCoversMetadataToCodeCoverageTargetCollection(): void
     {
-        $targets = (new CodeCoverage)->coversTargets(CoversTest::class, 'testOne');
+        $targets = (new CodeCoverage())->coversTargets(CoversTest::class, 'testOne');
 
         $this->assertNotFalse($targets);
         $this->assertCount(7, $targets);
@@ -90,7 +94,7 @@ final class CodeCoverageTest extends TestCase
     #[TestDox('Maps #[Uses*()] metadata to phpunit/php-code-coverage TargetCollection')]
     public function testMapsUsesMetadataToCodeCoverageTargetCollection(): void
     {
-        $targets = (new CodeCoverage)->usesTargets(UsesTest::class, 'testOne');
+        $targets = (new CodeCoverage())->usesTargets(UsesTest::class, 'testOne');
 
         $this->assertNotFalse($targets);
         $this->assertCount(7, $targets);
@@ -134,7 +138,7 @@ final class CodeCoverageTest extends TestCase
     public function testWhetherCollectionOfCodeCoverageDataCanBeSkippedCanBeDetermined(bool $expected, string $testCase): void
     {
         $test             = new $testCase('testSomething');
-        $coverageRequired = (new CodeCoverage)->shouldCodeCoverageBeCollectedFor($test);
+        $coverageRequired = (new CodeCoverage())->shouldCodeCoverageBeCollectedFor($test);
         $canSkipCoverage  = !$coverageRequired;
 
         $this->assertSame($expected, $canSkipCoverage);

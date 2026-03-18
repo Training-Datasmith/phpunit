@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,17 +9,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
-use const PHP_EOL;
 use function array_diff_assoc;
 use function array_intersect;
 use function array_unique;
 use function assert;
-use function extension_loaded;
-use function sprintf;
-use function xdebug_is_debugger_active;
+
 use AssertionError;
+
+use function extension_loaded;
+
+use const PHP_EOL;
+
 use PHPUnit\Event\Facade;
 use PHPUnit\Metadata\Api\CodeCoverage as CodeCoverageMetadataApi;
 use PHPUnit\Metadata\Parser\Registry as MetadataRegistry;
@@ -32,7 +37,12 @@ use SebastianBergmann\CodeCoverage\Test\Target\TargetCollection;
 use SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException;
 use SebastianBergmann\Invoker\Invoker;
 use SebastianBergmann\Invoker\TimeoutException;
+
+use function sprintf;
+
 use Throwable;
+
+use function xdebug_is_debugger_active;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -58,7 +68,7 @@ final class TestRunner
     {
         Assert::resetCount();
 
-        $codeCoverageMetadataApi = new CodeCoverageMetadataApi;
+        $codeCoverageMetadataApi = new CodeCoverageMetadataApi();
 
         $coversTargets = $codeCoverageMetadataApi->coversTargets(
             $test::class,
@@ -271,7 +281,7 @@ final class TestRunner
             return $this->timeLimitCanBeEnforced;
         }
 
-        $this->timeLimitCanBeEnforced = (new Invoker)->canInvokeWithTimeout();
+        $this->timeLimitCanBeEnforced = (new Invoker())->canInvokeWithTimeout();
 
         return $this->timeLimitCanBeEnforced;
     }
@@ -310,7 +320,7 @@ final class TestRunner
         }
 
         try {
-            (new Invoker)->invoke($test->runBare(...), [], $_timeout);
+            (new Invoker())->invoke($test->runBare(...), [], $_timeout);
         } catch (TimeoutException) {
             Facade::emitter()->testConsideredRisky(
                 $test->valueObjectForEvents(),

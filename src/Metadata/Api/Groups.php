@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,14 +9,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Metadata\Api;
 
 use function array_flip;
 use function array_key_exists;
 use function array_unique;
 use function assert;
-use function strtolower;
-use function trim;
+
 use PHPUnit\Framework\TestSize\TestSize;
 use PHPUnit\Metadata\CoversClass;
 use PHPUnit\Metadata\CoversFunction;
@@ -23,6 +25,9 @@ use PHPUnit\Metadata\Parser\Registry;
 use PHPUnit\Metadata\RequiresPhpExtension;
 use PHPUnit\Metadata\UsesClass;
 use PHPUnit\Metadata\UsesFunction;
+
+use function strtolower;
+use function trim;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,10 +9,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use function acos;
 use function log;
+
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
@@ -25,7 +29,7 @@ final class IsInfiniteTest extends TestCase
 {
     public function testCanBeEvaluated(): void
     {
-        $constraint = new IsInfinite;
+        $constraint = new IsInfinite();
 
         $this->assertTrue($constraint->evaluate(log(0), returnResult: true));
         $this->assertFalse($constraint->evaluate(1, returnResult: true));
@@ -34,11 +38,11 @@ final class IsInfiniteTest extends TestCase
 
     public function testCanBeRepresentedAsString(): void
     {
-        $this->assertSame('is infinite', (new IsInfinite)->toString());
+        $this->assertSame('is infinite', (new IsInfinite())->toString());
     }
 
     public function testIsCountable(): void
     {
-        $this->assertCount(1, (new IsInfinite));
+        $this->assertCount(1, (new IsInfinite()));
     }
 }

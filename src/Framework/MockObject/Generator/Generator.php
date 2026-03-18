@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,33 +9,32 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject\Generator;
 
-use const PHP_EOL;
-use const PHP_VERSION;
 use function array_merge;
 use function array_pop;
 use function array_unique;
 use function assert;
 use function class_exists;
 use function count;
+
+use Exception;
+
 use function explode;
 use function implode;
 use function in_array;
 use function interface_exists;
 use function is_array;
-use function md5;
-use function mt_rand;
-use function preg_match;
-use function serialize;
-use function sort;
-use function sprintf;
-use function substr;
-use function trait_exists;
-use function version_compare;
-use Exception;
+
 use Iterator;
 use IteratorAggregate;
+
+use function md5;
+use function mt_rand;
+
+use const PHP_EOL;
+
 use PHPUnit\Framework\MockObject\ConfigurableMethod;
 use PHPUnit\Framework\MockObject\DoubledCloneMethod;
 use PHPUnit\Framework\MockObject\Method;
@@ -45,13 +46,25 @@ use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\MockObject\StubApi;
 use PHPUnit\Framework\MockObject\StubInternal;
 use PHPUnit\Framework\MockObject\TestDoubleState;
+
+use function preg_match;
+
 use PropertyHookType;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionObject;
 use SebastianBergmann\Type\ReflectionMapper;
 use SebastianBergmann\Type\Type;
+
+use function serialize;
+use function sort;
+use function sprintf;
+use function substr;
+
 use Throwable;
+
+use function trait_exists;
+
 use Traversable;
 
 /**
@@ -350,7 +363,7 @@ final class Generator
         $isClass               = false;
         $isReadonly            = false;
         $isInterface           = false;
-        $mockMethods           = new DoubledMethodSet;
+        $mockMethods           = new DoubledMethodSet();
         $testDoubleClassPrefix = $mockObject ? 'MockObject_' : 'TestStub_';
 
         $_mockClassName = $this->generateClassName(
@@ -484,7 +497,7 @@ final class Generator
         }
 
         if ($mockMethods->hasMethod('method') || $class->hasMethod('method')) {
-            throw new MethodNamedMethodException;
+            throw new MethodNamedMethodException();
         }
 
         $traits[] = Method::class;
@@ -518,7 +531,7 @@ final class Generator
                 'use_statements'  => $useStatements,
                 'mock_class_name' => $_mockClassName['className'],
                 'methods'         => $mockedMethods,
-                'property_hooks'  => (new HookedPropertyGenerator)->generate(
+                'property_hooks'  => (new HookedPropertyGenerator())->generate(
                     $_mockClassName['className'],
                     $propertiesWithHooks,
                 ),
@@ -833,7 +846,7 @@ final class Generator
      */
     private function properties(ReflectionClass $class): array
     {
-        $mapper     = new ReflectionMapper;
+        $mapper     = new ReflectionMapper();
         $properties = [];
 
         foreach ($class->getProperties() as $property) {

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Event;
 
 use PHPUnit\Event\Tracer\Tracer;
@@ -25,8 +28,7 @@ final class FacadeTest extends TestCase
         $this->expectException(EventFacadeIsSealedException::class);
 
         Facade::instance()->registerSubscriber(
-            new class implements Subscriber
-            {},
+            new class () implements Subscriber {},
         );
     }
 
@@ -35,8 +37,7 @@ final class FacadeTest extends TestCase
         $this->expectException(EventFacadeIsSealedException::class);
 
         Facade::instance()->registerTracer(
-            new class implements Tracer
-            {
+            new class () implements Tracer {
                 public function trace(Event $event): void
                 {
                 }

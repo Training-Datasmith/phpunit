@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\XmlConfiguration;
 
 use function assert;
+
 use PHPUnit\Runner\Version;
 use PHPUnit\Util\Xml\Loader as XmlLoader;
 use PHPUnit\Util\Xml\XmlException;
@@ -28,7 +32,7 @@ final readonly class Migrator
      */
     public function migrate(string $filename): string
     {
-        $origin = (new SchemaDetector)->detect($filename);
+        $origin = (new SchemaDetector())->detect($filename);
 
         if (!$origin->detected()) {
             throw new Exception('The file does not validate against any known schema');
@@ -38,9 +42,9 @@ final readonly class Migrator
             throw new Exception('The file does not need to be migrated');
         }
 
-        $configurationDocument = (new XmlLoader)->loadFile($filename);
+        $configurationDocument = (new XmlLoader())->loadFile($filename);
 
-        foreach ((new MigrationBuilder)->build($origin->version()) as $migration) {
+        foreach ((new MigrationBuilder())->build($origin->version()) as $migration) {
             $migration->migrate($configurationDocument);
         }
 

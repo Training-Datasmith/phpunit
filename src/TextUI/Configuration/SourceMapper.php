@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,19 +9,25 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\Configuration;
 
 use const DIRECTORY_SEPARATOR;
+
 use function file_get_contents;
 use function file_put_contents;
 use function is_array;
 use function preg_match;
 use function realpath;
+
+use SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
+
 use function serialize;
+
+use SplObjectStorage;
+
 use function str_replace;
 use function unserialize;
-use SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
-use SplObjectStorage;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -35,7 +43,7 @@ final class SourceMapper
 
     public static function saveTo(string $path, Source $source): bool
     {
-        $map = (new self)->map($source);
+        $map = (new self())->map($source);
 
         return file_put_contents($path, serialize($map)) !== false;
     }
@@ -58,7 +66,7 @@ final class SourceMapper
         }
 
         if (self::$files === null) {
-            self::$files = new SplObjectStorage;
+            self::$files = new SplObjectStorage();
         }
 
         /** @phpstan-ignore offsetAssign.valueType */
@@ -71,7 +79,7 @@ final class SourceMapper
     public function map(Source $source): array
     {
         if (self::$files === null) {
-            self::$files = new SplObjectStorage;
+            self::$files = new SplObjectStorage();
         }
 
         if (isset(self::$files[$source])) {
@@ -85,7 +93,7 @@ final class SourceMapper
         foreach ($directories as $path => [$prefixes, $suffixes]) {
             $basePath = realpath($path);
 
-            foreach ((new FileIteratorFacade)->getFilesAsArray($path, $suffixes, $prefixes) as $file) {
+            foreach ((new FileIteratorFacade())->getFilesAsArray($path, $suffixes, $prefixes) as $file) {
                 $file = realpath($file);
 
                 if (!$file) {
@@ -113,7 +121,7 @@ final class SourceMapper
         $directories = $this->aggregateDirectories($source->excludeDirectories());
 
         foreach ($directories as $path => [$prefixes, $suffixes]) {
-            foreach ((new FileIteratorFacade)->getFilesAsArray($path, $suffixes, $prefixes) as $file) {
+            foreach ((new FileIteratorFacade())->getFilesAsArray($path, $suffixes, $prefixes) as $file) {
                 $file = realpath($file);
 
                 if (!$file) {
@@ -159,7 +167,7 @@ final class SourceMapper
                 continue;
             }
 
-            foreach ((new FileIteratorFacade)->getFilesAsArray($directory->path(), $directory->suffix(), $directory->prefix()) as $file) {
+            foreach ((new FileIteratorFacade())->getFilesAsArray($directory->path(), $directory->suffix(), $directory->prefix()) as $file) {
                 $file = realpath($file);
 
                 if (!$file) {

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report;
 
 use PHPUnit\TextUI\Configuration\Directory;
@@ -40,7 +43,7 @@ final readonly class Html
     public function target(): Directory
     {
         if (!$this->hasTarget()) {
-            throw new NoHtmlCoverageTargetException;
+            throw new NoHtmlCoverageTargetException();
         }
 
         return $this->target;
@@ -160,7 +163,7 @@ final readonly class Html
     public function customCssFile(): string
     {
         if (!$this->hasCustomCssFile()) {
-            throw new NoCustomCssFileException;
+            throw new NoCustomCssFileException();
         }
 
         return $this->customCssFile;

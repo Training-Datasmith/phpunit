@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,19 +9,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\Configuration;
 
-use const DIRECTORY_SEPARATOR;
-use const PHP_EOL;
 use function assert;
 use function count;
+
+use const DIRECTORY_SEPARATOR;
+
 use function dirname;
 use function file;
 use function is_dir;
 use function is_file;
-use function realpath;
-use function str_ends_with;
-use function trim;
+
+use const PHP_EOL;
+
 use PHPUnit\Event\Facade as EventFacade;
 use PHPUnit\Exception;
 use PHPUnit\Framework\TestSuite;
@@ -28,7 +32,13 @@ use PHPUnit\TextUI\RuntimeException;
 use PHPUnit\TextUI\TestDirectoryNotFoundException;
 use PHPUnit\TextUI\TestFileNotFoundException;
 use PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper;
+
+use function realpath;
+
 use SebastianBergmann\FileIterator\Facade as FileIteratorFacade;
+
+use function str_ends_with;
+use function trim;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -101,7 +111,7 @@ final readonly class TestSuiteBuilder
 
             assert($xmlConfigurationFile !== '');
 
-            $testSuite = (new TestSuiteMapper)->map(
+            $testSuite = (new TestSuiteMapper())->map(
                 $xmlConfigurationFile,
                 $configuration->testSuite(),
                 $configuration->ignoreTestSelectionInXmlConfiguration() ? [] : $configuration->includeTestSuites(),
@@ -133,7 +143,7 @@ final readonly class TestSuiteBuilder
         }
 
         if (is_dir($path)) {
-            $files = (new FileIteratorFacade)->getFilesAsArray($path, $suffixes);
+            $files = (new FileIteratorFacade())->getFilesAsArray($path, $suffixes);
 
             if ($suite === null) {
                 $suite = TestSuite::empty('CLI Arguments');
@@ -145,7 +155,7 @@ final readonly class TestSuiteBuilder
         }
 
         try {
-            $testClass = (new TestSuiteLoader)->load($path);
+            $testClass = (new TestSuiteLoader())->load($path);
         } catch (Exception $e) {
             print $e->getMessage() . PHP_EOL;
 

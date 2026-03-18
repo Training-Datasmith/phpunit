@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,10 +9,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Event;
 
 use function assert;
 use function interface_exists;
+
 use PHPUnit\Event\Telemetry\HRTime;
 use PHPUnit\Event\Telemetry\SystemGarbageCollectorStatusProvider;
 use PHPUnit\Runner\DeprecationCollector\Facade as DeprecationCollector;
@@ -31,7 +35,7 @@ final class Facade
     public static function instance(): self
     {
         if (self::$instance === null) {
-            self::$instance = new self;
+            self::$instance = new self();
         }
 
         return self::$instance;
@@ -65,7 +69,7 @@ final class Facade
     public function registerSubscriber(Subscriber $subscriber): void
     {
         if ($this->sealed) {
-            throw new EventFacadeIsSealedException;
+            throw new EventFacadeIsSealedException();
         }
 
         $this->deferredDispatcher()->registerSubscriber($subscriber);
@@ -77,7 +81,7 @@ final class Facade
     public function registerTracer(Tracer\Tracer $tracer): void
     {
         if ($this->sealed) {
-            throw new EventFacadeIsSealedException;
+            throw new EventFacadeIsSealedException();
         }
 
         $this->deferredDispatcher()->registerTracer($tracer);
@@ -100,8 +104,8 @@ final class Facade
             $dispatcher,
             new Telemetry\System(
                 new Telemetry\SystemStopWatchWithOffset($offset),
-                new Telemetry\SystemMemoryMeter,
-                new SystemGarbageCollectorStatusProvider,
+                new Telemetry\SystemMemoryMeter(),
+                new SystemGarbageCollectorStatusProvider(),
             ),
         );
 
@@ -139,9 +143,9 @@ final class Facade
     private function createTelemetrySystem(): Telemetry\System
     {
         return new Telemetry\System(
-            new Telemetry\SystemStopWatch,
-            new Telemetry\SystemMemoryMeter,
-            new SystemGarbageCollectorStatusProvider,
+            new Telemetry\SystemStopWatch(),
+            new Telemetry\SystemMemoryMeter(),
+            new SystemGarbageCollectorStatusProvider(),
         );
     }
 
@@ -159,7 +163,7 @@ final class Facade
     private function typeMap(): TypeMap
     {
         if ($this->typeMap === null) {
-            $typeMap = new TypeMap;
+            $typeMap = new TypeMap();
 
             $this->registerDefaultTypes($typeMap);
 

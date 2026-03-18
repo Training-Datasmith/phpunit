@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\Configuration;
 
 use Generator;
@@ -420,12 +423,12 @@ final class SourceMapperTest extends AbstractSourceFilterTestCase
     #[DataProvider('provider')]
     public function testDeterminesWhetherFileIsIncluded(array $expected, Source $source): void
     {
-        $this->assertEquals($expected, (new SourceMapper)->map($source));
+        $this->assertEquals($expected, (new SourceMapper())->map($source));
     }
 
     #[DataProvider('providerForCodeCoverage')]
     public function testMapForCodeCoverage(array $expected, Source $source): void
     {
-        $this->assertEquals($expected, (new SourceMapper)->mapForCodeCoverage($source));
+        $this->assertEquals($expected, (new SourceMapper())->mapForCodeCoverage($source));
     }
 }

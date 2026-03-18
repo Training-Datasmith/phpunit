@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Event\Code;
 
 use Exception;
@@ -85,7 +88,7 @@ final class ComparisonFailureBuilderTest extends TestCase
                     'message',
                     new ComparisonFailure(
                         [],
-                        new stdClass,
+                        new stdClass(),
                         '',
                         '',
                         'message',
@@ -123,7 +126,7 @@ EOT,
     public function testMapsGenericThrowableToNull(): void
     {
         $this->assertNull(
-            ComparisonFailureBuilder::from(new Exception),
+            ComparisonFailureBuilder::from(new Exception()),
         );
     }
 

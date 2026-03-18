@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,10 +9,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Util\PHP;
 
-use const PHP_BINARY;
-use const PHP_SAPI;
 use function array_any;
 use function array_keys;
 use function array_merge;
@@ -23,8 +24,18 @@ use function fwrite;
 use function ini_get_all;
 use function is_array;
 use function is_resource;
+
+use const PHP_BINARY;
+use const PHP_SAPI;
+
+use PHPUnit\Event\Facade;
+use PHPUnit\Runner\CodeCoverage;
+
 use function proc_close;
 use function proc_open;
+
+use SebastianBergmann\Environment\Runtime;
+
 use function str_starts_with;
 use function stream_get_contents;
 use function sys_get_temp_dir;
@@ -32,9 +43,6 @@ use function tempnam;
 use function trim;
 use function unlink;
 use function xdebug_is_debugger_active;
-use PHPUnit\Event\Facade;
-use PHPUnit\Runner\CodeCoverage;
-use SebastianBergmann\Environment\Runtime;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -167,7 +175,7 @@ final readonly class DefaultJobRunner extends JobRunner
      */
     private function buildCommand(Job $job, ?string $file): array
     {
-        $runtime                        = new Runtime;
+        $runtime                        = new Runtime();
         $command                        = [PHP_BINARY];
         $phpSettings                    = $job->phpSettings();
         $xdebugModeConfiguredExplicitly = array_any($phpSettings, static fn (string $phpSetting): bool => str_starts_with($phpSetting, 'xdebug.mode'));

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Metadata\Api;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -32,7 +35,7 @@ final class DataProviderTest extends TestCase
     public function testMultipleDataProviders(): void
     {
         $dataSets = $this->getRawDataFromProvidedData(
-            (new DataProvider)->providedData(MultipleDataProviderTest::class, 'testOne'),
+            (new DataProvider())->providedData(MultipleDataProviderTest::class, 'testOne'),
         );
 
         $this->assertCount(9, $dataSets);
@@ -55,7 +58,7 @@ final class DataProviderTest extends TestCase
     public function testMultipleYieldIteratorDataProviders(): void
     {
         $dataSets = $this->getRawDataFromProvidedData(
-            (new DataProvider)->providedData(MultipleDataProviderTest::class, 'testTwo'),
+            (new DataProvider())->providedData(MultipleDataProviderTest::class, 'testTwo'),
         );
 
         $this->assertCount(9, $dataSets);
@@ -78,7 +81,7 @@ final class DataProviderTest extends TestCase
     public function testWithVariousIterableDataProvidersFromParent(): void
     {
         $dataSets = $this->getRawDataFromProvidedData(
-            (new DataProvider)->providedData(VariousIterableDataProviderTest::class, 'testFromParent'),
+            (new DataProvider())->providedData(VariousIterableDataProviderTest::class, 'testFromParent'),
         );
 
         $this->assertEquals([
@@ -97,7 +100,7 @@ final class DataProviderTest extends TestCase
     public function testWithVariousIterableDataProvidersInParent(): void
     {
         $dataSets = $this->getRawDataFromProvidedData(
-            (new DataProvider)->providedData(VariousIterableDataProviderTest::class, 'testInParent'),
+            (new DataProvider())->providedData(VariousIterableDataProviderTest::class, 'testInParent'),
         );
 
         $this->assertEquals([
@@ -116,7 +119,7 @@ final class DataProviderTest extends TestCase
     public function testWithVariousIterableAbstractDataProviders(): void
     {
         $dataSets = $this->getRawDataFromProvidedData(
-            (new DataProvider)->providedData(VariousIterableDataProviderTest::class, 'testAbstract'),
+            (new DataProvider())->providedData(VariousIterableDataProviderTest::class, 'testAbstract'),
         );
 
         $this->assertEquals([
@@ -135,7 +138,7 @@ final class DataProviderTest extends TestCase
     public function testWithVariousIterableStaticDataProviders(): void
     {
         $dataSets = $this->getRawDataFromProvidedData(
-            (new DataProvider)->providedData(VariousIterableDataProviderTest::class, 'testStatic'),
+            (new DataProvider())->providedData(VariousIterableDataProviderTest::class, 'testStatic'),
         );
 
         $this->assertEquals([
@@ -154,7 +157,7 @@ final class DataProviderTest extends TestCase
     public function testWithVariousIterableNonStaticDataProviders(): void
     {
         $dataSets = $this->getRawDataFromProvidedData(
-            (new DataProvider)->providedData(VariousIterableDataProviderTest::class, 'testNonStatic'),
+            (new DataProvider())->providedData(VariousIterableDataProviderTest::class, 'testNonStatic'),
         );
 
         $this->assertEquals([
@@ -176,13 +179,13 @@ final class DataProviderTest extends TestCase
         $this->expectExceptionMessage('The key "foo" has already been defined by provider PHPUnit\TestFixture\DuplicateKeyDataProviderTest::dataProvider');
 
         /* @noinspection UnusedFunctionResultInspection */
-        (new DataProvider)->providedData(DuplicateKeyDataProviderTest::class, 'test');
+        (new DataProvider())->providedData(DuplicateKeyDataProviderTest::class, 'test');
     }
 
     public function testTestWithAttribute(): void
     {
         $dataSets = $this->getRawDataFromProvidedData(
-            (new DataProvider)->providedData(TestWithAttributeDataProviderTest::class, 'testWithAttribute'),
+            (new DataProvider())->providedData(TestWithAttributeDataProviderTest::class, 'testWithAttribute'),
         );
 
         $this->assertSame([
@@ -199,7 +202,7 @@ final class DataProviderTest extends TestCase
         $this->expectExceptionMessage('The key "foo" has already been defined by TestWith#0 attribute');
 
         /* @noinspection UnusedFunctionResultInspection */
-        (new DataProvider)->providedData(TestWithAttributeDataProviderTest::class, 'testWithDuplicateName');
+        (new DataProvider())->providedData(TestWithAttributeDataProviderTest::class, 'testWithDuplicateName');
     }
 
     public function testWithDuplicateKeyDataProviders(): void
@@ -208,7 +211,7 @@ final class DataProviderTest extends TestCase
         $this->expectExceptionMessage('The key "bar" has already been defined by provider PHPUnit\TestFixture\DuplicateKeyDataProvidersTest::dataProvider1');
 
         /* @noinspection UnusedFunctionResultInspection */
-        (new DataProvider)->providedData(DuplicateKeyDataProvidersTest::class, 'test');
+        (new DataProvider())->providedData(DuplicateKeyDataProvidersTest::class, 'test');
     }
 
     /**

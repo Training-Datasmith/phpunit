@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject;
 
 use function call_user_func_array;
+
 use Exception;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\Attributes\Group;
@@ -650,8 +654,7 @@ EOT,
             ->seal();
 
         $this->assertTestDoubleSealedExceptionIsThrown(
-            function () use ($double): void
-            {
+            function () use ($double): void {
                 $double
                     ->expects($this->once())
                     ->method('doSomethingElse');
@@ -670,8 +673,7 @@ EOT,
             ->seal();
 
         $this->assertTestDoubleSealedExceptionIsThrown(
-            static function () use ($double): void
-            {
+            static function () use ($double): void {
                 $double
                     ->method('doSomethingElse')
                     ->willReturn(1);
@@ -740,8 +742,7 @@ EOT,
         $clone = clone $double;
 
         $this->assertTestDoubleSealedExceptionIsThrown(
-            function () use ($clone): void
-            {
+            function () use ($clone): void {
                 $clone
                     ->expects($this->once())
                     ->method('doSomethingElse');

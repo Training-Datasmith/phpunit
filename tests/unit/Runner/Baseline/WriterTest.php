@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,19 +9,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner\Baseline;
 
 use const DIRECTORY_SEPARATOR;
+
 use function getcwd;
 use function ltrim;
-use function realpath;
-use function str_replace;
-use function unlink;
+
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
+
+use function realpath;
+use function str_replace;
+use function unlink;
 
 #[CoversClass(Writer::class)]
 #[Small]
@@ -51,7 +57,7 @@ final class WriterTest extends TestCase
     #[DataProvider('baselinePathProvider')]
     public function testWritesBaselineToFileInXmlFormat(string $baselinePath): void
     {
-        (new Writer)->write($this->target, $this->baseline());
+        (new Writer())->write($this->target, $this->baseline());
 
         $this->assertXmlFileEqualsXmlFile($baselinePath, $this->target);
     }
@@ -60,12 +66,12 @@ final class WriterTest extends TestCase
     {
         $this->expectException(CannotWriteBaselineException::class);
 
-        (new Writer)->write('/path/to/invalid', $this->baseline());
+        (new Writer())->write('/path/to/invalid', $this->baseline());
     }
 
     private function baseline(): Baseline
     {
-        $baseline = new Baseline;
+        $baseline = new Baseline();
 
         $baseline->add($this->issue());
         $baseline->add($this->anotherIssue());

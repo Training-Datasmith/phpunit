@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject\Generator;
 
 use function array_key_exists;
@@ -18,6 +21,13 @@ use function is_object;
 use function is_string;
 use function preg_match;
 use function preg_replace;
+
+use ReflectionMethod;
+use ReflectionParameter;
+use SebastianBergmann\Type\ReflectionMapper;
+use SebastianBergmann\Type\Type;
+use SebastianBergmann\Type\UnknownType;
+
 use function str_contains;
 use function strlen;
 use function strpos;
@@ -25,11 +35,6 @@ use function substr;
 use function substr_count;
 use function trim;
 use function var_export;
-use ReflectionMethod;
-use ReflectionParameter;
-use SebastianBergmann\Type\ReflectionMapper;
-use SebastianBergmann\Type\Type;
-use SebastianBergmann\Type\UnknownType;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -83,7 +88,7 @@ final class DoubledMethod
             self::methodParametersForCall($method),
             self::methodParametersDefaultValues($method),
             count($method->getParameters()),
-            (new ReflectionMapper)->fromReturnType($method),
+            (new ReflectionMapper())->fromReturnType($method),
             $reference,
             $method->isStatic(),
             $deprecation,
@@ -104,7 +109,7 @@ final class DoubledMethod
             '',
             [],
             0,
-            new UnknownType,
+            new UnknownType(),
             '',
             false,
             null,
@@ -230,7 +235,7 @@ EOT;
     private static function methodParametersForDeclaration(ReflectionMethod $method): string
     {
         $parameters = [];
-        $types      = (new ReflectionMapper)->fromParameterTypes($method);
+        $types      = (new ReflectionMapper())->fromParameterTypes($method);
 
         foreach ($method->getParameters() as $i => $parameter) {
             $name = '$' . $parameter->getName();

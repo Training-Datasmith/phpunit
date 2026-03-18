@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,15 +9,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\XmlConfiguration;
 
-use function uniqid;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Medium;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\TextUI\CliArguments\Builder;
 use PHPUnit\TextUI\Configuration\Merger;
+
+use function uniqid;
 
 #[CoversClass(Merger::class)]
 #[Medium]
@@ -26,7 +30,7 @@ final class MergerTest extends TestCase
     public function testNoLoggingShouldOnlyAffectXmlConfiguration(): void
     {
         $junitLog = uniqid('junit_log_');
-        $fromFile = (new Loader)->load(TEST_FILES_PATH . 'configuration_logging.xml');
+        $fromFile = (new Loader())->load(TEST_FILES_PATH . 'configuration_logging.xml');
 
         $this->assertTrue($fromFile->logging()->hasTeamCity());
         $this->assertTrue($fromFile->logging()->hasTestDoxHtml());
@@ -35,13 +39,13 @@ final class MergerTest extends TestCase
         $this->assertTrue($fromFile->logging()->hasJunit());
         $this->assertNotSame($junitLog, $fromFile->logging()->junit()->target()->path());
 
-        $fromCli = (new Builder)->fromParameters([
+        $fromCli = (new Builder())->fromParameters([
             '--no-logging',
             '--log-junit',
             $junitLog,
         ]);
 
-        $mergedConfig = (new Merger)->merge($fromCli, $fromFile);
+        $mergedConfig = (new Merger())->merge($fromCli, $fromFile);
 
         $this->assertFalse($mergedConfig->hasLogfileTeamcity());
         $this->assertFalse($mergedConfig->hasLogfileTestdoxHtml());
@@ -54,7 +58,7 @@ final class MergerTest extends TestCase
     public function testNoCoverageShouldOnlyAffectXmlConfiguration(): void
     {
         $phpCoverage = uniqid('php_coverage_');
-        $fromFile    = (new Loader)->load(TEST_FILES_PATH . 'configuration_codecoverage.xml');
+        $fromFile    = (new Loader())->load(TEST_FILES_PATH . 'configuration_codecoverage.xml');
 
         $this->assertTrue($fromFile->codeCoverage()->hasClover());
         $this->assertTrue($fromFile->codeCoverage()->hasCobertura());
@@ -67,13 +71,13 @@ final class MergerTest extends TestCase
         $this->assertTrue($fromFile->codeCoverage()->hasPhp());
         $this->assertNotSame($phpCoverage, $fromFile->codeCoverage()->php()->target()->path());
 
-        $fromCli = (new Builder)->fromParameters([
+        $fromCli = (new Builder())->fromParameters([
             '--no-coverage',
             '--coverage-php',
             $phpCoverage,
         ]);
 
-        $mergedConfig = (new Merger)->merge($fromCli, $fromFile);
+        $mergedConfig = (new Merger())->merge($fromCli, $fromFile);
 
         $this->assertFalse($mergedConfig->hasCoverageClover());
         $this->assertFalse($mergedConfig->hasCoverageCobertura());
@@ -91,7 +95,7 @@ final class MergerTest extends TestCase
     #[Group('regression/6340')]
     public function testIssue6340(): void
     {
-        $fromFile = (new Loader)->load(TEST_FILES_PATH . 'configuration-issue-6340.xml');
+        $fromFile = (new Loader())->load(TEST_FILES_PATH . 'configuration-issue-6340.xml');
 
         $this->assertTrue($fromFile->phpunit()->failOnPhpunitDeprecation());
         $this->assertTrue($fromFile->phpunit()->failOnPhpunitNotice());
@@ -101,7 +105,7 @@ final class MergerTest extends TestCase
         $this->assertTrue($fromFile->phpunit()->failOnIncomplete());
         $this->assertTrue($fromFile->phpunit()->failOnSkipped());
 
-        $fromCli = (new Builder)->fromParameters([
+        $fromCli = (new Builder())->fromParameters([
             '--do-not-fail-on-phpunit-deprecation',
             '--do-not-fail-on-phpunit-notice',
             '--do-not-fail-on-deprecation',
@@ -119,7 +123,7 @@ final class MergerTest extends TestCase
         $this->assertTrue($fromCli->doNotFailOnIncomplete());
         $this->assertTrue($fromCli->doNotFailOnSkipped());
 
-        $mergedConfig = (new Merger)->merge($fromCli, $fromFile);
+        $mergedConfig = (new Merger())->merge($fromCli, $fromFile);
 
         $this->assertTrue($mergedConfig->doNotFailOnPhpunitDeprecation());
         $this->assertTrue($mergedConfig->doNotFailOnPhpunitNotice());

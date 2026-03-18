@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Logging\TestDox;
 
 use DateTimeImmutable;
@@ -129,15 +132,14 @@ final class NamePrettifierTest extends TestCase
      */
     public static function objectProvider(): array
     {
-        $object = new class
-        {
+        $object = new class () {
             public function __toString(): string
             {
                 return 'object as string';
             }
         };
 
-        $data = [['string'], true, 0.0, 1, 'string', $object, new stdClass, Enumeration::Test, BackedEnumeration::Test, null, ''];
+        $data = [['string'], true, 0.0, 1, 'string', $object, new stdClass(), Enumeration::Test, BackedEnumeration::Test, null, ''];
 
         $testWithDataWithIntegerKey = new TestDoxTest('testTwo');
         $testWithDataWithIntegerKey->setData(0, $data);
@@ -200,7 +202,7 @@ final class NamePrettifierTest extends TestCase
     #[DataProvider('classNameProvider')]
     public function testNameOfTestClassCanBePrettified(string $expected, string $className): void
     {
-        $this->assertSame($expected, (new NamePrettifier)->prettifyTestClassName($className));
+        $this->assertSame($expected, (new NamePrettifier())->prettifyTestClassName($className));
     }
 
     /**
@@ -210,7 +212,7 @@ final class NamePrettifierTest extends TestCase
     #[DataProvider('methodNameProvider')]
     public function testNameOfTestMethodCanBePrettified(string $expected, string $methodName): void
     {
-        $this->assertSame($expected, (new NamePrettifier)->prettifyTestMethodName($methodName));
+        $this->assertSame($expected, (new NamePrettifier())->prettifyTestMethodName($methodName));
     }
 
     /**
@@ -219,12 +221,12 @@ final class NamePrettifierTest extends TestCase
     #[DataProvider('objectProvider')]
     public function test_TestCase_can_be_prettified(string $expected, TestCase $testCase, bool $colorize): void
     {
-        $this->assertSame($expected, (new NamePrettifier)->prettifyTestCase($testCase, $colorize));
+        $this->assertSame($expected, (new NamePrettifier())->prettifyTestCase($testCase, $colorize));
     }
 
     public function testStripsNumericSuffixFromTestMethodNameWhenTestMethodNameWithoutThatSuffixWasPreviouslyProcessed(): void
     {
-        $namePrettifier = new NamePrettifier;
+        $namePrettifier = new NamePrettifier();
 
         $this->assertSame('This is a test', $namePrettifier->prettifyTestMethodName('testThisIsATest'));
         $this->assertSame('This is a test', $namePrettifier->prettifyTestMethodName('testThisIsATest2'));

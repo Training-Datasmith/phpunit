@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,13 +9,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Runner\Phpt;
 
-use const DEBUG_BACKTRACE_IGNORE_ARGS;
-use const DIRECTORY_SEPARATOR;
 use function array_merge;
 use function basename;
 use function debug_backtrace;
+
+use const DEBUG_BACKTRACE_IGNORE_ARGS;
+use const DIRECTORY_SEPARATOR;
+
 use function dirname;
 use function explode;
 use function extension_loaded;
@@ -24,18 +29,7 @@ use function is_file;
 use function ltrim;
 use function ob_get_clean;
 use function ob_start;
-use function preg_match;
-use function preg_replace;
-use function preg_split;
-use function realpath;
-use function sprintf;
-use function str_contains;
-use function str_starts_with;
-use function strncasecmp;
-use function substr;
-use function trim;
-use function unlink;
-use function unserialize;
+
 use PHPUnit\Event\Code\Phpt;
 use PHPUnit\Event\Code\ThrowableBuilder;
 use PHPUnit\Event\Facade as EventFacade;
@@ -54,6 +48,12 @@ use PHPUnit\Runner\CodeCoverageFileExistsException;
 use PHPUnit\Runner\Exception;
 use PHPUnit\Util\PHP\Job;
 use PHPUnit\Util\PHP\JobRunnerRegistry;
+
+use function preg_match;
+use function preg_replace;
+use function preg_split;
+use function realpath;
+
 use SebastianBergmann\CodeCoverage\Data\RawCodeCoverageData;
 use SebastianBergmann\CodeCoverage\InvalidArgumentException;
 use SebastianBergmann\CodeCoverage\ReflectionException;
@@ -61,9 +61,22 @@ use SebastianBergmann\CodeCoverage\Test\TestSize;
 use SebastianBergmann\CodeCoverage\Test\TestStatus;
 use SebastianBergmann\CodeCoverage\TestIdMissingException;
 use SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException;
+
+use function sprintf;
+
 use staabm\SideEffectsDetector\SideEffect;
 use staabm\SideEffectsDetector\SideEffectsDetector;
+
+use function str_contains;
+use function str_starts_with;
+use function strncasecmp;
+use function substr;
+
 use Throwable;
+
+use function trim;
+use function unlink;
+use function unserialize;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -100,7 +113,7 @@ final readonly class TestCase implements Reorderable, SelfDescribing, Test
     public function run(): void
     {
         $emitter = EventFacade::emitter();
-        $parser  = new Parser;
+        $parser  = new Parser();
 
         $emitter->testPreparationStarted(
             $this->valueObjectForEvents(),
@@ -116,7 +129,7 @@ final readonly class TestCase implements Reorderable, SelfDescribing, Test
             return;
         }
 
-        $code                 = (new Renderer)->render($this->filename, $sections['FILE']);
+        $code                 = (new Renderer())->render($this->filename, $sections['FILE']);
         $xfail                = false;
         $environmentVariables = [];
         $phpSettings          = $parser->parseIniSection($this->settings(CodeCoverage::instance()->isActive()));
@@ -156,7 +169,7 @@ final readonly class TestCase implements Reorderable, SelfDescribing, Test
                 $codeCoverageCacheDirectory = CodeCoverage::instance()->codeCoverage()->cacheDirectory();
             }
 
-            (new Renderer)->renderForCoverage(
+            (new Renderer())->renderForCoverage(
                 $code,
                 CodeCoverage::instance()->codeCoverage()->collectsBranchAndPathCoverage(),
                 $codeCoverageCacheDirectory,
@@ -317,7 +330,7 @@ final readonly class TestCase implements Reorderable, SelfDescribing, Test
             }
         }
 
-        throw new InvalidPhptFileException;
+        throw new InvalidPhptFileException();
     }
 
     /**
@@ -330,7 +343,7 @@ final readonly class TestCase implements Reorderable, SelfDescribing, Test
             return false;
         }
 
-        $skipIfCode = (new Renderer)->render($this->filename, $sections['SKIPIF']);
+        $skipIfCode = (new Renderer())->render($this->filename, $sections['SKIPIF']);
 
         if ($this->shouldRunInSubprocess($sections, $skipIfCode)) {
             $jobResult = JobRunnerRegistry::run(
@@ -379,7 +392,7 @@ final readonly class TestCase implements Reorderable, SelfDescribing, Test
             return true;
         }
 
-        $detector    = new SideEffectsDetector;
+        $detector    = new SideEffectsDetector();
         $sideEffects = $detector->getSideEffects($cleanCode);
 
         if ($sideEffects === []) {
@@ -426,7 +439,7 @@ final readonly class TestCase implements Reorderable, SelfDescribing, Test
             return;
         }
 
-        $cleanCode = (new Renderer)->render($this->filename, $sections['CLEAN']);
+        $cleanCode = (new Renderer())->render($this->filename, $sections['CLEAN']);
 
         if ($this->shouldRunInSubprocess($sections, $cleanCode)) {
             $jobResult = JobRunnerRegistry::run(

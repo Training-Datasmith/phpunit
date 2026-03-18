@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,10 +9,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\Output;
 
-use const PHP_EOL;
 use function assert;
+
+use const PHP_EOL;
+
 use PHPUnit\Event\Facade as EventFacade;
 use PHPUnit\Logging\TeamCity\TeamCityLogger;
 use PHPUnit\Logging\TestDox\TestResultCollection;
@@ -84,7 +89,7 @@ final class Facade
                 self::$printer->print(PHP_EOL . PHP_EOL);
             }
 
-            self::$printer->print((new ResourceUsageFormatter)->resourceUsage($duration) . PHP_EOL . PHP_EOL);
+            self::$printer->print((new ResourceUsageFormatter())->resourceUsage($duration) . PHP_EOL . PHP_EOL);
         }
 
         if (self::$testDoxResultPrinter !== null && $testDoxResult !== null) {
@@ -154,7 +159,7 @@ final class Facade
             return;
         }
 
-        self::$printer = new NullPrinter;
+        self::$printer = new NullPrinter();
     }
 
     private static function createProgressPrinter(Configuration $configuration): void

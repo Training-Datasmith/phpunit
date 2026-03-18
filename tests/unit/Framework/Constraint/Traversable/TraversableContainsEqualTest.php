@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -28,9 +31,9 @@ final class TraversableContainsEqualTest extends TestCase
 {
     public static function provider(): array
     {
-        $o = new stdClass;
+        $o = new stdClass();
 
-        $s = new SplObjectStorage;
+        $s = new SplObjectStorage();
         $s->offsetSet($o);
 
         return [
@@ -87,7 +90,7 @@ final class TraversableContainsEqualTest extends TestCase
                 false,
                 'Failed asserting that a traversable contains stdClass Object',
                 $o,
-                new SplObjectStorage,
+                new SplObjectStorage(),
             ],
         ];
     }

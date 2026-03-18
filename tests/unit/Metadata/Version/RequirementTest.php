@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Metadata;
 
 use PharIo\Version\VersionConstraintParser;
@@ -36,7 +39,7 @@ final class RequirementTest extends TestCase
                 true,
                 '1.0.0',
                 new ConstraintRequirement(
-                    (new VersionConstraintParser)->parse('1.0.0'),
+                    (new VersionConstraintParser())->parse('1.0.0'),
                 ),
             ],
         ];

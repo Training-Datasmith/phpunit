@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,10 +9,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 use function array_merge;
 use function assert;
+
 use PHPUnit\Metadata\Api\DataProvider;
 use PHPUnit\Metadata\Api\Groups;
 use PHPUnit\Metadata\Api\ProvidedData;
@@ -49,7 +53,7 @@ final readonly class TestBuilder
             try {
                 ErrorHandler::instance()->enterTestCaseContext($className, $methodName);
 
-                $data = (new DataProvider)->providedData($className, $methodName);
+                $data = (new DataProvider())->providedData($className, $methodName);
             } finally {
                 ErrorHandler::instance()->leaveTestCaseContext();
             }
@@ -94,7 +98,7 @@ final readonly class TestBuilder
 
         $groups = array_merge(
             $groups,
-            (new Groups)->groups($className, $methodName),
+            (new Groups())->groups($className, $methodName),
         );
 
         foreach ($data as $_dataName => $_data) {
@@ -275,6 +279,6 @@ final readonly class TestBuilder
      */
     private function requirementsSatisfied(string $className, string $methodName): bool
     {
-        return (new Requirements)->requirementsNotSatisfiedFor($className, $methodName) === [];
+        return (new Requirements())->requirementsNotSatisfiedFor($className, $methodName) === [];
     }
 }

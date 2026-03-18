@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestFixture;
 
 use PHPUnit\Framework\TestCase;
@@ -26,10 +29,10 @@ final class FailureTest extends TestCase
 
     public function testAssertObjectEqualsObject(): void
     {
-        $a      = new stdClass;
+        $a      = new stdClass();
         $a->foo = 'bar';
 
-        $b      = new stdClass;
+        $b      = new stdClass();
         $b->bar = 'foo';
 
         $this->assertEquals($a, $b, 'message');
@@ -67,12 +70,12 @@ final class FailureTest extends TestCase
 
     public function testAssertObjectSameObject(): void
     {
-        $this->assertSame(new stdClass, new stdClass, 'message');
+        $this->assertSame(new stdClass(), new stdClass(), 'message');
     }
 
     public function testAssertObjectSameNull(): void
     {
-        $this->assertSame(new stdClass, null, 'message');
+        $this->assertSame(new stdClass(), null, 'message');
     }
 
     public function testAssertFloatSameFloat(): void

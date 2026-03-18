@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 use PHPUnit\Framework\Attributes\CoversMethod;
@@ -28,7 +31,7 @@ final class assertArraysAreIdenticalIgnoringOrderTest extends TestCase
      */
     public static function successProvider(): array
     {
-        $object = new stdClass;
+        $object = new stdClass();
 
         return [
             'empty arrays' => [
@@ -245,8 +248,8 @@ EOT,
  ]
 
 EOT,
-                ['obj' => new stdClass],
-                ['obj' => new stdClass],
+                ['obj' => new stdClass()],
+                ['obj' => new stdClass()],
             ],
 
             'null vs empty string' => [

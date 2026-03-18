@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,13 +9,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestFixture\Baseline;
 
 use const E_USER_DEPRECATED;
 use const E_USER_NOTICE;
 use const E_USER_WARNING;
-use function trigger_error;
+
 use Serializable;
+
+use function trigger_error;
 
 final class Source
 {
@@ -59,8 +64,7 @@ final class Source
 
     private function phpDeprecation(): void
     {
-        $o = new class implements Serializable
-        {
+        $o = new class () implements Serializable {
             public function serialize(): void
             {
             }
@@ -73,8 +77,7 @@ final class Source
 
     private function phpNoticeAndWarning(): void
     {
-        $o = new class
-        {
+        $o = new class () {
             public static $a = 'b';
         };
 

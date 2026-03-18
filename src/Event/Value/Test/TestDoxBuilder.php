@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Event\Code;
 
 use PHPUnit\Framework\TestCase;
@@ -52,7 +55,7 @@ final class TestDoxBuilder
     private static function namePrettifier(): NamePrettifier
     {
         if (self::$namePrettifier === null) {
-            self::$namePrettifier = new NamePrettifier;
+            self::$namePrettifier = new NamePrettifier();
         }
 
         return self::$namePrettifier;

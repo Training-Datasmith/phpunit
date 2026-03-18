@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,13 +9,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestFixture\Event\ErrorHandlerCanBeDisabled;
 
 use const E_USER_WARNING;
+
 use function error_get_last;
+
+use Exception;
+
 use function fopen;
 use function trigger_error;
-use Exception;
 
 final class Foo
 {

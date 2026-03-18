@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Event;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -28,10 +31,10 @@ final class TypeMapTest extends TestCase
     {
         $subscriber     = $this->createStub(DummySubscriber::class);
         $subscriberType = DummySubscriber::class;
-        $event          = new DummyEvent;
+        $event          = new DummyEvent();
         $eventType      = DummyEvent::class;
 
-        $map = new TypeMap;
+        $map = new TypeMap();
 
         $this->assertFalse($map->isKnownSubscriberType($subscriber));
         $this->assertFalse($map->isKnownEventType($event));
@@ -48,7 +51,7 @@ final class TypeMapTest extends TestCase
     {
         $subscriber = $this->createStub(DummySubscriber::class);
 
-        $map = new TypeMap;
+        $map = new TypeMap();
 
         $this->expectException(MapError::class);
 
@@ -60,7 +63,7 @@ final class TypeMapTest extends TestCase
         $subscriberType = 'DoesNotExist';
         $eventType      = DummyEvent::class;
 
-        $map = new TypeMap;
+        $map = new TypeMap();
 
         $this->expectException(UnknownSubscriberException::class);
 
@@ -72,7 +75,7 @@ final class TypeMapTest extends TestCase
         $subscriberType = AnInterface::class;
         $eventType      = DummyEvent::class;
 
-        $map = new TypeMap;
+        $map = new TypeMap();
 
         $this->expectException(InvalidSubscriberException::class);
 
@@ -84,7 +87,7 @@ final class TypeMapTest extends TestCase
         $subscriberType = DummySubscriber::class;
         $eventType      = 'DoesNotExist';
 
-        $map = new TypeMap;
+        $map = new TypeMap();
 
         $this->expectException(UnknownEventException::class);
 
@@ -96,7 +99,7 @@ final class TypeMapTest extends TestCase
         $subscriberType = DummySubscriber::class;
         $eventType      = FinalClass::class;
 
-        $map = new TypeMap;
+        $map = new TypeMap();
 
         $this->expectException(InvalidEventException::class);
 
@@ -108,7 +111,7 @@ final class TypeMapTest extends TestCase
         $subscriberType = DummySubscriber::class;
         $eventType      = DummyEvent::class;
 
-        $map = new TypeMap;
+        $map = new TypeMap();
 
         $map->addMapping($subscriberType, $eventType);
 
@@ -123,7 +126,7 @@ final class TypeMapTest extends TestCase
         $anotherSubscriberType = AnotherDummySubscriber::class;
         $eventType             = DummyEvent::class;
 
-        $map = new TypeMap;
+        $map = new TypeMap();
 
         $map->addMapping($subscriberType, $eventType);
 

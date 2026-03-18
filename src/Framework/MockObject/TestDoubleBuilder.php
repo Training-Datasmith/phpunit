@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject;
 
 use function array_merge;
+
 use PHPUnit\Framework\MockObject\Generator\Generator;
 use PHPUnit\Framework\MockObject\Generator\ReflectionException;
 use ReflectionClass;
@@ -166,7 +170,7 @@ abstract class TestDoubleBuilder
 
     protected function getTestDouble(?string $testDoubleClassName, bool $mockObject): MockObject|Stub
     {
-        return (new Generator)->testDouble(
+        return (new Generator())->testDouble(
             $this->type,
             $mockObject,
             !$this->emptyMethodsArray ? $this->methods : null,

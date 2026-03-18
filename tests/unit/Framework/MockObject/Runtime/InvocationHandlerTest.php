@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -48,7 +51,7 @@ final class InvocationHandlerTest extends TestCase
     {
         $handler = new InvocationHandler([], false, true);
 
-        $matcher = new Matcher(new AnyInvokedCount);
+        $matcher = new Matcher(new AnyInvokedCount());
 
         $matchers = new ReflectionProperty(InvocationHandler::class, 'matchers');
         $matchers->setValue($handler, [$matcher]);

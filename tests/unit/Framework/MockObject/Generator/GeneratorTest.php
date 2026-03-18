@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework\MockObject\Generator;
 
 use Iterator;
@@ -28,14 +31,14 @@ final class GeneratorTest extends TestCase
 {
     public function testReplacesTraversableWithIterator(): void
     {
-        $double = (new Generator)->testDouble(Traversable::class, false);
+        $double = (new Generator())->testDouble(Traversable::class, false);
 
         $this->assertInstanceOf(Stub::class, $double);
     }
 
     public function testHandlesLeadingBackslashInType(): void
     {
-        $double = (new Generator)->generate('\PHPUnit\TestFixture\MockObject\AnInterface', false);
+        $double = (new Generator())->generate('\PHPUnit\TestFixture\MockObject\AnInterface', false);
 
         $this->assertInstanceOf(DoubledClass::class, $double);
     }
@@ -44,19 +47,19 @@ final class GeneratorTest extends TestCase
     {
         $this->expectException(NameAlreadyInUseException::class);
 
-        (new Generator)->testDouble(ExtendableClass::class, false, [], [], 'stdClass');
+        (new Generator())->testDouble(ExtendableClass::class, false, [], [], 'stdClass');
     }
 
     public function testAddsIteratorMethodsWhenMockingTraversableInterface(): void
     {
-        $double = (new Generator)->testDouble(InterfaceExtendingTraversable::class, false);
+        $double = (new Generator())->testDouble(InterfaceExtendingTraversable::class, false);
 
         $this->assertInstanceOf(Iterator::class, $double);
     }
 
     public function testIgnoresPrivateMethodWhenExplicitlyListed(): void
     {
-        $double = (new Generator)->testDouble(ExtendableClass::class, false, ['privateMethod']);
+        $double = (new Generator())->testDouble(ExtendableClass::class, false, ['privateMethod']);
 
         $this->assertInstanceOf(Stub::class, $double);
     }
@@ -74,7 +77,7 @@ final class GeneratorTest extends TestCase
 
     public function testMocksInterfaceExtendingThrowable(): void
     {
-        $double = (new Generator)->testDouble(InterfaceExtendingThrowable::class, false);
+        $double = (new Generator())->testDouble(InterfaceExtendingThrowable::class, false);
 
         $this->assertInstanceOf(InterfaceExtendingThrowable::class, $double);
     }

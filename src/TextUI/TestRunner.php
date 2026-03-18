@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI;
 
 use function mt_srand;
+
 use PHPUnit\Event;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Runner\ResultCache\ResultCache;
@@ -55,7 +59,7 @@ final class TestRunner
                 );
             }
 
-            (new TestSuiteFilterProcessor)->process($configuration, $suite);
+            (new TestSuiteFilterProcessor())->process($configuration, $suite);
 
             Event\Facade::emitter()->testRunnerExecutionStarted(
                 Event\TestSuite\TestSuiteBuilder::from($suite),

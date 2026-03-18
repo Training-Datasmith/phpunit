@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,20 +9,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TestFixture\Issue5884;
 
-use const E_USER_DEPRECATED;
 use function chmod;
+
+use const E_USER_DEPRECATED;
+
+use Exception;
+
 use function file_get_contents;
 use function file_put_contents;
+
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
+use PHPUnit\Framework\Attributes\WithoutErrorHandler;
+use PHPUnit\Framework\TestCase;
+
 use function sys_get_temp_dir;
 use function tempnam;
 use function trigger_error;
 use function unlink;
-use Exception;
-use PHPUnit\Framework\Attributes\IgnoreDeprecations;
-use PHPUnit\Framework\Attributes\WithoutErrorHandler;
-use PHPUnit\Framework\TestCase;
 
 final class FooTest extends TestCase
 {

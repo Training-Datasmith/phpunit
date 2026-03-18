@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\XmlConfiguration;
 
 use function version_compare;
@@ -94,7 +97,7 @@ final readonly class MigrationBuilder
      */
     public function build(string $fromVersion): array
     {
-        $stack = [new UpdateSchemaLocation];
+        $stack = [new UpdateSchemaLocation()];
 
         foreach (self::AVAILABLE_MIGRATIONS as $version => $migrations) {
             if (version_compare($version, $fromVersion, '<')) {
@@ -102,7 +105,7 @@ final readonly class MigrationBuilder
             }
 
             foreach ($migrations as $migration) {
-                $stack[] = new $migration;
+                $stack[] = new $migration();
             }
         }
 

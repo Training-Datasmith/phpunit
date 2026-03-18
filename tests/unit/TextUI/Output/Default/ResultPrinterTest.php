@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,12 +9,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\Output\Default;
 
-use const PHP_OS;
-use function hrtime;
-use function stripos;
 use Exception;
+
+use function hrtime;
+
+use const PHP_OS;
+
 use PHPUnit\Event\Code\TestDoxBuilder;
 use PHPUnit\Event\Code\TestMethod;
 use PHPUnit\Event\Code\ThrowableBuilder;
@@ -47,6 +52,8 @@ use PHPUnit\Metadata\MetadataCollection;
 use PHPUnit\TestRunner\TestResult\Issues\Issue;
 use PHPUnit\TestRunner\TestResult\TestResult;
 use PHPUnit\TextUI\Output\Printer;
+
+use function stripos;
 
 #[CoversClass(ResultPrinter::class)]
 #[Medium]
@@ -438,8 +445,7 @@ final class ResultPrinterTest extends TestCase
 
     private function printer(): Printer
     {
-        return new class implements Printer
-        {
+        return new class () implements Printer {
             private string $buffer = '';
 
             public function print(string $buffer): void

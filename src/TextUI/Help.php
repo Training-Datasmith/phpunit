@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,20 +9,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI;
 
-use const PHP_EOL;
 use function count;
 use function defined;
 use function explode;
 use function max;
+
+use const PHP_EOL;
+
+use PHPUnit\Util\Color;
+
 use function preg_replace_callback;
+
+use SebastianBergmann\Environment\Console;
+
 use function str_pad;
 use function str_repeat;
 use function strlen;
 use function wordwrap;
-use PHPUnit\Util\Color;
-use SebastianBergmann\Environment\Console;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -37,11 +45,11 @@ final class Help
     public function __construct(?int $width = null, ?bool $withColor = null)
     {
         if ($width === null) {
-            $width = (new Console)->getNumberOfColumns();
+            $width = (new Console())->getNumberOfColumns();
         }
 
         if ($withColor === null) {
-            $this->hasColor = (new Console)->hasColorSupport();
+            $this->hasColor = (new Console())->hasColorSupport();
         } else {
             $this->hasColor = $withColor;
         }

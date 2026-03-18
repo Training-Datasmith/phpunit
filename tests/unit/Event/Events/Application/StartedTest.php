@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Event\Application;
 
 use PHPUnit\Event\AbstractEventTestCase;
@@ -24,7 +27,7 @@ final class StartedTest extends AbstractEventTestCase
     public function testConstructorSetsValues(): void
     {
         $telemetryInfo = $this->telemetryInfo();
-        $runtime       = new Runtime;
+        $runtime       = new Runtime();
 
         $event = new Started(
             $telemetryInfo,
@@ -39,7 +42,7 @@ final class StartedTest extends AbstractEventTestCase
     {
         $event = new Started(
             $this->telemetryInfo(),
-            new Runtime,
+            new Runtime(),
         );
 
         $this->assertStringMatchesFormat('PHPUnit Started (PHPUnit %s using PHP %s)', $event->asString());

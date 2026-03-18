@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,7 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Event\Runtime;
+
+use function array_merge;
+use function get_loaded_extensions;
 
 use const PHP_EXTRA_VERSION;
 use const PHP_MAJOR_VERSION;
@@ -16,8 +22,7 @@ use const PHP_RELEASE_VERSION;
 use const PHP_SAPI;
 use const PHP_VERSION;
 use const PHP_VERSION_ID;
-use function array_merge;
-use function get_loaded_extensions;
+
 use function sort;
 
 /**

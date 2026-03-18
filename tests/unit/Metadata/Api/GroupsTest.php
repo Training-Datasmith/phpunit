@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Metadata\Api;
 
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -118,15 +121,15 @@ final class GroupsTest extends TestCase
     {
         $this->assertSame(
             $expected,
-            (new Groups)->groups($className, $methodName, $includeVirtual),
+            (new Groups())->groups($className, $methodName, $includeVirtual),
         );
     }
 
     public function testAssignsSize(): void
     {
-        $this->assertTrue((new Groups)->size(SmallGroupAttributesTest::class, 'testOne')->isSmall());
-        $this->assertTrue((new Groups)->size(MediumGroupAttributesTest::class, 'testOne')->isMedium());
-        $this->assertTrue((new Groups)->size(LargeGroupAttributesTest::class, 'testOne')->isLarge());
-        $this->assertTrue((new Groups)->size(NoGroupsMetadataTest::class, 'testOne')->isUnknown());
+        $this->assertTrue((new Groups())->size(SmallGroupAttributesTest::class, 'testOne')->isSmall());
+        $this->assertTrue((new Groups())->size(MediumGroupAttributesTest::class, 'testOne')->isMedium());
+        $this->assertTrue((new Groups())->size(LargeGroupAttributesTest::class, 'testOne')->isLarge());
+        $this->assertTrue((new Groups())->size(NoGroupsMetadataTest::class, 'testOne')->isUnknown());
     }
 }

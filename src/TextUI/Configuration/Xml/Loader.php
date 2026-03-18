@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,30 +9,28 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\TextUI\XmlConfiguration;
 
-use const DIRECTORY_SEPARATOR;
-use const PHP_EOL;
-use const PHP_VERSION;
 use function assert;
 use function defined;
+
+use const DIRECTORY_SEPARATOR;
+
 use function dirname;
-use function explode;
-use function is_numeric;
-use function preg_match;
-use function realpath;
-use function sprintf;
-use function str_contains;
-use function str_starts_with;
-use function strlen;
-use function strtolower;
-use function substr;
-use function trim;
+
 use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMNodeList;
 use DOMXPath;
+
+use function explode;
+use function is_numeric;
+
+use const PHP_EOL;
+use const PHP_VERSION;
+
 use PHPUnit\Runner\TestSuiteSorter;
 use PHPUnit\Runner\Version;
 use PHPUnit\TextUI\Configuration\Configuration;
@@ -78,9 +78,23 @@ use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text as TestDoxText;
 use PHPUnit\Util\VersionComparisonOperator;
 use PHPUnit\Util\Xml\Loader as XmlLoader;
 use PHPUnit\Util\Xml\XmlException;
+
+use function preg_match;
+use function realpath;
+
 use SebastianBergmann\CodeCoverage\Report\Html\Colors;
 use SebastianBergmann\CodeCoverage\Report\Thresholds;
+
+use function sprintf;
+use function str_contains;
+use function str_starts_with;
+use function strlen;
+use function strtolower;
+use function substr;
+
 use Throwable;
+
+use function trim;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -95,7 +109,7 @@ final readonly class Loader
     public function load(string $filename): LoadedFromFileConfiguration
     {
         try {
-            $document = (new XmlLoader)->loadFile($filename);
+            $document = (new XmlLoader())->loadFile($filename);
         } catch (XmlException $e) {
             throw new Exception(
                 $e->getMessage(),
@@ -107,7 +121,7 @@ final readonly class Loader
         $xpath = new DOMXPath($document);
 
         try {
-            $xsdFilename = (new SchemaFinder)->find(Version::series());
+            $xsdFilename = (new SchemaFinder())->find(Version::series());
         } catch (CannotFindSchemaException $e) {
             throw new Exception(
                 $e->getMessage(),
@@ -120,7 +134,7 @@ final readonly class Loader
 
         assert($configurationFileRealpath !== false && $configurationFileRealpath !== '');
 
-        $validationResult = (new Validator)->validate($document, $xsdFilename);
+        $validationResult = (new Validator())->validate($document, $xsdFilename);
 
         try {
             return new LoadedFromFileConfiguration(

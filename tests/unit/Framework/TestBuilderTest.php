@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -7,9 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PHPUnit\Framework;
 
 use function iterator_to_array;
+
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\TestFixture\TestBuilder\TestWithClassLevelIsolationAttributes;
@@ -24,7 +28,7 @@ final class TestBuilderTest extends TestCase
 {
     public function testBuildsTestWithoutMetadataForIsolation(): void
     {
-        $test = (new TestBuilder)->build(
+        $test = (new TestBuilder())->build(
             new ReflectionClass(TestWithoutIsolationAttributes::class),
             'testOne',
         );
@@ -42,7 +46,7 @@ final class TestBuilderTest extends TestCase
 
     public function testBuildsTestWithClassLevelMetadataForIsolation(): void
     {
-        $test = (new TestBuilder)->build(
+        $test = (new TestBuilder())->build(
             new ReflectionClass(TestWithClassLevelIsolationAttributes::class),
             'testOne',
         );
@@ -60,7 +64,7 @@ final class TestBuilderTest extends TestCase
 
     public function testBuildsTestWithMethodLevelMetadataForIsolation(): void
     {
-        $test = (new TestBuilder)->build(
+        $test = (new TestBuilder())->build(
             new ReflectionClass(TestWithMethodLevelIsolationAttributes::class),
             'testOne',
         );
@@ -78,7 +82,7 @@ final class TestBuilderTest extends TestCase
 
     public function testBuildsTestWithDataProvider(): void
     {
-        $test = (new TestBuilder)->build(
+        $test = (new TestBuilder())->build(
             new ReflectionClass(TestWithDataProvider::class),
             'testOne',
         );
