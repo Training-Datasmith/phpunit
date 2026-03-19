@@ -281,9 +281,9 @@ final readonly class GlobalState
                     }
 
                     $result .= sprintf(
-                        '$GLOBALS[\'%s\'][\'%s\'] = %s;' . "\n",
+                        '$GLOBALS[\'%s\'][%s] = %s;' . "\n",
                         $superGlobalArray,
-                        $key,
+                        var_export($key, true),
                         self::exportVariable($GLOBALS[$superGlobalArray][$key]),
                     );
                 }
@@ -296,8 +296,8 @@ final readonly class GlobalState
         foreach ($GLOBALS as $key => $value) {
             if (!$value instanceof Closure && !in_array($key, $excludeList, true)) {
                 $result .= sprintf(
-                    '$GLOBALS[\'%s\'] = %s;' . "\n",
-                    $key,
+                    '$GLOBALS[%s] = %s;' . "\n",
+                    var_export($key, true),
                     self::exportVariable($value),
                 );
             }

@@ -48,7 +48,7 @@ final readonly class ChildProcessResultProcessor
             return;
         }
 
-        $childResult = @unserialize($serializedProcessResult);
+        $childResult = @unserialize($serializedProcessResult, ['allowed_classes' => true]);
 
         if ($childResult === false) {
             $this->emitter->childProcessErrored();
