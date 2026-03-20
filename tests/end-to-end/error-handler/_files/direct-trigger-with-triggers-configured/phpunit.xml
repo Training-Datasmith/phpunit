@@ -15,7 +15,7 @@
         </include>
 
         <deprecationTrigger>
-            <function>PHPUnit\TestFixture\ErrorHandler\DirectTriggerWithTriggersConfigured\trigger_deprecation</function>
+            <function>PHP_Unit\Test_Fixture\Error_Handler\Direct_Trigger_With_Triggers_Configured\trigger_deprecation</function>
         </deprecationTrigger>
     </source>
 </phpunit>

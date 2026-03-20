@@ -16,7 +16,7 @@
          failOnWarning="false"
          failOnRisky="false"
          extensionsDirectory="/tmp"
-         printerClass="PHPUnit\TextUI\DefaultResultPrinter"
+         printerClass="PHP_Unit\Text_UI\Default_Result_Printer"
          defaultTestSuite="My Test Suite"
          beStrictAboutChangesToGlobalState="false"
          beStrictAboutOutputDuringTests="false"

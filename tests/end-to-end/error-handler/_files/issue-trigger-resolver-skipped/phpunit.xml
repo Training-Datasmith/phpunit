@@ -15,7 +15,7 @@
         </include>
 
         <issueTriggerResolvers>
-            <issueTriggerResolver className="PHPUnit\TestFixture\ErrorHandler\IssueTriggerResolverSkipped\SkippingResolver"/>
+            <issueTriggerResolver className="PHP_Unit\Test_Fixture\Error_Handler\Issue_Trigger_Resolver_Skipped\Skipping_Resolver"/>
         </issueTriggerResolvers>
     </source>
 </phpunit>

@@ -369,11 +369,11 @@
             <arg path="${basedir}/build/tmp/phar" />
         </exec>
 
-        <replace file="${basedir}/build/tmp/phar-scoped/phpunit/Runner/Phpt/templates/phpt.tpl"            token="SebastianBergmann\CodeCoverage\CodeCoverage" value="PHPUnitPHAR\SebastianBergmann\CodeCoverage\CodeCoverage"/>
-        <replace file="${basedir}/build/tmp/phar-scoped/phpunit/Runner/Phpt/templates/phpt.tpl"            token="SebastianBergmann\CodeCoverage\Driver\Selector" value="PHPUnitPHAR\SebastianBergmann\CodeCoverage\Driver\Selector"/>
-        <replace file="${basedir}/build/tmp/phar-scoped/phpunit/Runner/Phpt/templates/phpt.tpl"            token="SebastianBergmann\CodeCoverage\Filter" value="PHPUnitPHAR\SebastianBergmann\CodeCoverage\Filter"/>
-        <replace file="${basedir}/build/tmp/phar-scoped/phpunit/Framework/TestRunner/templates/method.tpl" token="SebastianBergmann\CodeCoverage\CodeCoverage" value="PHPUnitPHAR\SebastianBergmann\CodeCoverage\CodeCoverage"/>
-        <replace file="${basedir}/build/tmp/phar-scoped/phpunit/Framework/TestRunner/templates/method.tpl" token="SebastianBergmann\CodeCoverage\Driver\Selector" value="PHPUnitPHAR\SebastianBergmann\CodeCoverage\Driver\Selector"/>
+        <replace file="${basedir}/build/tmp/phar-scoped/phpunit/Runner/Phpt/templates/phpt.tpl"            token="Sebastian_Bergmann\Code_Coverage\Code_Coverage" value="PHP_Unit_PHAR\Sebastian_Bergmann\Code_Coverage\Code_Coverage"/>
+        <replace file="${basedir}/build/tmp/phar-scoped/phpunit/Runner/Phpt/templates/phpt.tpl"            token="Sebastian_Bergmann\Code_Coverage\Driver\Selector" value="PHP_Unit_PHAR\Sebastian_Bergmann\Code_Coverage\Driver\Selector"/>
+        <replace file="${basedir}/build/tmp/phar-scoped/phpunit/Runner/Phpt/templates/phpt.tpl"            token="Sebastian_Bergmann\Code_Coverage\Filter" value="PHP_Unit_PHAR\Sebastian_Bergmann\Code_Coverage\Filter"/>
+        <replace file="${basedir}/build/tmp/phar-scoped/phpunit/Framework/TestRunner/templates/method.tpl" token="Sebastian_Bergmann\Code_Coverage\Code_Coverage" value="PHP_Unit_PHAR\Sebastian_Bergmann\Code_Coverage\Code_Coverage"/>
+        <replace file="${basedir}/build/tmp/phar-scoped/phpunit/Framework/TestRunner/templates/method.tpl" token="Sebastian_Bergmann\Code_Coverage\Driver\Selector" value="PHP_Unit_PHAR\Sebastian_Bergmann\Code_Coverage\Driver\Selector"/>
 
         <exec executable="${basedir}/tools/phpab" taskname="phpab" failonerror="true">
             <arg value="--all" />

@@ -3,7 +3,7 @@
          xsi:noNamespaceSchemaLocation="../../../../../phpunit.xsd"
          bootstrap="src/autoload.php">
     <extensions>
-        <bootstrap class="PHPUnit\TestFixture\Event\MyExtension\MyExtensionBootstrap"/>
+        <bootstrap class="PHP_Unit\Test_Fixture\Event\My_Extension\My_Extension_Bootstrap"/>
     </extensions>
 
     <testsuites>

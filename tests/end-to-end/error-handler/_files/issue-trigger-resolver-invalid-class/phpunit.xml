@@ -11,7 +11,7 @@
 
     <source>
         <issueTriggerResolvers>
-            <issueTriggerResolver className="PHPUnit\TestFixture\ErrorHandler\IssueTriggerResolver\InvalidResolver"/>
+            <issueTriggerResolver className="PHP_Unit\Test_Fixture\Error_Handler\Issue_Trigger_Resolver\Invalid_Resolver"/>
         </issueTriggerResolvers>
     </source>
 </phpunit>

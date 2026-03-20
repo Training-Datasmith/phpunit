@@ -3,7 +3,7 @@
          xsi:noNamespaceSchemaLocation="../../../../phpunit.xsd"
          extensionsDirectory="tools/phpunit.d">
     <extensions>
-        <bootstrap class="PHPUnit\TestFixture\MyExtension\MyExtensionBootstrap">
+        <bootstrap class="PHP_Unit\Test_Fixture\My_Extension\My_Extension_Bootstrap">
             <parameter name="message" value="the-message"/>
         </bootstrap>
     </extensions>

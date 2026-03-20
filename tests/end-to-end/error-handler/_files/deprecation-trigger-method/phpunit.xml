@@ -15,7 +15,7 @@
         </include>
 
         <deprecationTrigger>
-            <method>PHPUnit\TestFixture\ErrorHandler\DeprecationTriggerMethod\DeprecationTrigger::triggerDeprecation</method>
+            <method>PHP_Unit\Test_Fixture\Error_Handler\Deprecation_Trigger_Method\Deprecation_Trigger::triggerDeprecation</method>
         </deprecationTrigger>
     </source>
 </phpunit>

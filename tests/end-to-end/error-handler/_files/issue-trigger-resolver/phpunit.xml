@@ -15,7 +15,7 @@
         </include>
 
         <issueTriggerResolvers>
-            <issueTriggerResolver className="PHPUnit\TestFixture\ErrorHandler\IssueTriggerResolver\FrameworkResolver"/>
+            <issueTriggerResolver className="PHP_Unit\Test_Fixture\Error_Handler\Issue_Trigger_Resolver\Framework_Resolver"/>
         </issueTriggerResolvers>
     </source>
 </phpunit>

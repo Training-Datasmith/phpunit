@@ -16,13 +16,13 @@
         </exclude>
 
         <deprecationTrigger>
-            <function>PHPUnit\TestFixture\DeprecationTrigger\trigger_deprecation</function>
-            <method>PHPUnit\TestFixture\DeprecationTrigger\DeprecationTrigger::triggerDeprecation</method>
+            <function>PHP_Unit\Test_Fixture\Deprecation_Trigger\trigger_deprecation</function>
+            <method>PHP_Unit\Test_Fixture\Deprecation_Trigger\Deprecation_Trigger::triggerDeprecation</method>
         </deprecationTrigger>
 
         <issueTriggerResolvers>
-            <issueTriggerResolver className="PHPUnit\TestFixture\IssueTriggerResolver\FirstResolver"/>
-            <issueTriggerResolver className="PHPUnit\TestFixture\IssueTriggerResolver\SecondResolver"/>
+            <issueTriggerResolver className="PHP_Unit\Test_Fixture\Issue_Trigger_Resolver\First_Resolver"/>
+            <issueTriggerResolver className="PHP_Unit\Test_Fixture\Issue_Trigger_Resolver\Second_Resolver"/>
         </issueTriggerResolvers>
     </source>
 
