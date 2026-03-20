@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,14 +9,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Configuration;
+namespace Php_Unit\Text_Ui\Configuration;
 
 use function count;
-
 use Countable;
 use IteratorAggregate;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -24,45 +21,39 @@ use IteratorAggregate;
  *
  * @template-implements IteratorAggregate<non-negative-int, TestSuite>
  */
-final readonly class TestSuiteCollection implements Countable, IteratorAggregate
+final readonly class Test_Suite_Collection implements Countable, IteratorAggregate
 {
     /**
      * @var list<TestSuite>
      */
-    private array $testSuites;
-
+    private array $test_suites;
     /**
      * @param list<TestSuite> $testSuites
      */
-    public static function fromArray(array $testSuites): self
+    public static function from_array(array $test_suites): self
     {
-        return new self(...$testSuites);
+        return new self(...$test_suites);
     }
-
-    private function __construct(TestSuite ...$testSuites)
+    private function __construct(Test_Suite ...$test_suites)
     {
-        $this->testSuites = $testSuites;
+        $this->test_suites = $test_suites;
     }
-
     /**
      * @return list<TestSuite>
      */
-    public function asArray(): array
+    public function as_array(): array
     {
-        return $this->testSuites;
+        return $this->test_suites;
     }
-
     public function count(): int
     {
-        return count($this->testSuites);
+        return count($this->test_suites);
     }
-
-    public function getIterator(): TestSuiteCollectionIterator
+    public function getIterator(): Test_Suite_Collection_Iterator
     {
-        return new TestSuiteCollectionIterator($this);
+        return new Test_Suite_Collection_Iterator($this);
     }
-
-    public function isEmpty(): bool
+    public function is_empty(): bool
     {
         return $this->count() === 0;
     }

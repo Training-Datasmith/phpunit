@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,33 +9,28 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Runner\Deprecation_Collector;
 
-namespace PHPUnit\Runner\DeprecationCollector;
-
-use PHPUnit\Event\Test\DeprecationTriggered;
-use PHPUnit\TestRunner\IssueFilter;
-
+use Php_Unit\Event\Test\Deprecation_Triggered;
+use Php_Unit\Test_Runner\Issue_Filter;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class InIsolationCollector
+final class In_Isolation_Collector
 {
     /**
      * @var list<non-empty-string>
      */
     private array $deprecations = [];
-
     /**
      * @var list<non-empty-string>
      */
-    private array $filteredDeprecations = [];
-
-    public function __construct(private readonly IssueFilter $issueFilter)
+    private array $filtered_deprecations = [];
+    public function __construct(private readonly Issue_Filter $issue_filter)
     {
     }
-
     /**
      * @return list<non-empty-string>
      */
@@ -43,23 +38,19 @@ final class InIsolationCollector
     {
         return $this->deprecations;
     }
-
     /**
      * @return list<non-empty-string>
      */
-    public function filteredDeprecations(): array
+    public function filtered_deprecations(): array
     {
-        return $this->filteredDeprecations;
+        return $this->filtered_deprecations;
     }
-
-    public function testTriggeredDeprecation(DeprecationTriggered $event): void
+    public function test_triggered_deprecation(Deprecation_Triggered $event): void
     {
         $this->deprecations[] = $event->message();
-
-        if (!$this->issueFilter->shouldBeProcessed($event)) {
+        if (!$this->issue_filter->should_be_processed($event)) {
             return;
         }
-
-        $this->filteredDeprecations[] = $event->message();
+        $this->filtered_deprecations[] = $event->message();
     }
 }

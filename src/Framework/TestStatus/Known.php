@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\TestStatus;
+namespace Php_Unit\Framework\Test_Status;
 
 /**
  * @immutable
@@ -19,9 +18,9 @@ namespace PHPUnit\Framework\TestStatus;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-abstract readonly class Known extends TestStatus
+abstract readonly class Known extends Test_Status
 {
-    public function isKnown(): true
+    public function is_known(): true
     {
         return true;
     }

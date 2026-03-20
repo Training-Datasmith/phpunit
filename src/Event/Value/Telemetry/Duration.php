@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,15 +9,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Event\Telemetry;
+namespace Php_Unit\Event\Telemetry;
 
 use function floor;
-
-use PHPUnit\Event\InvalidArgumentException;
-
+use Php_Unit\Event\InvalidArgumentException;
 use function sprintf;
-
 /**
  * @immutable
  *
@@ -27,127 +23,91 @@ final readonly class Duration
 {
     private int $seconds;
     private int $nanoseconds;
-
     /**
      * @throws InvalidArgumentException
      */
-    public static function fromSecondsAndNanoseconds(int $seconds, int $nanoseconds): self
+    public static function from_seconds_and_nanoseconds(int $seconds, int $nanoseconds): self
     {
-        return new self(
-            $seconds,
-            $nanoseconds,
-        );
+        return new self($seconds, $nanoseconds);
     }
-
     /**
      * @throws InvalidArgumentException
      */
     private function __construct(int $seconds, int $nanoseconds)
     {
-        $this->ensureNotNegative($seconds, 'seconds');
-        $this->ensureNotNegative($nanoseconds, 'nanoseconds');
-        $this->ensureNanoSecondsInRange($nanoseconds);
-
-        $this->seconds     = $seconds;
+        $this->ensure_not_negative($seconds, 'seconds');
+        $this->ensure_not_negative($nanoseconds, 'nanoseconds');
+        $this->ensure_nano_seconds_in_range($nanoseconds);
+        $this->seconds = $seconds;
         $this->nanoseconds = $nanoseconds;
     }
-
     public function seconds(): int
     {
         return $this->seconds;
     }
-
     public function nanoseconds(): int
     {
         return $this->nanoseconds;
     }
-
-    public function asFloat(): float
+    public function as_float(): float
     {
-        return $this->seconds() + ($this->nanoseconds() / 1000000000);
+        return $this->seconds() + $this->nanoseconds() / 1000000000;
     }
-
-    public function asString(): string
+    public function as_string(): string
     {
         $seconds = $this->seconds();
         $minutes = 0;
-        $hours   = 0;
-
+        $hours = 0;
         if ($seconds > 60 * 60) {
             $hours = floor($seconds / 60 / 60);
-            $seconds -= ($hours * 60 * 60);
+            $seconds -= $hours * 60 * 60;
         }
-
         if ($seconds > 60) {
             $minutes = floor($seconds / 60);
-            $seconds -= ($minutes * 60);
+            $seconds -= $minutes * 60;
         }
-
-        return sprintf(
-            '%02d:%02d:%02d.%09d',
-            (int) $hours,
-            (int) $minutes,
-            (int) $seconds,
-            $this->nanoseconds(),
-        );
+        return sprintf('%02d:%02d:%02d.%09d', (int) $hours, (int) $minutes, (int) $seconds, $this->nanoseconds());
     }
-
     public function equals(self $other): bool
     {
-        return $this->seconds === $other->seconds &&
-            $this->nanoseconds === $other->nanoseconds;
+        return $this->seconds === $other->seconds && $this->nanoseconds === $other->nanoseconds;
     }
-
-    public function isLessThan(self $other): bool
+    public function is_less_than(self $other): bool
     {
         if ($this->seconds < $other->seconds) {
             return true;
         }
-
         if ($this->seconds > $other->seconds) {
             return false;
         }
-
         return $this->nanoseconds < $other->nanoseconds;
     }
-
-    public function isGreaterThan(self $other): bool
+    public function is_greater_than(self $other): bool
     {
         if ($this->seconds > $other->seconds) {
             return true;
         }
-
         if ($this->seconds < $other->seconds) {
             return false;
         }
-
         return $this->nanoseconds > $other->nanoseconds;
     }
-
     /**
      * @throws InvalidArgumentException
      */
-    private function ensureNotNegative(int $value, string $type): void
+    private function ensure_not_negative(int $value, string $type): void
     {
         if ($value < 0) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Value for %s must not be negative.',
-                    $type,
-                ),
-            );
+            throw new InvalidArgumentException(sprintf('Value for %s must not be negative.', $type));
         }
     }
-
     /**
      * @throws InvalidArgumentException
      */
-    private function ensureNanoSecondsInRange(int $nanoseconds): void
+    private function ensure_nano_seconds_in_range(int $nanoseconds): void
     {
         if ($nanoseconds > 999999999) {
-            throw new InvalidArgumentException(
-                'Value for nanoseconds must not be greater than 999999999.',
-            );
+            throw new InvalidArgumentException('Value for nanoseconds must not be greater than 999999999.');
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\MockObject\Generator;
+namespace Php_Unit\Framework\Mock_Object\Generator;
 
 use function array_merge;
 use function array_pop;
@@ -18,55 +17,42 @@ use function array_unique;
 use function assert;
 use function class_exists;
 use function count;
-
 use Exception;
-
 use function explode;
 use function implode;
 use function in_array;
 use function interface_exists;
 use function is_array;
-
 use Iterator;
 use IteratorAggregate;
-
 use function md5;
 use function mt_rand;
-
 use const PHP_EOL;
-
-use PHPUnit\Framework\MockObject\ConfigurableMethod;
-use PHPUnit\Framework\MockObject\DoubledCloneMethod;
-use PHPUnit\Framework\MockObject\Method;
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\MockObject\MockObjectApi;
-use PHPUnit\Framework\MockObject\MockObjectInternal;
-use PHPUnit\Framework\MockObject\ProxiedCloneMethod;
-use PHPUnit\Framework\MockObject\Stub;
-use PHPUnit\Framework\MockObject\StubApi;
-use PHPUnit\Framework\MockObject\StubInternal;
-use PHPUnit\Framework\MockObject\TestDoubleState;
-
+use Php_Unit\Framework\Mock_Object\Configurable_Method;
+use Php_Unit\Framework\Mock_Object\Doubled_Clone_Method;
+use Php_Unit\Framework\Mock_Object\Method;
+use Php_Unit\Framework\Mock_Object\Mock_Object;
+use Php_Unit\Framework\Mock_Object\Mock_Object_Api;
+use Php_Unit\Framework\Mock_Object\Mock_Object_Internal;
+use Php_Unit\Framework\Mock_Object\Proxied_Clone_Method;
+use Php_Unit\Framework\Mock_Object\Stub;
+use Php_Unit\Framework\Mock_Object\Stub_Api;
+use Php_Unit\Framework\Mock_Object\Stub_Internal;
+use Php_Unit\Framework\Mock_Object\Test_Double_State;
 use function preg_match;
-
-use PropertyHookType;
+use Property_Hook_Type;
 use ReflectionClass;
 use ReflectionMethod;
-use ReflectionObject;
-use SebastianBergmann\Type\ReflectionMapper;
-use SebastianBergmann\Type\Type;
-
+use Reflection_Object;
+use Sebastian_Bergmann\Type\Reflection_Mapper;
+use Sebastian_Bergmann\Type\Type;
 use function serialize;
 use function sort;
 use function sprintf;
 use function substr;
-
 use Throwable;
-
 use function trait_exists;
-
 use Traversable;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -74,18 +60,15 @@ use Traversable;
  */
 final class Generator
 {
-    use TemplateLoader;
-
+    use Template_Loader;
     /**
      * @var null|non-empty-array<non-empty-string, true>
      */
-    private static ?array $excludedMethodNames = null;
-
+    private static ?array $excluded_method_names = null;
     /**
      * @var array<non-empty-string, DoubledClass>
      */
     private static array $cache = [];
-
     /**
      * Returns a test double for the specified class.
      *
@@ -102,110 +85,63 @@ final class Generator
      * @throws RuntimeException
      * @throws UnknownTypeException
      */
-    public function testDouble(string $type, bool $mockObject, ?array $methods = [], array $arguments = [], string $mockClassName = '', bool $callOriginalConstructor = true, bool $callOriginalClone = true, bool $returnValueGeneration = true): MockObject|Stub
+    public function test_double(string $type, bool $mock_object, ?array $methods = [], array $arguments = [], string $mock_class_name = '', bool $call_original_constructor = true, bool $call_original_clone = true, bool $return_value_generation = true): Mock_Object|Stub
     {
         if ($type === Traversable::class) {
             $type = Iterator::class;
         }
-
-        $this->ensureKnownType($type);
-        $this->ensureValidMethods($methods);
-        $this->ensureNameForTestDoubleClassIsAvailable($mockClassName);
-
-        $mock = $this->generate(
-            $type,
-            $mockObject,
-            $methods,
-            $mockClassName,
-            $callOriginalClone,
-        );
-
-        $object = $this->instantiate(
-            $mock,
-            $callOriginalConstructor,
-            $arguments,
-            $returnValueGeneration,
-            $mockObject,
-        );
-
+        $this->ensure_known_type($type);
+        $this->ensure_valid_methods($methods);
+        $this->ensure_name_for_test_double_class_is_available($mock_class_name);
+        $mock = $this->generate($type, $mock_object, $methods, $mock_class_name, $call_original_clone);
+        $object = $this->instantiate($mock, $call_original_constructor, $arguments, $return_value_generation, $mock_object);
         assert($object instanceof $type);
-
-        if ($mockObject) {
-            assert($object instanceof MockObject);
+        if ($mock_object) {
+            assert($object instanceof Mock_Object);
         } else {
             assert($object instanceof Stub);
         }
-
         return $object;
     }
-
     /**
      * @param list<class-string> $interfaces
      *
      * @throws RuntimeException
      * @throws UnknownInterfaceException
      */
-    public function testDoubleForInterfaceIntersection(array $interfaces, bool $mockObject, bool $returnValueGeneration = true): MockObject|Stub
+    public function test_double_for_interface_intersection(array $interfaces, bool $mock_object, bool $return_value_generation = true): Mock_Object|Stub
     {
         if (count($interfaces) < 2) {
             throw new RuntimeException('At least two interfaces must be specified');
         }
-
         foreach ($interfaces as $interface) {
             if (!interface_exists($interface)) {
-                throw new UnknownInterfaceException($interface);
+                throw new Unknown_Interface_Exception($interface);
             }
         }
-
         sort($interfaces);
-
         $methods = [];
-
         foreach ($interfaces as $interface) {
-            $methods = array_merge($methods, $this->namesOfMethodsIn($interface));
+            $methods = array_merge($methods, $this->names_of_methods_in($interface));
         }
-
         if (count(array_unique($methods)) < count($methods)) {
             throw new RuntimeException('Interfaces must not declare the same method');
         }
-
-        $unqualifiedNames = [];
-
+        $unqualified_names = [];
         foreach ($interfaces as $interface) {
-            $parts              = explode('\\', $interface);
-            $unqualifiedNames[] = array_pop($parts);
+            $parts = explode('\\', $interface);
+            $unqualified_names[] = array_pop($parts);
         }
-
-        sort($unqualifiedNames);
-
+        sort($unqualified_names);
         do {
-            $intersectionName = sprintf(
-                'Intersection_%s_%s',
-                implode('_', $unqualifiedNames),
-                substr(md5((string) mt_rand()), 0, 8),
-            );
-        } while (interface_exists($intersectionName, false));
-
-        $template = $this->loadTemplate('intersection.tpl');
-
-        $template->setVar(
-            [
-                'intersection' => $intersectionName,
-                'interfaces'   => implode(', ', $interfaces),
-            ],
-        );
-
+            $intersection_name = sprintf('Intersection_%s_%s', implode('_', $unqualified_names), substr(md5((string) mt_rand()), 0, 8));
+        } while (interface_exists($intersection_name, false));
+        $template = $this->load_template('intersection.tpl');
+        $template->set_var(['intersection' => $intersection_name, 'interfaces' => implode(', ', $interfaces)]);
         eval($template->render());
-
-        assert(interface_exists($intersectionName));
-
-        return $this->testDouble(
-            $intersectionName,
-            $mockObject,
-            returnValueGeneration: $returnValueGeneration,
-        );
+        assert(interface_exists($intersection_name));
+        return $this->test_double($intersection_name, $mock_object, returnValueGeneration: $return_value_generation);
     }
-
     /**
      * @param class-string            $type
      * @param ?list<non-empty-string> $methods
@@ -219,38 +155,17 @@ final class Generator
      *
      * @see https://github.com/sebastianbergmann/phpunit/issues/5476
      */
-    public function generate(string $type, bool $mockObject, ?array $methods = null, string $mockClassName = '', bool $callOriginalClone = true): DoubledClass
+    public function generate(string $type, bool $mock_object, ?array $methods = null, string $mock_class_name = '', bool $call_original_clone = true): Doubled_Class
     {
-        if ($mockClassName !== '') {
-            return $this->generateCodeForTestDoubleClass(
-                $type,
-                $mockObject,
-                $methods,
-                $mockClassName,
-                $callOriginalClone,
-            );
+        if ($mock_class_name !== '') {
+            return $this->generate_code_for_test_double_class($type, $mock_object, $methods, $mock_class_name, $call_original_clone);
         }
-
-        $key = md5(
-            $type .
-            ($mockObject ? 'MockObject' : 'TestStub') .
-            serialize($methods) .
-            serialize($callOriginalClone),
-        );
-
+        $key = md5($type . ($mock_object ? 'MockObject' : 'TestStub') . serialize($methods) . serialize($call_original_clone));
         if (!isset(self::$cache[$key])) {
-            self::$cache[$key] = $this->generateCodeForTestDoubleClass(
-                $type,
-                $mockObject,
-                $methods,
-                $mockClassName,
-                $callOriginalClone,
-            );
+            self::$cache[$key] = $this->generate_code_for_test_double_class($type, $mock_object, $methods, $mock_class_name, $call_original_clone);
         }
-
         return self::$cache[$key];
     }
-
     /**
      * @param class-string $className
      *
@@ -258,20 +173,17 @@ final class Generator
      *
      * @return list<DoubledMethod>
      */
-    private function mockClassMethods(string $className): array
+    private function mock_class_methods(string $class_name): array
     {
-        $class   = $this->reflectClass($className);
+        $class = $this->reflect_class($class_name);
         $methods = [];
-
-        foreach ($class->getMethods() as $method) {
-            if (($method->isPublic() || $method->isAbstract()) && $this->canMethodBeDoubled($method)) {
-                $methods[] = DoubledMethod::fromReflection($method);
+        foreach ($class->get_methods() as $method) {
+            if (($method->is_public() || $method->is_abstract()) && $this->can_method_be_doubled($method)) {
+                $methods[] = Doubled_Method::from_reflection($method);
             }
         }
-
         return $methods;
     }
-
     /**
      * @param class-string $interfaceName
      *
@@ -279,71 +191,50 @@ final class Generator
      *
      * @return list<ReflectionMethod>
      */
-    private function userDefinedInterfaceMethods(string $interfaceName): array
+    private function user_defined_interface_methods(string $interface_name): array
     {
-        $interface = $this->reflectClass($interfaceName);
-        $methods   = [];
-
-        foreach ($interface->getMethods() as $method) {
-            if (!$method->isUserDefined()) {
+        $interface = $this->reflect_class($interface_name);
+        $methods = [];
+        foreach ($interface->get_methods() as $method) {
+            if (!$method->is_user_defined()) {
                 continue;
             }
-
             $methods[] = $method;
         }
-
         return $methods;
     }
-
     /**
      * @param array<mixed> $arguments
      *
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    private function instantiate(DoubledClass $mockClass, bool $callOriginalConstructor, array $arguments, bool $returnValueGeneration, bool $isMockObject): object
+    private function instantiate(Doubled_Class $mock_class, bool $call_original_constructor, array $arguments, bool $return_value_generation, bool $is_mock_object): object
     {
-        $className = $mockClass->generate();
-
+        $class_name = $mock_class->generate();
         try {
-            $object = new ReflectionClass($className)->newInstanceWithoutConstructor();
+            $object = (new ReflectionClass($class_name))->new_instance_without_constructor();
             // @codeCoverageIgnoreStart
-        } catch (\ReflectionException $e) {
-            throw new ReflectionException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e,
-            );
+        } catch (\Reflection_Exception $e) {
+            throw new Reflection_Exception($e->get_message(), $e->get_code(), $e);
             // @codeCoverageIgnoreEnd
         }
-
-        $reflector = new ReflectionObject($object);
-
+        $reflector = new Reflection_Object($object);
         /**
          * @noinspection PhpUnhandledExceptionInspection
          */
-        $reflector->getProperty('__phpunit_state')->setValue(
-            $object,
-            new TestDoubleState($mockClass->configurableMethods(), $returnValueGeneration, $isMockObject),
-        );
-
-        if ($callOriginalConstructor && $reflector->getConstructor() !== null) {
+        $reflector->get_property('__phpunit_state')->set_value($object, new Test_Double_State($mock_class->configurable_methods(), $return_value_generation, $is_mock_object));
+        if ($call_original_constructor && $reflector->get_constructor() !== null) {
             try {
-                $reflector->getConstructor()->invokeArgs($object, $arguments);
+                $reflector->get_constructor()->invoke_args($object, $arguments);
                 // @codeCoverageIgnoreStart
-            } catch (\ReflectionException $e) {
-                throw new ReflectionException(
-                    $e->getMessage(),
-                    $e->getCode(),
-                    $e,
-                );
+            } catch (\Reflection_Exception $e) {
+                throw new Reflection_Exception($e->get_message(), $e->get_code(), $e);
                 // @codeCoverageIgnoreEnd
             }
         }
-
         return $object;
     }
-
     /**
      * @param class-string            $type
      * @param ?list<non-empty-string> $explicitMethods
@@ -354,374 +245,236 @@ final class Generator
      * @throws ReflectionException
      * @throws RuntimeException
      */
-    private function generateCodeForTestDoubleClass(string $type, bool $mockObject, ?array $explicitMethods, string $mockClassName, bool $callOriginalClone): DoubledClass
+    private function generate_code_for_test_double_class(string $type, bool $mock_object, ?array $explicit_methods, string $mock_class_name, bool $call_original_clone): Doubled_Class
     {
-        $classTemplate         = $this->loadTemplate('test_double_class.tpl');
-        $additionalInterfaces  = [];
-        $doubledCloneMethod    = false;
-        $proxiedCloneMethod    = false;
-        $isClass               = false;
-        $isReadonly            = false;
-        $isInterface           = false;
-        $mockMethods           = new DoubledMethodSet();
-        $testDoubleClassPrefix = $mockObject ? 'MockObject_' : 'TestStub_';
-
-        $_mockClassName = $this->generateClassName(
-            $type,
-            $mockClassName,
-            $testDoubleClassPrefix,
-        );
-
-        if (class_exists($_mockClassName['fullClassName'])) {
-            $isClass = true;
-        } elseif (interface_exists($_mockClassName['fullClassName'])) {
-            $isInterface = true;
+        $class_template = $this->load_template('test_double_class.tpl');
+        $additional_interfaces = [];
+        $doubled_clone_method = false;
+        $proxied_clone_method = false;
+        $is_class = false;
+        $is_readonly = false;
+        $is_interface = false;
+        $mock_methods = new Doubled_Method_Set();
+        $test_double_class_prefix = $mock_object ? 'MockObject_' : 'TestStub_';
+        $_mock_class_name = $this->generate_class_name($type, $mock_class_name, $test_double_class_prefix);
+        if (class_exists($_mock_class_name['fullClassName'])) {
+            $is_class = true;
+        } elseif (interface_exists($_mock_class_name['fullClassName'])) {
+            $is_interface = true;
         }
-
-        $class = $this->reflectClass($_mockClassName['fullClassName']);
-
-        if ($class->isEnum()) {
-            throw new ClassIsEnumerationException($_mockClassName['fullClassName']);
+        $class = $this->reflect_class($_mock_class_name['fullClassName']);
+        if ($class->is_enum()) {
+            throw new Class_Is_Enumeration_Exception($_mock_class_name['fullClassName']);
         }
-
-        if ($class->isFinal()) {
-            throw new ClassIsFinalException($_mockClassName['fullClassName']);
+        if ($class->is_final()) {
+            throw new Class_Is_Final_Exception($_mock_class_name['fullClassName']);
         }
-
-        if ($class->isReadOnly()) {
-            $isReadonly = true;
+        if ($class->is_read_only()) {
+            $is_readonly = true;
         }
-
         // @see https://github.com/sebastianbergmann/phpunit/issues/2995
-        if ($isInterface && $class->implementsInterface(Throwable::class)) {
-            $actualClassName        = Exception::class;
-            $additionalInterfaces[] = $class->getName();
-            $isInterface            = false;
-            $class                  = $this->reflectClass($actualClassName);
-
-            foreach ($this->userDefinedInterfaceMethods($_mockClassName['fullClassName']) as $method) {
-                $methodName = $method->getName();
-
-                if ($class->hasMethod($methodName)) {
-                    $classMethod = $class->getMethod($methodName);
-
-                    if (!$this->canMethodBeDoubled($classMethod)) {
+        if ($is_interface && $class->implements_interface(Throwable::class)) {
+            $actual_class_name = Exception::class;
+            $additional_interfaces[] = $class->get_name();
+            $is_interface = false;
+            $class = $this->reflect_class($actual_class_name);
+            foreach ($this->user_defined_interface_methods($_mock_class_name['fullClassName']) as $method) {
+                $method_name = $method->get_name();
+                if ($class->has_method($method_name)) {
+                    $class_method = $class->get_method($method_name);
+                    if (!$this->can_method_be_doubled($class_method)) {
                         continue;
                     }
                 }
-
-                $mockMethods->addMethods(
-                    DoubledMethod::fromReflection($method),
-                );
+                $mock_methods->add_methods(Doubled_Method::from_reflection($method));
             }
-
-            $_mockClassName = $this->generateClassName(
-                $actualClassName,
-                $_mockClassName['className'],
-                $testDoubleClassPrefix,
-            );
+            $_mock_class_name = $this->generate_class_name($actual_class_name, $_mock_class_name['className'], $test_double_class_prefix);
         }
-
         // @see https://github.com/sebastianbergmann/phpunit-mock-objects/issues/103
-        if ($isInterface && $class->implementsInterface(Traversable::class) &&
-            !$class->implementsInterface(Iterator::class) &&
-            !$class->implementsInterface(IteratorAggregate::class)) {
-            $additionalInterfaces[] = Iterator::class;
-
-            $mockMethods->addMethods(
-                ...$this->mockClassMethods(Iterator::class),
-            );
+        if ($is_interface && $class->implements_interface(Traversable::class) && !$class->implements_interface(Iterator::class) && !$class->implements_interface(IteratorAggregate::class)) {
+            $additional_interfaces[] = Iterator::class;
+            $mock_methods->add_methods(...$this->mock_class_methods(Iterator::class));
         }
-
-        if ($class->hasMethod('__clone')) {
-            $cloneMethod = $class->getMethod('__clone');
-
-            if (!$cloneMethod->isFinal()) {
-                if ($callOriginalClone && !$isInterface) {
-                    $proxiedCloneMethod = true;
+        if ($class->has_method('__clone')) {
+            $clone_method = $class->get_method('__clone');
+            if (!$clone_method->is_final()) {
+                if ($call_original_clone && !$is_interface) {
+                    $proxied_clone_method = true;
                 } else {
-                    $doubledCloneMethod = true;
+                    $doubled_clone_method = true;
                 }
             }
         } else {
-            $doubledCloneMethod = true;
+            $doubled_clone_method = true;
         }
-
-        if ($isClass && $explicitMethods === []) {
-            $mockMethods->addMethods(
-                ...$this->mockClassMethods($_mockClassName['fullClassName']),
-            );
+        if ($is_class && $explicit_methods === []) {
+            $mock_methods->add_methods(...$this->mock_class_methods($_mock_class_name['fullClassName']));
         }
-
-        if ($isInterface && ($explicitMethods === [] || $explicitMethods === null)) {
-            $mockMethods->addMethods(
-                ...$this->interfaceMethods($_mockClassName['fullClassName']),
-            );
+        if ($is_interface && ($explicit_methods === [] || $explicit_methods === null)) {
+            $mock_methods->add_methods(...$this->interface_methods($_mock_class_name['fullClassName']));
         }
-
-        if (is_array($explicitMethods)) {
-            foreach ($explicitMethods as $methodName) {
-                if ($class->hasMethod($methodName)) {
-                    $method = $class->getMethod($methodName);
-
-                    if ($this->canMethodBeDoubled($method)) {
-                        $mockMethods->addMethods(
-                            DoubledMethod::fromReflection($method),
-                        );
+        if (is_array($explicit_methods)) {
+            foreach ($explicit_methods as $method_name) {
+                if ($class->has_method($method_name)) {
+                    $method = $class->get_method($method_name);
+                    if ($this->can_method_be_doubled($method)) {
+                        $mock_methods->add_methods(Doubled_Method::from_reflection($method));
                     }
                 } else {
-                    $mockMethods->addMethods(
-                        DoubledMethod::fromName(
-                            $_mockClassName['fullClassName'],
-                            $methodName,
-                        ),
-                    );
+                    $mock_methods->add_methods(Doubled_Method::from_name($_mock_class_name['fullClassName'], $method_name));
                 }
             }
         }
-
-        $propertiesWithHooks = $this->properties($class);
-        $configurableMethods = $this->configurableMethods($mockMethods, $propertiesWithHooks);
-
-        $mockedMethods = '';
-
-        foreach ($mockMethods->asArray() as $mockMethod) {
-            $mockedMethods .= $mockMethod->generateCode();
+        $properties_with_hooks = $this->properties($class);
+        $configurable_methods = $this->configurable_methods($mock_methods, $properties_with_hooks);
+        $mocked_methods = '';
+        foreach ($mock_methods->as_array() as $mock_method) {
+            $mocked_methods .= $mock_method->generate_code();
         }
-
         /** @var trait-string[] $traits */
-        $traits = [StubApi::class];
-
-        if ($mockObject) {
-            $traits[] = MockObjectApi::class;
+        $traits = [Stub_Api::class];
+        if ($mock_object) {
+            $traits[] = Mock_Object_Api::class;
         }
-
-        if ($mockMethods->hasMethod('method') || $class->hasMethod('method')) {
-            throw new MethodNamedMethodException();
+        if ($mock_methods->has_method('method') || $class->has_method('method')) {
+            throw new Method_Named_Method_Exception();
         }
-
         $traits[] = Method::class;
-
-        if ($doubledCloneMethod) {
-            $traits[] = DoubledCloneMethod::class;
-        } elseif ($proxiedCloneMethod) {
-            $traits[] = ProxiedCloneMethod::class;
+        if ($doubled_clone_method) {
+            $traits[] = Doubled_Clone_Method::class;
+        } elseif ($proxied_clone_method) {
+            $traits[] = Proxied_Clone_Method::class;
         }
-
-        $useStatements = '';
-
+        $use_statements = '';
         foreach ($traits as $trait) {
-            $useStatements .= sprintf(
-                '    use %s;' . PHP_EOL,
-                $trait,
-            );
+            $use_statements .= sprintf('    use %s;' . PHP_EOL, $trait);
         }
-
         unset($traits);
-
-        $classTemplate->setVar(
-            [
-                'class_declaration' => $this->generateTestDoubleClassDeclaration(
-                    $mockObject,
-                    $_mockClassName,
-                    $isInterface,
-                    $additionalInterfaces,
-                    $isReadonly,
-                ),
-                'use_statements'  => $useStatements,
-                'mock_class_name' => $_mockClassName['className'],
-                'methods'         => $mockedMethods,
-                'property_hooks'  => (new HookedPropertyGenerator())->generate(
-                    $_mockClassName['className'],
-                    $propertiesWithHooks,
-                ),
-            ],
-        );
-
-        return new DoubledClass(
-            $classTemplate->render(),
-            $_mockClassName['className'],
-            $configurableMethods,
-        );
+        $class_template->set_var(['class_declaration' => $this->generate_test_double_class_declaration($mock_object, $_mock_class_name, $is_interface, $additional_interfaces, $is_readonly), 'use_statements' => $use_statements, 'mock_class_name' => $_mock_class_name['className'], 'methods' => $mocked_methods, 'property_hooks' => (new Hooked_Property_Generator())->generate($_mock_class_name['className'], $properties_with_hooks)]);
+        return new Doubled_Class($class_template->render(), $_mock_class_name['className'], $configurable_methods);
     }
-
     /**
      * @param class-string $type
      *
      * @return array{className: class-string, originalClassName: class-string, fullClassName: class-string, namespaceName: string}
      */
-    private function generateClassName(string $type, string $className, string $prefix): array
+    private function generate_class_name(string $type, string $class_name, string $prefix): array
     {
         if ($type[0] === '\\') {
             $type = substr($type, 1);
         }
-
-        $classNameParts = explode('\\', $type);
-
-        if (count($classNameParts) > 1) {
-            $type          = array_pop($classNameParts);
-            $namespaceName = implode('\\', $classNameParts);
-            $fullClassName = $namespaceName . '\\' . $type;
+        $class_name_parts = explode('\\', $type);
+        if (count($class_name_parts) > 1) {
+            $type = array_pop($class_name_parts);
+            $namespace_name = implode('\\', $class_name_parts);
+            $full_class_name = $namespace_name . '\\' . $type;
         } else {
-            $namespaceName = '';
-            $fullClassName = $type;
+            $namespace_name = '';
+            $full_class_name = $type;
         }
-
-        if ($className === '') {
+        if ($class_name === '') {
             do {
-                $className = $prefix . $type . '_' .
-                             substr(md5((string) mt_rand()), 0, 8);
-            } while (class_exists($className, false));
+                $class_name = $prefix . $type . '_' . substr(md5((string) mt_rand()), 0, 8);
+            } while (class_exists($class_name, false));
         }
-
-        return [
-            'className'         => $className,
-            'originalClassName' => $type,
-            'fullClassName'     => $fullClassName,
-            'namespaceName'     => $namespaceName,
-        ];
+        return ['className' => $class_name, 'originalClassName' => $type, 'fullClassName' => $full_class_name, 'namespaceName' => $namespace_name];
     }
-
     /**
      * @param array{className: non-empty-string, originalClassName: non-empty-string, fullClassName: non-empty-string, namespaceName: string} $mockClassName
      * @param list<class-string>                                                                                                              $additionalInterfaces
      */
-    private function generateTestDoubleClassDeclaration(bool $mockObject, array $mockClassName, bool $isInterface, array $additionalInterfaces, bool $isReadonly): string
+    private function generate_test_double_class_declaration(bool $mock_object, array $mock_class_name, bool $is_interface, array $additional_interfaces, bool $is_readonly): string
     {
-        if ($mockObject) {
-            $additionalInterfaces[] = MockObjectInternal::class;
+        if ($mock_object) {
+            $additional_interfaces[] = Mock_Object_Internal::class;
         } else {
-            $additionalInterfaces[] = StubInternal::class;
+            $additional_interfaces[] = Stub_Internal::class;
         }
-
-        if ($isReadonly) {
+        if ($is_readonly) {
             $buffer = 'readonly class ';
         } else {
             $buffer = 'class ';
         }
-
-        $interfaces = implode(', ', $additionalInterfaces);
-
-        if ($isInterface) {
-            $buffer .= sprintf(
-                '%s implements %s',
-                $mockClassName['className'],
-                $interfaces,
-            );
-
-            if (!in_array($mockClassName['originalClassName'], $additionalInterfaces, true)) {
+        $interfaces = implode(', ', $additional_interfaces);
+        if ($is_interface) {
+            $buffer .= sprintf('%s implements %s', $mock_class_name['className'], $interfaces);
+            if (!in_array($mock_class_name['originalClassName'], $additional_interfaces, true)) {
                 $buffer .= ', ';
-
-                if ($mockClassName['namespaceName'] !== '') {
-                    $buffer .= $mockClassName['namespaceName'] . '\\';
+                if ($mock_class_name['namespaceName'] !== '') {
+                    $buffer .= $mock_class_name['namespaceName'] . '\\';
                 }
-
-                $buffer .= $mockClassName['originalClassName'];
+                $buffer .= $mock_class_name['originalClassName'];
             }
         } else {
-            $buffer .= sprintf(
-                '%s extends %s%s implements %s',
-                $mockClassName['className'],
-                $mockClassName['namespaceName'] !== '' ? $mockClassName['namespaceName'] . '\\' : '',
-                $mockClassName['originalClassName'],
-                $interfaces,
-            );
+            $buffer .= sprintf('%s extends %s%s implements %s', $mock_class_name['className'], $mock_class_name['namespaceName'] !== '' ? $mock_class_name['namespaceName'] . '\\' : '', $mock_class_name['originalClassName'], $interfaces);
         }
-
         return $buffer;
     }
-
-    private function canMethodBeDoubled(ReflectionMethod $method): bool
+    private function can_method_be_doubled(ReflectionMethod $method): bool
     {
-        if ($method->isConstructor()) {
+        if ($method->is_constructor()) {
             return false;
         }
-
-        if ($method->isDestructor()) {
+        if ($method->is_destructor()) {
             return false;
         }
-
-        if ($method->isFinal()) {
+        if ($method->is_final()) {
             return false;
         }
-
-        if ($method->isPrivate()) {
+        if ($method->is_private()) {
             return false;
         }
-
-        return !$this->isMethodNameExcluded($method->getName());
+        return !$this->is_method_name_excluded($method->get_name());
     }
-
-    private function isMethodNameExcluded(string $name): bool
+    private function is_method_name_excluded(string $name): bool
     {
-        if (self::$excludedMethodNames === null) {
-            self::$excludedMethodNames = [
-                '__CLASS__'       => true,
-                '__DIR__'         => true,
-                '__FILE__'        => true,
-                '__FUNCTION__'    => true,
-                '__LINE__'        => true,
-                '__METHOD__'      => true,
-                '__NAMESPACE__'   => true,
-                '__TRAIT__'       => true,
-                '__clone'         => true,
-                '__halt_compiler' => true,
-            ];
+        if (self::$excluded_method_names === null) {
+            self::$excluded_method_names = ['__CLASS__' => true, '__DIR__' => true, '__FILE__' => true, '__FUNCTION__' => true, '__LINE__' => true, '__METHOD__' => true, '__NAMESPACE__' => true, '__TRAIT__' => true, '__clone' => true, '__halt_compiler' => true];
         }
-
-        return isset(self::$excludedMethodNames[$name]);
+        return isset(self::$excluded_method_names[$name]);
     }
-
     /**
      * @throws UnknownTypeException
      */
-    private function ensureKnownType(string $type): void
+    private function ensure_known_type(string $type): void
     {
         if (!class_exists($type) && !interface_exists($type)) {
-            throw new UnknownTypeException($type);
+            throw new Unknown_Type_Exception($type);
         }
     }
-
     /**
      * @param ?list<non-empty-string> $methods
      *
      * @throws DuplicateMethodException
      * @throws InvalidMethodNameException
      */
-    private function ensureValidMethods(?array $methods): void
+    private function ensure_valid_methods(?array $methods): void
     {
         if ($methods === null) {
             return;
         }
-
         foreach ($methods as $method) {
             if (!preg_match('~[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*~', (string) $method)) {
-                throw new InvalidMethodNameException((string) $method);
+                throw new Invalid_Method_Name_Exception((string) $method);
             }
         }
-
         if ($methods !== array_unique($methods)) {
-            throw new DuplicateMethodException($methods);
+            throw new Duplicate_Method_Exception($methods);
         }
     }
-
     /**
      * @throws NameAlreadyInUseException
      * @throws ReflectionException
      */
-    private function ensureNameForTestDoubleClassIsAvailable(string $className): void
+    private function ensure_name_for_test_double_class_is_available(string $class_name): void
     {
-        if ($className === '') {
+        if ($class_name === '') {
             return;
         }
-
-        if (class_exists($className, false) ||
-            interface_exists($className, false) ||
-            trait_exists($className, false)) {
-            throw new NameAlreadyInUseException($className);
+        if (class_exists($class_name, false) || interface_exists($class_name, false) || trait_exists($class_name, false)) {
+            throw new Name_Already_In_Use_Exception($class_name);
         }
     }
-
     /**
      * @template T of object
      *
@@ -733,25 +486,18 @@ final class Generator
      *
      * @phpstan-ignore throws.unusedType
      */
-    private function reflectClass(string $className): ReflectionClass
+    private function reflect_class(string $class_name): ReflectionClass
     {
         try {
-            $class = new ReflectionClass($className);
-
+            $class = new ReflectionClass($class_name);
             // @codeCoverageIgnoreStart
             /** @phpstan-ignore catch.neverThrown */
-        } catch (\ReflectionException $e) {
-            throw new ReflectionException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e,
-            );
+        } catch (\Reflection_Exception $e) {
+            throw new Reflection_Exception($e->get_message(), $e->get_code(), $e);
         }
         // @codeCoverageIgnoreEnd
-
         return $class;
     }
-
     /**
      * @param class-string $classOrInterfaceName
      *
@@ -759,20 +505,17 @@ final class Generator
      *
      * @return list<string>
      */
-    private function namesOfMethodsIn(string $classOrInterfaceName): array
+    private function names_of_methods_in(string $class_or_interface_name): array
     {
-        $class   = $this->reflectClass($classOrInterfaceName);
+        $class = $this->reflect_class($class_or_interface_name);
         $methods = [];
-
-        foreach ($class->getMethods() as $method) {
-            if ($method->isPublic() || $method->isAbstract()) {
-                $methods[] = $method->getName();
+        foreach ($class->get_methods() as $method) {
+            if ($method->is_public() || $method->is_abstract()) {
+                $methods[] = $method->get_name();
             }
         }
-
         return $methods;
     }
-
     /**
      * @param class-string $interfaceName
      *
@@ -780,65 +523,36 @@ final class Generator
      *
      * @return list<DoubledMethod>
      */
-    private function interfaceMethods(string $interfaceName): array
+    private function interface_methods(string $interface_name): array
     {
-        $class   = $this->reflectClass($interfaceName);
+        $class = $this->reflect_class($interface_name);
         $methods = [];
-
-        foreach ($class->getMethods() as $method) {
-            $methods[] = DoubledMethod::fromReflection($method);
+        foreach ($class->get_methods() as $method) {
+            $methods[] = Doubled_Method::from_reflection($method);
         }
-
         return $methods;
     }
-
     /**
      * @param list<HookedProperty> $propertiesWithHooks
      *
      * @return list<ConfigurableMethod>
      */
-    private function configurableMethods(DoubledMethodSet $methods, array $propertiesWithHooks): array
+    private function configurable_methods(Doubled_Method_Set $methods, array $properties_with_hooks): array
     {
         $configurable = [];
-
-        foreach ($methods->asArray() as $method) {
-            $configurable[] = new ConfigurableMethod(
-                $method->methodName(),
-                $method->defaultParameterValues(),
-                $method->numberOfParameters(),
-                $method->returnType(),
-            );
+        foreach ($methods->as_array() as $method) {
+            $configurable[] = new Configurable_Method($method->method_name(), $method->default_parameter_values(), $method->number_of_parameters(), $method->return_type());
         }
-
-        foreach ($propertiesWithHooks as $property) {
-            if ($property->hasGetHook()) {
-                $configurable[] = new ConfigurableMethod(
-                    sprintf(
-                        '$%s::get',
-                        $property->name(),
-                    ),
-                    [],
-                    0,
-                    $property->type(),
-                );
+        foreach ($properties_with_hooks as $property) {
+            if ($property->has_get_hook()) {
+                $configurable[] = new Configurable_Method(sprintf('$%s::get', $property->name()), [], 0, $property->type());
             }
-
-            if ($property->hasSetHook()) {
-                $configurable[] = new ConfigurableMethod(
-                    sprintf(
-                        '$%s::set',
-                        $property->name(),
-                    ),
-                    [],
-                    1,
-                    Type::fromName('void', false),
-                );
+            if ($property->has_set_hook()) {
+                $configurable[] = new Configurable_Method(sprintf('$%s::set', $property->name()), [], 1, Type::from_name('void', false));
             }
         }
-
         return $configurable;
     }
-
     /**
      * @param ReflectionClass<object> $class
      *
@@ -846,50 +560,33 @@ final class Generator
      */
     private function properties(ReflectionClass $class): array
     {
-        $mapper     = new ReflectionMapper();
+        $mapper = new Reflection_Mapper();
         $properties = [];
-
-        foreach ($class->getProperties() as $property) {
-            if (!$property->isPublic()) {
+        foreach ($class->get_properties() as $property) {
+            if (!$property->is_public()) {
                 continue;
             }
-
-            if ($property->isFinal()) {
+            if ($property->is_final()) {
                 continue;
             }
-
-            if (!$property->hasHooks()) {
+            if (!$property->has_hooks()) {
                 continue;
             }
-
-            $hasGetHook                 = false;
-            $hasSetHook                 = false;
-            $setHookMethodParameterType = null;
-
-            if ($property->hasHook(PropertyHookType::Get) &&
-                !$property->getHook(PropertyHookType::Get)->isFinal()) {
-                $hasGetHook = true;
+            $has_get_hook = false;
+            $has_set_hook = false;
+            $set_hook_method_parameter_type = null;
+            if ($property->has_hook(Property_Hook_Type::Get) && !$property->get_hook(Property_Hook_Type::Get)->is_final()) {
+                $has_get_hook = true;
             }
-
-            if ($property->hasHook(PropertyHookType::Set) &&
-                !$property->getHook(PropertyHookType::Set)->isFinal()) {
-                $hasSetHook                 = true;
-                $setHookMethodParameterType = $mapper->fromParameterTypes($property->getHook(PropertyHookType::Set))[0]->type();
+            if ($property->has_hook(Property_Hook_Type::Set) && !$property->get_hook(Property_Hook_Type::Set)->is_final()) {
+                $has_set_hook = true;
+                $set_hook_method_parameter_type = $mapper->from_parameter_types($property->get_hook(Property_Hook_Type::Set))[0]->type();
             }
-
-            if (!$hasGetHook && !$hasSetHook) {
+            if (!$has_get_hook && !$has_set_hook) {
                 continue;
             }
-
-            $properties[] = new HookedProperty(
-                $property->getName(),
-                $mapper->fromPropertyType($property),
-                $hasGetHook,
-                $hasSetHook,
-                $setHookMethodParameterType,
-            );
+            $properties[] = new Hooked_Property($property->get_name(), $mapper->from_property_type($property), $has_get_hook, $has_set_hook, $set_hook_method_parameter_type);
         }
-
         return $properties;
     }
 }

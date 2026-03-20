@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,25 +9,23 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Logging\Team_City;
 
-namespace PHPUnit\Logging\TeamCity;
-
-use PHPUnit\Event\InvalidArgumentException;
-use PHPUnit\Event\Test\Finished;
-use PHPUnit\Event\Test\FinishedSubscriber;
-
+use Php_Unit\Event\InvalidArgumentException;
+use Php_Unit\Event\Test\Finished;
+use Php_Unit\Event\Test\Finished_Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestFinishedSubscriber extends Subscriber implements FinishedSubscriber
+final readonly class Test_Finished_Subscriber extends Subscriber implements Finished_Subscriber
 {
     /**
      * @throws InvalidArgumentException
      */
     public function notify(Finished $event): void
     {
-        $this->logger()->testFinished($event);
+        $this->logger()->test_finished($event);
     }
 }

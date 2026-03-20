@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\XmlConfiguration;
+namespace Php_Unit\Text_Ui\Xml_Configuration;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -19,387 +18,318 @@ namespace PHPUnit\TextUI\XmlConfiguration;
  *
  * @immutable
  */
-final readonly class PHPUnit
+final readonly class Php_Unit
 {
     /**
      * @param array<non-empty-string, non-empty-string> $bootstrapForTestSuite
      * @param ?non-empty-string                         $extensionsDirectory
      * @param non-negative-int                          $shortenArraysForExportThreshold
      */
-    public function __construct(private ?string $cacheDirectory, private bool $cacheResult, private int|string $columns, private string $colors, private bool $stderr, private bool $displayDetailsOnAllIssues, private bool $displayDetailsOnIncompleteTests, private bool $displayDetailsOnSkippedTests, private bool $displayDetailsOnTestsThatTriggerDeprecations, private bool $displayDetailsOnPhpunitDeprecations, private bool $displayDetailsOnPhpunitNotices, private bool $displayDetailsOnTestsThatTriggerErrors, private bool $displayDetailsOnTestsThatTriggerNotices, private bool $displayDetailsOnTestsThatTriggerWarnings, private bool $reverseDefectList, private bool $requireCoverageMetadata, private bool $requireSealedMockObjects, private ?string $bootstrap, private array $bootstrapForTestSuite, private bool $processIsolation, private bool $failOnAllIssues, private bool $failOnDeprecation, private bool $failOnPhpunitDeprecation, private bool $failOnPhpunitNotice, private bool $failOnPhpunitWarning, private bool $failOnEmptyTestSuite, private bool $failOnIncomplete, private bool $failOnNotice, private bool $failOnRisky, private bool $failOnSkipped, private bool $failOnWarning, private bool $stopOnDefect, private bool $stopOnDeprecation, private bool $stopOnError, private bool $stopOnFailure, private bool $stopOnIncomplete, private bool $stopOnNotice, private bool $stopOnRisky, private bool $stopOnSkipped, private bool $stopOnWarning, private ?string $extensionsDirectory, private bool $beStrictAboutChangesToGlobalState, private bool $beStrictAboutOutputDuringTests, private bool $beStrictAboutTestsThatDoNotTestAnything, private bool $beStrictAboutCoverageMetadata, private bool $enforceTimeLimit, private int $defaultTimeLimit, private int $timeoutForSmallTests, private int $timeoutForMediumTests, private int $timeoutForLargeTests, private ?string $defaultTestSuite, private int $executionOrder, private bool $resolveDependencies, private bool $defectsFirst, private bool $backupGlobals, private bool $backupStaticProperties, private bool $testdoxPrinter, private bool $testdoxPrinterSummary, private bool $controlGarbageCollector, private int $numberOfTestsBeforeGarbageCollection, private int $shortenArraysForExportThreshold)
+    public function __construct(private ?string $cache_directory, private bool $cache_result, private int|string $columns, private string $colors, private bool $stderr, private bool $display_details_on_all_issues, private bool $display_details_on_incomplete_tests, private bool $display_details_on_skipped_tests, private bool $display_details_on_tests_that_trigger_deprecations, private bool $display_details_on_phpunit_deprecations, private bool $display_details_on_phpunit_notices, private bool $display_details_on_tests_that_trigger_errors, private bool $display_details_on_tests_that_trigger_notices, private bool $display_details_on_tests_that_trigger_warnings, private bool $reverse_defect_list, private bool $require_coverage_metadata, private bool $require_sealed_mock_objects, private ?string $bootstrap, private array $bootstrap_for_test_suite, private bool $process_isolation, private bool $fail_on_all_issues, private bool $fail_on_deprecation, private bool $fail_on_phpunit_deprecation, private bool $fail_on_phpunit_notice, private bool $fail_on_phpunit_warning, private bool $fail_on_empty_test_suite, private bool $fail_on_incomplete, private bool $fail_on_notice, private bool $fail_on_risky, private bool $fail_on_skipped, private bool $fail_on_warning, private bool $stop_on_defect, private bool $stop_on_deprecation, private bool $stop_on_error, private bool $stop_on_failure, private bool $stop_on_incomplete, private bool $stop_on_notice, private bool $stop_on_risky, private bool $stop_on_skipped, private bool $stop_on_warning, private ?string $extensions_directory, private bool $be_strict_about_changes_to_global_state, private bool $be_strict_about_output_during_tests, private bool $be_strict_about_tests_that_do_not_test_anything, private bool $be_strict_about_coverage_metadata, private bool $enforce_time_limit, private int $default_time_limit, private int $timeout_for_small_tests, private int $timeout_for_medium_tests, private int $timeout_for_large_tests, private ?string $default_test_suite, private int $execution_order, private bool $resolve_dependencies, private bool $defects_first, private bool $backup_globals, private bool $backup_static_properties, private bool $testdox_printer, private bool $testdox_printer_summary, private bool $control_garbage_collector, private int $number_of_tests_before_garbage_collection, private int $shorten_arrays_for_export_threshold)
     {
     }
-
     /**
      * @phpstan-assert-if-true !null $this->cacheDirectory
      */
-    public function hasCacheDirectory(): bool
+    public function has_cache_directory(): bool
     {
-        return $this->cacheDirectory !== null;
+        return $this->cache_directory !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function cacheDirectory(): string
+    public function cache_directory(): string
     {
-        if (!$this->hasCacheDirectory()) {
+        if (!$this->has_cache_directory()) {
             throw new Exception('Cache directory is not configured');
         }
-
-        return $this->cacheDirectory;
+        return $this->cache_directory;
     }
-
-    public function cacheResult(): bool
+    public function cache_result(): bool
     {
-        return $this->cacheResult;
+        return $this->cache_result;
     }
-
     public function columns(): int|string
     {
         return $this->columns;
     }
-
     public function colors(): string
     {
         return $this->colors;
     }
-
     public function stderr(): bool
     {
         return $this->stderr;
     }
-
-    public function displayDetailsOnAllIssues(): bool
+    public function display_details_on_all_issues(): bool
     {
-        return $this->displayDetailsOnAllIssues;
+        return $this->display_details_on_all_issues;
     }
-
-    public function displayDetailsOnIncompleteTests(): bool
+    public function display_details_on_incomplete_tests(): bool
     {
-        return $this->displayDetailsOnIncompleteTests;
+        return $this->display_details_on_incomplete_tests;
     }
-
-    public function displayDetailsOnSkippedTests(): bool
+    public function display_details_on_skipped_tests(): bool
     {
-        return $this->displayDetailsOnSkippedTests;
+        return $this->display_details_on_skipped_tests;
     }
-
-    public function displayDetailsOnTestsThatTriggerDeprecations(): bool
+    public function display_details_on_tests_that_trigger_deprecations(): bool
     {
-        return $this->displayDetailsOnTestsThatTriggerDeprecations;
+        return $this->display_details_on_tests_that_trigger_deprecations;
     }
-
-    public function displayDetailsOnPhpunitDeprecations(): bool
+    public function display_details_on_phpunit_deprecations(): bool
     {
-        return $this->displayDetailsOnPhpunitDeprecations;
+        return $this->display_details_on_phpunit_deprecations;
     }
-
-    public function displayDetailsOnPhpunitNotices(): bool
+    public function display_details_on_phpunit_notices(): bool
     {
-        return $this->displayDetailsOnPhpunitNotices;
+        return $this->display_details_on_phpunit_notices;
     }
-
-    public function displayDetailsOnTestsThatTriggerErrors(): bool
+    public function display_details_on_tests_that_trigger_errors(): bool
     {
-        return $this->displayDetailsOnTestsThatTriggerErrors;
+        return $this->display_details_on_tests_that_trigger_errors;
     }
-
-    public function displayDetailsOnTestsThatTriggerNotices(): bool
+    public function display_details_on_tests_that_trigger_notices(): bool
     {
-        return $this->displayDetailsOnTestsThatTriggerNotices;
+        return $this->display_details_on_tests_that_trigger_notices;
     }
-
-    public function displayDetailsOnTestsThatTriggerWarnings(): bool
+    public function display_details_on_tests_that_trigger_warnings(): bool
     {
-        return $this->displayDetailsOnTestsThatTriggerWarnings;
+        return $this->display_details_on_tests_that_trigger_warnings;
     }
-
-    public function reverseDefectList(): bool
+    public function reverse_defect_list(): bool
     {
-        return $this->reverseDefectList;
+        return $this->reverse_defect_list;
     }
-
-    public function requireCoverageMetadata(): bool
+    public function require_coverage_metadata(): bool
     {
-        return $this->requireCoverageMetadata;
+        return $this->require_coverage_metadata;
     }
-
-    public function requireSealedMockObjects(): bool
+    public function require_sealed_mock_objects(): bool
     {
-        return $this->requireSealedMockObjects;
+        return $this->require_sealed_mock_objects;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->bootstrap
      */
-    public function hasBootstrap(): bool
+    public function has_bootstrap(): bool
     {
         return $this->bootstrap !== null;
     }
-
     /**
      * @throws Exception
      */
     public function bootstrap(): string
     {
-        if (!$this->hasBootstrap()) {
+        if (!$this->has_bootstrap()) {
             throw new Exception('Bootstrap script is not configured');
         }
-
         return $this->bootstrap;
     }
-
     /**
      * @return array<non-empty-string, non-empty-string>
      */
-    public function bootstrapForTestSuite(): array
+    public function bootstrap_for_test_suite(): array
     {
-        return $this->bootstrapForTestSuite;
+        return $this->bootstrap_for_test_suite;
     }
-
-    public function processIsolation(): bool
+    public function process_isolation(): bool
     {
-        return $this->processIsolation;
+        return $this->process_isolation;
     }
-
-    public function failOnAllIssues(): bool
+    public function fail_on_all_issues(): bool
     {
-        return $this->failOnAllIssues;
+        return $this->fail_on_all_issues;
     }
-
-    public function failOnDeprecation(): bool
+    public function fail_on_deprecation(): bool
     {
-        return $this->failOnDeprecation;
+        return $this->fail_on_deprecation;
     }
-
-    public function failOnPhpunitDeprecation(): bool
+    public function fail_on_phpunit_deprecation(): bool
     {
-        return $this->failOnPhpunitDeprecation;
+        return $this->fail_on_phpunit_deprecation;
     }
-
-    public function failOnPhpunitNotice(): bool
+    public function fail_on_phpunit_notice(): bool
     {
-        return $this->failOnPhpunitNotice;
+        return $this->fail_on_phpunit_notice;
     }
-
-    public function failOnPhpunitWarning(): bool
+    public function fail_on_phpunit_warning(): bool
     {
-        return $this->failOnPhpunitWarning;
+        return $this->fail_on_phpunit_warning;
     }
-
-    public function failOnEmptyTestSuite(): bool
+    public function fail_on_empty_test_suite(): bool
     {
-        return $this->failOnEmptyTestSuite;
+        return $this->fail_on_empty_test_suite;
     }
-
-    public function failOnIncomplete(): bool
+    public function fail_on_incomplete(): bool
     {
-        return $this->failOnIncomplete;
+        return $this->fail_on_incomplete;
     }
-
-    public function failOnNotice(): bool
+    public function fail_on_notice(): bool
     {
-        return $this->failOnNotice;
+        return $this->fail_on_notice;
     }
-
-    public function failOnRisky(): bool
+    public function fail_on_risky(): bool
     {
-        return $this->failOnRisky;
+        return $this->fail_on_risky;
     }
-
-    public function failOnSkipped(): bool
+    public function fail_on_skipped(): bool
     {
-        return $this->failOnSkipped;
+        return $this->fail_on_skipped;
     }
-
-    public function failOnWarning(): bool
+    public function fail_on_warning(): bool
     {
-        return $this->failOnWarning;
+        return $this->fail_on_warning;
     }
-
-    public function stopOnDefect(): bool
+    public function stop_on_defect(): bool
     {
-        return $this->stopOnDefect;
+        return $this->stop_on_defect;
     }
-
-    public function stopOnDeprecation(): bool
+    public function stop_on_deprecation(): bool
     {
-        return $this->stopOnDeprecation;
+        return $this->stop_on_deprecation;
     }
-
-    public function stopOnError(): bool
+    public function stop_on_error(): bool
     {
-        return $this->stopOnError;
+        return $this->stop_on_error;
     }
-
-    public function stopOnFailure(): bool
+    public function stop_on_failure(): bool
     {
-        return $this->stopOnFailure;
+        return $this->stop_on_failure;
     }
-
-    public function stopOnIncomplete(): bool
+    public function stop_on_incomplete(): bool
     {
-        return $this->stopOnIncomplete;
+        return $this->stop_on_incomplete;
     }
-
-    public function stopOnNotice(): bool
+    public function stop_on_notice(): bool
     {
-        return $this->stopOnNotice;
+        return $this->stop_on_notice;
     }
-
-    public function stopOnRisky(): bool
+    public function stop_on_risky(): bool
     {
-        return $this->stopOnRisky;
+        return $this->stop_on_risky;
     }
-
-    public function stopOnSkipped(): bool
+    public function stop_on_skipped(): bool
     {
-        return $this->stopOnSkipped;
+        return $this->stop_on_skipped;
     }
-
-    public function stopOnWarning(): bool
+    public function stop_on_warning(): bool
     {
-        return $this->stopOnWarning;
+        return $this->stop_on_warning;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->extensionsDirectory
      */
-    public function hasExtensionsDirectory(): bool
+    public function has_extensions_directory(): bool
     {
-        return $this->extensionsDirectory !== null;
+        return $this->extensions_directory !== null;
     }
-
     /**
      * @throws Exception
      *
      * @return non-empty-string
      */
-    public function extensionsDirectory(): string
+    public function extensions_directory(): string
     {
-        if (!$this->hasExtensionsDirectory()) {
+        if (!$this->has_extensions_directory()) {
             throw new Exception('Extensions directory is not configured');
         }
-
-        return $this->extensionsDirectory;
+        return $this->extensions_directory;
     }
-
-    public function beStrictAboutChangesToGlobalState(): bool
+    public function be_strict_about_changes_to_global_state(): bool
     {
-        return $this->beStrictAboutChangesToGlobalState;
+        return $this->be_strict_about_changes_to_global_state;
     }
-
-    public function beStrictAboutOutputDuringTests(): bool
+    public function be_strict_about_output_during_tests(): bool
     {
-        return $this->beStrictAboutOutputDuringTests;
+        return $this->be_strict_about_output_during_tests;
     }
-
-    public function beStrictAboutTestsThatDoNotTestAnything(): bool
+    public function be_strict_about_tests_that_do_not_test_anything(): bool
     {
-        return $this->beStrictAboutTestsThatDoNotTestAnything;
+        return $this->be_strict_about_tests_that_do_not_test_anything;
     }
-
-    public function beStrictAboutCoverageMetadata(): bool
+    public function be_strict_about_coverage_metadata(): bool
     {
-        return $this->beStrictAboutCoverageMetadata;
+        return $this->be_strict_about_coverage_metadata;
     }
-
-    public function enforceTimeLimit(): bool
+    public function enforce_time_limit(): bool
     {
-        return $this->enforceTimeLimit;
+        return $this->enforce_time_limit;
     }
-
-    public function defaultTimeLimit(): int
+    public function default_time_limit(): int
     {
-        return $this->defaultTimeLimit;
+        return $this->default_time_limit;
     }
-
-    public function timeoutForSmallTests(): int
+    public function timeout_for_small_tests(): int
     {
-        return $this->timeoutForSmallTests;
+        return $this->timeout_for_small_tests;
     }
-
-    public function timeoutForMediumTests(): int
+    public function timeout_for_medium_tests(): int
     {
-        return $this->timeoutForMediumTests;
+        return $this->timeout_for_medium_tests;
     }
-
-    public function timeoutForLargeTests(): int
+    public function timeout_for_large_tests(): int
     {
-        return $this->timeoutForLargeTests;
+        return $this->timeout_for_large_tests;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->defaultTestSuite
      */
-    public function hasDefaultTestSuite(): bool
+    public function has_default_test_suite(): bool
     {
-        return $this->defaultTestSuite !== null;
+        return $this->default_test_suite !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function defaultTestSuite(): string
+    public function default_test_suite(): string
     {
-        if (!$this->hasDefaultTestSuite()) {
+        if (!$this->has_default_test_suite()) {
             throw new Exception('Default test suite is not configured');
         }
-
-        return $this->defaultTestSuite;
+        return $this->default_test_suite;
     }
-
-    public function executionOrder(): int
+    public function execution_order(): int
     {
-        return $this->executionOrder;
+        return $this->execution_order;
     }
-
-    public function resolveDependencies(): bool
+    public function resolve_dependencies(): bool
     {
-        return $this->resolveDependencies;
+        return $this->resolve_dependencies;
     }
-
-    public function defectsFirst(): bool
+    public function defects_first(): bool
     {
-        return $this->defectsFirst;
+        return $this->defects_first;
     }
-
-    public function backupGlobals(): bool
+    public function backup_globals(): bool
     {
-        return $this->backupGlobals;
+        return $this->backup_globals;
     }
-
-    public function backupStaticProperties(): bool
+    public function backup_static_properties(): bool
     {
-        return $this->backupStaticProperties;
+        return $this->backup_static_properties;
     }
-
-    public function testdoxPrinter(): bool
+    public function testdox_printer(): bool
     {
-        return $this->testdoxPrinter;
+        return $this->testdox_printer;
     }
-
-    public function testdoxPrinterSummary(): bool
+    public function testdox_printer_summary(): bool
     {
-        return $this->testdoxPrinterSummary;
+        return $this->testdox_printer_summary;
     }
-
-    public function controlGarbageCollector(): bool
+    public function control_garbage_collector(): bool
     {
-        return $this->controlGarbageCollector;
+        return $this->control_garbage_collector;
     }
-
-    public function numberOfTestsBeforeGarbageCollection(): int
+    public function number_of_tests_before_garbage_collection(): int
     {
-        return $this->numberOfTestsBeforeGarbageCollection;
+        return $this->number_of_tests_before_garbage_collection;
     }
-
     /**
      * @return non-negative-int
      */
-    public function shortenArraysForExportThreshold(): int
+    public function shorten_arrays_for_export_threshold(): int
     {
-        return $this->shortenArraysForExportThreshold;
+        return $this->shorten_arrays_for_export_threshold;
     }
 }

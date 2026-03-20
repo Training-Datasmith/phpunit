@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,155 +9,118 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Metadata\Api;
+namespace Php_Unit\Metadata\Api;
 
 use function assert;
-
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Metadata\CoversClass;
-use PHPUnit\Metadata\CoversClassesThatExtendClass;
-use PHPUnit\Metadata\CoversClassesThatImplementInterface;
-use PHPUnit\Metadata\CoversFunction;
-use PHPUnit\Metadata\CoversMethod;
-use PHPUnit\Metadata\CoversNamespace;
-use PHPUnit\Metadata\CoversTrait;
-use PHPUnit\Metadata\Parser\Registry;
-use PHPUnit\Metadata\UsesClass;
-use PHPUnit\Metadata\UsesClassesThatExtendClass;
-use PHPUnit\Metadata\UsesClassesThatImplementInterface;
-use PHPUnit\Metadata\UsesFunction;
-use PHPUnit\Metadata\UsesMethod;
-use PHPUnit\Metadata\UsesNamespace;
-use PHPUnit\Metadata\UsesTrait;
-use SebastianBergmann\CodeCoverage\Test\Target\Target;
-use SebastianBergmann\CodeCoverage\Test\Target\TargetCollection;
-
+use Php_Unit\Framework\Test_Case;
+use Php_Unit\Metadata\Covers_Class;
+use Php_Unit\Metadata\Covers_Classes_That_Extend_Class;
+use Php_Unit\Metadata\Covers_Classes_That_Implement_Interface;
+use Php_Unit\Metadata\Covers_Function;
+use Php_Unit\Metadata\Covers_Method;
+use Php_Unit\Metadata\Covers_Namespace;
+use Php_Unit\Metadata\Covers_Trait;
+use Php_Unit\Metadata\Parser\Registry;
+use Php_Unit\Metadata\Uses_Class;
+use Php_Unit\Metadata\Uses_Classes_That_Extend_Class;
+use Php_Unit\Metadata\Uses_Classes_That_Implement_Interface;
+use Php_Unit\Metadata\Uses_Function;
+use Php_Unit\Metadata\Uses_Method;
+use Php_Unit\Metadata\Uses_Namespace;
+use Php_Unit\Metadata\Uses_Trait;
+use Sebastian_Bergmann\Code_Coverage\Test\Target\Target;
+use Sebastian_Bergmann\Code_Coverage\Test\Target\Target_Collection;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class CodeCoverage
+final class Code_Coverage
 {
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function coversTargets(string $className, string $methodName): TargetCollection
+    public function covers_targets(string $class_name, string $method_name): Target_Collection
     {
         $targets = [];
-
-        foreach (Registry::parser()->forClassAndMethod($className, $methodName) as $metadata) {
-            if ($metadata->isCoversNamespace()) {
-                assert($metadata instanceof CoversNamespace);
-
-                $targets[] = Target::forNamespace($metadata->namespace());
+        foreach (Registry::parser()->for_class_and_method($class_name, $method_name) as $metadata) {
+            if ($metadata->is_covers_namespace()) {
+                assert($metadata instanceof Covers_Namespace);
+                $targets[] = Target::for_namespace($metadata->namespace());
             }
-
-            if ($metadata->isCoversClass()) {
-                assert($metadata instanceof CoversClass);
-
-                $targets[] = Target::forClass($metadata->className());
+            if ($metadata->is_covers_class()) {
+                assert($metadata instanceof Covers_Class);
+                $targets[] = Target::for_class($metadata->class_name());
             }
-
-            if ($metadata->isCoversClassesThatExtendClass()) {
-                assert($metadata instanceof CoversClassesThatExtendClass);
-
-                $targets[] = Target::forClassesThatExtendClass($metadata->className());
+            if ($metadata->is_covers_classes_that_extend_class()) {
+                assert($metadata instanceof Covers_Classes_That_Extend_Class);
+                $targets[] = Target::for_classes_that_extend_class($metadata->class_name());
             }
-
-            if ($metadata->isCoversClassesThatImplementInterface()) {
-                assert($metadata instanceof CoversClassesThatImplementInterface);
-
-                $targets[] = Target::forClassesThatImplementInterface($metadata->interfaceName());
+            if ($metadata->is_covers_classes_that_implement_interface()) {
+                assert($metadata instanceof Covers_Classes_That_Implement_Interface);
+                $targets[] = Target::for_classes_that_implement_interface($metadata->interface_name());
             }
-
-            if ($metadata->isCoversMethod()) {
-                assert($metadata instanceof CoversMethod);
-
-                $targets[] = Target::forMethod($metadata->className(), $metadata->methodName());
+            if ($metadata->is_covers_method()) {
+                assert($metadata instanceof Covers_Method);
+                $targets[] = Target::for_method($metadata->class_name(), $metadata->method_name());
             }
-
-            if ($metadata->isCoversFunction()) {
-                assert($metadata instanceof CoversFunction);
-
-                $targets[] = Target::forFunction($metadata->functionName());
+            if ($metadata->is_covers_function()) {
+                assert($metadata instanceof Covers_Function);
+                $targets[] = Target::for_function($metadata->function_name());
             }
-
-            if ($metadata->isCoversTrait()) {
-                assert($metadata instanceof CoversTrait);
-
-                $targets[] = Target::forTrait($metadata->traitName());
+            if ($metadata->is_covers_trait()) {
+                assert($metadata instanceof Covers_Trait);
+                $targets[] = Target::for_trait($metadata->trait_name());
             }
         }
-
-        return TargetCollection::fromArray($targets);
+        return Target_Collection::from_array($targets);
     }
-
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function usesTargets(string $className, string $methodName): TargetCollection
+    public function uses_targets(string $class_name, string $method_name): Target_Collection
     {
         $targets = [];
-
-        foreach (Registry::parser()->forClassAndMethod($className, $methodName) as $metadata) {
-            if ($metadata->isUsesNamespace()) {
-                assert($metadata instanceof UsesNamespace);
-
-                $targets[] = Target::forNamespace($metadata->namespace());
+        foreach (Registry::parser()->for_class_and_method($class_name, $method_name) as $metadata) {
+            if ($metadata->is_uses_namespace()) {
+                assert($metadata instanceof Uses_Namespace);
+                $targets[] = Target::for_namespace($metadata->namespace());
             }
-
-            if ($metadata->isUsesClass()) {
-                assert($metadata instanceof UsesClass);
-
-                $targets[] = Target::forClass($metadata->className());
+            if ($metadata->is_uses_class()) {
+                assert($metadata instanceof Uses_Class);
+                $targets[] = Target::for_class($metadata->class_name());
             }
-
-            if ($metadata->isUsesClassesThatExtendClass()) {
-                assert($metadata instanceof UsesClassesThatExtendClass);
-
-                $targets[] = Target::forClassesThatExtendClass($metadata->className());
+            if ($metadata->is_uses_classes_that_extend_class()) {
+                assert($metadata instanceof Uses_Classes_That_Extend_Class);
+                $targets[] = Target::for_classes_that_extend_class($metadata->class_name());
             }
-
-            if ($metadata->isUsesClassesThatImplementInterface()) {
-                assert($metadata instanceof UsesClassesThatImplementInterface);
-
-                $targets[] = Target::forClassesThatImplementInterface($metadata->interfaceName());
+            if ($metadata->is_uses_classes_that_implement_interface()) {
+                assert($metadata instanceof Uses_Classes_That_Implement_Interface);
+                $targets[] = Target::for_classes_that_implement_interface($metadata->interface_name());
             }
-
-            if ($metadata->isUsesMethod()) {
-                assert($metadata instanceof UsesMethod);
-
-                $targets[] = Target::forMethod($metadata->className(), $metadata->methodName());
+            if ($metadata->is_uses_method()) {
+                assert($metadata instanceof Uses_Method);
+                $targets[] = Target::for_method($metadata->class_name(), $metadata->method_name());
             }
-
-            if ($metadata->isUsesFunction()) {
-                assert($metadata instanceof UsesFunction);
-
-                $targets[] = Target::forFunction($metadata->functionName());
+            if ($metadata->is_uses_function()) {
+                assert($metadata instanceof Uses_Function);
+                $targets[] = Target::for_function($metadata->function_name());
             }
-
-            if ($metadata->isUsesTrait()) {
-                assert($metadata instanceof UsesTrait);
-
-                $targets[] = Target::forTrait($metadata->traitName());
+            if ($metadata->is_uses_trait()) {
+                assert($metadata instanceof Uses_Trait);
+                $targets[] = Target::for_trait($metadata->trait_name());
             }
         }
-
-        return TargetCollection::fromArray($targets);
+        return Target_Collection::from_array($targets);
     }
-
-    public function shouldCodeCoverageBeCollectedFor(TestCase $test): bool
+    public function should_code_coverage_be_collected_for(Test_Case $test): bool
     {
         $parser = Registry::parser();
-
-        if ($parser->forClass($test::class)->isCoversNothing()->isNotEmpty()) {
+        if ($parser->for_class($test::class)->is_covers_nothing()->is_not_empty()) {
             return false;
         }
-
         return true;
     }
 }

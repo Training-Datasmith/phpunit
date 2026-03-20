@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,14 +9,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Configuration;
+namespace Php_Unit\Text_Ui\Configuration;
 
 use function count;
-
 use Countable;
 use IteratorAggregate;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -24,45 +21,39 @@ use IteratorAggregate;
  *
  * @template-implements IteratorAggregate<non-negative-int, TestDirectory>
  */
-final readonly class TestDirectoryCollection implements Countable, IteratorAggregate
+final readonly class Test_Directory_Collection implements Countable, IteratorAggregate
 {
     /**
      * @var list<TestDirectory>
      */
     private array $directories;
-
     /**
      * @param list<TestDirectory> $directories
      */
-    public static function fromArray(array $directories): self
+    public static function from_array(array $directories): self
     {
         return new self(...$directories);
     }
-
-    private function __construct(TestDirectory ...$directories)
+    private function __construct(Test_Directory ...$directories)
     {
         $this->directories = $directories;
     }
-
     /**
      * @return list<TestDirectory>
      */
-    public function asArray(): array
+    public function as_array(): array
     {
         return $this->directories;
     }
-
     public function count(): int
     {
         return count($this->directories);
     }
-
-    public function getIterator(): TestDirectoryCollectionIterator
+    public function getIterator(): Test_Directory_Collection_Iterator
     {
-        return new TestDirectoryCollectionIterator($this);
+        return new Test_Directory_Collection_Iterator($this);
     }
-
-    public function isEmpty(): bool
+    public function is_empty(): bool
     {
         return $this->count() === 0;
     }

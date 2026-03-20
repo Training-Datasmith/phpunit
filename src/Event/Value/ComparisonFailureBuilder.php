@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,68 +9,49 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Event\Code;
+namespace Php_Unit\Event\Code;
 
 use function is_bool;
 use function is_scalar;
-
-use PHPUnit\Framework\ExpectationFailedException;
-
+use Php_Unit\Framework\Expectation_Failed_Exception;
 use function print_r;
-
 use Throwable;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ComparisonFailureBuilder
+final readonly class Comparison_Failure_Builder
 {
-    public static function from(Throwable $t): ?ComparisonFailure
+    public static function from(Throwable $t): ?Comparison_Failure
     {
-        if (!$t instanceof ExpectationFailedException) {
+        if (!$t instanceof Expectation_Failed_Exception) {
             return null;
         }
-
-        if ($t->getComparisonFailure() === null) {
+        if ($t->get_comparison_failure() === null) {
             return null;
         }
-
-        $expectedAsString = $t->getComparisonFailure()->getExpectedAsString();
-
-        if ($expectedAsString === '') {
-            $expectedAsString = self::mapScalarValueToString($t->getComparisonFailure()->getExpected());
+        $expected_as_string = $t->get_comparison_failure()->get_expected_as_string();
+        if ($expected_as_string === '') {
+            $expected_as_string = self::map_scalar_value_to_string($t->get_comparison_failure()->get_expected());
         }
-
-        $actualAsString = $t->getComparisonFailure()->getActualAsString();
-
-        if ($actualAsString === '') {
-            $actualAsString = self::mapScalarValueToString($t->getComparisonFailure()->getActual());
+        $actual_as_string = $t->get_comparison_failure()->get_actual_as_string();
+        if ($actual_as_string === '') {
+            $actual_as_string = self::map_scalar_value_to_string($t->get_comparison_failure()->get_actual());
         }
-
-        return new ComparisonFailure(
-            $expectedAsString,
-            $actualAsString,
-            $t->getComparisonFailure()->getDiff(),
-        );
+        return new Comparison_Failure($expected_as_string, $actual_as_string, $t->get_comparison_failure()->get_diff());
     }
-
-    private static function mapScalarValueToString(mixed $value): string
+    private static function map_scalar_value_to_string(mixed $value): string
     {
         if ($value === null) {
             return 'null';
         }
-
         if (is_bool($value)) {
             return $value ? 'true' : 'false';
         }
-
         if (is_scalar($value)) {
             return print_r($value, true);
         }
-
         return '';
     }
 }

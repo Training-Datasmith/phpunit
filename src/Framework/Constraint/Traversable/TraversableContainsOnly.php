@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,37 +9,31 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Framework\Constraint;
 
-namespace PHPUnit\Framework\Constraint;
-
-use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit\Framework\NativeType;
-
+use Php_Unit\Framework\Expectation_Failed_Exception;
+use Php_Unit\Framework\Native_Type;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class TraversableContainsOnly extends Constraint
+final class Traversable_Contains_Only extends Constraint
 {
     private readonly Constraint $constraint;
-
-    public static function forNativeType(NativeType $type): self
+    public static function for_native_type(Native_Type $type): self
     {
-        return new self(new IsType($type), $type->value);
+        return new self(new Is_Type($type), $type->value);
     }
-
     /**
      * @param class-string $type
      */
-    public static function forClassOrInterface(string $type): self
+    public static function for_class_or_interface(string $type): self
     {
-        return new self(new IsInstanceOf($type), $type);
+        return new self(new Is_Instance_Of($type), $type);
     }
-
-    private function __construct(IsInstanceOf|IsType $constraint, private readonly string $type)
+    private function __construct(Is_Instance_Of|Is_Type $constraint, private readonly string $type)
     {
         $this->constraint = $constraint;
     }
-
     /**
      * Evaluates the constraint for parameter $other.
      *
@@ -52,29 +46,24 @@ final class TraversableContainsOnly extends Constraint
      *
      * @throws ExpectationFailedException
      */
-    public function evaluate(mixed $other, string $description = '', bool $returnResult = false): bool
+    public function evaluate(mixed $other, string $description = '', bool $return_result = false): bool
     {
         $success = true;
-
         foreach ($other as $item) {
             if (!$this->constraint->evaluate($item, '', true)) {
                 $success = false;
-
                 break;
             }
         }
-
-        if (!$success && !$returnResult) {
+        if (!$success && !$return_result) {
             $this->fail($other, $description);
         }
-
         return $success;
     }
-
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
+    public function to_string(): string
     {
         return 'contains only values of type "' . $this->type . '"';
     }

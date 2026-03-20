@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,15 +9,13 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Runner\Extension;
 
-namespace PHPUnit\Runner\Extension;
-
-use PHPUnit\TextUI\Configuration\Configuration;
-
+use Php_Unit\Text_Ui\Configuration\Configuration;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
 interface Extension
 {
-    public function bootstrap(Configuration $configuration, Facade $facade, ParameterCollection $parameters): void;
+    public function bootstrap(Configuration $configuration, Facade $facade, Parameter_Collection $parameters): void;
 }

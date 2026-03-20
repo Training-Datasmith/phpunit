@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Runner\GarbageCollection;
+namespace Php_Unit\Runner\Garbage_Collection;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -19,11 +18,10 @@ namespace PHPUnit\Runner\GarbageCollection;
  */
 abstract readonly class Subscriber
 {
-    public function __construct(private GarbageCollectionHandler $handler)
+    public function __construct(private Garbage_Collection_Handler $handler)
     {
     }
-
-    protected function handler(): GarbageCollectionHandler
+    protected function handler(): Garbage_Collection_Handler
     {
         return $this->handler;
     }

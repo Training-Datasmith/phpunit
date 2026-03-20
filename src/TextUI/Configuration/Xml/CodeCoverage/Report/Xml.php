@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,11 +9,9 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Text_Ui\Xml_Configuration\Code_Coverage\Report;
 
-namespace PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report;
-
-use PHPUnit\TextUI\Configuration\Directory;
-
+use Php_Unit\Text_Ui\Configuration\Directory;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -23,17 +21,15 @@ use PHPUnit\TextUI\Configuration\Directory;
  */
 final readonly class Xml
 {
-    public function __construct(private Directory $target, private bool $includeSource)
+    public function __construct(private Directory $target, private bool $include_source)
     {
     }
-
     public function target(): Directory
     {
         return $this->target;
     }
-
-    public function includeSource(): bool
+    public function include_source(): bool
     {
-        return $this->includeSource;
+        return $this->include_source;
     }
 }

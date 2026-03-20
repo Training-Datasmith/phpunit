@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Metadata;
+namespace Php_Unit\Metadata;
 
 /**
  * @immutable
@@ -22,21 +21,19 @@ final readonly class Group extends Metadata
     /**
      * @param non-empty-string $groupName
      */
-    protected function __construct(Level $level, private string $groupName)
+    protected function __construct(Level $level, private string $group_name)
     {
         parent::__construct($level);
     }
-
-    public function isGroup(): true
+    public function is_group(): true
     {
         return true;
     }
-
     /**
      * @return non-empty-string
      */
-    public function groupName(): string
+    public function group_name(): string
     {
-        return $this->groupName;
+        return $this->group_name;
     }
 }

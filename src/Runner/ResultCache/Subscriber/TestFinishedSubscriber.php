@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,19 +9,17 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Runner\Result_Cache;
 
-namespace PHPUnit\Runner\ResultCache;
-
-use PHPUnit\Event\InvalidArgumentException;
-use PHPUnit\Event\Test\Finished;
-use PHPUnit\Event\Test\FinishedSubscriber;
-
+use Php_Unit\Event\InvalidArgumentException;
+use Php_Unit\Event\Test\Finished;
+use Php_Unit\Event\Test\Finished_Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestFinishedSubscriber extends Subscriber implements FinishedSubscriber
+final readonly class Test_Finished_Subscriber extends Subscriber implements Finished_Subscriber
 {
     /**
      * @throws \PHPUnit\Framework\InvalidArgumentException
@@ -29,6 +27,6 @@ final readonly class TestFinishedSubscriber extends Subscriber implements Finish
      */
     public function notify(Finished $event): void
     {
-        $this->handler()->testFinished($event);
+        $this->handler()->test_finished($event);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,11 +9,9 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Configuration;
+namespace Php_Unit\Text_Ui\Configuration;
 
 use IteratorAggregate;
-
 /**
  * @template-implements IteratorAggregate<non-negative-int, ExtensionBootstrap>
  *
@@ -21,36 +19,32 @@ use IteratorAggregate;
  *
  * @immutable
  */
-final readonly class ExtensionBootstrapCollection implements IteratorAggregate
+final readonly class Extension_Bootstrap_Collection implements IteratorAggregate
 {
     /**
      * @var list<ExtensionBootstrap>
      */
-    private array $extensionBootstraps;
-
+    private array $extension_bootstraps;
     /**
      * @param list<ExtensionBootstrap> $extensionBootstraps
      */
-    public static function fromArray(array $extensionBootstraps): self
+    public static function from_array(array $extension_bootstraps): self
     {
-        return new self(...$extensionBootstraps);
+        return new self(...$extension_bootstraps);
     }
-
-    private function __construct(ExtensionBootstrap ...$extensionBootstraps)
+    private function __construct(Extension_Bootstrap ...$extension_bootstraps)
     {
-        $this->extensionBootstraps = $extensionBootstraps;
+        $this->extension_bootstraps = $extension_bootstraps;
     }
-
     /**
      * @return list<ExtensionBootstrap>
      */
-    public function asArray(): array
+    public function as_array(): array
     {
-        return $this->extensionBootstraps;
+        return $this->extension_bootstraps;
     }
-
-    public function getIterator(): ExtensionBootstrapCollectionIterator
+    public function getIterator(): Extension_Bootstrap_Collection_Iterator
     {
-        return new ExtensionBootstrapCollectionIterator($this);
+        return new Extension_Bootstrap_Collection_Iterator($this);
     }
 }

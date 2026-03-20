@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,20 +9,18 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Event;
+namespace Php_Unit\Event;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface SubscribableDispatcher extends Dispatcher
+interface Subscribable_Dispatcher extends Dispatcher
 {
     /**
      * @throws UnknownSubscriberTypeException
      */
-    public function registerSubscriber(Subscriber $subscriber): void;
-
-    public function registerTracer(Tracer\Tracer $tracer): void;
+    public function register_subscriber(Subscriber $subscriber): void;
+    public function register_tracer(Tracer\Tracer $tracer): void;
 }

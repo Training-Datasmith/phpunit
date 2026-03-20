@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,35 +9,30 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Event\Runtime;
+namespace Php_Unit\Event\Runtime;
 
 use const PHP_OS;
 use const PHP_OS_FAMILY;
-
 /**
  * @immutable
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class OperatingSystem
+final readonly class Operating_System
 {
-    private string $operatingSystem;
-    private string $operatingSystemFamily;
-
+    private string $operating_system;
+    private string $operating_system_family;
     public function __construct()
     {
-        $this->operatingSystem       = PHP_OS;
-        $this->operatingSystemFamily = PHP_OS_FAMILY;
+        $this->operating_system = PHP_OS;
+        $this->operating_system_family = PHP_OS_FAMILY;
     }
-
-    public function operatingSystem(): string
+    public function operating_system(): string
     {
-        return $this->operatingSystem;
+        return $this->operating_system;
     }
-
-    public function operatingSystemFamily(): string
+    public function operating_system_family(): string
     {
-        return $this->operatingSystemFamily;
+        return $this->operating_system_family;
     }
 }

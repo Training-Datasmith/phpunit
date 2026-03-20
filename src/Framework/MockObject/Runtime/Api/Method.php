@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,13 +9,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Framework\Mock_Object;
 
-namespace PHPUnit\Framework\MockObject;
-
-use PHPUnit\Framework\Constraint\Constraint;
-use PHPUnit\Framework\MockObject\Rule\AnyInvokedCount;
-use PHPUnit\Framework\MockObject\Runtime\PropertyHook;
-
+use Php_Unit\Framework\Constraint\Constraint;
+use Php_Unit\Framework\Mock_Object\Rule\Any_Invoked_Count;
+use Php_Unit\Framework\Mock_Object\Runtime\Property_Hook;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -23,14 +21,9 @@ use PHPUnit\Framework\MockObject\Runtime\PropertyHook;
  */
 trait Method
 {
-    abstract public function __phpunit_getInvocationHandler(): InvocationHandler;
-
-    public function method(Constraint|PropertyHook|string $constraint): InvocationStubber
+    abstract public function __phpunit_get_invocation_handler(): Invocation_Handler;
+    public function method(Constraint|Property_Hook|string $constraint): Invocation_Stubber
     {
-        return $this
-            ->__phpunit_getInvocationHandler()
-            ->expects(new AnyInvokedCount())
-            ->method($constraint)
-            ->markAsCreatedWithoutExplicitExpects();
+        return $this->__phpunit_get_invocation_handler()->expects(new Any_Invoked_Count())->method($constraint)->mark_as_created_without_explicit_expects();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,177 +9,140 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Text_Ui;
 
-namespace PHPUnit\TextUI;
-
-use PHPUnit\TestRunner\TestResult\TestResult;
-use PHPUnit\TextUI\Configuration\Configuration;
-
+use Php_Unit\Test_Runner\Test_Result\Test_Result;
+use Php_Unit\Text_Ui\Configuration\Configuration;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ShellExitCodeCalculator
+final readonly class Shell_Exit_Code_Calculator
 {
-    private const int SUCCESS_EXIT   = 0;
-    private const int FAILURE_EXIT   = 1;
+    private const int SUCCESS_EXIT = 0;
+    private const int FAILURE_EXIT = 1;
     private const int EXCEPTION_EXIT = 2;
-
-    public function calculate(Configuration $configuration, TestResult $result): int
+    public function calculate(Configuration $configuration, Test_Result $result): int
     {
-        $failOnDeprecation        = false;
-        $failOnPhpunitDeprecation = false;
-        $failOnPhpunitNotice      = false;
-        $failOnPhpunitWarning     = false;
-        $failOnEmptyTestSuite     = false;
-        $failOnIncomplete         = false;
-        $failOnNotice             = false;
-        $failOnRisky              = false;
-        $failOnSkipped            = false;
-        $failOnWarning            = false;
-
-        if ($configuration->failOnAllIssues()) {
-            $failOnDeprecation        = true;
-            $failOnPhpunitDeprecation = true;
-            $failOnPhpunitNotice      = true;
-            $failOnPhpunitWarning     = true;
-            $failOnEmptyTestSuite     = true;
-            $failOnIncomplete         = true;
-            $failOnNotice             = true;
-            $failOnRisky              = true;
-            $failOnSkipped            = true;
-            $failOnWarning            = true;
+        $fail_on_deprecation = false;
+        $fail_on_phpunit_deprecation = false;
+        $fail_on_phpunit_notice = false;
+        $fail_on_phpunit_warning = false;
+        $fail_on_empty_test_suite = false;
+        $fail_on_incomplete = false;
+        $fail_on_notice = false;
+        $fail_on_risky = false;
+        $fail_on_skipped = false;
+        $fail_on_warning = false;
+        if ($configuration->fail_on_all_issues()) {
+            $fail_on_deprecation = true;
+            $fail_on_phpunit_deprecation = true;
+            $fail_on_phpunit_notice = true;
+            $fail_on_phpunit_warning = true;
+            $fail_on_empty_test_suite = true;
+            $fail_on_incomplete = true;
+            $fail_on_notice = true;
+            $fail_on_risky = true;
+            $fail_on_skipped = true;
+            $fail_on_warning = true;
         }
-
-        if ($configuration->failOnDeprecation()) {
-            $failOnDeprecation = true;
+        if ($configuration->fail_on_deprecation()) {
+            $fail_on_deprecation = true;
         }
-
-        if ($configuration->doNotFailOnDeprecation()) {
-            $failOnDeprecation = false;
+        if ($configuration->do_not_fail_on_deprecation()) {
+            $fail_on_deprecation = false;
         }
-
-        if ($configuration->failOnPhpunitDeprecation()) {
-            $failOnPhpunitDeprecation = true;
+        if ($configuration->fail_on_phpunit_deprecation()) {
+            $fail_on_phpunit_deprecation = true;
         }
-
-        if ($configuration->doNotFailOnPhpunitDeprecation()) {
-            $failOnPhpunitDeprecation = false;
+        if ($configuration->do_not_fail_on_phpunit_deprecation()) {
+            $fail_on_phpunit_deprecation = false;
         }
-
-        if ($configuration->failOnPhpunitNotice()) {
-            $failOnPhpunitNotice = true;
+        if ($configuration->fail_on_phpunit_notice()) {
+            $fail_on_phpunit_notice = true;
         }
-
-        if ($configuration->doNotFailOnPhpunitNotice()) {
-            $failOnPhpunitNotice = false;
+        if ($configuration->do_not_fail_on_phpunit_notice()) {
+            $fail_on_phpunit_notice = false;
         }
-
-        if ($configuration->failOnPhpunitWarning()) {
-            $failOnPhpunitWarning = true;
+        if ($configuration->fail_on_phpunit_warning()) {
+            $fail_on_phpunit_warning = true;
         }
-
-        if ($configuration->doNotFailOnPhpunitWarning()) {
-            $failOnPhpunitWarning = false;
+        if ($configuration->do_not_fail_on_phpunit_warning()) {
+            $fail_on_phpunit_warning = false;
         }
-
-        if ($configuration->failOnEmptyTestSuite()) {
-            $failOnEmptyTestSuite = true;
+        if ($configuration->fail_on_empty_test_suite()) {
+            $fail_on_empty_test_suite = true;
         }
-
-        if ($configuration->doNotFailOnEmptyTestSuite()) {
-            $failOnEmptyTestSuite = false;
+        if ($configuration->do_not_fail_on_empty_test_suite()) {
+            $fail_on_empty_test_suite = false;
         }
-
-        if ($configuration->failOnIncomplete()) {
-            $failOnIncomplete = true;
+        if ($configuration->fail_on_incomplete()) {
+            $fail_on_incomplete = true;
         }
-
-        if ($configuration->doNotFailOnIncomplete()) {
-            $failOnIncomplete = false;
+        if ($configuration->do_not_fail_on_incomplete()) {
+            $fail_on_incomplete = false;
         }
-
-        if ($configuration->failOnNotice()) {
-            $failOnNotice = true;
+        if ($configuration->fail_on_notice()) {
+            $fail_on_notice = true;
         }
-
-        if ($configuration->doNotFailOnNotice()) {
-            $failOnNotice = false;
+        if ($configuration->do_not_fail_on_notice()) {
+            $fail_on_notice = false;
         }
-
-        if ($configuration->failOnRisky()) {
-            $failOnRisky = true;
+        if ($configuration->fail_on_risky()) {
+            $fail_on_risky = true;
         }
-
-        if ($configuration->doNotFailOnRisky()) {
-            $failOnRisky = false;
+        if ($configuration->do_not_fail_on_risky()) {
+            $fail_on_risky = false;
         }
-
-        if ($configuration->failOnSkipped()) {
-            $failOnSkipped = true;
+        if ($configuration->fail_on_skipped()) {
+            $fail_on_skipped = true;
         }
-
-        if ($configuration->doNotFailOnSkipped()) {
-            $failOnSkipped = false;
+        if ($configuration->do_not_fail_on_skipped()) {
+            $fail_on_skipped = false;
         }
-
-        if ($configuration->failOnWarning()) {
-            $failOnWarning = true;
+        if ($configuration->fail_on_warning()) {
+            $fail_on_warning = true;
         }
-
-        if ($configuration->doNotFailOnWarning()) {
-            $failOnWarning = false;
+        if ($configuration->do_not_fail_on_warning()) {
+            $fail_on_warning = false;
         }
-
-        if ($result->wasSuccessful()) {
+        if ($result->was_successful()) {
             return self::SUCCESS_EXIT;
         }
-
-        if ($failOnEmptyTestSuite && !$result->hasTests()) {
+        if ($fail_on_empty_test_suite && !$result->has_tests()) {
             return self::FAILURE_EXIT;
         }
-
-        if ($failOnDeprecation && $result->hasPhpOrUserDeprecations()) {
+        if ($fail_on_deprecation && $result->has_php_or_user_deprecations()) {
             return self::FAILURE_EXIT;
         }
-
-        if ($failOnPhpunitDeprecation && $result->hasPhpunitDeprecations()) {
+        if ($fail_on_phpunit_deprecation && $result->has_phpunit_deprecations()) {
             return self::FAILURE_EXIT;
         }
-
-        if ($failOnPhpunitNotice && $result->hasPhpunitNotices()) {
+        if ($fail_on_phpunit_notice && $result->has_phpunit_notices()) {
             return self::FAILURE_EXIT;
         }
-
-        if ($failOnPhpunitWarning && $result->hasPhpunitWarnings()) {
+        if ($fail_on_phpunit_warning && $result->has_phpunit_warnings()) {
             return self::FAILURE_EXIT;
         }
-
-        if ($failOnIncomplete && $result->hasIncompleteTests()) {
+        if ($fail_on_incomplete && $result->has_incomplete_tests()) {
             return self::FAILURE_EXIT;
         }
-
-        if ($failOnNotice && $result->hasNotices()) {
+        if ($fail_on_notice && $result->has_notices()) {
             return self::FAILURE_EXIT;
         }
-
-        if ($failOnRisky && $result->hasRiskyTests()) {
+        if ($fail_on_risky && $result->has_risky_tests()) {
             return self::FAILURE_EXIT;
         }
-
-        if ($failOnSkipped && $result->hasSkippedTests()) {
+        if ($fail_on_skipped && $result->has_skipped_tests()) {
             return self::FAILURE_EXIT;
         }
-
-        if ($failOnWarning && $result->hasWarnings()) {
+        if ($fail_on_warning && $result->has_warnings()) {
             return self::FAILURE_EXIT;
         }
-
-        if ($result->hasErrors()) {
+        if ($result->has_errors()) {
             return self::EXCEPTION_EXIT;
         }
-
         return self::FAILURE_EXIT;
     }
 }

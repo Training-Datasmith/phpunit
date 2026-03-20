@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,15 +9,12 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Event\Application;
 
-namespace PHPUnit\Event\Application;
-
-use PHPUnit\Event\Event;
-use PHPUnit\Event\Runtime\Runtime;
-use PHPUnit\Event\Telemetry;
-
+use Php_Unit\Event\Event;
+use Php_Unit\Event\Runtime\Runtime;
+use Php_Unit\Event\Telemetry;
 use function sprintf;
-
 /**
  * @immutable
  *
@@ -25,28 +22,22 @@ use function sprintf;
  */
 final readonly class Started implements Event
 {
-    public function __construct(private Telemetry\Info $telemetryInfo, private Runtime $runtime)
+    public function __construct(private Telemetry\Info $telemetry_info, private Runtime $runtime)
     {
     }
-
-    public function telemetryInfo(): Telemetry\Info
+    public function telemetry_info(): Telemetry\Info
     {
-        return $this->telemetryInfo;
+        return $this->telemetry_info;
     }
-
     public function runtime(): Runtime
     {
         return $this->runtime;
     }
-
     /**
      * @return non-empty-string
      */
-    public function asString(): string
+    public function as_string(): string
     {
-        return sprintf(
-            'PHPUnit Started (%s)',
-            $this->runtime->asString(),
-        );
+        return sprintf('PHPUnit Started (%s)', $this->runtime->as_string());
     }
 }

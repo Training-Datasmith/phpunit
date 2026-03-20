@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,43 +9,36 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Configuration;
+namespace Php_Unit\Text_Ui\Configuration;
 
 use Iterator;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @template-implements Iterator<non-negative-int, TestFile>
  */
-final class TestFileCollectionIterator implements Iterator
+final class Test_File_Collection_Iterator implements Iterator
 {
     /**
      * @var list<TestFile>
      */
     private readonly array $files;
-
     /**
      * @var non-negative-int
      */
     private int $position = 0;
-
-    public function __construct(TestFileCollection $files)
+    public function __construct(Test_File_Collection $files)
     {
-        $this->files = $files->asArray();
+        $this->files = $files->as_array();
     }
-
     public function rewind(): void
     {
         $this->position = 0;
     }
-
     public function valid(): bool
     {
         return isset($this->files[$this->position]);
     }
-
     /**
      * @return non-negative-int
      */
@@ -53,12 +46,10 @@ final class TestFileCollectionIterator implements Iterator
     {
         return $this->position;
     }
-
-    public function current(): TestFile
+    public function current(): Test_File
     {
         return $this->files[$this->position];
     }
-
     public function next(): void
     {
         $this->position++;

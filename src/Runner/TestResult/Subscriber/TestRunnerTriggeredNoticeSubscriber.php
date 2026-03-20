@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,21 +9,19 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Test_Runner\Test_Result;
 
-namespace PHPUnit\TestRunner\TestResult;
-
-use PHPUnit\Event\TestRunner\NoticeTriggered;
-use PHPUnit\Event\TestRunner\NoticeTriggeredSubscriber;
-
+use Php_Unit\Event\Test_Runner\Notice_Triggered;
+use Php_Unit\Event\Test_Runner\Notice_Triggered_Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestRunnerTriggeredNoticeSubscriber extends Subscriber implements NoticeTriggeredSubscriber
+final readonly class Test_Runner_Triggered_Notice_Subscriber extends Subscriber implements Notice_Triggered_Subscriber
 {
-    public function notify(NoticeTriggered $event): void
+    public function notify(Notice_Triggered $event): void
     {
-        $this->collector()->testRunnerTriggeredNotice($event);
+        $this->collector()->test_runner_triggered_notice($event);
     }
 }

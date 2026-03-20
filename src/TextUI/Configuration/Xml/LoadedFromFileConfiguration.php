@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,16 +9,14 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Text_Ui\Xml_Configuration;
 
-namespace PHPUnit\TextUI\XmlConfiguration;
-
-use PHPUnit\TextUI\Configuration\ExtensionBootstrapCollection;
-use PHPUnit\TextUI\Configuration\Php;
-use PHPUnit\TextUI\Configuration\Source;
-use PHPUnit\TextUI\Configuration\TestSuiteCollection;
-use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\CodeCoverage;
-use PHPUnit\TextUI\XmlConfiguration\Logging\Logging;
-
+use Php_Unit\Text_Ui\Configuration\Extension_Bootstrap_Collection;
+use Php_Unit\Text_Ui\Configuration\Php;
+use Php_Unit\Text_Ui\Configuration\Source;
+use Php_Unit\Text_Ui\Configuration\Test_Suite_Collection;
+use Php_Unit\Text_Ui\Xml_Configuration\Code_Coverage\Code_Coverage;
+use Php_Unit\Text_Ui\Xml_Configuration\Logging\Logging;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -26,25 +24,15 @@ use PHPUnit\TextUI\XmlConfiguration\Logging\Logging;
  *
  * @immutable
  */
-final readonly class LoadedFromFileConfiguration extends Configuration
+final readonly class Loaded_From_File_Configuration extends Configuration
 {
     /**
      * @param non-empty-string $filename
      */
-    public function __construct(private string $filename, private ValidationResult $validationResult, ExtensionBootstrapCollection $extensions, Source $source, CodeCoverage $codeCoverage, Groups $groups, Logging $logging, Php $php, PHPUnit $phpunit, TestSuiteCollection $testSuite)
+    public function __construct(private string $filename, private Validation_Result $validation_result, Extension_Bootstrap_Collection $extensions, Source $source, Code_Coverage $code_coverage, Groups $groups, Logging $logging, Php $php, Php_Unit $phpunit, Test_Suite_Collection $test_suite)
     {
-        parent::__construct(
-            $extensions,
-            $source,
-            $codeCoverage,
-            $groups,
-            $logging,
-            $php,
-            $phpunit,
-            $testSuite,
-        );
+        parent::__construct($extensions, $source, $code_coverage, $groups, $logging, $php, $phpunit, $test_suite);
     }
-
     /**
      * @return non-empty-string
      */
@@ -52,18 +40,15 @@ final readonly class LoadedFromFileConfiguration extends Configuration
     {
         return $this->filename;
     }
-
-    public function hasValidationErrors(): bool
+    public function has_validation_errors(): bool
     {
-        return $this->validationResult->hasValidationErrors();
+        return $this->validation_result->has_validation_errors();
     }
-
-    public function validationErrors(): string
+    public function validation_errors(): string
     {
-        return $this->validationResult->asString();
+        return $this->validation_result->as_string();
     }
-
-    public function wasLoadedFromFile(): bool
+    public function was_loaded_from_file(): bool
     {
         return true;
     }

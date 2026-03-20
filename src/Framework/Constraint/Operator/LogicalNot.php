@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,23 +9,19 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\Constraint;
+namespace Php_Unit\Framework\Constraint;
 
 use function array_map;
 use function assert;
 use function count;
-
-use PHPUnit\Framework\ExpectationFailedException;
-
+use Php_Unit\Framework\Expectation_Failed_Exception;
 use function preg_match;
 use function preg_quote;
 use function preg_replace;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class LogicalNot extends UnaryOperator
+final class Logical_Not extends Unary_Operator
 {
     /**
      * @param non-empty-string $string
@@ -34,69 +30,23 @@ final class LogicalNot extends UnaryOperator
      */
     public static function negate(string $string): string
     {
-        $positives = [
-            'contains ',
-            'exists',
-            'has ',
-            'is ',
-            'are ',
-            'matches ',
-            'starts with ',
-            'ends with ',
-            'reference ',
-            'not not ',
-        ];
-
-        $negatives = [
-            'does not contain ',
-            'does not exist',
-            'does not have ',
-            'is not ',
-            'are not ',
-            'does not match ',
-            'starts not with ',
-            'ends not with ',
-            'don\'t reference ',
-            'not ',
-        ];
-
+        $positives = ['contains ', 'exists', 'has ', 'is ', 'are ', 'matches ', 'starts with ', 'ends with ', 'reference ', 'not not '];
+        $negatives = ['does not contain ', 'does not exist', 'does not have ', 'is not ', 'are not ', 'does not match ', 'starts not with ', 'ends not with ', 'don\'t reference ', 'not '];
         preg_match('/(\'[\w\W]*\')([\w\W]*)("[\w\W]*")/i', $string, $matches);
-
         if (count($matches) === 0) {
             preg_match('/(\'[\w\W]*\')([\w\W]*)(\'[\w\W]*\')/i', $string, $matches);
         }
-
-        $positives = array_map(
-            static fn (string $s): string => '/\\b' . preg_quote($s, '/') . '/',
-            $positives,
-        );
-
+        $positives = array_map(static fn(string $s): string => '/\b' . preg_quote($s, '/') . '/', $positives);
         if (count($matches) >= 3) {
-            $nonInput = $matches[2];
-
-            $negatedString = preg_replace(
-                '/' . preg_quote($nonInput, '/') . '/',
-                (string) preg_replace(
-                    $positives,
-                    $negatives,
-                    $nonInput,
-                ),
-                $string,
-            );
+            $non_input = $matches[2];
+            $negated_string = preg_replace('/' . preg_quote($non_input, '/') . '/', (string) preg_replace($positives, $negatives, $non_input), $string);
         } else {
-            $negatedString = preg_replace(
-                $positives,
-                $negatives,
-                $string,
-            );
+            $negated_string = preg_replace($positives, $negatives, $string);
         }
-
-        assert($negatedString !== null);
-        assert($negatedString !== '');
-
-        return $negatedString;
+        assert($negated_string !== null);
+        assert($negated_string !== '');
+        return $negated_string;
     }
-
     /**
      * Returns the name of this operator.
      */
@@ -104,7 +54,6 @@ final class LogicalNot extends UnaryOperator
     {
         return 'not';
     }
-
     /**
      * Returns this operator's precedence.
      *
@@ -114,7 +63,6 @@ final class LogicalNot extends UnaryOperator
     {
         return 5;
     }
-
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
@@ -125,16 +73,14 @@ final class LogicalNot extends UnaryOperator
     {
         return !$this->constraint()->evaluate($other, '', true);
     }
-
     /**
      * Applies additional transformation to strings returned by toString() or
      * failureDescription().
      */
-    protected function transformString(string $string): string
+    protected function transform_string(string $string): string
     {
         return self::negate($string);
     }
-
     /**
      * Reduces the sub-expression starting at $this by skipping degenerate
      * sub-expression and returns first descendant constraint that starts
@@ -145,11 +91,9 @@ final class LogicalNot extends UnaryOperator
     protected function reduce(): Constraint
     {
         $constraint = $this->constraint();
-
         if ($constraint instanceof self) {
             return $constraint->constraint()->reduce();
         }
-
         return parent::reduce();
     }
 }

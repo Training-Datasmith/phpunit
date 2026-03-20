@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,17 +9,16 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Runner\Filter;
+namespace Php_Unit\Runner\Filter;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class IncludeNameFilterIterator extends NameFilterIterator
+final class Include_Name_Filter_Iterator extends Name_Filter_Iterator
 {
-    protected function doAccept(bool $result): bool
+    protected function do_accept(bool $result): bool
     {
         return $result;
     }

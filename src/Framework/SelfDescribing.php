@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,18 +9,17 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework;
+namespace Php_Unit\Framework;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This interface is not covered by the backward compatibility promise for PHPUnit
  */
-interface SelfDescribing
+interface Self_Describing
 {
     /**
      * Returns a string representation of the object.
      */
-    public function toString(): string;
+    public function to_string(): string;
 }

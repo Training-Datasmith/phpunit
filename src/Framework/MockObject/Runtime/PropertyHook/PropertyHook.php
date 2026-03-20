@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,49 +9,44 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\MockObject\Runtime;
+namespace Php_Unit\Framework\Mock_Object\Runtime;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-abstract readonly class PropertyHook
+abstract readonly class Property_Hook
 {
     /**
      * @param non-empty-string $propertyName
      */
-    public static function get(string $propertyName): PropertyGetHook
+    public static function get(string $property_name): Property_Get_Hook
     {
-        return new PropertyGetHook($propertyName);
+        return new Property_Get_Hook($property_name);
     }
-
     /**
      * @param non-empty-string $propertyName
      */
-    public static function set(string $propertyName): PropertySetHook
+    public static function set(string $property_name): Property_Set_Hook
     {
-        return new PropertySetHook($propertyName);
+        return new Property_Set_Hook($property_name);
     }
-
     /**
      * @param non-empty-string $propertyName
      */
-    protected function __construct(private string $propertyName)
+    protected function __construct(private string $property_name)
     {
     }
-
     /**
      * @return non-empty-string
      */
-    public function propertyName(): string
+    public function property_name(): string
     {
-        return $this->propertyName;
+        return $this->property_name;
     }
-
     /**
      * @return non-empty-string
      *
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
-    abstract public function asString(): string;
+    abstract public function as_string(): string;
 }

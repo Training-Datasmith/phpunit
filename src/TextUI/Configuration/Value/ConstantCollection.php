@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,14 +9,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Configuration;
+namespace Php_Unit\Text_Ui\Configuration;
 
 use function count;
-
 use Countable;
 use IteratorAggregate;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -24,41 +21,36 @@ use IteratorAggregate;
  *
  * @template-implements IteratorAggregate<non-negative-int, Constant>
  */
-final readonly class ConstantCollection implements Countable, IteratorAggregate
+final readonly class Constant_Collection implements Countable, IteratorAggregate
 {
     /**
      * @var list<Constant>
      */
     private array $constants;
-
     /**
      * @param list<Constant> $constants
      */
-    public static function fromArray(array $constants): self
+    public static function from_array(array $constants): self
     {
         return new self(...$constants);
     }
-
     private function __construct(Constant ...$constants)
     {
         $this->constants = $constants;
     }
-
     /**
      * @return list<Constant>
      */
-    public function asArray(): array
+    public function as_array(): array
     {
         return $this->constants;
     }
-
     public function count(): int
     {
         return count($this->constants);
     }
-
-    public function getIterator(): ConstantCollectionIterator
+    public function getIterator(): Constant_Collection_Iterator
     {
-        return new ConstantCollectionIterator($this);
+        return new Constant_Collection_Iterator($this);
     }
 }

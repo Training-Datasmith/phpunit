@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,49 +9,46 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TestRunner\TestResult;
+namespace Php_Unit\Test_Runner\Test_Result;
 
 use function array_values;
 use function assert;
 use function count;
 use function implode;
-
-use PHPUnit\Event\Code\TestMethod;
-use PHPUnit\Event\Facade;
-use PHPUnit\Event\Test\AfterLastTestMethodErrored;
-use PHPUnit\Event\Test\AfterLastTestMethodFailed;
-use PHPUnit\Event\Test\BeforeFirstTestMethodErrored;
-use PHPUnit\Event\Test\BeforeFirstTestMethodFailed;
-use PHPUnit\Event\Test\ConsideredRisky;
-use PHPUnit\Event\Test\DeprecationTriggered;
-use PHPUnit\Event\Test\Errored;
-use PHPUnit\Event\Test\ErrorTriggered;
-use PHPUnit\Event\Test\Failed;
-use PHPUnit\Event\Test\Finished;
-use PHPUnit\Event\Test\MarkedIncomplete;
-use PHPUnit\Event\Test\NoticeTriggered;
-use PHPUnit\Event\Test\PhpDeprecationTriggered;
-use PHPUnit\Event\Test\PhpNoticeTriggered;
-use PHPUnit\Event\Test\PhpunitDeprecationTriggered;
-use PHPUnit\Event\Test\PhpunitErrorTriggered;
-use PHPUnit\Event\Test\PhpunitNoticeTriggered;
-use PHPUnit\Event\Test\PhpunitWarningTriggered;
-use PHPUnit\Event\Test\PhpWarningTriggered;
-use PHPUnit\Event\Test\Skipped as TestSkipped;
-use PHPUnit\Event\Test\WarningTriggered;
-use PHPUnit\Event\TestRunner\DeprecationTriggered as TestRunnerDeprecationTriggered;
-use PHPUnit\Event\TestRunner\ExecutionStarted;
-use PHPUnit\Event\TestRunner\NoticeTriggered as TestRunnerNoticeTriggered;
-use PHPUnit\Event\TestRunner\WarningTriggered as TestRunnerWarningTriggered;
-use PHPUnit\Event\TestSuite\Finished as TestSuiteFinished;
-use PHPUnit\Event\TestSuite\Skipped as TestSuiteSkipped;
-use PHPUnit\Event\TestSuite\Started as TestSuiteStarted;
-use PHPUnit\Event\TestSuite\TestSuiteForTestClass;
-use PHPUnit\Event\TestSuite\TestSuiteForTestMethodWithDataProvider;
-use PHPUnit\TestRunner\IssueFilter;
-use PHPUnit\TestRunner\TestResult\Issues\Issue;
-
+use Php_Unit\Event\Code\Test_Method;
+use Php_Unit\Event\Facade;
+use Php_Unit\Event\Test\After_Last_Test_Method_Errored;
+use Php_Unit\Event\Test\After_Last_Test_Method_Failed;
+use Php_Unit\Event\Test\Before_First_Test_Method_Errored;
+use Php_Unit\Event\Test\Before_First_Test_Method_Failed;
+use Php_Unit\Event\Test\Considered_Risky;
+use Php_Unit\Event\Test\Deprecation_Triggered;
+use Php_Unit\Event\Test\Errored;
+use Php_Unit\Event\Test\Error_Triggered;
+use Php_Unit\Event\Test\Failed;
+use Php_Unit\Event\Test\Finished;
+use Php_Unit\Event\Test\Marked_Incomplete;
+use Php_Unit\Event\Test\Notice_Triggered;
+use Php_Unit\Event\Test\Php_Deprecation_Triggered;
+use Php_Unit\Event\Test\Php_Notice_Triggered;
+use Php_Unit\Event\Test\Phpunit_Deprecation_Triggered;
+use Php_Unit\Event\Test\Phpunit_Error_Triggered;
+use Php_Unit\Event\Test\Phpunit_Notice_Triggered;
+use Php_Unit\Event\Test\Phpunit_Warning_Triggered;
+use Php_Unit\Event\Test\Php_Warning_Triggered;
+use Php_Unit\Event\Test\Skipped as TestSkipped;
+use Php_Unit\Event\Test\Warning_Triggered;
+use Php_Unit\Event\Test_Runner\Deprecation_Triggered as TestRunnerDeprecationTriggered;
+use Php_Unit\Event\Test_Runner\Execution_Started;
+use Php_Unit\Event\Test_Runner\Notice_Triggered as TestRunnerNoticeTriggered;
+use Php_Unit\Event\Test_Runner\Warning_Triggered as TestRunnerWarningTriggered;
+use Php_Unit\Event\Test_Suite\Finished as TestSuiteFinished;
+use Php_Unit\Event\Test_Suite\Skipped as TestSuiteSkipped;
+use Php_Unit\Event\Test_Suite\Started as TestSuiteStarted;
+use Php_Unit\Event\Test_Suite\Test_Suite_For_Test_Class;
+use Php_Unit\Event\Test_Suite\Test_Suite_For_Test_Method_With_Data_Provider;
+use Php_Unit\Test_Runner\Issue_Filter;
+use Php_Unit\Test_Runner\Test_Result\Issues\Issue;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -59,623 +56,396 @@ use PHPUnit\TestRunner\TestResult\Issues\Issue;
  */
 final class Collector
 {
-    private int $numberOfTests        = 0;
-    private int $numberOfTestsRun     = 0;
-    private int $numberOfAssertions   = 0;
-    private bool $prepared            = false;
-    private bool $childProcessErrored = false;
-
+    private int $number_of_tests = 0;
+    private int $number_of_tests_run = 0;
+    private int $number_of_assertions = 0;
+    private bool $prepared = false;
+    private bool $child_process_errored = false;
     /**
      * @var non-negative-int
      */
-    private int $numberOfIssuesIgnoredByBaseline = 0;
-
+    private int $number_of_issues_ignored_by_baseline = 0;
     /**
      * @var list<AfterLastTestMethodErrored|BeforeFirstTestMethodErrored|Errored>
      */
-    private array $testErroredEvents = [];
-
+    private array $test_errored_events = [];
     /**
      * @var list<AfterLastTestMethodFailed|BeforeFirstTestMethodFailed|Failed>
      */
-    private array $testFailedEvents = [];
-
+    private array $test_failed_events = [];
     /**
      * @var list<MarkedIncomplete>
      */
-    private array $testMarkedIncompleteEvents = [];
-
+    private array $test_marked_incomplete_events = [];
     /**
      * @var list<TestSuiteSkipped>
      */
-    private array $testSuiteSkippedEvents = [];
-
+    private array $test_suite_skipped_events = [];
     /**
      * @var list<TestSkipped>
      */
-    private array $testSkippedEvents = [];
-
+    private array $test_skipped_events = [];
     /**
      * @var array<string,list<ConsideredRisky>>
      */
-    private array $testConsideredRiskyEvents = [];
-
+    private array $test_considered_risky_events = [];
     /**
      * @var array<string,list<PhpunitDeprecationTriggered>>
      */
-    private array $testTriggeredPhpunitDeprecationEvents = [];
-
+    private array $test_triggered_phpunit_deprecation_events = [];
     /**
      * @var array<string,list<PhpunitErrorTriggered>>
      */
-    private array $testTriggeredPhpunitErrorEvents = [];
-
+    private array $test_triggered_phpunit_error_events = [];
     /**
      * @var array<string,list<PhpunitNoticeTriggered>>
      */
-    private array $testTriggeredPhpunitNoticeEvents = [];
-
+    private array $test_triggered_phpunit_notice_events = [];
     /**
      * @var array<string,list<PhpunitWarningTriggered>>
      */
-    private array $testTriggeredPhpunitWarningEvents = [];
-
+    private array $test_triggered_phpunit_warning_events = [];
     /**
      * @var list<TestRunnerDeprecationTriggered>
      */
-    private array $testRunnerTriggeredDeprecationEvents = [];
-
+    private array $test_runner_triggered_deprecation_events = [];
     /**
      * @var list<TestRunnerNoticeTriggered>
      */
-    private array $testRunnerTriggeredNoticeEvents = [];
-
+    private array $test_runner_triggered_notice_events = [];
     /**
      * @var list<TestRunnerWarningTriggered>
      */
-    private array $testRunnerTriggeredWarningEvents = [];
-
+    private array $test_runner_triggered_warning_events = [];
     /**
      * @var array<non-empty-string, Issue>
      */
     private array $errors = [];
-
     /**
      * @var array<non-empty-string, Issue>
      */
     private array $deprecations = [];
-
     /**
      * @var array<non-empty-string, Issue>
      */
     private array $notices = [];
-
     /**
      * @var array<non-empty-string, Issue>
      */
     private array $warnings = [];
-
     /**
      * @var array<non-empty-string, Issue>
      */
-    private array $phpDeprecations = [];
-
+    private array $php_deprecations = [];
     /**
      * @var array<non-empty-string, Issue>
      */
-    private array $phpNotices = [];
-
+    private array $php_notices = [];
     /**
      * @var array<non-empty-string, Issue>
      */
-    private array $phpWarnings = [];
-
-    public function __construct(Facade $facade, private readonly IssueFilter $issueFilter)
+    private array $php_warnings = [];
+    public function __construct(Facade $facade, private readonly Issue_Filter $issue_filter)
     {
-        $facade->registerSubscribers(
-            new ExecutionStartedSubscriber($this),
-            new TestSuiteSkippedSubscriber($this),
-            new TestSuiteStartedSubscriber($this),
-            new TestSuiteFinishedSubscriber($this),
-            new TestPreparedSubscriber($this),
-            new TestFinishedSubscriber($this),
-            new BeforeTestClassMethodErroredSubscriber($this),
-            new BeforeTestClassMethodFailedSubscriber($this),
-            new AfterTestClassMethodErroredSubscriber($this),
-            new AfterTestClassMethodFailedSubscriber($this),
-            new TestErroredSubscriber($this),
-            new TestFailedSubscriber($this),
-            new TestMarkedIncompleteSubscriber($this),
-            new TestSkippedSubscriber($this),
-            new TestConsideredRiskySubscriber($this),
-            new TestTriggeredDeprecationSubscriber($this),
-            new TestTriggeredErrorSubscriber($this),
-            new TestTriggeredNoticeSubscriber($this),
-            new TestTriggeredPhpDeprecationSubscriber($this),
-            new TestTriggeredPhpNoticeSubscriber($this),
-            new TestTriggeredPhpunitDeprecationSubscriber($this),
-            new TestTriggeredPhpunitErrorSubscriber($this),
-            new TestTriggeredPhpunitNoticeSubscriber($this),
-            new TestTriggeredPhpunitWarningSubscriber($this),
-            new TestTriggeredPhpWarningSubscriber($this),
-            new TestTriggeredWarningSubscriber($this),
-            new TestRunnerTriggeredDeprecationSubscriber($this),
-            new TestRunnerTriggeredNoticeSubscriber($this),
-            new TestRunnerTriggeredWarningSubscriber($this),
-            new ChildProcessErroredSubscriber($this),
-        );
+        $facade->register_subscribers(new Execution_Started_Subscriber($this), new Test_Suite_Skipped_Subscriber($this), new Test_Suite_Started_Subscriber($this), new Test_Suite_Finished_Subscriber($this), new Test_Prepared_Subscriber($this), new Test_Finished_Subscriber($this), new Before_Test_Class_Method_Errored_Subscriber($this), new Before_Test_Class_Method_Failed_Subscriber($this), new After_Test_Class_Method_Errored_Subscriber($this), new After_Test_Class_Method_Failed_Subscriber($this), new Test_Errored_Subscriber($this), new Test_Failed_Subscriber($this), new Test_Marked_Incomplete_Subscriber($this), new Test_Skipped_Subscriber($this), new Test_Considered_Risky_Subscriber($this), new Test_Triggered_Deprecation_Subscriber($this), new Test_Triggered_Error_Subscriber($this), new Test_Triggered_Notice_Subscriber($this), new Test_Triggered_Php_Deprecation_Subscriber($this), new Test_Triggered_Php_Notice_Subscriber($this), new Test_Triggered_Phpunit_Deprecation_Subscriber($this), new Test_Triggered_Phpunit_Error_Subscriber($this), new Test_Triggered_Phpunit_Notice_Subscriber($this), new Test_Triggered_Phpunit_Warning_Subscriber($this), new Test_Triggered_Php_Warning_Subscriber($this), new Test_Triggered_Warning_Subscriber($this), new Test_Runner_Triggered_Deprecation_Subscriber($this), new Test_Runner_Triggered_Notice_Subscriber($this), new Test_Runner_Triggered_Warning_Subscriber($this), new Child_Process_Errored_Subscriber($this));
     }
-
-    public function result(): TestResult
+    public function result(): Test_Result
     {
-        return new TestResult(
-            $this->numberOfTests,
-            $this->numberOfTestsRun,
-            $this->numberOfAssertions,
-            $this->testErroredEvents,
-            $this->testFailedEvents,
-            $this->testConsideredRiskyEvents,
-            $this->testSuiteSkippedEvents,
-            $this->testSkippedEvents,
-            $this->testMarkedIncompleteEvents,
-            $this->testTriggeredPhpunitDeprecationEvents,
-            $this->testTriggeredPhpunitErrorEvents,
-            $this->testTriggeredPhpunitNoticeEvents,
-            $this->testTriggeredPhpunitWarningEvents,
-            $this->testRunnerTriggeredDeprecationEvents,
-            $this->testRunnerTriggeredNoticeEvents,
-            $this->testRunnerTriggeredWarningEvents,
-            array_values($this->errors),
-            array_values($this->deprecations),
-            array_values($this->notices),
-            array_values($this->warnings),
-            array_values($this->phpDeprecations),
-            array_values($this->phpNotices),
-            array_values($this->phpWarnings),
-            $this->numberOfIssuesIgnoredByBaseline,
-        );
+        return new Test_Result($this->number_of_tests, $this->number_of_tests_run, $this->number_of_assertions, $this->test_errored_events, $this->test_failed_events, $this->test_considered_risky_events, $this->test_suite_skipped_events, $this->test_skipped_events, $this->test_marked_incomplete_events, $this->test_triggered_phpunit_deprecation_events, $this->test_triggered_phpunit_error_events, $this->test_triggered_phpunit_notice_events, $this->test_triggered_phpunit_warning_events, $this->test_runner_triggered_deprecation_events, $this->test_runner_triggered_notice_events, $this->test_runner_triggered_warning_events, array_values($this->errors), array_values($this->deprecations), array_values($this->notices), array_values($this->warnings), array_values($this->php_deprecations), array_values($this->php_notices), array_values($this->php_warnings), $this->number_of_issues_ignored_by_baseline);
     }
-
-    public function executionStarted(ExecutionStarted $event): void
+    public function execution_started(Execution_Started $event): void
     {
-        $this->numberOfTests = $event->testSuite()->count();
+        $this->number_of_tests = $event->test_suite()->count();
     }
-
-    public function testSuiteSkipped(TestSuiteSkipped $event): void
+    public function test_suite_skipped(Test_Suite_Skipped $event): void
     {
-        $testSuite = $event->testSuite();
-
-        if (!$testSuite->isForTestClass()) {
+        $test_suite = $event->test_suite();
+        if (!$test_suite->is_for_test_class()) {
             return;
         }
-
-        $this->testSuiteSkippedEvents[] = $event;
-
-        $this->numberOfTestsRun += $event->testSuite()->count();
+        $this->test_suite_skipped_events[] = $event;
+        $this->number_of_tests_run += $event->test_suite()->count();
     }
-
-    public function testSuiteStarted(TestSuiteStarted $event): void
+    public function test_suite_started(Test_Suite_Started $event): void
     {
-        $testSuite = $event->testSuite();
-
-        if (!$testSuite->isForTestClass()) {
+        $test_suite = $event->test_suite();
+        if (!$test_suite->is_for_test_class()) {
         }
     }
-
-    public function testSuiteFinished(TestSuiteFinished $event): void
+    public function test_suite_finished(Test_Suite_Finished $event): void
     {
-        $testSuite = $event->testSuite();
-
-        if ($testSuite->isWithName()) {
+        $test_suite = $event->test_suite();
+        if ($test_suite->is_with_name()) {
             return;
         }
-
-        if ($testSuite->isForTestMethodWithDataProvider()) {
-            assert($testSuite instanceof TestSuiteForTestMethodWithDataProvider);
-            assert(count($testSuite->tests()->asArray()) > 0);
-
-            $test = $testSuite->tests()->asArray()[0];
-
-            assert($test instanceof TestMethod);
-
-            foreach ($this->testFailedEvents as $testFailedEvent) {
-                if ($testFailedEvent->test()->isTestMethod() && $testFailedEvent->test()->methodName() === $test->methodName()) {
+        if ($test_suite->is_for_test_method_with_data_provider()) {
+            assert($test_suite instanceof Test_Suite_For_Test_Method_With_Data_Provider);
+            assert(count($test_suite->tests()->as_array()) > 0);
+            $test = $test_suite->tests()->as_array()[0];
+            assert($test instanceof Test_Method);
+            foreach ($this->test_failed_events as $test_failed_event) {
+                if ($test_failed_event->test()->is_test_method() && $test_failed_event->test()->method_name() === $test->method_name()) {
                     return;
                 }
             }
-
-            PassedTests::instance()->testMethodPassed($test, null);
-
+            Passed_Tests::instance()->test_method_passed($test, null);
             return;
         }
-
-        assert($testSuite instanceof TestSuiteForTestClass);
-
-        PassedTests::instance()->testClassPassed($testSuite->className());
+        assert($test_suite instanceof Test_Suite_For_Test_Class);
+        Passed_Tests::instance()->test_class_passed($test_suite->class_name());
     }
-
-    public function testPrepared(): void
+    public function test_prepared(): void
     {
         $this->prepared = true;
     }
-
-    public function testFinished(Finished $event): void
+    public function test_finished(Finished $event): void
     {
-        $this->numberOfAssertions += $event->numberOfAssertionsPerformed();
-
-        $this->numberOfTestsRun++;
-
-        $this->prepared            = false;
-        $this->childProcessErrored = false;
+        $this->number_of_assertions += $event->number_of_assertions_performed();
+        $this->number_of_tests_run++;
+        $this->prepared = false;
+        $this->child_process_errored = false;
     }
-
-    public function beforeTestClassMethodErrored(BeforeFirstTestMethodErrored $event): void
+    public function before_test_class_method_errored(Before_First_Test_Method_Errored $event): void
     {
-        $this->testErroredEvents[] = $event;
-
-        $this->numberOfTestsRun++;
+        $this->test_errored_events[] = $event;
+        $this->number_of_tests_run++;
     }
-
-    public function beforeTestClassMethodFailed(BeforeFirstTestMethodFailed $event): void
+    public function before_test_class_method_failed(Before_First_Test_Method_Failed $event): void
     {
-        $this->testFailedEvents[] = $event;
-
-        $this->numberOfTestsRun++;
+        $this->test_failed_events[] = $event;
+        $this->number_of_tests_run++;
     }
-
-    public function afterTestClassMethodErrored(AfterLastTestMethodErrored $event): void
+    public function after_test_class_method_errored(After_Last_Test_Method_Errored $event): void
     {
-        $this->testErroredEvents[] = $event;
+        $this->test_errored_events[] = $event;
     }
-
-    public function afterTestClassMethodFailed(AfterLastTestMethodFailed $event): void
+    public function after_test_class_method_failed(After_Last_Test_Method_Failed $event): void
     {
-        $this->testFailedEvents[] = $event;
+        $this->test_failed_events[] = $event;
     }
-
-    public function testErrored(Errored $event): void
+    public function test_errored(Errored $event): void
     {
-        $this->testErroredEvents[] = $event;
-
-        if ($this->childProcessErrored) {
+        $this->test_errored_events[] = $event;
+        if ($this->child_process_errored) {
             return;
         }
-
         if (!$this->prepared) {
-            $this->numberOfTestsRun++;
+            $this->number_of_tests_run++;
         }
     }
-
-    public function testFailed(Failed $event): void
+    public function test_failed(Failed $event): void
     {
-        $this->testFailedEvents[] = $event;
+        $this->test_failed_events[] = $event;
     }
-
-    public function testMarkedIncomplete(MarkedIncomplete $event): void
+    public function test_marked_incomplete(Marked_Incomplete $event): void
     {
-        $this->testMarkedIncompleteEvents[] = $event;
+        $this->test_marked_incomplete_events[] = $event;
     }
-
-    public function testSkipped(TestSkipped $event): void
+    public function test_skipped(Test_Skipped $event): void
     {
-        $this->testSkippedEvents[] = $event;
-
+        $this->test_skipped_events[] = $event;
         if (!$this->prepared) {
-            $this->numberOfTestsRun++;
+            $this->number_of_tests_run++;
         }
     }
-
-    public function testConsideredRisky(ConsideredRisky $event): void
+    public function test_considered_risky(Considered_Risky $event): void
     {
-        if (!isset($this->testConsideredRiskyEvents[$event->test()->id()])) {
-            $this->testConsideredRiskyEvents[$event->test()->id()] = [];
+        if (!isset($this->test_considered_risky_events[$event->test()->id()])) {
+            $this->test_considered_risky_events[$event->test()->id()] = [];
         }
-
-        $this->testConsideredRiskyEvents[$event->test()->id()][] = $event;
+        $this->test_considered_risky_events[$event->test()->id()][] = $event;
     }
-
-    public function testTriggeredDeprecation(DeprecationTriggered $event): void
+    public function test_triggered_deprecation(Deprecation_Triggered $event): void
     {
-        if (!$this->issueFilter->shouldBeProcessed($event)) {
+        if (!$this->issue_filter->should_be_processed($event)) {
             return;
         }
-
-        if ($event->ignoredByBaseline()) {
-            $this->numberOfIssuesIgnoredByBaseline++;
-
+        if ($event->ignored_by_baseline()) {
+            $this->number_of_issues_ignored_by_baseline++;
             return;
         }
-
-        $id = $this->issueId($event);
-
+        $id = $this->issue_id($event);
         if (!isset($this->deprecations[$id])) {
-            $this->deprecations[$id] = Issue::from(
-                $event->file(),
-                $event->line(),
-                $event->message(),
-                $event->test(),
-                $event->stackTrace(),
-            );
-
+            $this->deprecations[$id] = Issue::from($event->file(), $event->line(), $event->message(), $event->test(), $event->stack_trace());
             return;
         }
-
-        $this->deprecations[$id]->triggeredBy($event->test());
+        $this->deprecations[$id]->triggered_by($event->test());
     }
-
-    public function testTriggeredPhpDeprecation(PhpDeprecationTriggered $event): void
+    public function test_triggered_php_deprecation(Php_Deprecation_Triggered $event): void
     {
-        if (!$this->issueFilter->shouldBeProcessed($event)) {
+        if (!$this->issue_filter->should_be_processed($event)) {
             return;
         }
-
-        if ($event->ignoredByBaseline()) {
-            $this->numberOfIssuesIgnoredByBaseline++;
-
+        if ($event->ignored_by_baseline()) {
+            $this->number_of_issues_ignored_by_baseline++;
             return;
         }
-
-        $id = $this->issueId($event);
-
-        if (!isset($this->phpDeprecations[$id])) {
-            $this->phpDeprecations[$id] = Issue::from(
-                $event->file(),
-                $event->line(),
-                $event->message(),
-                $event->test(),
-            );
-
+        $id = $this->issue_id($event);
+        if (!isset($this->php_deprecations[$id])) {
+            $this->php_deprecations[$id] = Issue::from($event->file(), $event->line(), $event->message(), $event->test());
             return;
         }
-
-        $this->phpDeprecations[$id]->triggeredBy($event->test());
+        $this->php_deprecations[$id]->triggered_by($event->test());
     }
-
-    public function testTriggeredPhpunitDeprecation(PhpunitDeprecationTriggered $event): void
+    public function test_triggered_phpunit_deprecation(Phpunit_Deprecation_Triggered $event): void
     {
-        if (!isset($this->testTriggeredPhpunitDeprecationEvents[$event->test()->id()])) {
-            $this->testTriggeredPhpunitDeprecationEvents[$event->test()->id()] = [];
+        if (!isset($this->test_triggered_phpunit_deprecation_events[$event->test()->id()])) {
+            $this->test_triggered_phpunit_deprecation_events[$event->test()->id()] = [];
         }
-
-        $this->testTriggeredPhpunitDeprecationEvents[$event->test()->id()][] = $event;
+        $this->test_triggered_phpunit_deprecation_events[$event->test()->id()][] = $event;
     }
-
-    public function testTriggeredPhpunitNotice(PhpunitNoticeTriggered $event): void
+    public function test_triggered_phpunit_notice(Phpunit_Notice_Triggered $event): void
     {
-        if (!isset($this->testTriggeredPhpunitNoticeEvents[$event->test()->id()])) {
-            $this->testTriggeredPhpunitNoticeEvents[$event->test()->id()] = [];
+        if (!isset($this->test_triggered_phpunit_notice_events[$event->test()->id()])) {
+            $this->test_triggered_phpunit_notice_events[$event->test()->id()] = [];
         }
-
-        $this->testTriggeredPhpunitNoticeEvents[$event->test()->id()][] = $event;
+        $this->test_triggered_phpunit_notice_events[$event->test()->id()][] = $event;
     }
-
-    public function testTriggeredError(ErrorTriggered $event): void
+    public function test_triggered_error(Error_Triggered $event): void
     {
-        if (!$this->issueFilter->shouldBeProcessed($event)) {
+        if (!$this->issue_filter->should_be_processed($event)) {
             return;
         }
-
-        $id = $this->issueId($event);
-
+        $id = $this->issue_id($event);
         if (!isset($this->errors[$id])) {
-            $this->errors[$id] = Issue::from(
-                $event->file(),
-                $event->line(),
-                $event->message(),
-                $event->test(),
-            );
-
+            $this->errors[$id] = Issue::from($event->file(), $event->line(), $event->message(), $event->test());
             return;
         }
-
-        $this->errors[$id]->triggeredBy($event->test());
+        $this->errors[$id]->triggered_by($event->test());
     }
-
-    public function testTriggeredNotice(NoticeTriggered $event): void
+    public function test_triggered_notice(Notice_Triggered $event): void
     {
-        if (!$this->issueFilter->shouldBeProcessed($event)) {
+        if (!$this->issue_filter->should_be_processed($event)) {
             return;
         }
-
-        if ($event->ignoredByBaseline()) {
-            $this->numberOfIssuesIgnoredByBaseline++;
-
+        if ($event->ignored_by_baseline()) {
+            $this->number_of_issues_ignored_by_baseline++;
             return;
         }
-
-        $id = $this->issueId($event);
-
+        $id = $this->issue_id($event);
         if (!isset($this->notices[$id])) {
-            $this->notices[$id] = Issue::from(
-                $event->file(),
-                $event->line(),
-                $event->message(),
-                $event->test(),
-            );
-
+            $this->notices[$id] = Issue::from($event->file(), $event->line(), $event->message(), $event->test());
             return;
         }
-
-        $this->notices[$id]->triggeredBy($event->test());
+        $this->notices[$id]->triggered_by($event->test());
     }
-
-    public function testTriggeredPhpNotice(PhpNoticeTriggered $event): void
+    public function test_triggered_php_notice(Php_Notice_Triggered $event): void
     {
-        if (!$this->issueFilter->shouldBeProcessed($event)) {
+        if (!$this->issue_filter->should_be_processed($event)) {
             return;
         }
-
-        if ($event->ignoredByBaseline()) {
-            $this->numberOfIssuesIgnoredByBaseline++;
-
+        if ($event->ignored_by_baseline()) {
+            $this->number_of_issues_ignored_by_baseline++;
             return;
         }
-
-        $id = $this->issueId($event);
-
-        if (!isset($this->phpNotices[$id])) {
-            $this->phpNotices[$id] = Issue::from(
-                $event->file(),
-                $event->line(),
-                $event->message(),
-                $event->test(),
-            );
-
+        $id = $this->issue_id($event);
+        if (!isset($this->php_notices[$id])) {
+            $this->php_notices[$id] = Issue::from($event->file(), $event->line(), $event->message(), $event->test());
             return;
         }
-
-        $this->phpNotices[$id]->triggeredBy($event->test());
+        $this->php_notices[$id]->triggered_by($event->test());
     }
-
-    public function testTriggeredWarning(WarningTriggered $event): void
+    public function test_triggered_warning(Warning_Triggered $event): void
     {
-        if (!$this->issueFilter->shouldBeProcessed($event)) {
+        if (!$this->issue_filter->should_be_processed($event)) {
             return;
         }
-
-        if ($event->ignoredByBaseline()) {
-            $this->numberOfIssuesIgnoredByBaseline++;
-
+        if ($event->ignored_by_baseline()) {
+            $this->number_of_issues_ignored_by_baseline++;
             return;
         }
-
-        $id = $this->issueId($event);
-
+        $id = $this->issue_id($event);
         if (!isset($this->warnings[$id])) {
-            $this->warnings[$id] = Issue::from(
-                $event->file(),
-                $event->line(),
-                $event->message(),
-                $event->test(),
-            );
-
+            $this->warnings[$id] = Issue::from($event->file(), $event->line(), $event->message(), $event->test());
             return;
         }
-
-        $this->warnings[$id]->triggeredBy($event->test());
+        $this->warnings[$id]->triggered_by($event->test());
     }
-
-    public function testTriggeredPhpWarning(PhpWarningTriggered $event): void
+    public function test_triggered_php_warning(Php_Warning_Triggered $event): void
     {
-        if (!$this->issueFilter->shouldBeProcessed($event)) {
+        if (!$this->issue_filter->should_be_processed($event)) {
             return;
         }
-
-        if ($event->ignoredByBaseline()) {
-            $this->numberOfIssuesIgnoredByBaseline++;
-
+        if ($event->ignored_by_baseline()) {
+            $this->number_of_issues_ignored_by_baseline++;
             return;
         }
-
-        $id = $this->issueId($event);
-
-        if (!isset($this->phpWarnings[$id])) {
-            $this->phpWarnings[$id] = Issue::from(
-                $event->file(),
-                $event->line(),
-                $event->message(),
-                $event->test(),
-            );
-
+        $id = $this->issue_id($event);
+        if (!isset($this->php_warnings[$id])) {
+            $this->php_warnings[$id] = Issue::from($event->file(), $event->line(), $event->message(), $event->test());
             return;
         }
-
-        $this->phpWarnings[$id]->triggeredBy($event->test());
+        $this->php_warnings[$id]->triggered_by($event->test());
     }
-
-    public function testTriggeredPhpunitError(PhpunitErrorTriggered $event): void
+    public function test_triggered_phpunit_error(Phpunit_Error_Triggered $event): void
     {
-        if (!isset($this->testTriggeredPhpunitErrorEvents[$event->test()->id()])) {
-            $this->testTriggeredPhpunitErrorEvents[$event->test()->id()] = [];
+        if (!isset($this->test_triggered_phpunit_error_events[$event->test()->id()])) {
+            $this->test_triggered_phpunit_error_events[$event->test()->id()] = [];
         }
-
-        $this->testTriggeredPhpunitErrorEvents[$event->test()->id()][] = $event;
+        $this->test_triggered_phpunit_error_events[$event->test()->id()][] = $event;
     }
-
-    public function testTriggeredPhpunitWarning(PhpunitWarningTriggered $event): void
+    public function test_triggered_phpunit_warning(Phpunit_Warning_Triggered $event): void
     {
-        if ($event->ignoredByTest()) {
+        if ($event->ignored_by_test()) {
             return;
         }
-
-        if (!isset($this->testTriggeredPhpunitWarningEvents[$event->test()->id()])) {
-            $this->testTriggeredPhpunitWarningEvents[$event->test()->id()] = [];
+        if (!isset($this->test_triggered_phpunit_warning_events[$event->test()->id()])) {
+            $this->test_triggered_phpunit_warning_events[$event->test()->id()] = [];
         }
-
-        $this->testTriggeredPhpunitWarningEvents[$event->test()->id()][] = $event;
+        $this->test_triggered_phpunit_warning_events[$event->test()->id()][] = $event;
     }
-
-    public function testRunnerTriggeredDeprecation(TestRunnerDeprecationTriggered $event): void
+    public function test_runner_triggered_deprecation(Test_Runner_Deprecation_Triggered $event): void
     {
-        $this->testRunnerTriggeredDeprecationEvents[] = $event;
+        $this->test_runner_triggered_deprecation_events[] = $event;
     }
-
-    public function testRunnerTriggeredNotice(TestRunnerNoticeTriggered $event): void
+    public function test_runner_triggered_notice(Test_Runner_Notice_Triggered $event): void
     {
-        $this->testRunnerTriggeredNoticeEvents[] = $event;
+        $this->test_runner_triggered_notice_events[] = $event;
     }
-
-    public function testRunnerTriggeredWarning(TestRunnerWarningTriggered $event): void
+    public function test_runner_triggered_warning(Test_Runner_Warning_Triggered $event): void
     {
-        $this->testRunnerTriggeredWarningEvents[] = $event;
+        $this->test_runner_triggered_warning_events[] = $event;
     }
-
-    public function childProcessErrored(): void
+    public function child_process_errored(): void
     {
-        $this->childProcessErrored = true;
+        $this->child_process_errored = true;
     }
-
-    public function hasErroredTests(): bool
+    public function has_errored_tests(): bool
     {
-        return $this->testErroredEvents !== [];
+        return $this->test_errored_events !== [];
     }
-
-    public function hasFailedTests(): bool
+    public function has_failed_tests(): bool
     {
-        return $this->testFailedEvents !== [];
+        return $this->test_failed_events !== [];
     }
-
-    public function hasRiskyTests(): bool
+    public function has_risky_tests(): bool
     {
-        return $this->testConsideredRiskyEvents !== [];
+        return $this->test_considered_risky_events !== [];
     }
-
-    public function hasSkippedTests(): bool
+    public function has_skipped_tests(): bool
     {
-        return $this->testSkippedEvents !== [];
+        return $this->test_skipped_events !== [];
     }
-
-    public function hasIncompleteTests(): bool
+    public function has_incomplete_tests(): bool
     {
-        return $this->testMarkedIncompleteEvents !== [];
+        return $this->test_marked_incomplete_events !== [];
     }
-
-    public function hasDeprecations(): bool
+    public function has_deprecations(): bool
     {
-        return $this->deprecations !== [] ||
-               $this->phpDeprecations !== [] ||
-               $this->testTriggeredPhpunitDeprecationEvents !== [] ||
-               $this->testRunnerTriggeredDeprecationEvents !== [];
+        return $this->deprecations !== [] || $this->php_deprecations !== [] || $this->test_triggered_phpunit_deprecation_events !== [] || $this->test_runner_triggered_deprecation_events !== [];
     }
-
-    public function hasNotices(): bool
+    public function has_notices(): bool
     {
-        return $this->notices !== [] ||
-               $this->phpNotices !== [];
+        return $this->notices !== [] || $this->php_notices !== [];
     }
-
-    public function hasWarnings(): bool
+    public function has_warnings(): bool
     {
-        return $this->warnings !== [] ||
-               $this->phpWarnings !== [] ||
-               $this->testTriggeredPhpunitWarningEvents !== [] ||
-               $this->testRunnerTriggeredWarningEvents !== [];
+        return $this->warnings !== [] || $this->php_warnings !== [] || $this->test_triggered_phpunit_warning_events !== [] || $this->test_runner_triggered_warning_events !== [];
     }
-
     /**
      * @return non-empty-string
      */
-    private function issueId(DeprecationTriggered|ErrorTriggered|NoticeTriggered|PhpDeprecationTriggered|PhpNoticeTriggered|PhpWarningTriggered|WarningTriggered $event): string
+    private function issue_id(Deprecation_Triggered|Error_Triggered|Notice_Triggered|Php_Deprecation_Triggered|Php_Notice_Triggered|Php_Warning_Triggered|Warning_Triggered $event): string
     {
         return implode(':', [$event->file(), $event->line(), $event->message()]);
     }

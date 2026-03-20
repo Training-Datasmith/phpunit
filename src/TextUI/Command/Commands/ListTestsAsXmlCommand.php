@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,29 +9,23 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Command;
+namespace Php_Unit\Text_Ui\Command;
 
 use function assert;
 use function file_put_contents;
 use function ksort;
-
 use const PHP_EOL;
-
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Runner\Phpt\TestCase as PhptTestCase;
+use Php_Unit\Framework\Test_Case;
+use Php_Unit\Runner\Phpt\Test_Case as PhptTestCase;
 use ReflectionClass;
-
 use function sprintf;
-
-use XMLWriter;
-
+use Xml_Writer;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ListTestsAsXmlCommand implements Command
+final readonly class List_Tests_As_Xml_Command implements Command
 {
     /**
      * @param list<PhptTestCase|TestCase> $tests
@@ -39,101 +33,69 @@ final readonly class ListTestsAsXmlCommand implements Command
     public function __construct(private array $tests, private string $filename)
     {
     }
-
     public function execute(): Result
     {
-        $writer = new XMLWriter();
-
-        $writer->openMemory();
-        $writer->setIndent(true);
-        $writer->startDocument();
-
-        $writer->startElement('testSuite');
-        $writer->writeAttribute('xmlns', 'https://xml.phpunit.de/testSuite');
-
-        $writer->startElement('tests');
-
-        $currentTestClass = null;
-        $groups           = [];
-
+        $writer = new Xml_Writer();
+        $writer->open_memory();
+        $writer->set_indent(true);
+        $writer->start_document();
+        $writer->start_element('testSuite');
+        $writer->write_attribute('xmlns', 'https://xml.phpunit.de/testSuite');
+        $writer->start_element('tests');
+        $current_test_class = null;
+        $groups = [];
         foreach ($this->tests as $test) {
-            if ($test instanceof TestCase) {
+            if ($test instanceof Test_Case) {
                 foreach ($test->groups() as $group) {
                     if (!isset($groups[$group])) {
                         $groups[$group] = [];
                     }
-
-                    $groups[$group][] = $test->valueObjectForEvents()->id();
+                    $groups[$group][] = $test->value_object_for_events()->id();
                 }
-
-                if ($test::class !== $currentTestClass) {
-                    if ($currentTestClass !== null) {
-                        $writer->endElement();
+                if ($test::class !== $current_test_class) {
+                    if ($current_test_class !== null) {
+                        $writer->end_element();
                     }
-
-                    $file = new ReflectionClass($test)->getFileName();
-
+                    $file = (new ReflectionClass($test))->get_file_name();
                     assert($file !== false);
-
-                    $writer->startElement('testClass');
-                    $writer->writeAttribute('name', $test::class);
-                    $writer->writeAttribute('file', $file);
-
-                    $currentTestClass = $test::class;
+                    $writer->start_element('testClass');
+                    $writer->write_attribute('name', $test::class);
+                    $writer->write_attribute('file', $file);
+                    $current_test_class = $test::class;
                 }
-
-                $writer->startElement('testMethod');
-                $writer->writeAttribute('id', $test->valueObjectForEvents()->id());
-                $writer->writeAttribute('name', $test->valueObjectForEvents()->methodName());
-                $writer->endElement();
-
+                $writer->start_element('testMethod');
+                $writer->write_attribute('id', $test->value_object_for_events()->id());
+                $writer->write_attribute('name', $test->value_object_for_events()->method_name());
+                $writer->end_element();
                 continue;
             }
-
-            if ($currentTestClass !== null) {
-                $writer->endElement();
-
-                $currentTestClass = null;
+            if ($current_test_class !== null) {
+                $writer->end_element();
+                $current_test_class = null;
             }
-
-            $writer->startElement('phpt');
-            $writer->writeAttribute('file', $test->getName());
-            $writer->endElement();
+            $writer->start_element('phpt');
+            $writer->write_attribute('file', $test->get_name());
+            $writer->end_element();
         }
-
-        if ($currentTestClass !== null) {
-            $writer->endElement();
+        if ($current_test_class !== null) {
+            $writer->end_element();
         }
-
-        $writer->endElement();
-
+        $writer->end_element();
         ksort($groups);
-
-        $writer->startElement('groups');
-
-        foreach ($groups as $groupName => $testIds) {
-            $writer->startElement('group');
-            $writer->writeAttribute('name', (string) $groupName);
-
-            foreach ($testIds as $testId) {
-                $writer->startElement('test');
-                $writer->writeAttribute('id', $testId);
-                $writer->endElement();
+        $writer->start_element('groups');
+        foreach ($groups as $group_name => $test_ids) {
+            $writer->start_element('group');
+            $writer->write_attribute('name', (string) $group_name);
+            foreach ($test_ids as $test_id) {
+                $writer->start_element('test');
+                $writer->write_attribute('id', $test_id);
+                $writer->end_element();
             }
-
-            $writer->endElement();
+            $writer->end_element();
         }
-
-        $writer->endElement();
-        $writer->endElement();
-
-        file_put_contents($this->filename, $writer->outputMemory());
-
-        return Result::from(
-            sprintf(
-                'Wrote list of tests that would have been run to %s' . PHP_EOL,
-                $this->filename,
-            ),
-        );
+        $writer->end_element();
+        $writer->end_element();
+        file_put_contents($this->filename, $writer->output_memory());
+        return Result::from(sprintf('Wrote list of tests that would have been run to %s' . PHP_EOL, $this->filename));
     }
 }

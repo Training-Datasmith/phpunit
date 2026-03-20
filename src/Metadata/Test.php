@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Metadata;
+namespace Php_Unit\Metadata;
 
 /**
  * @immutable
@@ -19,7 +18,7 @@ namespace PHPUnit\Metadata;
  */
 final readonly class Test extends Metadata
 {
-    public function isTest(): true
+    public function is_test(): true
     {
         return true;
     }

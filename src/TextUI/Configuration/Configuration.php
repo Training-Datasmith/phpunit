@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,11 +9,9 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Configuration;
+namespace Php_Unit\Text_Ui\Configuration;
 
 use function explode;
-
 /**
  * @immutable
  *
@@ -21,11 +19,10 @@ use function explode;
  */
 final readonly class Configuration
 {
-    public const string COLOR_NEVER   = 'never';
-    public const string COLOR_AUTO    = 'auto';
-    public const string COLOR_ALWAYS  = 'always';
+    public const string COLOR_NEVER = 'never';
+    public const string COLOR_AUTO = 'auto';
+    public const string COLOR_ALWAYS = 'always';
     public const string COLOR_DEFAULT = self::COLOR_NEVER;
-
     /**
      * @param list<non-empty-string>                                                      $cliArguments
      * @param array<non-empty-string, non-empty-string>                                   $bootstrapForTestSuite
@@ -40,1139 +37,949 @@ final readonly class Configuration
      * @param null|non-empty-string                                                       $generateBaseline
      * @param non-negative-int                                                            $shortenArraysForExportThreshold
      */
-    public function __construct(private array $cliArguments, private ?string $testFilesFile, private ?string $configurationFile, private ?string $bootstrap, private array $bootstrapForTestSuite, private bool $cacheResult, private ?string $cacheDirectory, private ?string $coverageCacheDirectory, private Source $source, private string $testResultCacheFile, private ?string $coverageClover, private ?string $coverageCobertura, private ?string $coverageCrap4j, private int $coverageCrap4jThreshold, private ?string $coverageHtml, private int $coverageHtmlLowUpperBound, private int $coverageHtmlHighLowerBound, private string $coverageHtmlColorSuccessLow, private string $coverageHtmlColorSuccessLowDark, private string $coverageHtmlColorSuccessMedium, private string $coverageHtmlColorSuccessMediumDark, private string $coverageHtmlColorSuccessHigh, private string $coverageHtmlColorSuccessHighDark, private string $coverageHtmlColorSuccessBar, private string $coverageHtmlColorSuccessBarDark, private string $coverageHtmlColorWarning, private string $coverageHtmlColorWarningDark, private string $coverageHtmlColorWarningBar, private string $coverageHtmlColorWarningBarDark, private string $coverageHtmlColorDanger, private string $coverageHtmlColorDangerDark, private string $coverageHtmlColorDangerBar, private string $coverageHtmlColorDangerBarDark, private string $coverageHtmlColorBreadcrumbs, private string $coverageHtmlColorBreadcrumbsDark, private ?string $coverageHtmlCustomCssFile, private ?string $coverageOpenClover, private ?string $coveragePhp, private ?string $coverageText, private bool $coverageTextShowUncoveredFiles, private bool $coverageTextShowOnlySummary, private ?string $coverageXml, private bool $coverageXmlIncludeSource, private bool $pathCoverage, private bool $ignoreDeprecatedCodeUnitsFromCodeCoverage, private bool $disableCodeCoverageIgnore, private bool $failOnAllIssues, private bool $failOnDeprecation, private bool $failOnPhpunitDeprecation, private bool $failOnPhpunitNotice, private bool $failOnPhpunitWarning, private bool $failOnEmptyTestSuite, private bool $failOnIncomplete, private bool $failOnNotice, private bool $failOnRisky, private bool $failOnSkipped, private bool $failOnWarning, private bool $doNotFailOnDeprecation, private bool $doNotFailOnPhpunitDeprecation, private bool $doNotFailOnPhpunitNotice, private bool $doNotFailOnPhpunitWarning, private bool $doNotFailOnEmptyTestSuite, private bool $doNotFailOnIncomplete, private bool $doNotFailOnNotice, private bool $doNotFailOnRisky, private bool $doNotFailOnSkipped, private bool $doNotFailOnWarning, private bool $stopOnDefect, private bool $stopOnDeprecation, private ?string $specificDeprecationToStopOn, private bool $stopOnError, private bool $stopOnFailure, private bool $stopOnIncomplete, private bool $stopOnNotice, private bool $stopOnRisky, private bool $stopOnSkipped, private bool $stopOnWarning, private bool $outputToStandardErrorStream, private int $columns, private bool $noExtensions, private ?string $pharExtensionDirectory, private array $extensionBootstrappers, private bool $backupGlobals, private bool $backupStaticProperties, private bool $beStrictAboutChangesToGlobalState, private bool $colors, private bool $processIsolation, private bool $enforceTimeLimit, private int $defaultTimeLimit, private int $timeoutForSmallTests, private int $timeoutForMediumTests, private int $timeoutForLargeTests, private bool $reportUselessTests, private bool $strictCoverage, private bool $disallowTestOutput, private bool $displayDetailsOnAllIssues, private bool $displayDetailsOnIncompleteTests, private bool $displayDetailsOnSkippedTests, private bool $displayDetailsOnTestsThatTriggerDeprecations, private bool $displayDetailsOnPhpunitDeprecations, private bool $displayDetailsOnPhpunitNotices, private bool $displayDetailsOnTestsThatTriggerErrors, private bool $displayDetailsOnTestsThatTriggerNotices, private bool $displayDetailsOnTestsThatTriggerWarnings, private bool $reverseDefectList, private bool $requireCoverageMetadata, private bool $requireSealedMockObjects, private bool $noProgress, private bool $noResults, private bool $noOutput, private int $executionOrder, private int $executionOrderDefects, private bool $resolveDependencies, private ?string $logfileTeamcity, private ?string $logfileJunit, private ?string $logfileOtr, private bool $includeGitInformation, private bool $includeGitInformationInOtrLogfile, private ?string $logfileTestdoxHtml, private ?string $logfileTestdoxText, private ?string $logEventsText, private ?string $logEventsVerboseText, private bool $teamCityOutput, private bool $testDoxOutput, private bool $testDoxOutputSummary, private ?array $testsCovering, private ?array $testsUsing, private ?array $testsRequiringPhpExtension, private ?string $filter, private ?string $excludeFilter, private array $groups, private array $excludeGroups, private int $randomOrderSeed, private bool $includeUncoveredFiles, private TestSuiteCollection $testSuite, private string $includeTestSuite, private string $excludeTestSuite, private ?string $defaultTestSuite, private bool $ignoreTestSelectionInXmlConfiguration, private array $testSuffixes, private Php $php, private bool $controlGarbageCollector, private int $numberOfTestsBeforeGarbageCollection, private ?string $generateBaseline, private bool $debug, private bool $withTelemetry, private int $shortenArraysForExportThreshold)
+    public function __construct(private array $cli_arguments, private ?string $test_files_file, private ?string $configuration_file, private ?string $bootstrap, private array $bootstrap_for_test_suite, private bool $cache_result, private ?string $cache_directory, private ?string $coverage_cache_directory, private Source $source, private string $test_result_cache_file, private ?string $coverage_clover, private ?string $coverage_cobertura, private ?string $coverage_crap4j, private int $coverage_crap4j_threshold, private ?string $coverage_html, private int $coverage_html_low_upper_bound, private int $coverage_html_high_lower_bound, private string $coverage_html_color_success_low, private string $coverage_html_color_success_low_dark, private string $coverage_html_color_success_medium, private string $coverage_html_color_success_medium_dark, private string $coverage_html_color_success_high, private string $coverage_html_color_success_high_dark, private string $coverage_html_color_success_bar, private string $coverage_html_color_success_bar_dark, private string $coverage_html_color_warning, private string $coverage_html_color_warning_dark, private string $coverage_html_color_warning_bar, private string $coverage_html_color_warning_bar_dark, private string $coverage_html_color_danger, private string $coverage_html_color_danger_dark, private string $coverage_html_color_danger_bar, private string $coverage_html_color_danger_bar_dark, private string $coverage_html_color_breadcrumbs, private string $coverage_html_color_breadcrumbs_dark, private ?string $coverage_html_custom_css_file, private ?string $coverage_open_clover, private ?string $coverage_php, private ?string $coverage_text, private bool $coverage_text_show_uncovered_files, private bool $coverage_text_show_only_summary, private ?string $coverage_xml, private bool $coverage_xml_include_source, private bool $path_coverage, private bool $ignore_deprecated_code_units_from_code_coverage, private bool $disable_code_coverage_ignore, private bool $fail_on_all_issues, private bool $fail_on_deprecation, private bool $fail_on_phpunit_deprecation, private bool $fail_on_phpunit_notice, private bool $fail_on_phpunit_warning, private bool $fail_on_empty_test_suite, private bool $fail_on_incomplete, private bool $fail_on_notice, private bool $fail_on_risky, private bool $fail_on_skipped, private bool $fail_on_warning, private bool $do_not_fail_on_deprecation, private bool $do_not_fail_on_phpunit_deprecation, private bool $do_not_fail_on_phpunit_notice, private bool $do_not_fail_on_phpunit_warning, private bool $do_not_fail_on_empty_test_suite, private bool $do_not_fail_on_incomplete, private bool $do_not_fail_on_notice, private bool $do_not_fail_on_risky, private bool $do_not_fail_on_skipped, private bool $do_not_fail_on_warning, private bool $stop_on_defect, private bool $stop_on_deprecation, private ?string $specific_deprecation_to_stop_on, private bool $stop_on_error, private bool $stop_on_failure, private bool $stop_on_incomplete, private bool $stop_on_notice, private bool $stop_on_risky, private bool $stop_on_skipped, private bool $stop_on_warning, private bool $output_to_standard_error_stream, private int $columns, private bool $no_extensions, private ?string $phar_extension_directory, private array $extension_bootstrappers, private bool $backup_globals, private bool $backup_static_properties, private bool $be_strict_about_changes_to_global_state, private bool $colors, private bool $process_isolation, private bool $enforce_time_limit, private int $default_time_limit, private int $timeout_for_small_tests, private int $timeout_for_medium_tests, private int $timeout_for_large_tests, private bool $report_useless_tests, private bool $strict_coverage, private bool $disallow_test_output, private bool $display_details_on_all_issues, private bool $display_details_on_incomplete_tests, private bool $display_details_on_skipped_tests, private bool $display_details_on_tests_that_trigger_deprecations, private bool $display_details_on_phpunit_deprecations, private bool $display_details_on_phpunit_notices, private bool $display_details_on_tests_that_trigger_errors, private bool $display_details_on_tests_that_trigger_notices, private bool $display_details_on_tests_that_trigger_warnings, private bool $reverse_defect_list, private bool $require_coverage_metadata, private bool $require_sealed_mock_objects, private bool $no_progress, private bool $no_results, private bool $no_output, private int $execution_order, private int $execution_order_defects, private bool $resolve_dependencies, private ?string $logfile_teamcity, private ?string $logfile_junit, private ?string $logfile_otr, private bool $include_git_information, private bool $include_git_information_in_otr_logfile, private ?string $logfile_testdox_html, private ?string $logfile_testdox_text, private ?string $log_events_text, private ?string $log_events_verbose_text, private bool $team_city_output, private bool $test_dox_output, private bool $test_dox_output_summary, private ?array $tests_covering, private ?array $tests_using, private ?array $tests_requiring_php_extension, private ?string $filter, private ?string $exclude_filter, private array $groups, private array $exclude_groups, private int $random_order_seed, private bool $include_uncovered_files, private Test_Suite_Collection $test_suite, private string $include_test_suite, private string $exclude_test_suite, private ?string $default_test_suite, private bool $ignore_test_selection_in_xml_configuration, private array $test_suffixes, private Php $php, private bool $control_garbage_collector, private int $number_of_tests_before_garbage_collection, private ?string $generate_baseline, private bool $debug, private bool $with_telemetry, private int $shorten_arrays_for_export_threshold)
     {
     }
-
     /**
      * @phpstan-assert-if-true !empty $this->cliArguments
      */
-    public function hasCliArguments(): bool
+    public function has_cli_arguments(): bool
     {
-        return $this->cliArguments !== [];
+        return $this->cli_arguments !== [];
     }
-
     /**
      * @return list<non-empty-string>
      */
-    public function cliArguments(): array
+    public function cli_arguments(): array
     {
-        return $this->cliArguments;
+        return $this->cli_arguments;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->testFilesFile
      */
-    public function hasTestFilesFile(): bool
+    public function has_test_files_file(): bool
     {
-        return $this->testFilesFile !== null;
+        return $this->test_files_file !== null;
     }
-
     /**
      * @throws NoTestFilesFileException
      */
-    public function testFilesFile(): string
+    public function test_files_file(): string
     {
-        if (!$this->hasTestFilesFile()) {
-            throw new NoTestFilesFileException();
+        if (!$this->has_test_files_file()) {
+            throw new No_Test_Files_File_Exception();
         }
-
-        return $this->testFilesFile;
+        return $this->test_files_file;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->configurationFile
      */
-    public function hasConfigurationFile(): bool
+    public function has_configuration_file(): bool
     {
-        return $this->configurationFile !== null;
+        return $this->configuration_file !== null;
     }
-
     /**
      * @throws NoConfigurationFileException
      */
-    public function configurationFile(): string
+    public function configuration_file(): string
     {
-        if (!$this->hasConfigurationFile()) {
-            throw new NoConfigurationFileException();
+        if (!$this->has_configuration_file()) {
+            throw new No_Configuration_File_Exception();
         }
-
-        return $this->configurationFile;
+        return $this->configuration_file;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->bootstrap
      */
-    public function hasBootstrap(): bool
+    public function has_bootstrap(): bool
     {
         return $this->bootstrap !== null;
     }
-
     /**
      * @throws NoBootstrapException
      */
     public function bootstrap(): string
     {
-        if (!$this->hasBootstrap()) {
-            throw new NoBootstrapException();
+        if (!$this->has_bootstrap()) {
+            throw new No_Bootstrap_Exception();
         }
-
         return $this->bootstrap;
     }
-
     /**
      * @return array<non-empty-string, non-empty-string>
      */
-    public function bootstrapForTestSuite(): array
+    public function bootstrap_for_test_suite(): array
     {
-        return $this->bootstrapForTestSuite;
+        return $this->bootstrap_for_test_suite;
     }
-
-    public function cacheResult(): bool
+    public function cache_result(): bool
     {
-        return $this->cacheResult;
+        return $this->cache_result;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->cacheDirectory
      */
-    public function hasCacheDirectory(): bool
+    public function has_cache_directory(): bool
     {
-        return $this->cacheDirectory !== null;
+        return $this->cache_directory !== null;
     }
-
     /**
      * @throws NoCacheDirectoryException
      */
-    public function cacheDirectory(): string
+    public function cache_directory(): string
     {
-        if (!$this->hasCacheDirectory()) {
-            throw new NoCacheDirectoryException();
+        if (!$this->has_cache_directory()) {
+            throw new No_Cache_Directory_Exception();
         }
-
-        return $this->cacheDirectory;
+        return $this->cache_directory;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageCacheDirectory
      */
-    public function hasCoverageCacheDirectory(): bool
+    public function has_coverage_cache_directory(): bool
     {
-        return $this->coverageCacheDirectory !== null;
+        return $this->coverage_cache_directory !== null;
     }
-
     /**
      * @throws NoCoverageCacheDirectoryException
      */
-    public function coverageCacheDirectory(): string
+    public function coverage_cache_directory(): string
     {
-        if (!$this->hasCoverageCacheDirectory()) {
-            throw new NoCoverageCacheDirectoryException();
+        if (!$this->has_coverage_cache_directory()) {
+            throw new No_Coverage_Cache_Directory_Exception();
         }
-
-        return $this->coverageCacheDirectory;
+        return $this->coverage_cache_directory;
     }
-
     public function source(): Source
     {
         return $this->source;
     }
-
-    public function testResultCacheFile(): string
+    public function test_result_cache_file(): string
     {
-        return $this->testResultCacheFile;
+        return $this->test_result_cache_file;
     }
-
-    public function ignoreDeprecatedCodeUnitsFromCodeCoverage(): bool
+    public function ignore_deprecated_code_units_from_code_coverage(): bool
     {
-        return $this->ignoreDeprecatedCodeUnitsFromCodeCoverage;
+        return $this->ignore_deprecated_code_units_from_code_coverage;
     }
-
-    public function disableCodeCoverageIgnore(): bool
+    public function disable_code_coverage_ignore(): bool
     {
-        return $this->disableCodeCoverageIgnore;
+        return $this->disable_code_coverage_ignore;
     }
-
-    public function pathCoverage(): bool
+    public function path_coverage(): bool
     {
-        return $this->pathCoverage;
+        return $this->path_coverage;
     }
-
-    public function hasCoverageReport(): bool
+    public function has_coverage_report(): bool
     {
-        if ($this->hasCoverageClover()) {
+        if ($this->has_coverage_clover()) {
             return true;
         }
-        if ($this->hasCoverageCobertura()) {
+        if ($this->has_coverage_cobertura()) {
             return true;
         }
-        if ($this->hasCoverageCrap4j()) {
+        if ($this->has_coverage_crap4j()) {
             return true;
         }
-        if ($this->hasCoverageHtml()) {
+        if ($this->has_coverage_html()) {
             return true;
         }
-        if ($this->hasCoverageOpenClover()) {
+        if ($this->has_coverage_open_clover()) {
             return true;
         }
-        if ($this->hasCoveragePhp()) {
+        if ($this->has_coverage_php()) {
             return true;
         }
-        if ($this->hasCoverageText()) {
+        if ($this->has_coverage_text()) {
             return true;
         }
-        return $this->hasCoverageXml();
+        return $this->has_coverage_xml();
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageClover
      */
-    public function hasCoverageClover(): bool
+    public function has_coverage_clover(): bool
     {
-        return $this->coverageClover !== null;
+        return $this->coverage_clover !== null;
     }
-
     /**
      * @throws CodeCoverageReportNotConfiguredException
      */
-    public function coverageClover(): string
+    public function coverage_clover(): string
     {
-        if (!$this->hasCoverageClover()) {
-            throw new CodeCoverageReportNotConfiguredException();
+        if (!$this->has_coverage_clover()) {
+            throw new Code_Coverage_Report_Not_Configured_Exception();
         }
-
-        return $this->coverageClover;
+        return $this->coverage_clover;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageCobertura
      */
-    public function hasCoverageCobertura(): bool
+    public function has_coverage_cobertura(): bool
     {
-        return $this->coverageCobertura !== null;
+        return $this->coverage_cobertura !== null;
     }
-
     /**
      * @throws CodeCoverageReportNotConfiguredException
      */
-    public function coverageCobertura(): string
+    public function coverage_cobertura(): string
     {
-        if (!$this->hasCoverageCobertura()) {
-            throw new CodeCoverageReportNotConfiguredException();
+        if (!$this->has_coverage_cobertura()) {
+            throw new Code_Coverage_Report_Not_Configured_Exception();
         }
-
-        return $this->coverageCobertura;
+        return $this->coverage_cobertura;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageCrap4j
      */
-    public function hasCoverageCrap4j(): bool
+    public function has_coverage_crap4j(): bool
     {
-        return $this->coverageCrap4j !== null;
+        return $this->coverage_crap4j !== null;
     }
-
     /**
      * @throws CodeCoverageReportNotConfiguredException
      */
-    public function coverageCrap4j(): string
+    public function coverage_crap4j(): string
     {
-        if (!$this->hasCoverageCrap4j()) {
-            throw new CodeCoverageReportNotConfiguredException();
+        if (!$this->has_coverage_crap4j()) {
+            throw new Code_Coverage_Report_Not_Configured_Exception();
         }
-
-        return $this->coverageCrap4j;
+        return $this->coverage_crap4j;
     }
-
-    public function coverageCrap4jThreshold(): int
+    public function coverage_crap4j_threshold(): int
     {
-        return $this->coverageCrap4jThreshold;
+        return $this->coverage_crap4j_threshold;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageHtml
      */
-    public function hasCoverageHtml(): bool
+    public function has_coverage_html(): bool
     {
-        return $this->coverageHtml !== null;
+        return $this->coverage_html !== null;
     }
-
     /**
      * @throws CodeCoverageReportNotConfiguredException
      */
-    public function coverageHtml(): string
+    public function coverage_html(): string
     {
-        if (!$this->hasCoverageHtml()) {
-            throw new CodeCoverageReportNotConfiguredException();
+        if (!$this->has_coverage_html()) {
+            throw new Code_Coverage_Report_Not_Configured_Exception();
         }
-
-        return $this->coverageHtml;
+        return $this->coverage_html;
     }
-
-    public function coverageHtmlLowUpperBound(): int
+    public function coverage_html_low_upper_bound(): int
     {
-        return $this->coverageHtmlLowUpperBound;
+        return $this->coverage_html_low_upper_bound;
     }
-
-    public function coverageHtmlHighLowerBound(): int
+    public function coverage_html_high_lower_bound(): int
     {
-        return $this->coverageHtmlHighLowerBound;
+        return $this->coverage_html_high_lower_bound;
     }
-
-    public function coverageHtmlColorSuccessLow(): string
+    public function coverage_html_color_success_low(): string
     {
-        return $this->coverageHtmlColorSuccessLow;
+        return $this->coverage_html_color_success_low;
     }
-
-    public function coverageHtmlColorSuccessLowDark(): string
+    public function coverage_html_color_success_low_dark(): string
     {
-        return $this->coverageHtmlColorSuccessLowDark;
+        return $this->coverage_html_color_success_low_dark;
     }
-
-    public function coverageHtmlColorSuccessMedium(): string
+    public function coverage_html_color_success_medium(): string
     {
-        return $this->coverageHtmlColorSuccessMedium;
+        return $this->coverage_html_color_success_medium;
     }
-
-    public function coverageHtmlColorSuccessMediumDark(): string
+    public function coverage_html_color_success_medium_dark(): string
     {
-        return $this->coverageHtmlColorSuccessMediumDark;
+        return $this->coverage_html_color_success_medium_dark;
     }
-
-    public function coverageHtmlColorSuccessHigh(): string
+    public function coverage_html_color_success_high(): string
     {
-        return $this->coverageHtmlColorSuccessHigh;
+        return $this->coverage_html_color_success_high;
     }
-
-    public function coverageHtmlColorSuccessHighDark(): string
+    public function coverage_html_color_success_high_dark(): string
     {
-        return $this->coverageHtmlColorSuccessHighDark;
+        return $this->coverage_html_color_success_high_dark;
     }
-
-    public function coverageHtmlColorSuccessBar(): string
+    public function coverage_html_color_success_bar(): string
     {
-        return $this->coverageHtmlColorSuccessBar;
+        return $this->coverage_html_color_success_bar;
     }
-
-    public function coverageHtmlColorSuccessBarDark(): string
+    public function coverage_html_color_success_bar_dark(): string
     {
-        return $this->coverageHtmlColorSuccessBarDark;
+        return $this->coverage_html_color_success_bar_dark;
     }
-
-    public function coverageHtmlColorWarning(): string
+    public function coverage_html_color_warning(): string
     {
-        return $this->coverageHtmlColorWarning;
+        return $this->coverage_html_color_warning;
     }
-
-    public function coverageHtmlColorWarningDark(): string
+    public function coverage_html_color_warning_dark(): string
     {
-        return $this->coverageHtmlColorWarningDark;
+        return $this->coverage_html_color_warning_dark;
     }
-
-    public function coverageHtmlColorWarningBar(): string
+    public function coverage_html_color_warning_bar(): string
     {
-        return $this->coverageHtmlColorWarningBar;
+        return $this->coverage_html_color_warning_bar;
     }
-
-    public function coverageHtmlColorWarningBarDark(): string
+    public function coverage_html_color_warning_bar_dark(): string
     {
-        return $this->coverageHtmlColorWarningBarDark;
+        return $this->coverage_html_color_warning_bar_dark;
     }
-
-    public function coverageHtmlColorDanger(): string
+    public function coverage_html_color_danger(): string
     {
-        return $this->coverageHtmlColorDanger;
+        return $this->coverage_html_color_danger;
     }
-
-    public function coverageHtmlColorDangerDark(): string
+    public function coverage_html_color_danger_dark(): string
     {
-        return $this->coverageHtmlColorDangerDark;
+        return $this->coverage_html_color_danger_dark;
     }
-
-    public function coverageHtmlColorDangerBar(): string
+    public function coverage_html_color_danger_bar(): string
     {
-        return $this->coverageHtmlColorDangerBar;
+        return $this->coverage_html_color_danger_bar;
     }
-
-    public function coverageHtmlColorDangerBarDark(): string
+    public function coverage_html_color_danger_bar_dark(): string
     {
-        return $this->coverageHtmlColorDangerBarDark;
+        return $this->coverage_html_color_danger_bar_dark;
     }
-
-    public function coverageHtmlColorBreadcrumbs(): string
+    public function coverage_html_color_breadcrumbs(): string
     {
-        return $this->coverageHtmlColorBreadcrumbs;
+        return $this->coverage_html_color_breadcrumbs;
     }
-
-    public function coverageHtmlColorBreadcrumbsDark(): string
+    public function coverage_html_color_breadcrumbs_dark(): string
     {
-        return $this->coverageHtmlColorBreadcrumbsDark;
+        return $this->coverage_html_color_breadcrumbs_dark;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageHtmlCustomCssFile
      */
-    public function hasCoverageHtmlCustomCssFile(): bool
+    public function has_coverage_html_custom_css_file(): bool
     {
-        return $this->coverageHtmlCustomCssFile !== null;
+        return $this->coverage_html_custom_css_file !== null;
     }
-
     /**
      * @throws NoCustomCssFileException
      */
-    public function coverageHtmlCustomCssFile(): string
+    public function coverage_html_custom_css_file(): string
     {
-        if (!$this->hasCoverageHtmlCustomCssFile()) {
-            throw new NoCustomCssFileException();
+        if (!$this->has_coverage_html_custom_css_file()) {
+            throw new No_Custom_Css_File_Exception();
         }
-
-        return $this->coverageHtmlCustomCssFile;
+        return $this->coverage_html_custom_css_file;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageOpenClover
      */
-    public function hasCoverageOpenClover(): bool
+    public function has_coverage_open_clover(): bool
     {
-        return $this->coverageOpenClover !== null;
+        return $this->coverage_open_clover !== null;
     }
-
     /**
      * @throws CodeCoverageReportNotConfiguredException
      */
-    public function coverageOpenClover(): string
+    public function coverage_open_clover(): string
     {
-        if (!$this->hasCoverageOpenClover()) {
-            throw new CodeCoverageReportNotConfiguredException();
+        if (!$this->has_coverage_open_clover()) {
+            throw new Code_Coverage_Report_Not_Configured_Exception();
         }
-
-        return $this->coverageOpenClover;
+        return $this->coverage_open_clover;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coveragePhp
      */
-    public function hasCoveragePhp(): bool
+    public function has_coverage_php(): bool
     {
-        return $this->coveragePhp !== null;
+        return $this->coverage_php !== null;
     }
-
     /**
      * @throws CodeCoverageReportNotConfiguredException
      */
-    public function coveragePhp(): string
+    public function coverage_php(): string
     {
-        if (!$this->hasCoveragePhp()) {
-            throw new CodeCoverageReportNotConfiguredException();
+        if (!$this->has_coverage_php()) {
+            throw new Code_Coverage_Report_Not_Configured_Exception();
         }
-
-        return $this->coveragePhp;
+        return $this->coverage_php;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageText
      */
-    public function hasCoverageText(): bool
+    public function has_coverage_text(): bool
     {
-        return $this->coverageText !== null;
+        return $this->coverage_text !== null;
     }
-
     /**
      * @throws CodeCoverageReportNotConfiguredException
      */
-    public function coverageText(): string
+    public function coverage_text(): string
     {
-        if (!$this->hasCoverageText()) {
-            throw new CodeCoverageReportNotConfiguredException();
+        if (!$this->has_coverage_text()) {
+            throw new Code_Coverage_Report_Not_Configured_Exception();
         }
-
-        return $this->coverageText;
+        return $this->coverage_text;
     }
-
-    public function coverageTextShowUncoveredFiles(): bool
+    public function coverage_text_show_uncovered_files(): bool
     {
-        return $this->coverageTextShowUncoveredFiles;
+        return $this->coverage_text_show_uncovered_files;
     }
-
-    public function coverageTextShowOnlySummary(): bool
+    public function coverage_text_show_only_summary(): bool
     {
-        return $this->coverageTextShowOnlySummary;
+        return $this->coverage_text_show_only_summary;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageXml
      */
-    public function hasCoverageXml(): bool
+    public function has_coverage_xml(): bool
     {
-        return $this->coverageXml !== null;
+        return $this->coverage_xml !== null;
     }
-
     /**
      * @throws CodeCoverageReportNotConfiguredException
      */
-    public function coverageXml(): string
+    public function coverage_xml(): string
     {
-        if (!$this->hasCoverageXml()) {
-            throw new CodeCoverageReportNotConfiguredException();
+        if (!$this->has_coverage_xml()) {
+            throw new Code_Coverage_Report_Not_Configured_Exception();
         }
-
-        return $this->coverageXml;
+        return $this->coverage_xml;
     }
-
-    public function coverageXmlIncludeSource(): bool
+    public function coverage_xml_include_source(): bool
     {
-        return $this->coverageXmlIncludeSource;
+        return $this->coverage_xml_include_source;
     }
-
-    public function failOnAllIssues(): bool
+    public function fail_on_all_issues(): bool
     {
-        return $this->failOnAllIssues;
+        return $this->fail_on_all_issues;
     }
-
-    public function failOnDeprecation(): bool
+    public function fail_on_deprecation(): bool
     {
-        return $this->failOnDeprecation;
+        return $this->fail_on_deprecation;
     }
-
-    public function failOnPhpunitDeprecation(): bool
+    public function fail_on_phpunit_deprecation(): bool
     {
-        return $this->failOnPhpunitDeprecation;
+        return $this->fail_on_phpunit_deprecation;
     }
-
-    public function failOnPhpunitNotice(): bool
+    public function fail_on_phpunit_notice(): bool
     {
-        return $this->failOnPhpunitNotice;
+        return $this->fail_on_phpunit_notice;
     }
-
-    public function failOnPhpunitWarning(): bool
+    public function fail_on_phpunit_warning(): bool
     {
-        return $this->failOnPhpunitWarning;
+        return $this->fail_on_phpunit_warning;
     }
-
-    public function failOnEmptyTestSuite(): bool
+    public function fail_on_empty_test_suite(): bool
     {
-        return $this->failOnEmptyTestSuite;
+        return $this->fail_on_empty_test_suite;
     }
-
-    public function failOnIncomplete(): bool
+    public function fail_on_incomplete(): bool
     {
-        return $this->failOnIncomplete;
+        return $this->fail_on_incomplete;
     }
-
-    public function failOnNotice(): bool
+    public function fail_on_notice(): bool
     {
-        return $this->failOnNotice;
+        return $this->fail_on_notice;
     }
-
-    public function failOnRisky(): bool
+    public function fail_on_risky(): bool
     {
-        return $this->failOnRisky;
+        return $this->fail_on_risky;
     }
-
-    public function failOnSkipped(): bool
+    public function fail_on_skipped(): bool
     {
-        return $this->failOnSkipped;
+        return $this->fail_on_skipped;
     }
-
-    public function failOnWarning(): bool
+    public function fail_on_warning(): bool
     {
-        return $this->failOnWarning;
+        return $this->fail_on_warning;
     }
-
-    public function doNotFailOnDeprecation(): bool
+    public function do_not_fail_on_deprecation(): bool
     {
-        return $this->doNotFailOnDeprecation;
+        return $this->do_not_fail_on_deprecation;
     }
-
-    public function doNotFailOnPhpunitDeprecation(): bool
+    public function do_not_fail_on_phpunit_deprecation(): bool
     {
-        return $this->doNotFailOnPhpunitDeprecation;
+        return $this->do_not_fail_on_phpunit_deprecation;
     }
-
-    public function doNotFailOnPhpunitNotice(): bool
+    public function do_not_fail_on_phpunit_notice(): bool
     {
-        return $this->doNotFailOnPhpunitNotice;
+        return $this->do_not_fail_on_phpunit_notice;
     }
-
-    public function doNotFailOnPhpunitWarning(): bool
+    public function do_not_fail_on_phpunit_warning(): bool
     {
-        return $this->doNotFailOnPhpunitWarning;
+        return $this->do_not_fail_on_phpunit_warning;
     }
-
-    public function doNotFailOnEmptyTestSuite(): bool
+    public function do_not_fail_on_empty_test_suite(): bool
     {
-        return $this->doNotFailOnEmptyTestSuite;
+        return $this->do_not_fail_on_empty_test_suite;
     }
-
-    public function doNotFailOnIncomplete(): bool
+    public function do_not_fail_on_incomplete(): bool
     {
-        return $this->doNotFailOnIncomplete;
+        return $this->do_not_fail_on_incomplete;
     }
-
-    public function doNotFailOnNotice(): bool
+    public function do_not_fail_on_notice(): bool
     {
-        return $this->doNotFailOnNotice;
+        return $this->do_not_fail_on_notice;
     }
-
-    public function doNotFailOnRisky(): bool
+    public function do_not_fail_on_risky(): bool
     {
-        return $this->doNotFailOnRisky;
+        return $this->do_not_fail_on_risky;
     }
-
-    public function doNotFailOnSkipped(): bool
+    public function do_not_fail_on_skipped(): bool
     {
-        return $this->doNotFailOnSkipped;
+        return $this->do_not_fail_on_skipped;
     }
-
-    public function doNotFailOnWarning(): bool
+    public function do_not_fail_on_warning(): bool
     {
-        return $this->doNotFailOnWarning;
+        return $this->do_not_fail_on_warning;
     }
-
-    public function stopOnDefect(): bool
+    public function stop_on_defect(): bool
     {
-        return $this->stopOnDefect;
+        return $this->stop_on_defect;
     }
-
-    public function stopOnDeprecation(): bool
+    public function stop_on_deprecation(): bool
     {
-        return $this->stopOnDeprecation;
+        return $this->stop_on_deprecation;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->specificDeprecationToStopOn
      */
-    public function hasSpecificDeprecationToStopOn(): bool
+    public function has_specific_deprecation_to_stop_on(): bool
     {
-        return $this->specificDeprecationToStopOn !== null;
+        return $this->specific_deprecation_to_stop_on !== null;
     }
-
     /**
      * @throws SpecificDeprecationToStopOnNotConfiguredException
      */
-    public function specificDeprecationToStopOn(): string
+    public function specific_deprecation_to_stop_on(): string
     {
-        if (!$this->hasSpecificDeprecationToStopOn()) {
-            throw new SpecificDeprecationToStopOnNotConfiguredException();
+        if (!$this->has_specific_deprecation_to_stop_on()) {
+            throw new Specific_Deprecation_To_Stop_On_Not_Configured_Exception();
         }
-
-        return $this->specificDeprecationToStopOn;
+        return $this->specific_deprecation_to_stop_on;
     }
-
-    public function stopOnError(): bool
+    public function stop_on_error(): bool
     {
-        return $this->stopOnError;
+        return $this->stop_on_error;
     }
-
-    public function stopOnFailure(): bool
+    public function stop_on_failure(): bool
     {
-        return $this->stopOnFailure;
+        return $this->stop_on_failure;
     }
-
-    public function stopOnIncomplete(): bool
+    public function stop_on_incomplete(): bool
     {
-        return $this->stopOnIncomplete;
+        return $this->stop_on_incomplete;
     }
-
-    public function stopOnNotice(): bool
+    public function stop_on_notice(): bool
     {
-        return $this->stopOnNotice;
+        return $this->stop_on_notice;
     }
-
-    public function stopOnRisky(): bool
+    public function stop_on_risky(): bool
     {
-        return $this->stopOnRisky;
+        return $this->stop_on_risky;
     }
-
-    public function stopOnSkipped(): bool
+    public function stop_on_skipped(): bool
     {
-        return $this->stopOnSkipped;
+        return $this->stop_on_skipped;
     }
-
-    public function stopOnWarning(): bool
+    public function stop_on_warning(): bool
     {
-        return $this->stopOnWarning;
+        return $this->stop_on_warning;
     }
-
-    public function outputToStandardErrorStream(): bool
+    public function output_to_standard_error_stream(): bool
     {
-        return $this->outputToStandardErrorStream;
+        return $this->output_to_standard_error_stream;
     }
-
     public function columns(): int
     {
         return $this->columns;
     }
-
-    public function noExtensions(): bool
+    public function no_extensions(): bool
     {
-        return $this->noExtensions;
+        return $this->no_extensions;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->pharExtensionDirectory
      */
-    public function hasPharExtensionDirectory(): bool
+    public function has_phar_extension_directory(): bool
     {
-        return $this->pharExtensionDirectory !== null;
+        return $this->phar_extension_directory !== null;
     }
-
     /**
      * @throws NoPharExtensionDirectoryException
      *
      * @return non-empty-string
      */
-    public function pharExtensionDirectory(): string
+    public function phar_extension_directory(): string
     {
-        if (!$this->hasPharExtensionDirectory()) {
-            throw new NoPharExtensionDirectoryException();
+        if (!$this->has_phar_extension_directory()) {
+            throw new No_Phar_Extension_Directory_Exception();
         }
-
-        return $this->pharExtensionDirectory;
+        return $this->phar_extension_directory;
     }
-
     /**
      * @return list<array{className: non-empty-string, parameters: array<string, string>}>
      */
-    public function extensionBootstrappers(): array
+    public function extension_bootstrappers(): array
     {
-        return $this->extensionBootstrappers;
+        return $this->extension_bootstrappers;
     }
-
-    public function backupGlobals(): bool
+    public function backup_globals(): bool
     {
-        return $this->backupGlobals;
+        return $this->backup_globals;
     }
-
-    public function backupStaticProperties(): bool
+    public function backup_static_properties(): bool
     {
-        return $this->backupStaticProperties;
+        return $this->backup_static_properties;
     }
-
-    public function beStrictAboutChangesToGlobalState(): bool
+    public function be_strict_about_changes_to_global_state(): bool
     {
-        return $this->beStrictAboutChangesToGlobalState;
+        return $this->be_strict_about_changes_to_global_state;
     }
-
     public function colors(): bool
     {
         return $this->colors;
     }
-
-    public function processIsolation(): bool
+    public function process_isolation(): bool
     {
-        return $this->processIsolation;
+        return $this->process_isolation;
     }
-
-    public function enforceTimeLimit(): bool
+    public function enforce_time_limit(): bool
     {
-        return $this->enforceTimeLimit;
+        return $this->enforce_time_limit;
     }
-
-    public function defaultTimeLimit(): int
+    public function default_time_limit(): int
     {
-        return $this->defaultTimeLimit;
+        return $this->default_time_limit;
     }
-
-    public function timeoutForSmallTests(): int
+    public function timeout_for_small_tests(): int
     {
-        return $this->timeoutForSmallTests;
+        return $this->timeout_for_small_tests;
     }
-
-    public function timeoutForMediumTests(): int
+    public function timeout_for_medium_tests(): int
     {
-        return $this->timeoutForMediumTests;
+        return $this->timeout_for_medium_tests;
     }
-
-    public function timeoutForLargeTests(): int
+    public function timeout_for_large_tests(): int
     {
-        return $this->timeoutForLargeTests;
+        return $this->timeout_for_large_tests;
     }
-
-    public function reportUselessTests(): bool
+    public function report_useless_tests(): bool
     {
-        return $this->reportUselessTests;
+        return $this->report_useless_tests;
     }
-
-    public function strictCoverage(): bool
+    public function strict_coverage(): bool
     {
-        return $this->strictCoverage;
+        return $this->strict_coverage;
     }
-
-    public function disallowTestOutput(): bool
+    public function disallow_test_output(): bool
     {
-        return $this->disallowTestOutput;
+        return $this->disallow_test_output;
     }
-
-    public function displayDetailsOnAllIssues(): bool
+    public function display_details_on_all_issues(): bool
     {
-        return $this->displayDetailsOnAllIssues;
+        return $this->display_details_on_all_issues;
     }
-
-    public function displayDetailsOnIncompleteTests(): bool
+    public function display_details_on_incomplete_tests(): bool
     {
-        return $this->displayDetailsOnIncompleteTests;
+        return $this->display_details_on_incomplete_tests;
     }
-
-    public function displayDetailsOnSkippedTests(): bool
+    public function display_details_on_skipped_tests(): bool
     {
-        return $this->displayDetailsOnSkippedTests;
+        return $this->display_details_on_skipped_tests;
     }
-
-    public function displayDetailsOnTestsThatTriggerDeprecations(): bool
+    public function display_details_on_tests_that_trigger_deprecations(): bool
     {
-        return $this->displayDetailsOnTestsThatTriggerDeprecations;
+        return $this->display_details_on_tests_that_trigger_deprecations;
     }
-
-    public function displayDetailsOnPhpunitDeprecations(): bool
+    public function display_details_on_phpunit_deprecations(): bool
     {
-        return $this->displayDetailsOnPhpunitDeprecations;
+        return $this->display_details_on_phpunit_deprecations;
     }
-
-    public function displayDetailsOnPhpunitNotices(): bool
+    public function display_details_on_phpunit_notices(): bool
     {
-        return $this->displayDetailsOnPhpunitNotices;
+        return $this->display_details_on_phpunit_notices;
     }
-
-    public function displayDetailsOnTestsThatTriggerErrors(): bool
+    public function display_details_on_tests_that_trigger_errors(): bool
     {
-        return $this->displayDetailsOnTestsThatTriggerErrors;
+        return $this->display_details_on_tests_that_trigger_errors;
     }
-
-    public function displayDetailsOnTestsThatTriggerNotices(): bool
+    public function display_details_on_tests_that_trigger_notices(): bool
     {
-        return $this->displayDetailsOnTestsThatTriggerNotices;
+        return $this->display_details_on_tests_that_trigger_notices;
     }
-
-    public function displayDetailsOnTestsThatTriggerWarnings(): bool
+    public function display_details_on_tests_that_trigger_warnings(): bool
     {
-        return $this->displayDetailsOnTestsThatTriggerWarnings;
+        return $this->display_details_on_tests_that_trigger_warnings;
     }
-
-    public function reverseDefectList(): bool
+    public function reverse_defect_list(): bool
     {
-        return $this->reverseDefectList;
+        return $this->reverse_defect_list;
     }
-
-    public function requireCoverageMetadata(): bool
+    public function require_coverage_metadata(): bool
     {
-        return $this->requireCoverageMetadata;
+        return $this->require_coverage_metadata;
     }
-
-    public function requireSealedMockObjects(): bool
+    public function require_sealed_mock_objects(): bool
     {
-        return $this->requireSealedMockObjects;
+        return $this->require_sealed_mock_objects;
     }
-
-    public function noProgress(): bool
+    public function no_progress(): bool
     {
-        return $this->noProgress;
+        return $this->no_progress;
     }
-
-    public function noResults(): bool
+    public function no_results(): bool
     {
-        return $this->noResults;
+        return $this->no_results;
     }
-
-    public function noOutput(): bool
+    public function no_output(): bool
     {
-        return $this->noOutput;
+        return $this->no_output;
     }
-
-    public function executionOrder(): int
+    public function execution_order(): int
     {
-        return $this->executionOrder;
+        return $this->execution_order;
     }
-
-    public function executionOrderDefects(): int
+    public function execution_order_defects(): int
     {
-        return $this->executionOrderDefects;
+        return $this->execution_order_defects;
     }
-
-    public function resolveDependencies(): bool
+    public function resolve_dependencies(): bool
     {
-        return $this->resolveDependencies;
+        return $this->resolve_dependencies;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->logfileTeamcity
      */
-    public function hasLogfileTeamcity(): bool
+    public function has_logfile_teamcity(): bool
     {
-        return $this->logfileTeamcity !== null;
+        return $this->logfile_teamcity !== null;
     }
-
     /**
      * @throws LoggingNotConfiguredException
      */
-    public function logfileTeamcity(): string
+    public function logfile_teamcity(): string
     {
-        if (!$this->hasLogfileTeamcity()) {
-            throw new LoggingNotConfiguredException();
+        if (!$this->has_logfile_teamcity()) {
+            throw new Logging_Not_Configured_Exception();
         }
-
-        return $this->logfileTeamcity;
+        return $this->logfile_teamcity;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->logfileJunit
      */
-    public function hasLogfileJunit(): bool
+    public function has_logfile_junit(): bool
     {
-        return $this->logfileJunit !== null;
+        return $this->logfile_junit !== null;
     }
-
     /**
      * @throws LoggingNotConfiguredException
      */
-    public function logfileJunit(): string
+    public function logfile_junit(): string
     {
-        if (!$this->hasLogfileJunit()) {
-            throw new LoggingNotConfiguredException();
+        if (!$this->has_logfile_junit()) {
+            throw new Logging_Not_Configured_Exception();
         }
-
-        return $this->logfileJunit;
+        return $this->logfile_junit;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->logfileOtr
      */
-    public function hasLogfileOtr(): bool
+    public function has_logfile_otr(): bool
     {
-        return $this->logfileOtr !== null;
+        return $this->logfile_otr !== null;
     }
-
     /**
      * @throws LoggingNotConfiguredException
      */
-    public function logfileOtr(): string
+    public function logfile_otr(): string
     {
-        if (!$this->hasLogfileOtr()) {
-            throw new LoggingNotConfiguredException();
+        if (!$this->has_logfile_otr()) {
+            throw new Logging_Not_Configured_Exception();
         }
-
-        return $this->logfileOtr;
+        return $this->logfile_otr;
     }
-
-    public function includeGitInformationInOtrLogfile(): bool
+    public function include_git_information_in_otr_logfile(): bool
     {
-        return $this->includeGitInformationInOtrLogfile;
+        return $this->include_git_information_in_otr_logfile;
     }
-
-    public function includeGitInformation(): bool
+    public function include_git_information(): bool
     {
-        return $this->includeGitInformation;
+        return $this->include_git_information;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->logfileTestdoxHtml
      */
-    public function hasLogfileTestdoxHtml(): bool
+    public function has_logfile_testdox_html(): bool
     {
-        return $this->logfileTestdoxHtml !== null;
+        return $this->logfile_testdox_html !== null;
     }
-
     /**
      * @throws LoggingNotConfiguredException
      */
-    public function logfileTestdoxHtml(): string
+    public function logfile_testdox_html(): string
     {
-        if (!$this->hasLogfileTestdoxHtml()) {
-            throw new LoggingNotConfiguredException();
+        if (!$this->has_logfile_testdox_html()) {
+            throw new Logging_Not_Configured_Exception();
         }
-
-        return $this->logfileTestdoxHtml;
+        return $this->logfile_testdox_html;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->logfileTestdoxText
      */
-    public function hasLogfileTestdoxText(): bool
+    public function has_logfile_testdox_text(): bool
     {
-        return $this->logfileTestdoxText !== null;
+        return $this->logfile_testdox_text !== null;
     }
-
     /**
      * @throws LoggingNotConfiguredException
      */
-    public function logfileTestdoxText(): string
+    public function logfile_testdox_text(): string
     {
-        if (!$this->hasLogfileTestdoxText()) {
-            throw new LoggingNotConfiguredException();
+        if (!$this->has_logfile_testdox_text()) {
+            throw new Logging_Not_Configured_Exception();
         }
-
-        return $this->logfileTestdoxText;
+        return $this->logfile_testdox_text;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->logEventsText
      */
-    public function hasLogEventsText(): bool
+    public function has_log_events_text(): bool
     {
-        return $this->logEventsText !== null;
+        return $this->log_events_text !== null;
     }
-
     /**
      * @throws LoggingNotConfiguredException
      */
-    public function logEventsText(): string
+    public function log_events_text(): string
     {
-        if (!$this->hasLogEventsText()) {
-            throw new LoggingNotConfiguredException();
+        if (!$this->has_log_events_text()) {
+            throw new Logging_Not_Configured_Exception();
         }
-
-        return $this->logEventsText;
+        return $this->log_events_text;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->logEventsVerboseText
      */
-    public function hasLogEventsVerboseText(): bool
+    public function has_log_events_verbose_text(): bool
     {
-        return $this->logEventsVerboseText !== null;
+        return $this->log_events_verbose_text !== null;
     }
-
     /**
      * @throws LoggingNotConfiguredException
      */
-    public function logEventsVerboseText(): string
+    public function log_events_verbose_text(): string
     {
-        if (!$this->hasLogEventsVerboseText()) {
-            throw new LoggingNotConfiguredException();
+        if (!$this->has_log_events_verbose_text()) {
+            throw new Logging_Not_Configured_Exception();
         }
-
-        return $this->logEventsVerboseText;
+        return $this->log_events_verbose_text;
     }
-
-    public function outputIsTeamCity(): bool
+    public function output_is_team_city(): bool
     {
-        return $this->teamCityOutput;
+        return $this->team_city_output;
     }
-
-    public function outputIsTestDox(): bool
+    public function output_is_test_dox(): bool
     {
-        return $this->testDoxOutput;
+        return $this->test_dox_output;
     }
-
-    public function testDoxOutputWithSummary(): bool
+    public function test_dox_output_with_summary(): bool
     {
-        return $this->testDoxOutputSummary;
+        return $this->test_dox_output_summary;
     }
-
     /**
      * @phpstan-assert-if-true !empty $this->testsCovering
      */
-    public function hasTestsCovering(): bool
+    public function has_tests_covering(): bool
     {
-        return $this->testsCovering !== null;
+        return $this->tests_covering !== null;
     }
-
     /**
      * @throws FilterNotConfiguredException
      *
      * @return list<string>
      */
-    public function testsCovering(): array
+    public function tests_covering(): array
     {
-        if (!$this->hasTestsCovering()) {
-            throw new FilterNotConfiguredException();
+        if (!$this->has_tests_covering()) {
+            throw new Filter_Not_Configured_Exception();
         }
-
-        return $this->testsCovering;
+        return $this->tests_covering;
     }
-
     /**
      * @phpstan-assert-if-true !empty $this->testsUsing
      */
-    public function hasTestsUsing(): bool
+    public function has_tests_using(): bool
     {
-        return $this->testsUsing !== null;
+        return $this->tests_using !== null;
     }
-
     /**
      * @throws FilterNotConfiguredException
      *
      * @return list<string>
      */
-    public function testsUsing(): array
+    public function tests_using(): array
     {
-        if (!$this->hasTestsUsing()) {
-            throw new FilterNotConfiguredException();
+        if (!$this->has_tests_using()) {
+            throw new Filter_Not_Configured_Exception();
         }
-
-        return $this->testsUsing;
+        return $this->tests_using;
     }
-
     /**
      * @phpstan-assert-if-true !empty $this->testsRequiringPhpExtension
      */
-    public function hasTestsRequiringPhpExtension(): bool
+    public function has_tests_requiring_php_extension(): bool
     {
-        return $this->testsRequiringPhpExtension !== null;
+        return $this->tests_requiring_php_extension !== null;
     }
-
     /**
      * @throws FilterNotConfiguredException
      *
      * @return non-empty-list<non-empty-string>
      */
-    public function testsRequiringPhpExtension(): array
+    public function tests_requiring_php_extension(): array
     {
-        if (!$this->hasTestsRequiringPhpExtension()) {
-            throw new FilterNotConfiguredException();
+        if (!$this->has_tests_requiring_php_extension()) {
+            throw new Filter_Not_Configured_Exception();
         }
-
-        return $this->testsRequiringPhpExtension;
+        return $this->tests_requiring_php_extension;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->filter
      */
-    public function hasFilter(): bool
+    public function has_filter(): bool
     {
         return $this->filter !== null;
     }
-
     /**
      * @throws FilterNotConfiguredException
      */
     public function filter(): string
     {
-        if (!$this->hasFilter()) {
-            throw new FilterNotConfiguredException();
+        if (!$this->has_filter()) {
+            throw new Filter_Not_Configured_Exception();
         }
-
         return $this->filter;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->excludeFilter
      */
-    public function hasExcludeFilter(): bool
+    public function has_exclude_filter(): bool
     {
-        return $this->excludeFilter !== null;
+        return $this->exclude_filter !== null;
     }
-
     /**
      * @throws FilterNotConfiguredException
      */
-    public function excludeFilter(): string
+    public function exclude_filter(): string
     {
-        if (!$this->hasExcludeFilter()) {
-            throw new FilterNotConfiguredException();
+        if (!$this->has_exclude_filter()) {
+            throw new Filter_Not_Configured_Exception();
         }
-
-        return $this->excludeFilter;
+        return $this->exclude_filter;
     }
-
     /**
      * @phpstan-assert-if-true !empty $this->groups
      */
-    public function hasGroups(): bool
+    public function has_groups(): bool
     {
         return $this->groups !== [];
     }
-
     /**
      * @throws FilterNotConfiguredException
      *
@@ -1180,159 +987,134 @@ final readonly class Configuration
      */
     public function groups(): array
     {
-        if (!$this->hasGroups()) {
-            throw new FilterNotConfiguredException();
+        if (!$this->has_groups()) {
+            throw new Filter_Not_Configured_Exception();
         }
-
         return $this->groups;
     }
-
     /**
      * @phpstan-assert-if-true !empty $this->excludeGroups
      */
-    public function hasExcludeGroups(): bool
+    public function has_exclude_groups(): bool
     {
-        return $this->excludeGroups !== [];
+        return $this->exclude_groups !== [];
     }
-
     /**
      * @throws FilterNotConfiguredException
      *
      * @return non-empty-list<non-empty-string>
      */
-    public function excludeGroups(): array
+    public function exclude_groups(): array
     {
-        if (!$this->hasExcludeGroups()) {
-            throw new FilterNotConfiguredException();
+        if (!$this->has_exclude_groups()) {
+            throw new Filter_Not_Configured_Exception();
         }
-
-        return $this->excludeGroups;
+        return $this->exclude_groups;
     }
-
-    public function randomOrderSeed(): int
+    public function random_order_seed(): int
     {
-        return $this->randomOrderSeed;
+        return $this->random_order_seed;
     }
-
-    public function includeUncoveredFiles(): bool
+    public function include_uncovered_files(): bool
     {
-        return $this->includeUncoveredFiles;
+        return $this->include_uncovered_files;
     }
-
-    public function testSuite(): TestSuiteCollection
+    public function test_suite(): Test_Suite_Collection
     {
-        return $this->testSuite;
+        return $this->test_suite;
     }
-
     /**
      * @return list<non-empty-string>
      */
-    public function includeTestSuites(): array
+    public function include_test_suites(): array
     {
-        if ($this->includeTestSuite === '') {
+        if ($this->include_test_suite === '') {
             return [];
         }
-
-        return explode(',', $this->includeTestSuite);
+        return explode(',', $this->include_test_suite);
     }
-
     /**
      * @return list<non-empty-string>
      */
-    public function excludeTestSuites(): array
+    public function exclude_test_suites(): array
     {
-        if ($this->excludeTestSuite === '') {
+        if ($this->exclude_test_suite === '') {
             return [];
         }
-
-        return explode(',', $this->excludeTestSuite);
+        return explode(',', $this->exclude_test_suite);
     }
-
     /**
      * @phpstan-assert-if-true !null $this->defaultTestSuite
      */
-    public function hasDefaultTestSuite(): bool
+    public function has_default_test_suite(): bool
     {
-        return $this->defaultTestSuite !== null;
+        return $this->default_test_suite !== null;
     }
-
     /**
      * @throws NoDefaultTestSuiteException
      */
-    public function defaultTestSuite(): string
+    public function default_test_suite(): string
     {
-        if (!$this->hasDefaultTestSuite()) {
-            throw new NoDefaultTestSuiteException();
+        if (!$this->has_default_test_suite()) {
+            throw new No_Default_Test_Suite_Exception();
         }
-
-        return $this->defaultTestSuite;
+        return $this->default_test_suite;
     }
-
-    public function ignoreTestSelectionInXmlConfiguration(): bool
+    public function ignore_test_selection_in_xml_configuration(): bool
     {
-        return $this->ignoreTestSelectionInXmlConfiguration;
+        return $this->ignore_test_selection_in_xml_configuration;
     }
-
     /**
      * @return non-empty-list<non-empty-string>
      */
-    public function testSuffixes(): array
+    public function test_suffixes(): array
     {
-        return $this->testSuffixes;
+        return $this->test_suffixes;
     }
-
     public function php(): Php
     {
         return $this->php;
     }
-
-    public function controlGarbageCollector(): bool
+    public function control_garbage_collector(): bool
     {
-        return $this->controlGarbageCollector;
+        return $this->control_garbage_collector;
     }
-
-    public function numberOfTestsBeforeGarbageCollection(): int
+    public function number_of_tests_before_garbage_collection(): int
     {
-        return $this->numberOfTestsBeforeGarbageCollection;
+        return $this->number_of_tests_before_garbage_collection;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->generateBaseline
      */
-    public function hasGenerateBaseline(): bool
+    public function has_generate_baseline(): bool
     {
-        return $this->generateBaseline !== null;
+        return $this->generate_baseline !== null;
     }
-
     /**
      * @throws NoBaselineException
      *
      * @return non-empty-string
      */
-    public function generateBaseline(): string
+    public function generate_baseline(): string
     {
-        if (!$this->hasGenerateBaseline()) {
-            throw new NoBaselineException();
+        if (!$this->has_generate_baseline()) {
+            throw new No_Baseline_Exception();
         }
-
-        return $this->generateBaseline;
+        return $this->generate_baseline;
     }
-
     public function debug(): bool
     {
         return $this->debug;
     }
-
-    public function withTelemetry(): bool
+    public function with_telemetry(): bool
     {
-        return $this->withTelemetry;
+        return $this->with_telemetry;
     }
-
     /**
      * @return non-negative-int
      */
-    public function shortenArraysForExportThreshold(): int
+    public function shorten_arrays_for_export_threshold(): int
     {
-        return $this->shortenArraysForExportThreshold;
+        return $this->shorten_arrays_for_export_threshold;
     }
 }

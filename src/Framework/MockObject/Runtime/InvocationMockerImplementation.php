@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,18 +9,16 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Framework\Mock_Object;
 
-namespace PHPUnit\Framework\MockObject;
-
-use PHPUnit\Event\Facade as EventFacade;
-use PHPUnit\Framework\Exception;
-
+use Php_Unit\Event\Facade as EventFacade;
+use Php_Unit\Framework\Exception;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class InvocationMockerImplementation extends AbstractInvocationImplementation implements InvocationMocker
+final class Invocation_Mocker_Implementation extends Abstract_Invocation_Implementation implements Invocation_Mocker
 {
     /**
      * @throws Exception
@@ -29,52 +27,40 @@ final class InvocationMockerImplementation extends AbstractInvocationImplementat
      *
      * @return $this
      */
-    public function with(mixed ...$arguments): InvocationMocker
+    public function with(mixed ...$arguments): Invocation_Mocker
     {
-        $this->ensureParametersCanBeConfigured();
-        $this->emitDeprecationWhenCreatedWithoutExplicitExpects();
-
-        $this->matcher->setParametersRule(new Rule\Parameters($arguments));
-
+        $this->ensure_parameters_can_be_configured();
+        $this->emit_deprecation_when_created_without_explicit_expects();
+        $this->matcher->set_parameters_rule(new Rule\Parameters($arguments));
         return $this;
     }
-
-    public function withParameterSetsInOrder(mixed ...$arguments): InvocationMocker
+    public function with_parameter_sets_in_order(mixed ...$arguments): Invocation_Mocker
     {
-        $this->ensureParametersCanBeConfigured();
-        $this->emitDeprecationWhenCreatedWithoutExplicitExpects();
-
-        $this->matcher->setParametersRule(new Rule\OrderedParameterSets($arguments));
-
+        $this->ensure_parameters_can_be_configured();
+        $this->emit_deprecation_when_created_without_explicit_expects();
+        $this->matcher->set_parameters_rule(new Rule\Ordered_Parameter_Sets($arguments));
         return $this;
     }
-
-    public function withParameterSetsInAnyOrder(mixed ...$arguments): InvocationMocker
+    public function with_parameter_sets_in_any_order(mixed ...$arguments): Invocation_Mocker
     {
-        $this->ensureParametersCanBeConfigured();
-        $this->emitDeprecationWhenCreatedWithoutExplicitExpects();
-
-        $this->matcher->setParametersRule(new Rule\UnorderedParameterSets($arguments));
-
+        $this->ensure_parameters_can_be_configured();
+        $this->emit_deprecation_when_created_without_explicit_expects();
+        $this->matcher->set_parameters_rule(new Rule\Unordered_Parameter_Sets($arguments));
         return $this;
     }
-
     /**
      * @throws MethodNameNotConfiguredException
      * @throws MethodParametersAlreadyConfiguredException
      *
      * @return $this
      */
-    public function withAnyParameters(): InvocationMocker
+    public function with_any_parameters(): Invocation_Mocker
     {
-        $this->ensureParametersCanBeConfigured();
-        $this->emitDeprecationWhenCreatedWithoutExplicitExpects();
-
-        $this->matcher->setParametersRule(new Rule\AnyParameters());
-
+        $this->ensure_parameters_can_be_configured();
+        $this->emit_deprecation_when_created_without_explicit_expects();
+        $this->matcher->set_parameters_rule(new Rule\Any_Parameters());
         return $this;
     }
-
     /**
      * @param non-empty-string $id
      *
@@ -84,13 +70,11 @@ final class InvocationMockerImplementation extends AbstractInvocationImplementat
      *
      * @deprecated https://github.com/sebastianbergmann/phpunit/issues/6537
      */
-    public function id(string $id): InvocationMocker
+    public function id(string $id): Invocation_Mocker
     {
-        $this->invocationHandler->registerMatcher($id, $this->matcher);
-
+        $this->invocation_handler->register_matcher($id, $this->matcher);
         return $this;
     }
-
     /**
      * @param non-empty-string $id
      *
@@ -98,22 +82,16 @@ final class InvocationMockerImplementation extends AbstractInvocationImplementat
      *
      * @deprecated https://github.com/sebastianbergmann/phpunit/issues/6537
      */
-    public function after(string $id): InvocationMocker
+    public function after(string $id): Invocation_Mocker
     {
-        $this->matcher->setAfterMatchBuilderId($id);
-
+        $this->matcher->set_after_match_builder_id($id);
         return $this;
     }
-
-    private function emitDeprecationWhenCreatedWithoutExplicitExpects(): void
+    private function emit_deprecation_when_created_without_explicit_expects(): void
     {
-        if (!$this->createdWithoutExplicitExpects) {
+        if (!$this->created_without_explicit_expects) {
             return;
         }
-
-        EventFacade::emitter()->testTriggeredPhpunitDeprecation(
-            null,
-            'Using with*() without expects() is deprecated and will no longer be possible in PHPUnit 14.',
-        );
+        Event_Facade::emitter()->test_triggered_phpunit_deprecation(null, 'Using with*() without expects() is deprecated and will no longer be possible in PHPUnit 14.');
     }
 }

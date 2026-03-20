@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\CliArguments;
+namespace Php_Unit\Text_Ui\Cli_Arguments;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -33,10 +32,9 @@ final readonly class Configuration
      * @param ?non-empty-list<non-empty-string>                    $coverageFilter
      * @param ?non-empty-list<non-empty-string>                    $extensions
      */
-    public function __construct(private array $arguments, private ?string $testFilesFile, private ?bool $all, private ?string $atLeastVersion, private ?bool $backupGlobals, private ?bool $backupStaticProperties, private ?bool $beStrictAboutChangesToGlobalState, private ?string $bootstrap, private ?string $cacheDirectory, private ?bool $cacheResult, private bool $checkPhpConfiguration, private bool $checkVersion, private ?string $colors, private null|int|string $columns, private ?string $configurationFile, private ?string $coverageClover, private ?string $coverageCobertura, private ?string $coverageCrap4J, private ?string $coverageHtml, private ?string $coverageOpenClover, private ?string $coveragePhp, private ?string $coverageText, private ?bool $coverageTextShowUncoveredFiles, private ?bool $coverageTextShowOnlySummary, private ?string $coverageXml, private ?bool $excludeSourceFromXmlCoverage, private ?bool $pathCoverage, private bool $warmCoverageCache, private ?int $defaultTimeLimit, private ?bool $disableCodeCoverageIgnore, private ?bool $disallowTestOutput, private ?bool $enforceTimeLimit, private ?array $excludeGroups, private ?int $executionOrder, private ?int $executionOrderDefects, private ?bool $failOnAllIssues, private ?bool $failOnDeprecation, private ?bool $failOnPhpunitDeprecation, private ?bool $failOnPhpunitNotice, private ?bool $failOnPhpunitWarning, private ?bool $failOnEmptyTestSuite, private ?bool $failOnIncomplete, private ?bool $failOnNotice, private ?bool $failOnRisky, private ?bool $failOnSkipped, private ?bool $failOnWarning, private ?bool $doNotFailOnDeprecation, private ?bool $doNotFailOnPhpunitDeprecation, private ?bool $doNotFailOnPhpunitNotice, private ?bool $doNotFailOnPhpunitWarning, private ?bool $doNotFailOnEmptyTestSuite, private ?bool $doNotFailOnIncomplete, private ?bool $doNotFailOnNotice, private ?bool $doNotFailOnRisky, private ?bool $doNotFailOnSkipped, private ?bool $doNotFailOnWarning, private ?bool $stopOnDefect, private ?bool $stopOnDeprecation, private ?string $specificDeprecationToStopOn, private ?bool $stopOnError, private ?bool $stopOnFailure, private ?bool $stopOnIncomplete, private ?bool $stopOnNotice, private ?bool $stopOnRisky, private ?bool $stopOnSkipped, private ?bool $stopOnWarning, private ?string $filter, private ?string $excludeFilter, private ?string $generateBaseline, private ?string $useBaseline, private bool $ignoreBaseline, private bool $generateConfiguration, private bool $migrateConfiguration, private ?array $groups, private ?array $testsCovering, private ?array $testsUsing, private ?array $testsRequiringPhpExtension, private bool $help, private ?string $includePath, private ?array $iniSettings, private ?string $junitLogfile, private ?string $otrLogfile, private ?bool $includeGitInformation, private bool $listGroups, private bool $listSuites, private bool $listTestFiles, private bool $listTests, private ?string $listTestsXml, private ?bool $noCoverage, private ?bool $noExtensions, private ?bool $noOutput, private ?bool $noProgress, private ?bool $noResults, private ?bool $noLogging, private ?bool $processIsolation, private ?int $randomOrderSeed, private ?bool $reportUselessTests, private ?bool $resolveDependencies, private ?bool $reverseList, private ?bool $stderr, private ?bool $strictCoverage, private ?string $teamcityLogfile, private ?string $testdoxHtmlFile, private ?string $testdoxTextFile, private ?array $testSuffixes, private ?string $testSuite, private ?string $excludeTestSuite, private bool $useDefaultConfiguration, private ?bool $displayDetailsOnAllIssues, private ?bool $displayDetailsOnIncompleteTests, private ?bool $displayDetailsOnSkippedTests, private ?bool $displayDetailsOnTestsThatTriggerDeprecations, private ?bool $displayDetailsOnPhpunitDeprecations, private ?bool $displayDetailsOnPhpunitNotices, private ?bool $displayDetailsOnTestsThatTriggerErrors, private ?bool $displayDetailsOnTestsThatTriggerNotices, private ?bool $displayDetailsOnTestsThatTriggerWarnings, private bool $version, private ?array $coverageFilter, private ?string $logEventsText, private ?string $logEventsVerboseText, private ?bool $teamCityPrinter, private ?bool $testdoxPrinter, private ?bool $testdoxPrinterSummary, private bool $debug, private bool $withTelemetry, private ?array $extensions)
+    public function __construct(private array $arguments, private ?string $test_files_file, private ?bool $all, private ?string $at_least_version, private ?bool $backup_globals, private ?bool $backup_static_properties, private ?bool $be_strict_about_changes_to_global_state, private ?string $bootstrap, private ?string $cache_directory, private ?bool $cache_result, private bool $check_php_configuration, private bool $check_version, private ?string $colors, private null|int|string $columns, private ?string $configuration_file, private ?string $coverage_clover, private ?string $coverage_cobertura, private ?string $coverage_crap4j, private ?string $coverage_html, private ?string $coverage_open_clover, private ?string $coverage_php, private ?string $coverage_text, private ?bool $coverage_text_show_uncovered_files, private ?bool $coverage_text_show_only_summary, private ?string $coverage_xml, private ?bool $exclude_source_from_xml_coverage, private ?bool $path_coverage, private bool $warm_coverage_cache, private ?int $default_time_limit, private ?bool $disable_code_coverage_ignore, private ?bool $disallow_test_output, private ?bool $enforce_time_limit, private ?array $exclude_groups, private ?int $execution_order, private ?int $execution_order_defects, private ?bool $fail_on_all_issues, private ?bool $fail_on_deprecation, private ?bool $fail_on_phpunit_deprecation, private ?bool $fail_on_phpunit_notice, private ?bool $fail_on_phpunit_warning, private ?bool $fail_on_empty_test_suite, private ?bool $fail_on_incomplete, private ?bool $fail_on_notice, private ?bool $fail_on_risky, private ?bool $fail_on_skipped, private ?bool $fail_on_warning, private ?bool $do_not_fail_on_deprecation, private ?bool $do_not_fail_on_phpunit_deprecation, private ?bool $do_not_fail_on_phpunit_notice, private ?bool $do_not_fail_on_phpunit_warning, private ?bool $do_not_fail_on_empty_test_suite, private ?bool $do_not_fail_on_incomplete, private ?bool $do_not_fail_on_notice, private ?bool $do_not_fail_on_risky, private ?bool $do_not_fail_on_skipped, private ?bool $do_not_fail_on_warning, private ?bool $stop_on_defect, private ?bool $stop_on_deprecation, private ?string $specific_deprecation_to_stop_on, private ?bool $stop_on_error, private ?bool $stop_on_failure, private ?bool $stop_on_incomplete, private ?bool $stop_on_notice, private ?bool $stop_on_risky, private ?bool $stop_on_skipped, private ?bool $stop_on_warning, private ?string $filter, private ?string $exclude_filter, private ?string $generate_baseline, private ?string $use_baseline, private bool $ignore_baseline, private bool $generate_configuration, private bool $migrate_configuration, private ?array $groups, private ?array $tests_covering, private ?array $tests_using, private ?array $tests_requiring_php_extension, private bool $help, private ?string $include_path, private ?array $ini_settings, private ?string $junit_logfile, private ?string $otr_logfile, private ?bool $include_git_information, private bool $list_groups, private bool $list_suites, private bool $list_test_files, private bool $list_tests, private ?string $list_tests_xml, private ?bool $no_coverage, private ?bool $no_extensions, private ?bool $no_output, private ?bool $no_progress, private ?bool $no_results, private ?bool $no_logging, private ?bool $process_isolation, private ?int $random_order_seed, private ?bool $report_useless_tests, private ?bool $resolve_dependencies, private ?bool $reverse_list, private ?bool $stderr, private ?bool $strict_coverage, private ?string $teamcity_logfile, private ?string $testdox_html_file, private ?string $testdox_text_file, private ?array $test_suffixes, private ?string $test_suite, private ?string $exclude_test_suite, private bool $use_default_configuration, private ?bool $display_details_on_all_issues, private ?bool $display_details_on_incomplete_tests, private ?bool $display_details_on_skipped_tests, private ?bool $display_details_on_tests_that_trigger_deprecations, private ?bool $display_details_on_phpunit_deprecations, private ?bool $display_details_on_phpunit_notices, private ?bool $display_details_on_tests_that_trigger_errors, private ?bool $display_details_on_tests_that_trigger_notices, private ?bool $display_details_on_tests_that_trigger_warnings, private bool $version, private ?array $coverage_filter, private ?string $log_events_text, private ?string $log_events_verbose_text, private ?bool $team_city_printer, private ?bool $testdox_printer, private ?bool $testdox_printer_summary, private bool $debug, private bool $with_telemetry, private ?array $extensions)
     {
     }
-
     /**
      * @return list<non-empty-string>
      */
@@ -44,1389 +42,1180 @@ final readonly class Configuration
     {
         return $this->arguments;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->testFilesFile
      */
-    public function hasTestFilesFile(): bool
+    public function has_test_files_file(): bool
     {
-        return $this->testFilesFile !== null;
+        return $this->test_files_file !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function testFilesFile(): string
+    public function test_files_file(): string
     {
-        if (!$this->hasTestFilesFile()) {
+        if (!$this->has_test_files_file()) {
             throw new Exception();
         }
-
-        return $this->testFilesFile;
+        return $this->test_files_file;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->all
      */
-    public function hasAll(): bool
+    public function has_all(): bool
     {
         return $this->all !== null;
     }
-
     /**
      * @throws Exception
      */
     public function all(): bool
     {
-        if (!$this->hasAll()) {
+        if (!$this->has_all()) {
             throw new Exception();
         }
-
         return $this->all;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->atLeastVersion
      */
-    public function hasAtLeastVersion(): bool
+    public function has_at_least_version(): bool
     {
-        return $this->atLeastVersion !== null;
+        return $this->at_least_version !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function atLeastVersion(): string
+    public function at_least_version(): string
     {
-        if (!$this->hasAtLeastVersion()) {
+        if (!$this->has_at_least_version()) {
             throw new Exception();
         }
-
-        return $this->atLeastVersion;
+        return $this->at_least_version;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->backupGlobals
      */
-    public function hasBackupGlobals(): bool
+    public function has_backup_globals(): bool
     {
-        return $this->backupGlobals !== null;
+        return $this->backup_globals !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function backupGlobals(): bool
+    public function backup_globals(): bool
     {
-        if (!$this->hasBackupGlobals()) {
+        if (!$this->has_backup_globals()) {
             throw new Exception();
         }
-
-        return $this->backupGlobals;
+        return $this->backup_globals;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->backupStaticProperties
      */
-    public function hasBackupStaticProperties(): bool
+    public function has_backup_static_properties(): bool
     {
-        return $this->backupStaticProperties !== null;
+        return $this->backup_static_properties !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function backupStaticProperties(): bool
+    public function backup_static_properties(): bool
     {
-        if (!$this->hasBackupStaticProperties()) {
+        if (!$this->has_backup_static_properties()) {
             throw new Exception();
         }
-
-        return $this->backupStaticProperties;
+        return $this->backup_static_properties;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->beStrictAboutChangesToGlobalState
      */
-    public function hasBeStrictAboutChangesToGlobalState(): bool
+    public function has_be_strict_about_changes_to_global_state(): bool
     {
-        return $this->beStrictAboutChangesToGlobalState !== null;
+        return $this->be_strict_about_changes_to_global_state !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function beStrictAboutChangesToGlobalState(): bool
+    public function be_strict_about_changes_to_global_state(): bool
     {
-        if (!$this->hasBeStrictAboutChangesToGlobalState()) {
+        if (!$this->has_be_strict_about_changes_to_global_state()) {
             throw new Exception();
         }
-
-        return $this->beStrictAboutChangesToGlobalState;
+        return $this->be_strict_about_changes_to_global_state;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->bootstrap
      */
-    public function hasBootstrap(): bool
+    public function has_bootstrap(): bool
     {
         return $this->bootstrap !== null;
     }
-
     /**
      * @throws Exception
      */
     public function bootstrap(): string
     {
-        if (!$this->hasBootstrap()) {
+        if (!$this->has_bootstrap()) {
             throw new Exception();
         }
-
         return $this->bootstrap;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->cacheDirectory
      */
-    public function hasCacheDirectory(): bool
+    public function has_cache_directory(): bool
     {
-        return $this->cacheDirectory !== null;
+        return $this->cache_directory !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function cacheDirectory(): string
+    public function cache_directory(): string
     {
-        if (!$this->hasCacheDirectory()) {
+        if (!$this->has_cache_directory()) {
             throw new Exception();
         }
-
-        return $this->cacheDirectory;
+        return $this->cache_directory;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->cacheResult
      */
-    public function hasCacheResult(): bool
+    public function has_cache_result(): bool
     {
-        return $this->cacheResult !== null;
+        return $this->cache_result !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function cacheResult(): bool
+    public function cache_result(): bool
     {
-        if (!$this->hasCacheResult()) {
+        if (!$this->has_cache_result()) {
             throw new Exception();
         }
-
-        return $this->cacheResult;
+        return $this->cache_result;
     }
-
-    public function checkPhpConfiguration(): bool
+    public function check_php_configuration(): bool
     {
-        return $this->checkPhpConfiguration;
+        return $this->check_php_configuration;
     }
-
-    public function checkVersion(): bool
+    public function check_version(): bool
     {
-        return $this->checkVersion;
+        return $this->check_version;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->colors
      */
-    public function hasColors(): bool
+    public function has_colors(): bool
     {
         return $this->colors !== null;
     }
-
     /**
      * @throws Exception
      */
     public function colors(): string
     {
-        if (!$this->hasColors()) {
+        if (!$this->has_colors()) {
             throw new Exception();
         }
-
         return $this->colors;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->columns
      */
-    public function hasColumns(): bool
+    public function has_columns(): bool
     {
         return $this->columns !== null;
     }
-
     /**
      * @throws Exception
      */
     public function columns(): int|string
     {
-        if (!$this->hasColumns()) {
+        if (!$this->has_columns()) {
             throw new Exception();
         }
-
         return $this->columns;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->configurationFile
      */
-    public function hasConfigurationFile(): bool
+    public function has_configuration_file(): bool
     {
-        return $this->configurationFile !== null;
+        return $this->configuration_file !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function configurationFile(): string
+    public function configuration_file(): string
     {
-        if (!$this->hasConfigurationFile()) {
+        if (!$this->has_configuration_file()) {
             throw new Exception();
         }
-
-        return $this->configurationFile;
+        return $this->configuration_file;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageFilter
      */
-    public function hasCoverageFilter(): bool
+    public function has_coverage_filter(): bool
     {
-        return $this->coverageFilter !== null;
+        return $this->coverage_filter !== null;
     }
-
     /**
      * @throws Exception
      *
      * @return non-empty-list<non-empty-string>
      */
-    public function coverageFilter(): array
+    public function coverage_filter(): array
     {
-        if (!$this->hasCoverageFilter()) {
+        if (!$this->has_coverage_filter()) {
             throw new Exception();
         }
-
-        return $this->coverageFilter;
+        return $this->coverage_filter;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageClover
      */
-    public function hasCoverageClover(): bool
+    public function has_coverage_clover(): bool
     {
-        return $this->coverageClover !== null;
+        return $this->coverage_clover !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function coverageClover(): string
+    public function coverage_clover(): string
     {
-        if (!$this->hasCoverageClover()) {
+        if (!$this->has_coverage_clover()) {
             throw new Exception();
         }
-
-        return $this->coverageClover;
+        return $this->coverage_clover;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageCobertura
      */
-    public function hasCoverageCobertura(): bool
+    public function has_coverage_cobertura(): bool
     {
-        return $this->coverageCobertura !== null;
+        return $this->coverage_cobertura !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function coverageCobertura(): string
+    public function coverage_cobertura(): string
     {
-        if (!$this->hasCoverageCobertura()) {
+        if (!$this->has_coverage_cobertura()) {
             throw new Exception();
         }
-
-        return $this->coverageCobertura;
+        return $this->coverage_cobertura;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageCrap4J
      */
-    public function hasCoverageCrap4J(): bool
+    public function has_coverage_crap4j(): bool
     {
-        return $this->coverageCrap4J !== null;
+        return $this->coverage_crap4j !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function coverageCrap4J(): string
+    public function coverage_crap4j(): string
     {
-        if (!$this->hasCoverageCrap4J()) {
+        if (!$this->has_coverage_crap4j()) {
             throw new Exception();
         }
-
-        return $this->coverageCrap4J;
+        return $this->coverage_crap4j;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageHtml
      */
-    public function hasCoverageHtml(): bool
+    public function has_coverage_html(): bool
     {
-        return $this->coverageHtml !== null;
+        return $this->coverage_html !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function coverageHtml(): string
+    public function coverage_html(): string
     {
-        if (!$this->hasCoverageHtml()) {
+        if (!$this->has_coverage_html()) {
             throw new Exception();
         }
-
-        return $this->coverageHtml;
+        return $this->coverage_html;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageOpenClover
      */
-    public function hasCoverageOpenClover(): bool
+    public function has_coverage_open_clover(): bool
     {
-        return $this->coverageOpenClover !== null;
+        return $this->coverage_open_clover !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function coverageOpenClover(): string
+    public function coverage_open_clover(): string
     {
-        if (!$this->hasCoverageOpenClover()) {
+        if (!$this->has_coverage_open_clover()) {
             throw new Exception();
         }
-
-        return $this->coverageOpenClover;
+        return $this->coverage_open_clover;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coveragePhp
      */
-    public function hasCoveragePhp(): bool
+    public function has_coverage_php(): bool
     {
-        return $this->coveragePhp !== null;
+        return $this->coverage_php !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function coveragePhp(): string
+    public function coverage_php(): string
     {
-        if (!$this->hasCoveragePhp()) {
+        if (!$this->has_coverage_php()) {
             throw new Exception();
         }
-
-        return $this->coveragePhp;
+        return $this->coverage_php;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageText
      */
-    public function hasCoverageText(): bool
+    public function has_coverage_text(): bool
     {
-        return $this->coverageText !== null;
+        return $this->coverage_text !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function coverageText(): string
+    public function coverage_text(): string
     {
-        if (!$this->hasCoverageText()) {
+        if (!$this->has_coverage_text()) {
             throw new Exception();
         }
-
-        return $this->coverageText;
+        return $this->coverage_text;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageTextShowUncoveredFiles
      */
-    public function hasCoverageTextShowUncoveredFiles(): bool
+    public function has_coverage_text_show_uncovered_files(): bool
     {
-        return $this->coverageTextShowUncoveredFiles !== null;
+        return $this->coverage_text_show_uncovered_files !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function coverageTextShowUncoveredFiles(): bool
+    public function coverage_text_show_uncovered_files(): bool
     {
-        if (!$this->hasCoverageTextShowUncoveredFiles()) {
+        if (!$this->has_coverage_text_show_uncovered_files()) {
             throw new Exception();
         }
-
-        return $this->coverageTextShowUncoveredFiles;
+        return $this->coverage_text_show_uncovered_files;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageTextShowOnlySummary
      */
-    public function hasCoverageTextShowOnlySummary(): bool
+    public function has_coverage_text_show_only_summary(): bool
     {
-        return $this->coverageTextShowOnlySummary !== null;
+        return $this->coverage_text_show_only_summary !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function coverageTextShowOnlySummary(): bool
+    public function coverage_text_show_only_summary(): bool
     {
-        if (!$this->hasCoverageTextShowOnlySummary()) {
+        if (!$this->has_coverage_text_show_only_summary()) {
             throw new Exception();
         }
-
-        return $this->coverageTextShowOnlySummary;
+        return $this->coverage_text_show_only_summary;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->coverageXml
      */
-    public function hasCoverageXml(): bool
+    public function has_coverage_xml(): bool
     {
-        return $this->coverageXml !== null;
+        return $this->coverage_xml !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function coverageXml(): string
+    public function coverage_xml(): string
     {
-        if (!$this->hasCoverageXml()) {
+        if (!$this->has_coverage_xml()) {
             throw new Exception();
         }
-
-        return $this->coverageXml;
+        return $this->coverage_xml;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->excludeSourceFromXmlCoverage
      */
-    public function hasExcludeSourceFromXmlCoverage(): bool
+    public function has_exclude_source_from_xml_coverage(): bool
     {
-        return $this->excludeSourceFromXmlCoverage !== null;
+        return $this->exclude_source_from_xml_coverage !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function excludeSourceFromXmlCoverage(): bool
+    public function exclude_source_from_xml_coverage(): bool
     {
-        if (!$this->hasExcludeSourceFromXmlCoverage()) {
+        if (!$this->has_exclude_source_from_xml_coverage()) {
             throw new Exception();
         }
-
-        return $this->excludeSourceFromXmlCoverage;
+        return $this->exclude_source_from_xml_coverage;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->pathCoverage
      */
-    public function hasPathCoverage(): bool
+    public function has_path_coverage(): bool
     {
-        return $this->pathCoverage !== null;
+        return $this->path_coverage !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function pathCoverage(): bool
+    public function path_coverage(): bool
     {
-        if (!$this->hasPathCoverage()) {
+        if (!$this->has_path_coverage()) {
             throw new Exception();
         }
-
-        return $this->pathCoverage;
+        return $this->path_coverage;
     }
-
-    public function warmCoverageCache(): bool
+    public function warm_coverage_cache(): bool
     {
-        return $this->warmCoverageCache;
+        return $this->warm_coverage_cache;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->defaultTimeLimit
      */
-    public function hasDefaultTimeLimit(): bool
+    public function has_default_time_limit(): bool
     {
-        return $this->defaultTimeLimit !== null;
+        return $this->default_time_limit !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function defaultTimeLimit(): int
+    public function default_time_limit(): int
     {
-        if (!$this->hasDefaultTimeLimit()) {
+        if (!$this->has_default_time_limit()) {
             throw new Exception();
         }
-
-        return $this->defaultTimeLimit;
+        return $this->default_time_limit;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->disableCodeCoverageIgnore
      */
-    public function hasDisableCodeCoverageIgnore(): bool
+    public function has_disable_code_coverage_ignore(): bool
     {
-        return $this->disableCodeCoverageIgnore !== null;
+        return $this->disable_code_coverage_ignore !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function disableCodeCoverageIgnore(): bool
+    public function disable_code_coverage_ignore(): bool
     {
-        if (!$this->hasDisableCodeCoverageIgnore()) {
+        if (!$this->has_disable_code_coverage_ignore()) {
             throw new Exception();
         }
-
-        return $this->disableCodeCoverageIgnore;
+        return $this->disable_code_coverage_ignore;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->disallowTestOutput
      */
-    public function hasDisallowTestOutput(): bool
+    public function has_disallow_test_output(): bool
     {
-        return $this->disallowTestOutput !== null;
+        return $this->disallow_test_output !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function disallowTestOutput(): bool
+    public function disallow_test_output(): bool
     {
-        if (!$this->hasDisallowTestOutput()) {
+        if (!$this->has_disallow_test_output()) {
             throw new Exception();
         }
-
-        return $this->disallowTestOutput;
+        return $this->disallow_test_output;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->enforceTimeLimit
      */
-    public function hasEnforceTimeLimit(): bool
+    public function has_enforce_time_limit(): bool
     {
-        return $this->enforceTimeLimit !== null;
+        return $this->enforce_time_limit !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function enforceTimeLimit(): bool
+    public function enforce_time_limit(): bool
     {
-        if (!$this->hasEnforceTimeLimit()) {
+        if (!$this->has_enforce_time_limit()) {
             throw new Exception();
         }
-
-        return $this->enforceTimeLimit;
+        return $this->enforce_time_limit;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->excludeGroups
      */
-    public function hasExcludeGroups(): bool
+    public function has_exclude_groups(): bool
     {
-        return $this->excludeGroups !== null;
+        return $this->exclude_groups !== null;
     }
-
     /**
      * @throws Exception
      *
      * @return non-empty-list<non-empty-string>
      */
-    public function excludeGroups(): array
+    public function exclude_groups(): array
     {
-        if (!$this->hasExcludeGroups()) {
+        if (!$this->has_exclude_groups()) {
             throw new Exception();
         }
-
-        return $this->excludeGroups;
+        return $this->exclude_groups;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->executionOrder
      */
-    public function hasExecutionOrder(): bool
+    public function has_execution_order(): bool
     {
-        return $this->executionOrder !== null;
+        return $this->execution_order !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function executionOrder(): int
+    public function execution_order(): int
     {
-        if (!$this->hasExecutionOrder()) {
+        if (!$this->has_execution_order()) {
             throw new Exception();
         }
-
-        return $this->executionOrder;
+        return $this->execution_order;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->executionOrderDefects
      */
-    public function hasExecutionOrderDefects(): bool
+    public function has_execution_order_defects(): bool
     {
-        return $this->executionOrderDefects !== null;
+        return $this->execution_order_defects !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function executionOrderDefects(): int
+    public function execution_order_defects(): int
     {
-        if (!$this->hasExecutionOrderDefects()) {
+        if (!$this->has_execution_order_defects()) {
             throw new Exception();
         }
-
-        return $this->executionOrderDefects;
+        return $this->execution_order_defects;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->failOnAllIssues
      */
-    public function hasFailOnAllIssues(): bool
+    public function has_fail_on_all_issues(): bool
     {
-        return $this->failOnAllIssues !== null;
+        return $this->fail_on_all_issues !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function failOnAllIssues(): bool
+    public function fail_on_all_issues(): bool
     {
-        if (!$this->hasFailOnAllIssues()) {
+        if (!$this->has_fail_on_all_issues()) {
             throw new Exception();
         }
-
-        return $this->failOnAllIssues;
+        return $this->fail_on_all_issues;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->failOnDeprecation
      */
-    public function hasFailOnDeprecation(): bool
+    public function has_fail_on_deprecation(): bool
     {
-        return $this->failOnDeprecation !== null;
+        return $this->fail_on_deprecation !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function failOnDeprecation(): bool
+    public function fail_on_deprecation(): bool
     {
-        if (!$this->hasFailOnDeprecation()) {
+        if (!$this->has_fail_on_deprecation()) {
             throw new Exception();
         }
-
-        return $this->failOnDeprecation;
+        return $this->fail_on_deprecation;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->failOnPhpunitDeprecation
      */
-    public function hasFailOnPhpunitDeprecation(): bool
+    public function has_fail_on_phpunit_deprecation(): bool
     {
-        return $this->failOnPhpunitDeprecation !== null;
+        return $this->fail_on_phpunit_deprecation !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function failOnPhpunitDeprecation(): bool
+    public function fail_on_phpunit_deprecation(): bool
     {
-        if (!$this->hasFailOnPhpunitDeprecation()) {
+        if (!$this->has_fail_on_phpunit_deprecation()) {
             throw new Exception();
         }
-
-        return $this->failOnPhpunitDeprecation;
+        return $this->fail_on_phpunit_deprecation;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->failOnPhpunitNotice
      */
-    public function hasFailOnPhpunitNotice(): bool
+    public function has_fail_on_phpunit_notice(): bool
     {
-        return $this->failOnPhpunitNotice !== null;
+        return $this->fail_on_phpunit_notice !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function failOnPhpunitNotice(): bool
+    public function fail_on_phpunit_notice(): bool
     {
-        if (!$this->hasFailOnPhpunitNotice()) {
+        if (!$this->has_fail_on_phpunit_notice()) {
             throw new Exception();
         }
-
-        return $this->failOnPhpunitNotice;
+        return $this->fail_on_phpunit_notice;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->failOnPhpunitWarning
      */
-    public function hasFailOnPhpunitWarning(): bool
+    public function has_fail_on_phpunit_warning(): bool
     {
-        return $this->failOnPhpunitWarning !== null;
+        return $this->fail_on_phpunit_warning !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function failOnPhpunitWarning(): bool
+    public function fail_on_phpunit_warning(): bool
     {
-        if (!$this->hasFailOnPhpunitWarning()) {
+        if (!$this->has_fail_on_phpunit_warning()) {
             throw new Exception();
         }
-
-        return $this->failOnPhpunitWarning;
+        return $this->fail_on_phpunit_warning;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->failOnEmptyTestSuite
      */
-    public function hasFailOnEmptyTestSuite(): bool
+    public function has_fail_on_empty_test_suite(): bool
     {
-        return $this->failOnEmptyTestSuite !== null;
+        return $this->fail_on_empty_test_suite !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function failOnEmptyTestSuite(): bool
+    public function fail_on_empty_test_suite(): bool
     {
-        if (!$this->hasFailOnEmptyTestSuite()) {
+        if (!$this->has_fail_on_empty_test_suite()) {
             throw new Exception();
         }
-
-        return $this->failOnEmptyTestSuite;
+        return $this->fail_on_empty_test_suite;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->failOnIncomplete
      */
-    public function hasFailOnIncomplete(): bool
+    public function has_fail_on_incomplete(): bool
     {
-        return $this->failOnIncomplete !== null;
+        return $this->fail_on_incomplete !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function failOnIncomplete(): bool
+    public function fail_on_incomplete(): bool
     {
-        if (!$this->hasFailOnIncomplete()) {
+        if (!$this->has_fail_on_incomplete()) {
             throw new Exception();
         }
-
-        return $this->failOnIncomplete;
+        return $this->fail_on_incomplete;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->failOnNotice
      */
-    public function hasFailOnNotice(): bool
+    public function has_fail_on_notice(): bool
     {
-        return $this->failOnNotice !== null;
+        return $this->fail_on_notice !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function failOnNotice(): bool
+    public function fail_on_notice(): bool
     {
-        if (!$this->hasFailOnNotice()) {
+        if (!$this->has_fail_on_notice()) {
             throw new Exception();
         }
-
-        return $this->failOnNotice;
+        return $this->fail_on_notice;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->failOnRisky
      */
-    public function hasFailOnRisky(): bool
+    public function has_fail_on_risky(): bool
     {
-        return $this->failOnRisky !== null;
+        return $this->fail_on_risky !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function failOnRisky(): bool
+    public function fail_on_risky(): bool
     {
-        if (!$this->hasFailOnRisky()) {
+        if (!$this->has_fail_on_risky()) {
             throw new Exception();
         }
-
-        return $this->failOnRisky;
+        return $this->fail_on_risky;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->failOnSkipped
      */
-    public function hasFailOnSkipped(): bool
+    public function has_fail_on_skipped(): bool
     {
-        return $this->failOnSkipped !== null;
+        return $this->fail_on_skipped !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function failOnSkipped(): bool
+    public function fail_on_skipped(): bool
     {
-        if (!$this->hasFailOnSkipped()) {
+        if (!$this->has_fail_on_skipped()) {
             throw new Exception();
         }
-
-        return $this->failOnSkipped;
+        return $this->fail_on_skipped;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->failOnWarning
      */
-    public function hasFailOnWarning(): bool
+    public function has_fail_on_warning(): bool
     {
-        return $this->failOnWarning !== null;
+        return $this->fail_on_warning !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function failOnWarning(): bool
+    public function fail_on_warning(): bool
     {
-        if (!$this->hasFailOnWarning()) {
+        if (!$this->has_fail_on_warning()) {
             throw new Exception();
         }
-
-        return $this->failOnWarning;
+        return $this->fail_on_warning;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->doNotFailOnDeprecation
      */
-    public function hasDoNotFailOnDeprecation(): bool
+    public function has_do_not_fail_on_deprecation(): bool
     {
-        return $this->doNotFailOnDeprecation !== null;
+        return $this->do_not_fail_on_deprecation !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function doNotFailOnDeprecation(): bool
+    public function do_not_fail_on_deprecation(): bool
     {
-        if (!$this->hasDoNotFailOnDeprecation()) {
+        if (!$this->has_do_not_fail_on_deprecation()) {
             throw new Exception();
         }
-
-        return $this->doNotFailOnDeprecation;
+        return $this->do_not_fail_on_deprecation;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->doNotFailOnPhpunitDeprecation
      */
-    public function hasDoNotFailOnPhpunitDeprecation(): bool
+    public function has_do_not_fail_on_phpunit_deprecation(): bool
     {
-        return $this->doNotFailOnPhpunitDeprecation !== null;
+        return $this->do_not_fail_on_phpunit_deprecation !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function doNotFailOnPhpunitDeprecation(): bool
+    public function do_not_fail_on_phpunit_deprecation(): bool
     {
-        if (!$this->hasDoNotFailOnPhpunitDeprecation()) {
+        if (!$this->has_do_not_fail_on_phpunit_deprecation()) {
             throw new Exception();
         }
-
-        return $this->doNotFailOnPhpunitDeprecation;
+        return $this->do_not_fail_on_phpunit_deprecation;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->doNotFailOnPhpunitNotice
      */
-    public function hasDoNotFailOnPhpunitNotice(): bool
+    public function has_do_not_fail_on_phpunit_notice(): bool
     {
-        return $this->doNotFailOnPhpunitNotice !== null;
+        return $this->do_not_fail_on_phpunit_notice !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function doNotFailOnPhpunitNotice(): bool
+    public function do_not_fail_on_phpunit_notice(): bool
     {
-        if (!$this->hasDoNotFailOnPhpunitNotice()) {
+        if (!$this->has_do_not_fail_on_phpunit_notice()) {
             throw new Exception();
         }
-
-        return $this->doNotFailOnPhpunitNotice;
+        return $this->do_not_fail_on_phpunit_notice;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->doNotFailOnPhpunitWarning
      */
-    public function hasDoNotFailOnPhpunitWarning(): bool
+    public function has_do_not_fail_on_phpunit_warning(): bool
     {
-        return $this->doNotFailOnPhpunitWarning !== null;
+        return $this->do_not_fail_on_phpunit_warning !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function doNotFailOnPhpunitWarning(): bool
+    public function do_not_fail_on_phpunit_warning(): bool
     {
-        if (!$this->hasDoNotFailOnPhpunitWarning()) {
+        if (!$this->has_do_not_fail_on_phpunit_warning()) {
             throw new Exception();
         }
-
-        return $this->doNotFailOnPhpunitWarning;
+        return $this->do_not_fail_on_phpunit_warning;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->doNotFailOnEmptyTestSuite
      */
-    public function hasDoNotFailOnEmptyTestSuite(): bool
+    public function has_do_not_fail_on_empty_test_suite(): bool
     {
-        return $this->doNotFailOnEmptyTestSuite !== null;
+        return $this->do_not_fail_on_empty_test_suite !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function doNotFailOnEmptyTestSuite(): bool
+    public function do_not_fail_on_empty_test_suite(): bool
     {
-        if (!$this->hasDoNotFailOnEmptyTestSuite()) {
+        if (!$this->has_do_not_fail_on_empty_test_suite()) {
             throw new Exception();
         }
-
-        return $this->doNotFailOnEmptyTestSuite;
+        return $this->do_not_fail_on_empty_test_suite;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->doNotFailOnIncomplete
      */
-    public function hasDoNotFailOnIncomplete(): bool
+    public function has_do_not_fail_on_incomplete(): bool
     {
-        return $this->doNotFailOnIncomplete !== null;
+        return $this->do_not_fail_on_incomplete !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function doNotFailOnIncomplete(): bool
+    public function do_not_fail_on_incomplete(): bool
     {
-        if (!$this->hasDoNotFailOnIncomplete()) {
+        if (!$this->has_do_not_fail_on_incomplete()) {
             throw new Exception();
         }
-
-        return $this->doNotFailOnIncomplete;
+        return $this->do_not_fail_on_incomplete;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->doNotFailOnNotice
      */
-    public function hasDoNotFailOnNotice(): bool
+    public function has_do_not_fail_on_notice(): bool
     {
-        return $this->doNotFailOnNotice !== null;
+        return $this->do_not_fail_on_notice !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function doNotFailOnNotice(): bool
+    public function do_not_fail_on_notice(): bool
     {
-        if (!$this->hasDoNotFailOnNotice()) {
+        if (!$this->has_do_not_fail_on_notice()) {
             throw new Exception();
         }
-
-        return $this->doNotFailOnNotice;
+        return $this->do_not_fail_on_notice;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->doNotFailOnRisky
      */
-    public function hasDoNotFailOnRisky(): bool
+    public function has_do_not_fail_on_risky(): bool
     {
-        return $this->doNotFailOnRisky !== null;
+        return $this->do_not_fail_on_risky !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function doNotFailOnRisky(): bool
+    public function do_not_fail_on_risky(): bool
     {
-        if (!$this->hasDoNotFailOnRisky()) {
+        if (!$this->has_do_not_fail_on_risky()) {
             throw new Exception();
         }
-
-        return $this->doNotFailOnRisky;
+        return $this->do_not_fail_on_risky;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->doNotFailOnSkipped
      */
-    public function hasDoNotFailOnSkipped(): bool
+    public function has_do_not_fail_on_skipped(): bool
     {
-        return $this->doNotFailOnSkipped !== null;
+        return $this->do_not_fail_on_skipped !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function doNotFailOnSkipped(): bool
+    public function do_not_fail_on_skipped(): bool
     {
-        if (!$this->hasDoNotFailOnSkipped()) {
+        if (!$this->has_do_not_fail_on_skipped()) {
             throw new Exception();
         }
-
-        return $this->doNotFailOnSkipped;
+        return $this->do_not_fail_on_skipped;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->doNotFailOnWarning
      */
-    public function hasDoNotFailOnWarning(): bool
+    public function has_do_not_fail_on_warning(): bool
     {
-        return $this->doNotFailOnWarning !== null;
+        return $this->do_not_fail_on_warning !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function doNotFailOnWarning(): bool
+    public function do_not_fail_on_warning(): bool
     {
-        if (!$this->hasDoNotFailOnWarning()) {
+        if (!$this->has_do_not_fail_on_warning()) {
             throw new Exception();
         }
-
-        return $this->doNotFailOnWarning;
+        return $this->do_not_fail_on_warning;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->stopOnDefect
      */
-    public function hasStopOnDefect(): bool
+    public function has_stop_on_defect(): bool
     {
-        return $this->stopOnDefect !== null;
+        return $this->stop_on_defect !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function stopOnDefect(): bool
+    public function stop_on_defect(): bool
     {
-        if (!$this->hasStopOnDefect()) {
+        if (!$this->has_stop_on_defect()) {
             throw new Exception();
         }
-
-        return $this->stopOnDefect;
+        return $this->stop_on_defect;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->stopOnDeprecation
      */
-    public function hasStopOnDeprecation(): bool
+    public function has_stop_on_deprecation(): bool
     {
-        return $this->stopOnDeprecation !== null;
+        return $this->stop_on_deprecation !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function stopOnDeprecation(): bool
+    public function stop_on_deprecation(): bool
     {
-        if (!$this->hasStopOnDeprecation()) {
+        if (!$this->has_stop_on_deprecation()) {
             throw new Exception();
         }
-
-        return $this->stopOnDeprecation;
+        return $this->stop_on_deprecation;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->specificDeprecationToStopOn
      */
-    public function hasSpecificDeprecationToStopOn(): bool
+    public function has_specific_deprecation_to_stop_on(): bool
     {
-        return $this->specificDeprecationToStopOn !== null;
+        return $this->specific_deprecation_to_stop_on !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function specificDeprecationToStopOn(): string
+    public function specific_deprecation_to_stop_on(): string
     {
-        if (!$this->hasSpecificDeprecationToStopOn()) {
+        if (!$this->has_specific_deprecation_to_stop_on()) {
             throw new Exception();
         }
-
-        return $this->specificDeprecationToStopOn;
+        return $this->specific_deprecation_to_stop_on;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->stopOnError
      */
-    public function hasStopOnError(): bool
+    public function has_stop_on_error(): bool
     {
-        return $this->stopOnError !== null;
+        return $this->stop_on_error !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function stopOnError(): bool
+    public function stop_on_error(): bool
     {
-        if (!$this->hasStopOnError()) {
+        if (!$this->has_stop_on_error()) {
             throw new Exception();
         }
-
-        return $this->stopOnError;
+        return $this->stop_on_error;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->stopOnFailure
      */
-    public function hasStopOnFailure(): bool
+    public function has_stop_on_failure(): bool
     {
-        return $this->stopOnFailure !== null;
+        return $this->stop_on_failure !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function stopOnFailure(): bool
+    public function stop_on_failure(): bool
     {
-        if (!$this->hasStopOnFailure()) {
+        if (!$this->has_stop_on_failure()) {
             throw new Exception();
         }
-
-        return $this->stopOnFailure;
+        return $this->stop_on_failure;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->stopOnIncomplete
      */
-    public function hasStopOnIncomplete(): bool
+    public function has_stop_on_incomplete(): bool
     {
-        return $this->stopOnIncomplete !== null;
+        return $this->stop_on_incomplete !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function stopOnIncomplete(): bool
+    public function stop_on_incomplete(): bool
     {
-        if (!$this->hasStopOnIncomplete()) {
+        if (!$this->has_stop_on_incomplete()) {
             throw new Exception();
         }
-
-        return $this->stopOnIncomplete;
+        return $this->stop_on_incomplete;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->stopOnNotice
      */
-    public function hasStopOnNotice(): bool
+    public function has_stop_on_notice(): bool
     {
-        return $this->stopOnNotice !== null;
+        return $this->stop_on_notice !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function stopOnNotice(): bool
+    public function stop_on_notice(): bool
     {
-        if (!$this->hasStopOnNotice()) {
+        if (!$this->has_stop_on_notice()) {
             throw new Exception();
         }
-
-        return $this->stopOnNotice;
+        return $this->stop_on_notice;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->stopOnRisky
      */
-    public function hasStopOnRisky(): bool
+    public function has_stop_on_risky(): bool
     {
-        return $this->stopOnRisky !== null;
+        return $this->stop_on_risky !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function stopOnRisky(): bool
+    public function stop_on_risky(): bool
     {
-        if (!$this->hasStopOnRisky()) {
+        if (!$this->has_stop_on_risky()) {
             throw new Exception();
         }
-
-        return $this->stopOnRisky;
+        return $this->stop_on_risky;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->stopOnSkipped
      */
-    public function hasStopOnSkipped(): bool
+    public function has_stop_on_skipped(): bool
     {
-        return $this->stopOnSkipped !== null;
+        return $this->stop_on_skipped !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function stopOnSkipped(): bool
+    public function stop_on_skipped(): bool
     {
-        if (!$this->hasStopOnSkipped()) {
+        if (!$this->has_stop_on_skipped()) {
             throw new Exception();
         }
-
-        return $this->stopOnSkipped;
+        return $this->stop_on_skipped;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->stopOnWarning
      */
-    public function hasStopOnWarning(): bool
+    public function has_stop_on_warning(): bool
     {
-        return $this->stopOnWarning !== null;
+        return $this->stop_on_warning !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function stopOnWarning(): bool
+    public function stop_on_warning(): bool
     {
-        if (!$this->hasStopOnWarning()) {
+        if (!$this->has_stop_on_warning()) {
             throw new Exception();
         }
-
-        return $this->stopOnWarning;
+        return $this->stop_on_warning;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->excludeFilter
      */
-    public function hasExcludeFilter(): bool
+    public function has_exclude_filter(): bool
     {
-        return $this->excludeFilter !== null;
+        return $this->exclude_filter !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function excludeFilter(): string
+    public function exclude_filter(): string
     {
-        if (!$this->hasExcludeFilter()) {
+        if (!$this->has_exclude_filter()) {
             throw new Exception();
         }
-
-        return $this->excludeFilter;
+        return $this->exclude_filter;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->filter
      */
-    public function hasFilter(): bool
+    public function has_filter(): bool
     {
         return $this->filter !== null;
     }
-
     /**
      * @throws Exception
      */
     public function filter(): string
     {
-        if (!$this->hasFilter()) {
+        if (!$this->has_filter()) {
             throw new Exception();
         }
-
         return $this->filter;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->generateBaseline
      */
-    public function hasGenerateBaseline(): bool
+    public function has_generate_baseline(): bool
     {
-        return $this->generateBaseline !== null;
+        return $this->generate_baseline !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function generateBaseline(): string
+    public function generate_baseline(): string
     {
-        if (!$this->hasGenerateBaseline()) {
+        if (!$this->has_generate_baseline()) {
             throw new Exception();
         }
-
-        return $this->generateBaseline;
+        return $this->generate_baseline;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->useBaseline
      */
-    public function hasUseBaseline(): bool
+    public function has_use_baseline(): bool
     {
-        return $this->useBaseline !== null;
+        return $this->use_baseline !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function useBaseline(): string
+    public function use_baseline(): string
     {
-        if (!$this->hasUseBaseline()) {
+        if (!$this->has_use_baseline()) {
             throw new Exception();
         }
-
-        return $this->useBaseline;
+        return $this->use_baseline;
     }
-
-    public function ignoreBaseline(): bool
+    public function ignore_baseline(): bool
     {
-        return $this->ignoreBaseline;
+        return $this->ignore_baseline;
     }
-
-    public function generateConfiguration(): bool
+    public function generate_configuration(): bool
     {
-        return $this->generateConfiguration;
+        return $this->generate_configuration;
     }
-
-    public function migrateConfiguration(): bool
+    public function migrate_configuration(): bool
     {
-        return $this->migrateConfiguration;
+        return $this->migrate_configuration;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->groups
      */
-    public function hasGroups(): bool
+    public function has_groups(): bool
     {
         return $this->groups !== null;
     }
-
     /**
      * @throws Exception
      *
@@ -1434,916 +1223,778 @@ final readonly class Configuration
      */
     public function groups(): array
     {
-        if (!$this->hasGroups()) {
+        if (!$this->has_groups()) {
             throw new Exception();
         }
-
         return $this->groups;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->testsCovering
      */
-    public function hasTestsCovering(): bool
+    public function has_tests_covering(): bool
     {
-        return $this->testsCovering !== null;
+        return $this->tests_covering !== null;
     }
-
     /**
      * @throws Exception
      *
      * @return non-empty-list<non-empty-string>
      */
-    public function testsCovering(): array
+    public function tests_covering(): array
     {
-        if (!$this->hasTestsCovering()) {
+        if (!$this->has_tests_covering()) {
             throw new Exception();
         }
-
-        return $this->testsCovering;
+        return $this->tests_covering;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->testsUsing
      */
-    public function hasTestsUsing(): bool
+    public function has_tests_using(): bool
     {
-        return $this->testsUsing !== null;
+        return $this->tests_using !== null;
     }
-
     /**
      * @throws Exception
      *
      * @return non-empty-list<non-empty-string>
      */
-    public function testsUsing(): array
+    public function tests_using(): array
     {
-        if (!$this->hasTestsUsing()) {
+        if (!$this->has_tests_using()) {
             throw new Exception();
         }
-
-        return $this->testsUsing;
+        return $this->tests_using;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->testsRequiringPhpExtension
      */
-    public function hasTestsRequiringPhpExtension(): bool
+    public function has_tests_requiring_php_extension(): bool
     {
-        return $this->testsRequiringPhpExtension !== null;
+        return $this->tests_requiring_php_extension !== null;
     }
-
     /**
      * @throws Exception
      *
      * @return non-empty-list<non-empty-string>
      */
-    public function testsRequiringPhpExtension(): array
+    public function tests_requiring_php_extension(): array
     {
-        if (!$this->hasTestsRequiringPhpExtension()) {
+        if (!$this->has_tests_requiring_php_extension()) {
             throw new Exception();
         }
-
-        return $this->testsRequiringPhpExtension;
+        return $this->tests_requiring_php_extension;
     }
-
     public function help(): bool
     {
         return $this->help;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->includePath
      */
-    public function hasIncludePath(): bool
+    public function has_include_path(): bool
     {
-        return $this->includePath !== null;
+        return $this->include_path !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function includePath(): string
+    public function include_path(): string
     {
-        if (!$this->hasIncludePath()) {
+        if (!$this->has_include_path()) {
             throw new Exception();
         }
-
-        return $this->includePath;
+        return $this->include_path;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->iniSettings
      */
-    public function hasIniSettings(): bool
+    public function has_ini_settings(): bool
     {
-        return $this->iniSettings !== null;
+        return $this->ini_settings !== null;
     }
-
     /**
      * @throws Exception
      *
      * @return non-empty-array<non-empty-string, non-empty-string>
      */
-    public function iniSettings(): array
+    public function ini_settings(): array
     {
-        if (!$this->hasIniSettings()) {
+        if (!$this->has_ini_settings()) {
             throw new Exception();
         }
-
-        return $this->iniSettings;
+        return $this->ini_settings;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->junitLogfile
      */
-    public function hasJunitLogfile(): bool
+    public function has_junit_logfile(): bool
     {
-        return $this->junitLogfile !== null;
+        return $this->junit_logfile !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function junitLogfile(): string
+    public function junit_logfile(): string
     {
-        if (!$this->hasJunitLogfile()) {
+        if (!$this->has_junit_logfile()) {
             throw new Exception();
         }
-
-        return $this->junitLogfile;
+        return $this->junit_logfile;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->otrLogfile
      */
-    public function hasOtrLogfile(): bool
+    public function has_otr_logfile(): bool
     {
-        return $this->otrLogfile !== null;
+        return $this->otr_logfile !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function otrLogfile(): string
+    public function otr_logfile(): string
     {
-        if (!$this->hasOtrLogfile()) {
+        if (!$this->has_otr_logfile()) {
             throw new Exception();
         }
-
-        return $this->otrLogfile;
+        return $this->otr_logfile;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->includeGitInformation
      */
-    public function hasIncludeGitInformation(): bool
+    public function has_include_git_information(): bool
     {
-        return $this->includeGitInformation !== null;
+        return $this->include_git_information !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function includeGitInformation(): bool
+    public function include_git_information(): bool
     {
-        if (!$this->hasIncludeGitInformation()) {
+        if (!$this->has_include_git_information()) {
             throw new Exception();
         }
-
-        return $this->includeGitInformation;
+        return $this->include_git_information;
     }
-
-    public function listGroups(): bool
+    public function list_groups(): bool
     {
-        return $this->listGroups;
+        return $this->list_groups;
     }
-
-    public function listSuites(): bool
+    public function list_suites(): bool
     {
-        return $this->listSuites;
+        return $this->list_suites;
     }
-
-    public function listTestFiles(): bool
+    public function list_test_files(): bool
     {
-        return $this->listTestFiles;
+        return $this->list_test_files;
     }
-
-    public function listTests(): bool
+    public function list_tests(): bool
     {
-        return $this->listTests;
+        return $this->list_tests;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->listTestsXml
      */
-    public function hasListTestsXml(): bool
+    public function has_list_tests_xml(): bool
     {
-        return $this->listTestsXml !== null;
+        return $this->list_tests_xml !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function listTestsXml(): string
+    public function list_tests_xml(): string
     {
-        if (!$this->hasListTestsXml()) {
+        if (!$this->has_list_tests_xml()) {
             throw new Exception();
         }
-
-        return $this->listTestsXml;
+        return $this->list_tests_xml;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->noCoverage
      */
-    public function hasNoCoverage(): bool
+    public function has_no_coverage(): bool
     {
-        return $this->noCoverage !== null;
+        return $this->no_coverage !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function noCoverage(): bool
+    public function no_coverage(): bool
     {
-        if (!$this->hasNoCoverage()) {
+        if (!$this->has_no_coverage()) {
             throw new Exception();
         }
-
-        return $this->noCoverage;
+        return $this->no_coverage;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->noExtensions
      */
-    public function hasNoExtensions(): bool
+    public function has_no_extensions(): bool
     {
-        return $this->noExtensions !== null;
+        return $this->no_extensions !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function noExtensions(): bool
+    public function no_extensions(): bool
     {
-        if (!$this->hasNoExtensions()) {
+        if (!$this->has_no_extensions()) {
             throw new Exception();
         }
-
-        return $this->noExtensions;
+        return $this->no_extensions;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->noOutput
      */
-    public function hasNoOutput(): bool
+    public function has_no_output(): bool
     {
-        return $this->noOutput !== null;
+        return $this->no_output !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function noOutput(): bool
+    public function no_output(): bool
     {
-        if ($this->noOutput === null) {
+        if ($this->no_output === null) {
             throw new Exception();
         }
-
-        return $this->noOutput;
+        return $this->no_output;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->noProgress
      */
-    public function hasNoProgress(): bool
+    public function has_no_progress(): bool
     {
-        return $this->noProgress !== null;
+        return $this->no_progress !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function noProgress(): bool
+    public function no_progress(): bool
     {
-        if ($this->noProgress === null) {
+        if ($this->no_progress === null) {
             throw new Exception();
         }
-
-        return $this->noProgress;
+        return $this->no_progress;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->noResults
      */
-    public function hasNoResults(): bool
+    public function has_no_results(): bool
     {
-        return $this->noResults !== null;
+        return $this->no_results !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function noResults(): bool
+    public function no_results(): bool
     {
-        if ($this->noResults === null) {
+        if ($this->no_results === null) {
             throw new Exception();
         }
-
-        return $this->noResults;
+        return $this->no_results;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->noLogging
      */
-    public function hasNoLogging(): bool
+    public function has_no_logging(): bool
     {
-        return $this->noLogging !== null;
+        return $this->no_logging !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function noLogging(): bool
+    public function no_logging(): bool
     {
-        if (!$this->hasNoLogging()) {
+        if (!$this->has_no_logging()) {
             throw new Exception();
         }
-
-        return $this->noLogging;
+        return $this->no_logging;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->processIsolation
      */
-    public function hasProcessIsolation(): bool
+    public function has_process_isolation(): bool
     {
-        return $this->processIsolation !== null;
+        return $this->process_isolation !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function processIsolation(): bool
+    public function process_isolation(): bool
     {
-        if (!$this->hasProcessIsolation()) {
+        if (!$this->has_process_isolation()) {
             throw new Exception();
         }
-
-        return $this->processIsolation;
+        return $this->process_isolation;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->randomOrderSeed
      */
-    public function hasRandomOrderSeed(): bool
+    public function has_random_order_seed(): bool
     {
-        return $this->randomOrderSeed !== null;
+        return $this->random_order_seed !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function randomOrderSeed(): int
+    public function random_order_seed(): int
     {
-        if (!$this->hasRandomOrderSeed()) {
+        if (!$this->has_random_order_seed()) {
             throw new Exception();
         }
-
-        return $this->randomOrderSeed;
+        return $this->random_order_seed;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->reportUselessTests
      */
-    public function hasReportUselessTests(): bool
+    public function has_report_useless_tests(): bool
     {
-        return $this->reportUselessTests !== null;
+        return $this->report_useless_tests !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function reportUselessTests(): bool
+    public function report_useless_tests(): bool
     {
-        if (!$this->hasReportUselessTests()) {
+        if (!$this->has_report_useless_tests()) {
             throw new Exception();
         }
-
-        return $this->reportUselessTests;
+        return $this->report_useless_tests;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->resolveDependencies
      */
-    public function hasResolveDependencies(): bool
+    public function has_resolve_dependencies(): bool
     {
-        return $this->resolveDependencies !== null;
+        return $this->resolve_dependencies !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function resolveDependencies(): bool
+    public function resolve_dependencies(): bool
     {
-        if (!$this->hasResolveDependencies()) {
+        if (!$this->has_resolve_dependencies()) {
             throw new Exception();
         }
-
-        return $this->resolveDependencies;
+        return $this->resolve_dependencies;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->reverseList
      */
-    public function hasReverseList(): bool
+    public function has_reverse_list(): bool
     {
-        return $this->reverseList !== null;
+        return $this->reverse_list !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function reverseList(): bool
+    public function reverse_list(): bool
     {
-        if (!$this->hasReverseList()) {
+        if (!$this->has_reverse_list()) {
             throw new Exception();
         }
-
-        return $this->reverseList;
+        return $this->reverse_list;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->stderr
      */
-    public function hasStderr(): bool
+    public function has_stderr(): bool
     {
         return $this->stderr !== null;
     }
-
     /**
      * @throws Exception
      */
     public function stderr(): bool
     {
-        if (!$this->hasStderr()) {
+        if (!$this->has_stderr()) {
             throw new Exception();
         }
-
         return $this->stderr;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->strictCoverage
      */
-    public function hasStrictCoverage(): bool
+    public function has_strict_coverage(): bool
     {
-        return $this->strictCoverage !== null;
+        return $this->strict_coverage !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function strictCoverage(): bool
+    public function strict_coverage(): bool
     {
-        if (!$this->hasStrictCoverage()) {
+        if (!$this->has_strict_coverage()) {
             throw new Exception();
         }
-
-        return $this->strictCoverage;
+        return $this->strict_coverage;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->teamcityLogfile
      */
-    public function hasTeamcityLogfile(): bool
+    public function has_teamcity_logfile(): bool
     {
-        return $this->teamcityLogfile !== null;
+        return $this->teamcity_logfile !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function teamcityLogfile(): string
+    public function teamcity_logfile(): string
     {
-        if (!$this->hasTeamcityLogfile()) {
+        if (!$this->has_teamcity_logfile()) {
             throw new Exception();
         }
-
-        return $this->teamcityLogfile;
+        return $this->teamcity_logfile;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->teamCityPrinter
      */
-    public function hasTeamCityPrinter(): bool
+    public function has_team_city_printer(): bool
     {
-        return $this->teamCityPrinter !== null;
+        return $this->team_city_printer !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function teamCityPrinter(): bool
+    public function team_city_printer(): bool
     {
-        if (!$this->hasTeamCityPrinter()) {
+        if (!$this->has_team_city_printer()) {
             throw new Exception();
         }
-
-        return $this->teamCityPrinter;
+        return $this->team_city_printer;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->testdoxHtmlFile
      */
-    public function hasTestdoxHtmlFile(): bool
+    public function has_testdox_html_file(): bool
     {
-        return $this->testdoxHtmlFile !== null;
+        return $this->testdox_html_file !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function testdoxHtmlFile(): string
+    public function testdox_html_file(): string
     {
-        if (!$this->hasTestdoxHtmlFile()) {
+        if (!$this->has_testdox_html_file()) {
             throw new Exception();
         }
-
-        return $this->testdoxHtmlFile;
+        return $this->testdox_html_file;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->testdoxTextFile
      */
-    public function hasTestdoxTextFile(): bool
+    public function has_testdox_text_file(): bool
     {
-        return $this->testdoxTextFile !== null;
+        return $this->testdox_text_file !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function testdoxTextFile(): string
+    public function testdox_text_file(): string
     {
-        if (!$this->hasTestdoxTextFile()) {
+        if (!$this->has_testdox_text_file()) {
             throw new Exception();
         }
-
-        return $this->testdoxTextFile;
+        return $this->testdox_text_file;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->testdoxPrinter
      */
-    public function hasTestDoxPrinter(): bool
+    public function has_test_dox_printer(): bool
     {
-        return $this->testdoxPrinter !== null;
+        return $this->testdox_printer !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function testdoxPrinter(): bool
+    public function testdox_printer(): bool
     {
-        if (!$this->hasTestDoxPrinter()) {
+        if (!$this->has_test_dox_printer()) {
             throw new Exception();
         }
-
-        return $this->testdoxPrinter;
+        return $this->testdox_printer;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->testdoxPrinterSummary
      */
-    public function hasTestDoxPrinterSummary(): bool
+    public function has_test_dox_printer_summary(): bool
     {
-        return $this->testdoxPrinterSummary !== null;
+        return $this->testdox_printer_summary !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function testdoxPrinterSummary(): bool
+    public function testdox_printer_summary(): bool
     {
-        if (!$this->hasTestDoxPrinterSummary()) {
+        if (!$this->has_test_dox_printer_summary()) {
             throw new Exception();
         }
-
-        return $this->testdoxPrinterSummary;
+        return $this->testdox_printer_summary;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->testSuffixes
      */
-    public function hasTestSuffixes(): bool
+    public function has_test_suffixes(): bool
     {
-        return $this->testSuffixes !== null;
+        return $this->test_suffixes !== null;
     }
-
     /**
      * @throws Exception
      *
      * @return non-empty-list<non-empty-string>
      */
-    public function testSuffixes(): array
+    public function test_suffixes(): array
     {
-        if (!$this->hasTestSuffixes()) {
+        if (!$this->has_test_suffixes()) {
             throw new Exception();
         }
-
-        return $this->testSuffixes;
+        return $this->test_suffixes;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->testSuite
      */
-    public function hasTestSuite(): bool
+    public function has_test_suite(): bool
     {
-        return $this->testSuite !== null;
+        return $this->test_suite !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function testSuite(): string
+    public function test_suite(): string
     {
-        if (!$this->hasTestSuite()) {
+        if (!$this->has_test_suite()) {
             throw new Exception();
         }
-
-        return $this->testSuite;
+        return $this->test_suite;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->excludeTestSuite
      */
-    public function hasExcludedTestSuite(): bool
+    public function has_excluded_test_suite(): bool
     {
-        return $this->excludeTestSuite !== null;
+        return $this->exclude_test_suite !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function excludedTestSuite(): string
+    public function excluded_test_suite(): string
     {
-        if (!$this->hasExcludedTestSuite()) {
+        if (!$this->has_excluded_test_suite()) {
             throw new Exception();
         }
-
-        return $this->excludeTestSuite;
+        return $this->exclude_test_suite;
     }
-
-    public function useDefaultConfiguration(): bool
+    public function use_default_configuration(): bool
     {
-        return $this->useDefaultConfiguration;
+        return $this->use_default_configuration;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->displayDetailsOnAllIssues
      */
-    public function hasDisplayDetailsOnAllIssues(): bool
+    public function has_display_details_on_all_issues(): bool
     {
-        return $this->displayDetailsOnAllIssues !== null;
+        return $this->display_details_on_all_issues !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function displayDetailsOnAllIssues(): bool
+    public function display_details_on_all_issues(): bool
     {
-        if (!$this->hasDisplayDetailsOnAllIssues()) {
+        if (!$this->has_display_details_on_all_issues()) {
             throw new Exception();
         }
-
-        return $this->displayDetailsOnAllIssues;
+        return $this->display_details_on_all_issues;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->displayDetailsOnIncompleteTests
      */
-    public function hasDisplayDetailsOnIncompleteTests(): bool
+    public function has_display_details_on_incomplete_tests(): bool
     {
-        return $this->displayDetailsOnIncompleteTests !== null;
+        return $this->display_details_on_incomplete_tests !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function displayDetailsOnIncompleteTests(): bool
+    public function display_details_on_incomplete_tests(): bool
     {
-        if (!$this->hasDisplayDetailsOnIncompleteTests()) {
+        if (!$this->has_display_details_on_incomplete_tests()) {
             throw new Exception();
         }
-
-        return $this->displayDetailsOnIncompleteTests;
+        return $this->display_details_on_incomplete_tests;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->displayDetailsOnSkippedTests
      */
-    public function hasDisplayDetailsOnSkippedTests(): bool
+    public function has_display_details_on_skipped_tests(): bool
     {
-        return $this->displayDetailsOnSkippedTests !== null;
+        return $this->display_details_on_skipped_tests !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function displayDetailsOnSkippedTests(): bool
+    public function display_details_on_skipped_tests(): bool
     {
-        if (!$this->hasDisplayDetailsOnSkippedTests()) {
+        if (!$this->has_display_details_on_skipped_tests()) {
             throw new Exception();
         }
-
-        return $this->displayDetailsOnSkippedTests;
+        return $this->display_details_on_skipped_tests;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->displayDetailsOnTestsThatTriggerDeprecations
      */
-    public function hasDisplayDetailsOnTestsThatTriggerDeprecations(): bool
+    public function has_display_details_on_tests_that_trigger_deprecations(): bool
     {
-        return $this->displayDetailsOnTestsThatTriggerDeprecations !== null;
+        return $this->display_details_on_tests_that_trigger_deprecations !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function displayDetailsOnTestsThatTriggerDeprecations(): bool
+    public function display_details_on_tests_that_trigger_deprecations(): bool
     {
-        if (!$this->hasDisplayDetailsOnTestsThatTriggerDeprecations()) {
+        if (!$this->has_display_details_on_tests_that_trigger_deprecations()) {
             throw new Exception();
         }
-
-        return $this->displayDetailsOnTestsThatTriggerDeprecations;
+        return $this->display_details_on_tests_that_trigger_deprecations;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->displayDetailsOnPhpunitDeprecations
      */
-    public function hasDisplayDetailsOnPhpunitDeprecations(): bool
+    public function has_display_details_on_phpunit_deprecations(): bool
     {
-        return $this->displayDetailsOnPhpunitDeprecations !== null;
+        return $this->display_details_on_phpunit_deprecations !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function displayDetailsOnPhpunitDeprecations(): bool
+    public function display_details_on_phpunit_deprecations(): bool
     {
-        if (!$this->hasDisplayDetailsOnPhpunitDeprecations()) {
+        if (!$this->has_display_details_on_phpunit_deprecations()) {
             throw new Exception();
         }
-
-        return $this->displayDetailsOnPhpunitDeprecations;
+        return $this->display_details_on_phpunit_deprecations;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->displayDetailsOnPhpunitNotices
      */
-    public function hasDisplayDetailsOnPhpunitNotices(): bool
+    public function has_display_details_on_phpunit_notices(): bool
     {
-        return $this->displayDetailsOnPhpunitNotices !== null;
+        return $this->display_details_on_phpunit_notices !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function displayDetailsOnPhpunitNotices(): bool
+    public function display_details_on_phpunit_notices(): bool
     {
-        if (!$this->hasDisplayDetailsOnPhpunitNotices()) {
+        if (!$this->has_display_details_on_phpunit_notices()) {
             throw new Exception();
         }
-
-        return $this->displayDetailsOnPhpunitNotices;
+        return $this->display_details_on_phpunit_notices;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->displayDetailsOnTestsThatTriggerErrors
      */
-    public function hasDisplayDetailsOnTestsThatTriggerErrors(): bool
+    public function has_display_details_on_tests_that_trigger_errors(): bool
     {
-        return $this->displayDetailsOnTestsThatTriggerErrors !== null;
+        return $this->display_details_on_tests_that_trigger_errors !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function displayDetailsOnTestsThatTriggerErrors(): bool
+    public function display_details_on_tests_that_trigger_errors(): bool
     {
-        if (!$this->hasDisplayDetailsOnTestsThatTriggerErrors()) {
+        if (!$this->has_display_details_on_tests_that_trigger_errors()) {
             throw new Exception();
         }
-
-        return $this->displayDetailsOnTestsThatTriggerErrors;
+        return $this->display_details_on_tests_that_trigger_errors;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->displayDetailsOnTestsThatTriggerNotices
      */
-    public function hasDisplayDetailsOnTestsThatTriggerNotices(): bool
+    public function has_display_details_on_tests_that_trigger_notices(): bool
     {
-        return $this->displayDetailsOnTestsThatTriggerNotices !== null;
+        return $this->display_details_on_tests_that_trigger_notices !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function displayDetailsOnTestsThatTriggerNotices(): bool
+    public function display_details_on_tests_that_trigger_notices(): bool
     {
-        if (!$this->hasDisplayDetailsOnTestsThatTriggerNotices()) {
+        if (!$this->has_display_details_on_tests_that_trigger_notices()) {
             throw new Exception();
         }
-
-        return $this->displayDetailsOnTestsThatTriggerNotices;
+        return $this->display_details_on_tests_that_trigger_notices;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->displayDetailsOnTestsThatTriggerWarnings
      */
-    public function hasDisplayDetailsOnTestsThatTriggerWarnings(): bool
+    public function has_display_details_on_tests_that_trigger_warnings(): bool
     {
-        return $this->displayDetailsOnTestsThatTriggerWarnings !== null;
+        return $this->display_details_on_tests_that_trigger_warnings !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function displayDetailsOnTestsThatTriggerWarnings(): bool
+    public function display_details_on_tests_that_trigger_warnings(): bool
     {
-        if (!$this->hasDisplayDetailsOnTestsThatTriggerWarnings()) {
+        if (!$this->has_display_details_on_tests_that_trigger_warnings()) {
             throw new Exception();
         }
-
-        return $this->displayDetailsOnTestsThatTriggerWarnings;
+        return $this->display_details_on_tests_that_trigger_warnings;
     }
-
     public function version(): bool
     {
         return $this->version;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->logEventsText
      */
-    public function hasLogEventsText(): bool
+    public function has_log_events_text(): bool
     {
-        return $this->logEventsText !== null;
+        return $this->log_events_text !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function logEventsText(): string
+    public function log_events_text(): string
     {
-        if (!$this->hasLogEventsText()) {
+        if (!$this->has_log_events_text()) {
             throw new Exception();
         }
-
-        return $this->logEventsText;
+        return $this->log_events_text;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->logEventsVerboseText
      */
-    public function hasLogEventsVerboseText(): bool
+    public function has_log_events_verbose_text(): bool
     {
-        return $this->logEventsVerboseText !== null;
+        return $this->log_events_verbose_text !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function logEventsVerboseText(): string
+    public function log_events_verbose_text(): string
     {
-        if (!$this->hasLogEventsVerboseText()) {
+        if (!$this->has_log_events_verbose_text()) {
             throw new Exception();
         }
-
-        return $this->logEventsVerboseText;
+        return $this->log_events_verbose_text;
     }
-
     public function debug(): bool
     {
         return $this->debug;
     }
-
-    public function withTelemetry(): bool
+    public function with_telemetry(): bool
     {
-        return $this->withTelemetry;
+        return $this->with_telemetry;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->extensions
      */
-    public function hasExtensions(): bool
+    public function has_extensions(): bool
     {
         return $this->extensions !== null;
     }
-
     /**
      * @throws Exception
      *
@@ -2351,10 +2002,9 @@ final readonly class Configuration
      */
     public function extensions(): array
     {
-        if (!$this->hasExtensions()) {
+        if (!$this->has_extensions()) {
             throw new Exception();
         }
-
         return $this->extensions;
     }
 }

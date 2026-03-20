@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,31 +9,28 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\Attributes;
+namespace Php_Unit\Framework\Attributes;
 
 use Attribute;
-
 /**
  * @immutable
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
-final readonly class RequiresOperatingSystemFamily
+final readonly class Requires_Operating_System_Family
 {
     /**
      * @param non-empty-string $operatingSystemFamily
      */
-    public function __construct(private string $operatingSystemFamily)
+    public function __construct(private string $operating_system_family)
     {
     }
-
     /**
      * @return non-empty-string
      */
-    public function operatingSystemFamily(): string
+    public function operating_system_family(): string
     {
-        return $this->operatingSystemFamily;
+        return $this->operating_system_family;
     }
 }

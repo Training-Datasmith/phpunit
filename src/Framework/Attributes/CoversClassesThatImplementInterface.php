@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,31 +9,28 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\Attributes;
+namespace Php_Unit\Framework\Attributes;
 
 use Attribute;
-
 /**
  * @immutable
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
 #[Attribute(Attribute::TARGET_CLASS | Attribute::IS_REPEATABLE)]
-final readonly class CoversClassesThatImplementInterface
+final readonly class Covers_Classes_That_Implement_Interface
 {
     /**
      * @param class-string $interfaceName
      */
-    public function __construct(private string $interfaceName)
+    public function __construct(private string $interface_name)
     {
     }
-
     /**
      * @return class-string
      */
-    public function interfaceName(): string
+    public function interface_name(): string
     {
-        return $this->interfaceName;
+        return $this->interface_name;
     }
 }

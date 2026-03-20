@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,13 +9,12 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\Constraint;
+namespace Php_Unit\Framework\Constraint;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class IsAnything extends Constraint
+final class Is_Anything extends Constraint
 {
     /**
      * Evaluates the constraint for parameter $other.
@@ -29,19 +28,17 @@ final class IsAnything extends Constraint
      *
      * @throws void
      */
-    public function evaluate(mixed $other, string $description = '', bool $returnResult = false): ?bool
+    public function evaluate(mixed $other, string $description = '', bool $return_result = false): ?bool
     {
-        return $returnResult ? true : null;
+        return $return_result ? true : null;
     }
-
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
+    public function to_string(): string
     {
         return 'is anything';
     }
-
     /**
      * Counts the number of constraint elements.
      */

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,43 +9,36 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Configuration;
+namespace Php_Unit\Text_Ui\Configuration;
 
 use Iterator;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @template-implements Iterator<non-negative-int, IniSetting>
  */
-final class IniSettingCollectionIterator implements Iterator
+final class Ini_Setting_Collection_Iterator implements Iterator
 {
     /**
      * @var list<IniSetting>
      */
-    private readonly array $iniSettings;
-
+    private readonly array $ini_settings;
     /**
      * @var non-negative-int
      */
     private int $position = 0;
-
-    public function __construct(IniSettingCollection $iniSettings)
+    public function __construct(Ini_Setting_Collection $ini_settings)
     {
-        $this->iniSettings = $iniSettings->asArray();
+        $this->ini_settings = $ini_settings->as_array();
     }
-
     public function rewind(): void
     {
         $this->position = 0;
     }
-
     public function valid(): bool
     {
-        return isset($this->iniSettings[$this->position]);
+        return isset($this->ini_settings[$this->position]);
     }
-
     /**
      * @return non-negative-int
      */
@@ -53,12 +46,10 @@ final class IniSettingCollectionIterator implements Iterator
     {
         return $this->position;
     }
-
-    public function current(): IniSetting
+    public function current(): Ini_Setting
     {
-        return $this->iniSettings[$this->position];
+        return $this->ini_settings[$this->position];
     }
-
     public function next(): void
     {
         $this->position++;

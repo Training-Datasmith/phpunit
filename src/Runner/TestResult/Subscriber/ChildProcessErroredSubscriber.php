@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,20 +9,18 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Test_Runner\Test_Result;
 
-namespace PHPUnit\TestRunner\TestResult;
-
-use PHPUnit\Event\TestRunner\ChildProcessErrored;
-
+use Php_Unit\Event\Test_Runner\Child_Process_Errored;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ChildProcessErroredSubscriber extends Subscriber implements \PHPUnit\Event\TestRunner\ChildProcessErroredSubscriber
+final readonly class Child_Process_Errored_Subscriber extends Subscriber implements \Php_Unit\Event\Test_Runner\Child_Process_Errored_Subscriber
 {
-    public function notify(ChildProcessErrored $event): void
+    public function notify(Child_Process_Errored $event): void
     {
-        $this->collector()->childProcessErrored($event);
+        $this->collector()->child_process_errored($event);
     }
 }

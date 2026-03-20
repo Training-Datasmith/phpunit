@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,14 +9,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TestRunner\TestResult\Issues;
+namespace Php_Unit\Test_Runner\Test_Result\Issues;
 
 use function array_keys;
 use function count;
-
-use PHPUnit\Event\Code\Test;
-
+use Php_Unit\Event\Code\Test;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -27,47 +24,33 @@ final class Issue
     /**
      * @var non-empty-array<non-empty-string, array{test: Test, count: int}>
      */
-    private array $triggeringTests;
-
+    private array $triggering_tests;
     /**
      * @param non-empty-string $file
      * @param positive-int     $line
      * @param non-empty-string $description
      */
-    public static function from(string $file, int $line, string $description, Test $triggeringTest, ?string $stackTrace = null): self
+    public static function from(string $file, int $line, string $description, Test $triggering_test, ?string $stack_trace = null): self
     {
-        return new self($file, $line, $description, $triggeringTest, $stackTrace);
+        return new self($file, $line, $description, $triggering_test, $stack_trace);
     }
-
     /**
      * @param non-empty-string $file
      * @param positive-int     $line
      * @param non-empty-string $description
      */
-    private function __construct(private readonly string $file, private readonly int $line, private readonly string $description, Test $triggeringTest, private readonly ?string $stackTrace)
+    private function __construct(private readonly string $file, private readonly int $line, private readonly string $description, Test $triggering_test, private readonly ?string $stack_trace)
     {
-        $this->triggeringTests = [
-            $triggeringTest->id() => [
-                'test'  => $triggeringTest,
-                'count' => 1,
-            ],
-        ];
+        $this->triggering_tests = [$triggering_test->id() => ['test' => $triggering_test, 'count' => 1]];
     }
-
-    public function triggeredBy(Test $test): void
+    public function triggered_by(Test $test): void
     {
-        if (isset($this->triggeringTests[$test->id()])) {
-            $this->triggeringTests[$test->id()]['count']++;
-
+        if (isset($this->triggering_tests[$test->id()])) {
+            $this->triggering_tests[$test->id()]['count']++;
             return;
         }
-
-        $this->triggeringTests[$test->id()] = [
-            'test'  => $test,
-            'count' => 1,
-        ];
+        $this->triggering_tests[$test->id()] = ['test' => $test, 'count' => 1];
     }
-
     /**
      * @return non-empty-string
      */
@@ -75,7 +58,6 @@ final class Issue
     {
         return $this->file;
     }
-
     /**
      * @return positive-int
      */
@@ -83,7 +65,6 @@ final class Issue
     {
         return $this->line;
     }
-
     /**
      * @return non-empty-string
      */
@@ -91,34 +72,29 @@ final class Issue
     {
         return $this->description;
     }
-
     /**
      * @return non-empty-array<non-empty-string, array{test: Test, count: int}>
      */
-    public function triggeringTests(): array
+    public function triggering_tests(): array
     {
-        return $this->triggeringTests;
+        return $this->triggering_tests;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->stackTrace
      */
-    public function hasStackTrace(): bool
+    public function has_stack_trace(): bool
     {
-        return $this->stackTrace !== null;
+        return $this->stack_trace !== null;
     }
-
     /**
      * @return ?non-empty-string
      */
-    public function stackTrace(): ?string
+    public function stack_trace(): ?string
     {
-        return $this->stackTrace;
+        return $this->stack_trace;
     }
-
-    public function triggeredInTest(): bool
+    public function triggered_in_test(): bool
     {
-        return count($this->triggeringTests) === 1 &&
-               $this->file === $this->triggeringTests[array_keys($this->triggeringTests)[0]]['test']->file();
+        return count($this->triggering_tests) === 1 && $this->file === $this->triggering_tests[array_keys($this->triggering_tests)[0]]['test']->file();
     }
 }

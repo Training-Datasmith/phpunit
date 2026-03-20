@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,412 +9,307 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Output\Default\ProgressPrinter;
+namespace Php_Unit\Text_Ui\Output\Default\Progress_Printer;
 
 use function floor;
-
-use PHPUnit\Event\Facade;
-use PHPUnit\Event\Test\DeprecationTriggered;
-use PHPUnit\Event\Test\ErrorTriggered;
-use PHPUnit\Event\Test\NoticeTriggered;
-use PHPUnit\Event\Test\PhpDeprecationTriggered;
-use PHPUnit\Event\Test\PhpNoticeTriggered;
-use PHPUnit\Event\Test\PhpunitWarningTriggered;
-use PHPUnit\Event\Test\PhpWarningTriggered;
-use PHPUnit\Event\Test\WarningTriggered;
-use PHPUnit\Event\TestRunner\ExecutionStarted;
-use PHPUnit\Framework\TestStatus\TestStatus;
-use PHPUnit\TextUI\Configuration\Source;
-use PHPUnit\TextUI\Configuration\SourceFilter;
-use PHPUnit\TextUI\Output\Printer;
-use PHPUnit\Util\Color;
-
+use Php_Unit\Event\Facade;
+use Php_Unit\Event\Test\Deprecation_Triggered;
+use Php_Unit\Event\Test\Error_Triggered;
+use Php_Unit\Event\Test\Notice_Triggered;
+use Php_Unit\Event\Test\Php_Deprecation_Triggered;
+use Php_Unit\Event\Test\Php_Notice_Triggered;
+use Php_Unit\Event\Test\Phpunit_Warning_Triggered;
+use Php_Unit\Event\Test\Php_Warning_Triggered;
+use Php_Unit\Event\Test\Warning_Triggered;
+use Php_Unit\Event\Test_Runner\Execution_Started;
+use Php_Unit\Framework\Test_Status\Test_Status;
+use Php_Unit\Text_Ui\Configuration\Source;
+use Php_Unit\Text_Ui\Configuration\Source_Filter;
+use Php_Unit\Text_Ui\Output\Printer;
+use Php_Unit\Util\Color;
 use function sprintf;
 use function str_repeat;
 use function strlen;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ProgressPrinter
+final class Progress_Printer
 {
-    private int $column               = 0;
-    private int $numberOfTests        = 0;
-    private int $numberOfTestsWidth   = 0;
-    private int $maxColumn            = 0;
-    private int $numberOfTestsRun     = 0;
-    private ?TestStatus $status       = null;
-    private bool $prepared            = false;
-    private bool $childProcessErrored = false;
-
-    public function __construct(private readonly Printer $printer, Facade $facade, private readonly bool $colors, private readonly int $numberOfColumns, private readonly Source $source)
+    private int $column = 0;
+    private int $number_of_tests = 0;
+    private int $number_of_tests_width = 0;
+    private int $max_column = 0;
+    private int $number_of_tests_run = 0;
+    private ?Test_Status $status = null;
+    private bool $prepared = false;
+    private bool $child_process_errored = false;
+    public function __construct(private readonly Printer $printer, Facade $facade, private readonly bool $colors, private readonly int $number_of_columns, private readonly Source $source)
     {
-        $this->registerSubscribers($facade);
+        $this->register_subscribers($facade);
     }
-
-    public function testRunnerExecutionStarted(ExecutionStarted $event): void
+    public function test_runner_execution_started(Execution_Started $event): void
     {
-        $this->numberOfTestsRun   = 0;
-        $this->numberOfTests      = $event->testSuite()->count();
-        $this->numberOfTestsWidth = strlen((string) $this->numberOfTests);
-        $this->column             = 0;
-        $this->maxColumn          = $this->numberOfColumns - strlen('  /  (XXX%)') - (2 * $this->numberOfTestsWidth);
+        $this->number_of_tests_run = 0;
+        $this->number_of_tests = $event->test_suite()->count();
+        $this->number_of_tests_width = strlen((string) $this->number_of_tests);
+        $this->column = 0;
+        $this->max_column = $this->number_of_columns - strlen('  /  (XXX%)') - 2 * $this->number_of_tests_width;
     }
-
-    public function beforeTestClassMethodErrored(): void
+    public function before_test_class_method_errored(): void
     {
-        $this->printProgressForError();
-        $this->updateTestStatus(TestStatus::error());
+        $this->print_progress_for_error();
+        $this->update_test_status(Test_Status::error());
     }
-
-    public function testPrepared(): void
+    public function test_prepared(): void
     {
         $this->prepared = true;
     }
-
-    public function testSkipped(): void
+    public function test_skipped(): void
     {
         if (!$this->prepared) {
-            $this->printProgressForSkipped();
+            $this->print_progress_for_skipped();
         } else {
-            $this->updateTestStatus(TestStatus::skipped());
+            $this->update_test_status(Test_Status::skipped());
         }
     }
-
-    public function testSuiteSkipped(int $countTests): void
+    public function test_suite_skipped(int $count_tests): void
     {
-        for ($i = 0; $i < $countTests; $i++) {
-            $this->testSkipped();
+        for ($i = 0; $i < $count_tests; $i++) {
+            $this->test_skipped();
         }
     }
-
-    public function testMarkedIncomplete(): void
+    public function test_marked_incomplete(): void
     {
-        $this->updateTestStatus(TestStatus::incomplete());
+        $this->update_test_status(Test_Status::incomplete());
     }
-
-    public function testTriggeredNotice(NoticeTriggered $event): void
+    public function test_triggered_notice(Notice_Triggered $event): void
     {
-        if ($event->ignoredByBaseline()) {
+        if ($event->ignored_by_baseline()) {
             return;
         }
-
-        if ($this->source->restrictNotices() &&
-            !SourceFilter::instance()->includes($event->file())) {
+        if ($this->source->restrict_notices() && !Source_Filter::instance()->includes($event->file())) {
             return;
         }
-
-        if (!$this->source->ignoreSuppressionOfNotices() && $event->wasSuppressed()) {
+        if (!$this->source->ignore_suppression_of_notices() && $event->was_suppressed()) {
             return;
         }
-
-        $this->updateTestStatus(TestStatus::notice());
+        $this->update_test_status(Test_Status::notice());
     }
-
-    public function testTriggeredPhpNotice(PhpNoticeTriggered $event): void
+    public function test_triggered_php_notice(Php_Notice_Triggered $event): void
     {
-        if ($event->ignoredByBaseline()) {
+        if ($event->ignored_by_baseline()) {
             return;
         }
-
-        if ($this->source->restrictNotices() &&
-            !SourceFilter::instance()->includes($event->file())) {
+        if ($this->source->restrict_notices() && !Source_Filter::instance()->includes($event->file())) {
             return;
         }
-
-        if (!$this->source->ignoreSuppressionOfPhpNotices() && $event->wasSuppressed()) {
+        if (!$this->source->ignore_suppression_of_php_notices() && $event->was_suppressed()) {
             return;
         }
-
-        $this->updateTestStatus(TestStatus::notice());
+        $this->update_test_status(Test_Status::notice());
     }
-
-    public function testTriggeredDeprecation(DeprecationTriggered $event): void
+    public function test_triggered_deprecation(Deprecation_Triggered $event): void
     {
-        if ($event->ignoredByBaseline() || $event->ignoredByTest()) {
+        if ($event->ignored_by_baseline() || $event->ignored_by_test()) {
             return;
         }
-
-        if ($this->source->ignoreSelfDeprecations() && $event->trigger()->isSelf()) {
+        if ($this->source->ignore_self_deprecations() && $event->trigger()->is_self()) {
             return;
         }
-
-        if ($this->source->ignoreDirectDeprecations() && $event->trigger()->isDirect()) {
+        if ($this->source->ignore_direct_deprecations() && $event->trigger()->is_direct()) {
             return;
         }
-
-        if ($this->source->ignoreIndirectDeprecations() && $event->trigger()->isIndirect()) {
+        if ($this->source->ignore_indirect_deprecations() && $event->trigger()->is_indirect()) {
             return;
         }
-
-        if (!$this->source->ignoreSuppressionOfDeprecations() && $event->wasSuppressed()) {
+        if (!$this->source->ignore_suppression_of_deprecations() && $event->was_suppressed()) {
             return;
         }
-
-        $this->updateTestStatus(TestStatus::deprecation());
+        $this->update_test_status(Test_Status::deprecation());
     }
-
-    public function testTriggeredPhpDeprecation(PhpDeprecationTriggered $event): void
+    public function test_triggered_php_deprecation(Php_Deprecation_Triggered $event): void
     {
-        if ($event->ignoredByBaseline() || $event->ignoredByTest()) {
+        if ($event->ignored_by_baseline() || $event->ignored_by_test()) {
             return;
         }
-
-        if ($this->source->ignoreSelfDeprecations() && $event->trigger()->isSelf()) {
+        if ($this->source->ignore_self_deprecations() && $event->trigger()->is_self()) {
             return;
         }
-
-        if ($this->source->ignoreDirectDeprecations() && $event->trigger()->isDirect()) {
+        if ($this->source->ignore_direct_deprecations() && $event->trigger()->is_direct()) {
             return;
         }
-
-        if ($this->source->ignoreIndirectDeprecations() && $event->trigger()->isIndirect()) {
+        if ($this->source->ignore_indirect_deprecations() && $event->trigger()->is_indirect()) {
             return;
         }
-
-        if (!$this->source->ignoreSuppressionOfPhpDeprecations() && $event->wasSuppressed()) {
+        if (!$this->source->ignore_suppression_of_php_deprecations() && $event->was_suppressed()) {
             return;
         }
-
-        $this->updateTestStatus(TestStatus::deprecation());
+        $this->update_test_status(Test_Status::deprecation());
     }
-
-    public function testTriggeredPhpunitDeprecation(): void
+    public function test_triggered_phpunit_deprecation(): void
     {
-        $this->updateTestStatus(TestStatus::deprecation());
+        $this->update_test_status(Test_Status::deprecation());
     }
-
-    public function testTriggeredPhpunitNotice(): void
+    public function test_triggered_phpunit_notice(): void
     {
-        $this->updateTestStatus(TestStatus::notice());
+        $this->update_test_status(Test_Status::notice());
     }
-
-    public function testConsideredRisky(): void
+    public function test_considered_risky(): void
     {
-        $this->updateTestStatus(TestStatus::risky());
+        $this->update_test_status(Test_Status::risky());
     }
-
-    public function testTriggeredWarning(WarningTriggered $event): void
+    public function test_triggered_warning(Warning_Triggered $event): void
     {
-        if ($event->ignoredByBaseline()) {
+        if ($event->ignored_by_baseline()) {
             return;
         }
-
-        if ($this->source->restrictWarnings() &&
-            !SourceFilter::instance()->includes($event->file())) {
+        if ($this->source->restrict_warnings() && !Source_Filter::instance()->includes($event->file())) {
             return;
         }
-
-        if (!$this->source->ignoreSuppressionOfWarnings() && $event->wasSuppressed()) {
+        if (!$this->source->ignore_suppression_of_warnings() && $event->was_suppressed()) {
             return;
         }
-
-        $this->updateTestStatus(TestStatus::warning());
+        $this->update_test_status(Test_Status::warning());
     }
-
-    public function testTriggeredPhpWarning(PhpWarningTriggered $event): void
+    public function test_triggered_php_warning(Php_Warning_Triggered $event): void
     {
-        if ($event->ignoredByBaseline()) {
+        if ($event->ignored_by_baseline()) {
             return;
         }
-
-        if ($this->source->restrictWarnings() &&
-            !SourceFilter::instance()->includes($event->file())) {
+        if ($this->source->restrict_warnings() && !Source_Filter::instance()->includes($event->file())) {
             return;
         }
-
-        if (!$this->source->ignoreSuppressionOfPhpWarnings() && $event->wasSuppressed()) {
+        if (!$this->source->ignore_suppression_of_php_warnings() && $event->was_suppressed()) {
             return;
         }
-
-        $this->updateTestStatus(TestStatus::warning());
+        $this->update_test_status(Test_Status::warning());
     }
-
-    public function testTriggeredPhpunitWarning(PhpunitWarningTriggered $event): void
+    public function test_triggered_phpunit_warning(Phpunit_Warning_Triggered $event): void
     {
-        if ($event->ignoredByTest()) {
+        if ($event->ignored_by_test()) {
             return;
         }
-
-        $this->updateTestStatus(TestStatus::warning());
+        $this->update_test_status(Test_Status::warning());
     }
-
-    public function testTriggeredError(ErrorTriggered $event): void
+    public function test_triggered_error(Error_Triggered $event): void
     {
-        if (!$this->source->ignoreSuppressionOfErrors() && $event->wasSuppressed()) {
+        if (!$this->source->ignore_suppression_of_errors() && $event->was_suppressed()) {
             return;
         }
-
-        $this->updateTestStatus(TestStatus::error());
+        $this->update_test_status(Test_Status::error());
     }
-
-    public function testFailed(): void
+    public function test_failed(): void
     {
-        $this->updateTestStatus(TestStatus::failure());
+        $this->update_test_status(Test_Status::failure());
     }
-
-    public function testErrored(): void
+    public function test_errored(): void
     {
-        if ($this->childProcessErrored) {
-            $this->updateTestStatus(TestStatus::error());
-
+        if ($this->child_process_errored) {
+            $this->update_test_status(Test_Status::error());
             return;
         }
         if (!$this->prepared) {
-            $this->printProgressForError();
+            $this->print_progress_for_error();
         } else {
-            $this->updateTestStatus(TestStatus::error());
+            $this->update_test_status(Test_Status::error());
         }
     }
-
-    public function testFinished(): void
+    public function test_finished(): void
     {
         if ($this->status === null) {
-            $this->printProgressForSuccess();
-        } elseif ($this->status->isSkipped()) {
-            $this->printProgressForSkipped();
-        } elseif ($this->status->isIncomplete()) {
-            $this->printProgressForIncomplete();
-        } elseif ($this->status->isRisky()) {
-            $this->printProgressForRisky();
-        } elseif ($this->status->isNotice()) {
-            $this->printProgressForNotice();
-        } elseif ($this->status->isDeprecation()) {
-            $this->printProgressForDeprecation();
-        } elseif ($this->status->isWarning()) {
-            $this->printProgressForWarning();
-        } elseif ($this->status->isFailure()) {
-            $this->printProgressForFailure();
+            $this->print_progress_for_success();
+        } elseif ($this->status->is_skipped()) {
+            $this->print_progress_for_skipped();
+        } elseif ($this->status->is_incomplete()) {
+            $this->print_progress_for_incomplete();
+        } elseif ($this->status->is_risky()) {
+            $this->print_progress_for_risky();
+        } elseif ($this->status->is_notice()) {
+            $this->print_progress_for_notice();
+        } elseif ($this->status->is_deprecation()) {
+            $this->print_progress_for_deprecation();
+        } elseif ($this->status->is_warning()) {
+            $this->print_progress_for_warning();
+        } elseif ($this->status->is_failure()) {
+            $this->print_progress_for_failure();
         } else {
-            $this->printProgressForError();
+            $this->print_progress_for_error();
         }
-
-        $this->status              = null;
-        $this->prepared            = false;
-        $this->childProcessErrored = false;
+        $this->status = null;
+        $this->prepared = false;
+        $this->child_process_errored = false;
     }
-
-    public function childProcessErrored(): void
+    public function child_process_errored(): void
     {
-        $this->childProcessErrored = true;
+        $this->child_process_errored = true;
     }
-
-    private function registerSubscribers(Facade $facade): void
+    private function register_subscribers(Facade $facade): void
     {
-        $facade->registerSubscribers(
-            new BeforeTestClassMethodErroredSubscriber($this),
-            new TestConsideredRiskySubscriber($this),
-            new TestErroredSubscriber($this),
-            new TestFailedSubscriber($this),
-            new TestFinishedSubscriber($this),
-            new TestMarkedIncompleteSubscriber($this),
-            new TestPreparedSubscriber($this),
-            new TestRunnerExecutionStartedSubscriber($this),
-            new TestSkippedSubscriber($this),
-            new TestSuiteSkippedSubscriber($this),
-            new TestTriggeredDeprecationSubscriber($this),
-            new TestTriggeredNoticeSubscriber($this),
-            new TestTriggeredPhpDeprecationSubscriber($this),
-            new TestTriggeredPhpNoticeSubscriber($this),
-            new TestTriggeredPhpunitDeprecationSubscriber($this),
-            new TestTriggeredPhpunitNoticeSubscriber($this),
-            new TestTriggeredPhpunitWarningSubscriber($this),
-            new TestTriggeredPhpWarningSubscriber($this),
-            new TestTriggeredWarningSubscriber($this),
-            new ChildProcessErroredSubscriber($this),
-        );
+        $facade->register_subscribers(new Before_Test_Class_Method_Errored_Subscriber($this), new Test_Considered_Risky_Subscriber($this), new Test_Errored_Subscriber($this), new Test_Failed_Subscriber($this), new Test_Finished_Subscriber($this), new Test_Marked_Incomplete_Subscriber($this), new Test_Prepared_Subscriber($this), new Test_Runner_Execution_Started_Subscriber($this), new Test_Skipped_Subscriber($this), new Test_Suite_Skipped_Subscriber($this), new Test_Triggered_Deprecation_Subscriber($this), new Test_Triggered_Notice_Subscriber($this), new Test_Triggered_Php_Deprecation_Subscriber($this), new Test_Triggered_Php_Notice_Subscriber($this), new Test_Triggered_Phpunit_Deprecation_Subscriber($this), new Test_Triggered_Phpunit_Notice_Subscriber($this), new Test_Triggered_Phpunit_Warning_Subscriber($this), new Test_Triggered_Php_Warning_Subscriber($this), new Test_Triggered_Warning_Subscriber($this), new Child_Process_Errored_Subscriber($this));
     }
-
-    private function updateTestStatus(TestStatus $status): void
+    private function update_test_status(Test_Status $status): void
     {
-        if ($this->status !== null &&
-            $this->status->isMoreImportantThan($status)) {
+        if ($this->status !== null && $this->status->is_more_important_than($status)) {
             return;
         }
-
         $this->status = $status;
     }
-
-    private function printProgressForSuccess(): void
+    private function print_progress_for_success(): void
     {
-        $this->printProgress('.');
+        $this->print_progress('.');
     }
-
-    private function printProgressForSkipped(): void
+    private function print_progress_for_skipped(): void
     {
-        $this->printProgressWithColor('fg-cyan, bold', 'S');
+        $this->print_progress_with_color('fg-cyan, bold', 'S');
     }
-
-    private function printProgressForIncomplete(): void
+    private function print_progress_for_incomplete(): void
     {
-        $this->printProgressWithColor('fg-yellow, bold', 'I');
+        $this->print_progress_with_color('fg-yellow, bold', 'I');
     }
-
-    private function printProgressForNotice(): void
+    private function print_progress_for_notice(): void
     {
-        $this->printProgressWithColor('fg-yellow, bold', 'N');
+        $this->print_progress_with_color('fg-yellow, bold', 'N');
     }
-
-    private function printProgressForDeprecation(): void
+    private function print_progress_for_deprecation(): void
     {
-        $this->printProgressWithColor('fg-yellow, bold', 'D');
+        $this->print_progress_with_color('fg-yellow, bold', 'D');
     }
-
-    private function printProgressForRisky(): void
+    private function print_progress_for_risky(): void
     {
-        $this->printProgressWithColor('fg-yellow, bold', 'R');
+        $this->print_progress_with_color('fg-yellow, bold', 'R');
     }
-
-    private function printProgressForWarning(): void
+    private function print_progress_for_warning(): void
     {
-        $this->printProgressWithColor('fg-yellow, bold', 'W');
+        $this->print_progress_with_color('fg-yellow, bold', 'W');
     }
-
-    private function printProgressForFailure(): void
+    private function print_progress_for_failure(): void
     {
-        $this->printProgressWithColor('bg-red, fg-white', 'F');
+        $this->print_progress_with_color('bg-red, fg-white', 'F');
     }
-
-    private function printProgressForError(): void
+    private function print_progress_for_error(): void
     {
-        $this->printProgressWithColor('fg-red, bold', 'E');
+        $this->print_progress_with_color('fg-red, bold', 'E');
     }
-
-    private function printProgressWithColor(string $color, string $progress): void
+    private function print_progress_with_color(string $color, string $progress): void
     {
         if ($this->colors) {
-            $progress = Color::colorizeTextBox($color, $progress);
+            $progress = Color::colorize_text_box($color, $progress);
         }
-
-        $this->printProgress($progress);
+        $this->print_progress($progress);
     }
-
-    private function printProgress(string $progress): void
+    private function print_progress(string $progress): void
     {
         $this->printer->print($progress);
-
         $this->column++;
-        $this->numberOfTestsRun++;
-
-        if ($this->column === $this->maxColumn || $this->numberOfTestsRun === $this->numberOfTests) {
-            if ($this->numberOfTestsRun === $this->numberOfTests) {
-                $this->printer->print(str_repeat(' ', $this->maxColumn - $this->column));
+        $this->number_of_tests_run++;
+        if ($this->column === $this->max_column || $this->number_of_tests_run === $this->number_of_tests) {
+            if ($this->number_of_tests_run === $this->number_of_tests) {
+                $this->printer->print(str_repeat(' ', $this->max_column - $this->column));
             }
-
-            $this->printer->print(
-                sprintf(
-                    ' %' . $this->numberOfTestsWidth . 'd / %' .
-                    $this->numberOfTestsWidth . 'd (%3s%%)',
-                    $this->numberOfTestsRun,
-                    $this->numberOfTests,
-                    floor(($this->numberOfTestsRun / $this->numberOfTests) * 100),
-                ),
-            );
-
-            if ($this->column === $this->maxColumn) {
+            $this->printer->print(sprintf(' %' . $this->number_of_tests_width . 'd / %' . $this->number_of_tests_width . 'd (%3s%%)', $this->number_of_tests_run, $this->number_of_tests, floor($this->number_of_tests_run / $this->number_of_tests * 100)));
+            if ($this->column === $this->max_column) {
                 $this->column = 0;
                 $this->printer->print("\n");
             }

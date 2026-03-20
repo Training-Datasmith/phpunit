@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,29 +9,24 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\Constraint;
+namespace Php_Unit\Framework\Constraint;
 
 use function is_string;
-
-use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit\Util\Exporter;
-use SebastianBergmann\Comparator\ComparisonFailure;
-use SebastianBergmann\Comparator\Factory as ComparatorFactory;
-
+use Php_Unit\Framework\Expectation_Failed_Exception;
+use Php_Unit\Util\Exporter;
+use Sebastian_Bergmann\Comparator\Comparison_Failure;
+use Sebastian_Bergmann\Comparator\Factory as ComparatorFactory;
 use function sprintf;
 use function str_contains;
 use function trim;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class IsEqualCanonicalizing extends Constraint
+final class Is_Equal_Canonicalizing extends Constraint
 {
     public function __construct(private readonly mixed $value)
     {
     }
-
     /**
      * Evaluates the constraint for parameter $other.
      *
@@ -44,7 +39,7 @@ final class IsEqualCanonicalizing extends Constraint
      *
      * @throws ExpectationFailedException
      */
-    public function evaluate(mixed $other, string $description = '', bool $returnResult = false): bool
+    public function evaluate(mixed $other, string $description = '', bool $return_result = false): bool
     {
         // If $this->value and $other are identical, they are also equal.
         // This is the most common path and will allow us to skip
@@ -52,54 +47,29 @@ final class IsEqualCanonicalizing extends Constraint
         if ($this->value === $other) {
             return true;
         }
-
-        $comparatorFactory = ComparatorFactory::getInstance();
-
+        $comparator_factory = Comparator_Factory::get_instance();
         try {
-            $comparator = $comparatorFactory->getComparatorFor(
-                $this->value,
-                $other,
-            );
-
-            $comparator->assertEquals(
-                $this->value,
-                $other,
-                0.0,
-                true,
-            );
-        } catch (ComparisonFailure $f) {
-            if ($returnResult) {
+            $comparator = $comparator_factory->get_comparator_for($this->value, $other);
+            $comparator->assert_equals($this->value, $other, 0.0, true);
+        } catch (Comparison_Failure $f) {
+            if ($return_result) {
                 return false;
             }
-
-            throw new ExpectationFailedException(
-                trim($description . "\n" . $f->getMessage()),
-                $f,
-            );
+            throw new Expectation_Failed_Exception(trim($description . "\n" . $f->get_message()), $f);
         }
-
         return true;
     }
-
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
+    public function to_string(): string
     {
         if (is_string($this->value)) {
             if (str_contains($this->value, "\n")) {
                 return 'is equal to <text>';
             }
-
-            return sprintf(
-                "is equal to '%s'",
-                $this->value,
-            );
+            return sprintf("is equal to '%s'", $this->value);
         }
-
-        return sprintf(
-            'is equal to %s',
-            Exporter::export($this->value),
-        );
+        return sprintf('is equal to %s', Exporter::export($this->value));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,52 +9,37 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\Constraint;
+namespace Php_Unit\Framework\Constraint;
 
 use function sprintf;
 use function strtr;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class StringEqualsStringIgnoringLineEndings extends Constraint
+final class String_Equals_String_Ignoring_Line_Endings extends Constraint
 {
     private readonly string $string;
-
     public function __construct(string $string)
     {
-        $this->string = $this->normalizeLineEndings($string);
+        $this->string = $this->normalize_line_endings($string);
     }
-
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
+    public function to_string(): string
     {
-        return sprintf(
-            'is equal to "%s" ignoring line endings',
-            $this->string,
-        );
+        return sprintf('is equal to "%s" ignoring line endings', $this->string);
     }
-
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      */
     protected function matches(mixed $other): bool
     {
-        return $this->string === $this->normalizeLineEndings((string) $other);
+        return $this->string === $this->normalize_line_endings((string) $other);
     }
-
-    private function normalizeLineEndings(string $string): string
+    private function normalize_line_endings(string $string): string
     {
-        return strtr(
-            $string,
-            [
-                "\r\n" => "\n",
-                "\r"   => "\n",
-            ],
-        );
+        return strtr($string, ["\r\n" => "\n", "\r" => "\n"]);
     }
 }

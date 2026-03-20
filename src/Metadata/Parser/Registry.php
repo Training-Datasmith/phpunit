@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Metadata\Parser;
+namespace Php_Unit\Metadata\Parser;
 
 /**
  * Attribute information is static within a single PHP process.
@@ -23,14 +22,12 @@ namespace PHPUnit\Metadata\Parser;
 final class Registry
 {
     private static ?Parser $instance = null;
-
     public static function parser(): Parser
     {
         return self::$instance ?? self::$instance = self::build();
     }
-
     private static function build(): Parser
     {
-        return new CachingParser(new AttributeParser());
+        return new Caching_Parser(new Attribute_Parser());
     }
 }

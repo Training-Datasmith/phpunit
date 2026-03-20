@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,19 +9,14 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework;
+namespace Php_Unit\Framework;
 
 use function array_keys;
 use function get_object_vars;
 use function is_int;
-
 use RuntimeException;
-
 use function sprintf;
-
 use Throwable;
-
 /**
  * Base class for all PHPUnit Framework exceptions.
  *
@@ -46,48 +41,38 @@ use Throwable;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-class Exception extends RuntimeException implements \PHPUnit\Exception
+class Exception extends RuntimeException implements \Php_Unit\Exception
 {
     /**
      * @var list<array{file?: string, line?: int, function: string}>
      */
-    protected array $serializableTrace;
-
+    protected array $serializable_trace;
     public function __construct(string $message = '', int|string $code = 0, ?Throwable $previous = null)
     {
         /**
          * @see https://github.com/sebastianbergmann/phpunit/issues/5965
          */
         if (!is_int($code)) {
-            $message .= sprintf(
-                ' (exception code: %s)',
-                $code,
-            );
-
+            $message .= sprintf(' (exception code: %s)', $code);
             $code = 0;
         }
-
         parent::__construct($message, $code, $previous);
-
-        $this->serializableTrace = $this->getTrace();
-
-        foreach (array_keys($this->serializableTrace) as $key) {
-            unset($this->serializableTrace[$key]['args']);
+        $this->serializable_trace = $this->get_trace();
+        foreach (array_keys($this->serializable_trace) as $key) {
+            unset($this->serializable_trace[$key]['args']);
         }
     }
-
     public function __serialize(): array
     {
         return get_object_vars($this);
     }
-
     /**
      * Returns the serializable trace (without 'args').
      *
      * @return list<array{file?: string, line?: int, function: string}>
      */
-    public function getSerializableTrace(): array
+    public function get_serializable_trace(): array
     {
-        return $this->serializableTrace;
+        return $this->serializable_trace;
     }
 }

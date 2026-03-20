@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,45 +9,34 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\Constraint;
+namespace Php_Unit\Framework\Constraint;
 
 use function assert;
-
 use const DIRECTORY_SEPARATOR;
-
 use function explode;
 use function implode;
-
 use const PHP_EOL;
-
-use PHPUnit\Framework\Exception as FrameworkException;
-
+use Php_Unit\Framework\Exception as FrameworkException;
 use function preg_last_error_msg;
 use function preg_match;
 use function preg_quote;
 use function preg_replace;
-
-use SebastianBergmann\Diff\Differ;
-use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
-
+use Sebastian_Bergmann\Diff\Differ;
+use Sebastian_Bergmann\Diff\Output\Unified_Diff_Output_Builder;
 use function sprintf;
 use function strtr;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class StringMatchesFormatDescription extends Constraint
+final class String_Matches_Format_Description extends Constraint
 {
-    public function __construct(private readonly string $formatDescription)
+    public function __construct(private readonly string $format_description)
     {
     }
-
-    public function toString(): string
+    public function to_string(): string
     {
-        return 'matches format description:' . PHP_EOL . $this->formatDescription;
+        return 'matches format description:' . PHP_EOL . $this->format_description;
     }
-
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
@@ -56,32 +45,17 @@ final class StringMatchesFormatDescription extends Constraint
      */
     protected function matches(mixed $other): bool
     {
-        $other = $this->convertNewlines($other);
-
-        $matches = @preg_match(
-            $this->regularExpressionForFormatDescription(
-                $this->convertNewlines($this->formatDescription),
-            ),
-            $other,
-        );
-
+        $other = $this->convert_newlines($other);
+        $matches = @preg_match($this->regular_expression_for_format_description($this->convert_newlines($this->format_description)), $other);
         if ($matches === false) {
-            throw new FrameworkException(
-                sprintf(
-                    'Format description cannot be matched: %s',
-                    preg_last_error_msg(),
-                ),
-            );
+            throw new Framework_Exception(sprintf('Format description cannot be matched: %s', preg_last_error_msg()));
         }
-
         return $matches > 0;
     }
-
-    protected function failureDescription(mixed $other): string
+    protected function failure_description(mixed $other): string
     {
         return 'string matches format description';
     }
-
     /**
      * Returns a cleaned up diff.
      *
@@ -97,16 +71,14 @@ final class StringMatchesFormatDescription extends Constraint
      * And since they mess up the line sync between the expected and actual output
      * all following allowed changes will not be detected/removed anymore.
      */
-    protected function additionalFailureDescription(mixed $other): string
+    protected function additional_failure_description(mixed $other): string
     {
-        $from = explode("\n", $this->formatDescription);
-        $to   = explode("\n", $this->convertNewlines($other));
-
+        $from = explode("\n", $this->format_description);
+        $to = explode("\n", $this->convert_newlines($other));
         foreach ($from as $index => $line) {
             // is the expected output line different from the actual output line
             if (isset($to[$index]) && $line !== $to[$index]) {
-                $line = $this->regularExpressionForFormatDescription($line);
-
+                $line = $this->regular_expression_for_format_description($line);
                 // if the difference is allowed by a placeholder
                 // overwrite the expected line with the actual line to prevent it from showing up in the diff
                 if (preg_match($line, $to[$index]) > 0) {
@@ -114,48 +86,23 @@ final class StringMatchesFormatDescription extends Constraint
                 }
             }
         }
-
         $from = implode("\n", $from);
-        $to   = implode("\n", $to);
-
+        $to = implode("\n", $to);
         return $this->differ()->diff($from, $to);
     }
-
-    private function regularExpressionForFormatDescription(string $string): string
+    private function regular_expression_for_format_description(string $string): string
     {
-        $string = strtr(
-            preg_quote($string, '/'),
-            [
-                '%%' => '%',
-                '%e' => preg_quote(DIRECTORY_SEPARATOR, '/'),
-                '%s' => '[^\r\n]+',
-                '%S' => '[^\r\n]*',
-                '%a' => '.+?',
-                '%A' => '.*?',
-                '%w' => '\s*',
-                '%i' => '[+-]?\d+',
-                '%d' => '\d+',
-                '%x' => '[0-9a-fA-F]+',
-                '%f' => '[+-]?(?:\d+|(?=\.\d))(?:\.\d+)?(?:[Ee][+-]?\d+)?',
-                '%c' => '.',
-                '%0' => '\x00',
-            ],
-        );
-
+        $string = strtr(preg_quote($string, '/'), ['%%' => '%', '%e' => preg_quote(DIRECTORY_SEPARATOR, '/'), '%s' => '[^\r\n]+', '%S' => '[^\r\n]*', '%a' => '.+?', '%A' => '.*?', '%w' => '\s*', '%i' => '[+-]?\d+', '%d' => '\d+', '%x' => '[0-9a-fA-F]+', '%f' => '[+-]?(?:\d+|(?=\.\d))(?:\.\d+)?(?:[Ee][+-]?\d+)?', '%c' => '.', '%0' => '\x00']);
         return '/^' . $string . '$/s';
     }
-
-    private function convertNewlines(string $text): string
+    private function convert_newlines(string $text): string
     {
         $result = preg_replace('/\r\n/', "\n", $text);
-
         assert($result !== null);
-
         return $result;
     }
-
     private function differ(): Differ
     {
-        return new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n"));
+        return new Differ(new Unified_Diff_Output_Builder("--- Expected\n+++ Actual\n"));
     }
 }

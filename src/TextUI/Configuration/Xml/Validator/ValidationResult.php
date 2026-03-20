@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,16 +9,12 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Text_Ui\Xml_Configuration;
 
-namespace PHPUnit\TextUI\XmlConfiguration;
-
-use LibXMLError;
-
+use Lib_Xml_Error;
 use const PHP_EOL;
-
 use function sprintf;
 use function trim;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -26,50 +22,41 @@ use function trim;
  *
  * @immutable
  */
-final readonly class ValidationResult
+final readonly class Validation_Result
 {
     /**
      * @param array<int, LibXMLError> $errors
      */
-    public static function fromArray(array $errors): self
+    public static function from_array(array $errors): self
     {
-        $validationErrors = [];
-
+        $validation_errors = [];
         foreach ($errors as $error) {
-            if (!isset($validationErrors[$error->line])) {
-                $validationErrors[$error->line] = [];
+            if (!isset($validation_errors[$error->line])) {
+                $validation_errors[$error->line] = [];
             }
-
-            $validationErrors[$error->line][] = trim($error->message);
+            $validation_errors[$error->line][] = trim($error->message);
         }
-
-        return new self($validationErrors);
+        return new self($validation_errors);
     }
-
     /**
      * @param array<int, list<string>> $validationErrors
      */
-    private function __construct(private array $validationErrors)
+    private function __construct(private array $validation_errors)
     {
     }
-
-    public function hasValidationErrors(): bool
+    public function has_validation_errors(): bool
     {
-        return $this->validationErrors !== [];
+        return $this->validation_errors !== [];
     }
-
-    public function asString(): string
+    public function as_string(): string
     {
         $buffer = '';
-
-        foreach ($this->validationErrors as $line => $validationErrorsOnLine) {
+        foreach ($this->validation_errors as $line => $validation_errors_on_line) {
             $buffer .= sprintf(PHP_EOL . '  Line %d:' . PHP_EOL, $line);
-
-            foreach ($validationErrorsOnLine as $validationError) {
-                $buffer .= sprintf('  - %s' . PHP_EOL, $validationError);
+            foreach ($validation_errors_on_line as $validation_error) {
+                $buffer .= sprintf('  - %s' . PHP_EOL, $validation_error);
             }
         }
-
         return $buffer;
     }
 }

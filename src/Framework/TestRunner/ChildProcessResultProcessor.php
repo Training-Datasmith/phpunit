@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,87 +9,55 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework;
+namespace Php_Unit\Framework;
 
 use function assert;
-
-use PHPUnit\Event\Code\TestMethodBuilder;
-use PHPUnit\Event\Code\ThrowableBuilder;
-use PHPUnit\Event\Emitter;
-use PHPUnit\Event\Facade;
-use PHPUnit\Runner\CodeCoverage;
-use PHPUnit\TestRunner\TestResult\PassedTests;
-
+use Php_Unit\Event\Code\Test_Method_Builder;
+use Php_Unit\Event\Code\Throwable_Builder;
+use Php_Unit\Event\Emitter;
+use Php_Unit\Event\Facade;
+use Php_Unit\Runner\Code_Coverage;
+use Php_Unit\Test_Runner\Test_Result\Passed_Tests;
 use function trim;
 use function unserialize;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ChildProcessResultProcessor
+final readonly class Child_Process_Result_Processor
 {
-    public function __construct(private Facade $eventFacade, private Emitter $emitter, private PassedTests $passedTests, private CodeCoverage $codeCoverage)
+    public function __construct(private Facade $event_facade, private Emitter $emitter, private Passed_Tests $passed_tests, private Code_Coverage $code_coverage)
     {
     }
-
-    public function process(Test $test, string $serializedProcessResult, string $stderr): void
+    public function process(Test $test, string $serialized_process_result, string $stderr): void
     {
         if ($stderr !== '') {
             $exception = new Exception(trim($stderr));
-
-            assert($test instanceof TestCase);
-
-            $this->emitter->testErrored(
-                TestMethodBuilder::fromTestCase($test),
-                ThrowableBuilder::from($exception),
-            );
-
+            assert($test instanceof Test_Case);
+            $this->emitter->test_errored(Test_Method_Builder::from_test_case($test), Throwable_Builder::from($exception));
             return;
         }
-
-        $childResult = @unserialize($serializedProcessResult, ['allowed_classes' => true]);
-
-        if ($childResult === false) {
-            $this->emitter->childProcessErrored();
-
-            $exception = new AssertionFailedError('Test was run in child process and ended unexpectedly');
-
-            assert($test instanceof TestCase);
-
-            $this->emitter->testErrored(
-                TestMethodBuilder::fromTestCase($test),
-                ThrowableBuilder::from($exception),
-            );
-
-            $this->emitter->testFinished(
-                TestMethodBuilder::fromTestCase($test),
-                0,
-            );
-
+        $child_result = @unserialize($serialized_process_result, ['allowed_classes' => true]);
+        if ($child_result === false) {
+            $this->emitter->child_process_errored();
+            $exception = new Assertion_Failed_Error('Test was run in child process and ended unexpectedly');
+            assert($test instanceof Test_Case);
+            $this->emitter->test_errored(Test_Method_Builder::from_test_case($test), Throwable_Builder::from($exception));
+            $this->emitter->test_finished(Test_Method_Builder::from_test_case($test), 0);
             return;
         }
-
-        $this->eventFacade->forward($childResult->events);
-        $this->passedTests->import($childResult->passedTests);
-
-        assert($test instanceof TestCase);
-
-        $test->setResult($childResult->testResult);
-        $test->addToAssertionCount($childResult->numAssertions);
-
-        if (!$this->codeCoverage->isActive()) {
+        $this->event_facade->forward($child_result->events);
+        $this->passed_tests->import($child_result->passed_tests);
+        assert($test instanceof Test_Case);
+        $test->set_result($child_result->test_result);
+        $test->add_to_assertion_count($child_result->num_assertions);
+        if (!$this->code_coverage->is_active()) {
             return;
         }
-
         // @codeCoverageIgnoreStart
-        if (!$childResult->codeCoverage instanceof \SebastianBergmann\CodeCoverage\CodeCoverage) {
+        if (!$child_result->code_coverage instanceof \Sebastian_Bergmann\Code_Coverage\Code_Coverage) {
             return;
         }
-
-        CodeCoverage::instance()->codeCoverage()->merge(
-            $childResult->codeCoverage,
-        );
+        Code_Coverage::instance()->code_coverage()->merge($child_result->code_coverage);
         // @codeCoverageIgnoreEnd
     }
 }

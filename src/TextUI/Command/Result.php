@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Command;
+namespace Php_Unit\Text_Ui\Command;
 
 /**
  * @immutable
@@ -21,27 +20,23 @@ namespace PHPUnit\TextUI\Command;
  */
 final readonly class Result
 {
-    public const int SUCCESS   = 0;
-    public const int FAILURE   = 1;
+    public const int SUCCESS = 0;
+    public const int FAILURE = 1;
     public const int EXCEPTION = 2;
-    public const int CRASH     = 255;
-
-    public static function from(string $output = '', int $shellExitCode = self::SUCCESS): self
+    public const int CRASH = 255;
+    public static function from(string $output = '', int $shell_exit_code = self::SUCCESS): self
     {
-        return new self($output, $shellExitCode);
+        return new self($output, $shell_exit_code);
     }
-
-    private function __construct(private string $output, private int $shellExitCode)
+    private function __construct(private string $output, private int $shell_exit_code)
     {
     }
-
     public function output(): string
     {
         return $this->output;
     }
-
-    public function shellExitCode(): int
+    public function shell_exit_code(): int
     {
-        return $this->shellExitCode;
+        return $this->shell_exit_code;
     }
 }

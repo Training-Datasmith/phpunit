@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,16 +9,14 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Text_Ui\Configuration;
 
-namespace PHPUnit\TextUI\Configuration;
-
-use PHPUnit\TextUI\CliArguments\Builder as CliConfigurationBuilder;
-use PHPUnit\TextUI\CliArguments\Exception as CliConfigurationException;
-use PHPUnit\TextUI\CliArguments\XmlConfigurationFileFinder;
-use PHPUnit\TextUI\XmlConfiguration\DefaultConfiguration;
-use PHPUnit\TextUI\XmlConfiguration\Exception as XmlConfigurationException;
-use PHPUnit\TextUI\XmlConfiguration\Loader;
-
+use Php_Unit\Text_Ui\Cli_Arguments\Builder as CliConfigurationBuilder;
+use Php_Unit\Text_Ui\Cli_Arguments\Exception as CliConfigurationException;
+use Php_Unit\Text_Ui\Cli_Arguments\Xml_Configuration_File_Finder;
+use Php_Unit\Text_Ui\Xml_Configuration\Default_Configuration;
+use Php_Unit\Text_Ui\Xml_Configuration\Exception as XmlConfigurationException;
+use Php_Unit\Text_Ui\Xml_Configuration\Loader;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -34,24 +32,15 @@ final readonly class Builder
     public function build(array $argv): Configuration
     {
         try {
-            $cliConfiguration  = (new CliConfigurationBuilder())->fromParameters($argv);
-            $configurationFile = (new XmlConfigurationFileFinder())->find($cliConfiguration);
-            $xmlConfiguration  = DefaultConfiguration::create();
-
-            if ($configurationFile !== false) {
-                $xmlConfiguration = (new Loader())->load($configurationFile);
+            $cli_configuration = (new Cli_Configuration_Builder())->from_parameters($argv);
+            $configuration_file = (new Xml_Configuration_File_Finder())->find($cli_configuration);
+            $xml_configuration = Default_Configuration::create();
+            if ($configuration_file !== false) {
+                $xml_configuration = (new Loader())->load($configuration_file);
             }
-
-            return Registry::init(
-                $cliConfiguration,
-                $xmlConfiguration,
-            );
-        } catch (CliConfigurationException|XmlConfigurationException $e) {
-            throw new ConfigurationCannotBeBuiltException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e,
-            );
+            return Registry::init($cli_configuration, $xml_configuration);
+        } catch (Cli_Configuration_Exception|Xml_Configuration_Exception $e) {
+            throw new Configuration_Cannot_Be_Built_Exception($e->get_message(), $e->get_code(), $e);
         }
     }
 }

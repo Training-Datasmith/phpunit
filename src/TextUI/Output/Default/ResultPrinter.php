@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Output\Default;
+namespace Php_Unit\Text_Ui\Output\Default;
 
 use function array_keys;
 use function array_merge;
@@ -20,653 +19,412 @@ use function assert;
 use function count;
 use function explode;
 use function ksort;
-
 use const PHP_EOL;
-
-use PHPUnit\Event\Code\Test;
-use PHPUnit\Event\Code\TestMethod;
-use PHPUnit\Event\Test\AfterLastTestMethodErrored;
-use PHPUnit\Event\Test\BeforeFirstTestMethodErrored;
-use PHPUnit\Event\Test\ConsideredRisky;
-use PHPUnit\Event\Test\DeprecationTriggered;
-use PHPUnit\Event\Test\ErrorTriggered;
-use PHPUnit\Event\Test\NoticeTriggered;
-use PHPUnit\Event\Test\PhpDeprecationTriggered;
-use PHPUnit\Event\Test\PhpNoticeTriggered;
-use PHPUnit\Event\Test\PhpunitDeprecationTriggered;
-use PHPUnit\Event\Test\PhpunitErrorTriggered;
-use PHPUnit\Event\Test\PhpunitNoticeTriggered;
-use PHPUnit\Event\Test\PhpunitWarningTriggered;
-use PHPUnit\Event\Test\PhpWarningTriggered;
-use PHPUnit\Event\Test\WarningTriggered;
-use PHPUnit\TestRunner\TestResult\Issues\Issue;
-use PHPUnit\TestRunner\TestResult\TestResult;
-use PHPUnit\TextUI\Output\Printer;
-
+use Php_Unit\Event\Code\Test;
+use Php_Unit\Event\Code\Test_Method;
+use Php_Unit\Event\Test\After_Last_Test_Method_Errored;
+use Php_Unit\Event\Test\Before_First_Test_Method_Errored;
+use Php_Unit\Event\Test\Considered_Risky;
+use Php_Unit\Event\Test\Deprecation_Triggered;
+use Php_Unit\Event\Test\Error_Triggered;
+use Php_Unit\Event\Test\Notice_Triggered;
+use Php_Unit\Event\Test\Php_Deprecation_Triggered;
+use Php_Unit\Event\Test\Php_Notice_Triggered;
+use Php_Unit\Event\Test\Phpunit_Deprecation_Triggered;
+use Php_Unit\Event\Test\Phpunit_Error_Triggered;
+use Php_Unit\Event\Test\Phpunit_Notice_Triggered;
+use Php_Unit\Event\Test\Phpunit_Warning_Triggered;
+use Php_Unit\Event\Test\Php_Warning_Triggered;
+use Php_Unit\Event\Test\Warning_Triggered;
+use Php_Unit\Test_Runner\Test_Result\Issues\Issue;
+use Php_Unit\Test_Runner\Test_Result\Test_Result;
+use Php_Unit\Text_Ui\Output\Printer;
 use function range;
 use function sprintf;
 use function str_starts_with;
 use function strlen;
 use function substr;
 use function trim;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ResultPrinter
+final class Result_Printer
 {
-    private bool $listPrinted = false;
-
-    public function __construct(private readonly Printer $printer, private readonly bool $displayPhpunitDeprecations, private readonly bool $displayPhpunitErrors, private readonly bool $displayPhpunitNotices, private readonly bool $displayPhpunitWarnings, private readonly bool $displayTestsWithErrors, private readonly bool $displayTestsWithFailedAssertions, private readonly bool $displayRiskyTests, private readonly bool $displayDetailsOnIncompleteTests, private readonly bool $displayDetailsOnSkippedTests, private readonly bool $displayDetailsOnTestsThatTriggerDeprecations, private readonly bool $displayDetailsOnTestsThatTriggerErrors, private readonly bool $displayDetailsOnTestsThatTriggerNotices, private readonly bool $displayDetailsOnTestsThatTriggerWarnings, private readonly bool $displayDefectsInReverseOrder)
+    private bool $list_printed = false;
+    public function __construct(private readonly Printer $printer, private readonly bool $display_phpunit_deprecations, private readonly bool $display_phpunit_errors, private readonly bool $display_phpunit_notices, private readonly bool $display_phpunit_warnings, private readonly bool $display_tests_with_errors, private readonly bool $display_tests_with_failed_assertions, private readonly bool $display_risky_tests, private readonly bool $display_details_on_incomplete_tests, private readonly bool $display_details_on_skipped_tests, private readonly bool $display_details_on_tests_that_trigger_deprecations, private readonly bool $display_details_on_tests_that_trigger_errors, private readonly bool $display_details_on_tests_that_trigger_notices, private readonly bool $display_details_on_tests_that_trigger_warnings, private readonly bool $display_defects_in_reverse_order)
     {
     }
-
-    public function print(TestResult $result, bool $stackTraceForDeprecations = false): void
+    public function print(Test_Result $result, bool $stack_trace_for_deprecations = false): void
     {
-        if ($this->displayPhpunitErrors) {
-            $this->printPhpunitErrors($result);
+        if ($this->display_phpunit_errors) {
+            $this->print_phpunit_errors($result);
         }
-
-        if ($this->displayPhpunitWarnings) {
-            $this->printTestRunnerWarnings($result);
+        if ($this->display_phpunit_warnings) {
+            $this->print_test_runner_warnings($result);
         }
-
-        if ($this->displayPhpunitDeprecations) {
-            $this->printTestRunnerDeprecations($result);
+        if ($this->display_phpunit_deprecations) {
+            $this->print_test_runner_deprecations($result);
         }
-
-        if ($this->displayPhpunitNotices) {
-            $this->printTestRunnerNotices($result);
+        if ($this->display_phpunit_notices) {
+            $this->print_test_runner_notices($result);
         }
-
-        if ($this->displayTestsWithErrors) {
-            $this->printTestsWithErrors($result);
+        if ($this->display_tests_with_errors) {
+            $this->print_tests_with_errors($result);
         }
-
-        if ($this->displayTestsWithFailedAssertions) {
-            $this->printTestsWithFailedAssertions($result);
+        if ($this->display_tests_with_failed_assertions) {
+            $this->print_tests_with_failed_assertions($result);
         }
-
-        if ($this->displayPhpunitWarnings) {
-            $this->printDetailsOnTestsThatTriggeredPhpunitWarnings($result);
+        if ($this->display_phpunit_warnings) {
+            $this->print_details_on_tests_that_triggered_phpunit_warnings($result);
         }
-
-        if ($this->displayPhpunitDeprecations) {
-            $this->printDetailsOnTestsThatTriggeredPhpunitDeprecations($result);
+        if ($this->display_phpunit_deprecations) {
+            $this->print_details_on_tests_that_triggered_phpunit_deprecations($result);
         }
-
-        if ($this->displayRiskyTests) {
-            $this->printRiskyTests($result);
+        if ($this->display_risky_tests) {
+            $this->print_risky_tests($result);
         }
-
-        if ($this->displayPhpunitNotices) {
-            $this->printDetailsOnTestsThatTriggeredPhpunitNotices($result);
+        if ($this->display_phpunit_notices) {
+            $this->print_details_on_tests_that_triggered_phpunit_notices($result);
         }
-
-        if ($this->displayDetailsOnIncompleteTests) {
-            $this->printIncompleteTests($result);
+        if ($this->display_details_on_incomplete_tests) {
+            $this->print_incomplete_tests($result);
         }
-
-        if ($this->displayDetailsOnSkippedTests) {
-            $this->printSkippedTestSuites($result);
-            $this->printSkippedTests($result);
+        if ($this->display_details_on_skipped_tests) {
+            $this->print_skipped_test_suites($result);
+            $this->print_skipped_tests($result);
         }
-
-        if ($this->displayDetailsOnTestsThatTriggerErrors) {
-            $this->printIssueList('error', $result->errors());
+        if ($this->display_details_on_tests_that_trigger_errors) {
+            $this->print_issue_list('error', $result->errors());
         }
-
-        if ($this->displayDetailsOnTestsThatTriggerWarnings) {
-            $this->printIssueList('PHP warning', $result->phpWarnings());
-            $this->printIssueList('warning', $result->warnings());
+        if ($this->display_details_on_tests_that_trigger_warnings) {
+            $this->print_issue_list('PHP warning', $result->php_warnings());
+            $this->print_issue_list('warning', $result->warnings());
         }
-
-        if ($this->displayDetailsOnTestsThatTriggerNotices) {
-            $this->printIssueList('PHP notice', $result->phpNotices());
-            $this->printIssueList('notice', $result->notices());
+        if ($this->display_details_on_tests_that_trigger_notices) {
+            $this->print_issue_list('PHP notice', $result->php_notices());
+            $this->print_issue_list('notice', $result->notices());
         }
-
-        if ($this->displayDetailsOnTestsThatTriggerDeprecations) {
-            $this->printIssueList('PHP deprecation', $result->phpDeprecations());
-            $this->printIssueList('deprecation', $result->deprecations(), $stackTraceForDeprecations);
+        if ($this->display_details_on_tests_that_trigger_deprecations) {
+            $this->print_issue_list('PHP deprecation', $result->php_deprecations());
+            $this->print_issue_list('deprecation', $result->deprecations(), $stack_trace_for_deprecations);
         }
     }
-
-    private function printPhpunitErrors(TestResult $result): void
+    private function print_phpunit_errors(Test_Result $result): void
     {
-        if (!$result->hasTestTriggeredPhpunitErrorEvents()) {
+        if (!$result->has_test_triggered_phpunit_error_events()) {
             return;
         }
-
-        $elements = $this->mapTestsWithIssuesEventsToElements($result->testTriggeredPhpunitErrorEvents());
-
-        $this->printListHeaderWithNumber($elements['numberOfTestsWithIssues'], 'PHPUnit error');
-        $this->printList($elements['elements']);
+        $elements = $this->map_tests_with_issues_events_to_elements($result->test_triggered_phpunit_error_events());
+        $this->print_list_header_with_number($elements['numberOfTestsWithIssues'], 'PHPUnit error');
+        $this->print_list($elements['elements']);
     }
-
-    private function printDetailsOnTestsThatTriggeredPhpunitDeprecations(TestResult $result): void
+    private function print_details_on_tests_that_triggered_phpunit_deprecations(Test_Result $result): void
     {
-        if (!$result->hasTestTriggeredPhpunitDeprecationEvents()) {
+        if (!$result->has_test_triggered_phpunit_deprecation_events()) {
             return;
         }
-
-        $elements = $this->mapTestsWithIssuesEventsToElements($result->testTriggeredPhpunitDeprecationEvents());
-
-        $this->printListHeaderWithNumberOfTestsAndNumberOfIssues(
-            $elements['numberOfTestsWithIssues'],
-            $elements['numberOfIssues'],
-            'PHPUnit deprecation',
-        );
-
-        $this->printList($elements['elements']);
+        $elements = $this->map_tests_with_issues_events_to_elements($result->test_triggered_phpunit_deprecation_events());
+        $this->print_list_header_with_number_of_tests_and_number_of_issues($elements['numberOfTestsWithIssues'], $elements['numberOfIssues'], 'PHPUnit deprecation');
+        $this->print_list($elements['elements']);
     }
-
-    private function printDetailsOnTestsThatTriggeredPhpunitNotices(TestResult $result): void
+    private function print_details_on_tests_that_triggered_phpunit_notices(Test_Result $result): void
     {
-        if (!$result->hasTestTriggeredPhpunitNoticeEvents()) {
+        if (!$result->has_test_triggered_phpunit_notice_events()) {
             return;
         }
-
-        $elements = $this->mapTestsWithIssuesEventsToElements($result->testTriggeredPhpunitNoticeEvents());
-
-        $this->printListHeaderWithNumberOfTestsAndNumberOfIssues(
-            $elements['numberOfTestsWithIssues'],
-            $elements['numberOfIssues'],
-            'PHPUnit notice',
-        );
-
-        $this->printList($elements['elements']);
+        $elements = $this->map_tests_with_issues_events_to_elements($result->test_triggered_phpunit_notice_events());
+        $this->print_list_header_with_number_of_tests_and_number_of_issues($elements['numberOfTestsWithIssues'], $elements['numberOfIssues'], 'PHPUnit notice');
+        $this->print_list($elements['elements']);
     }
-
-    private function printTestRunnerNotices(TestResult $result): void
+    private function print_test_runner_notices(Test_Result $result): void
     {
-        if (!$result->hasTestRunnerTriggeredNoticeEvents()) {
+        if (!$result->has_test_runner_triggered_notice_events()) {
             return;
         }
-
         $elements = [];
         $messages = [];
-
-        foreach ($result->testRunnerTriggeredNoticeEvents() as $event) {
+        foreach ($result->test_runner_triggered_notice_events() as $event) {
             if (isset($messages[$event->message()])) {
                 continue;
             }
-
-            $elements[] = [
-                'title' => $event->message(),
-                'body'  => '',
-            ];
-
+            $elements[] = ['title' => $event->message(), 'body' => ''];
             $messages[$event->message()] = true;
         }
-
-        $this->printListHeaderWithNumber(count($elements), 'PHPUnit test runner notice');
-        $this->printList($elements);
+        $this->print_list_header_with_number(count($elements), 'PHPUnit test runner notice');
+        $this->print_list($elements);
     }
-
-    private function printTestRunnerWarnings(TestResult $result): void
+    private function print_test_runner_warnings(Test_Result $result): void
     {
-        if (!$result->hasTestRunnerTriggeredWarningEvents()) {
+        if (!$result->has_test_runner_triggered_warning_events()) {
             return;
         }
-
         $elements = [];
         $messages = [];
-
-        foreach ($result->testRunnerTriggeredWarningEvents() as $event) {
+        foreach ($result->test_runner_triggered_warning_events() as $event) {
             if (isset($messages[$event->message()])) {
                 continue;
             }
-
-            $elements[] = [
-                'title' => $event->message(),
-                'body'  => '',
-            ];
-
+            $elements[] = ['title' => $event->message(), 'body' => ''];
             $messages[$event->message()] = true;
         }
-
-        $this->printListHeaderWithNumber(count($elements), 'PHPUnit test runner warning');
-        $this->printList($elements);
+        $this->print_list_header_with_number(count($elements), 'PHPUnit test runner warning');
+        $this->print_list($elements);
     }
-
-    private function printTestRunnerDeprecations(TestResult $result): void
+    private function print_test_runner_deprecations(Test_Result $result): void
     {
-        if (!$result->hasTestRunnerTriggeredDeprecationEvents()) {
+        if (!$result->has_test_runner_triggered_deprecation_events()) {
             return;
         }
-
         $elements = [];
-
-        foreach ($result->testRunnerTriggeredDeprecationEvents() as $event) {
-            $elements[] = [
-                'title' => $event->message(),
-                'body'  => '',
-            ];
+        foreach ($result->test_runner_triggered_deprecation_events() as $event) {
+            $elements[] = ['title' => $event->message(), 'body' => ''];
         }
-
-        $this->printListHeaderWithNumber(count($elements), 'PHPUnit test runner deprecation');
-        $this->printList($elements);
+        $this->print_list_header_with_number(count($elements), 'PHPUnit test runner deprecation');
+        $this->print_list($elements);
     }
-
-    private function printDetailsOnTestsThatTriggeredPhpunitWarnings(TestResult $result): void
+    private function print_details_on_tests_that_triggered_phpunit_warnings(Test_Result $result): void
     {
-        if (!$result->hasTestTriggeredPhpunitWarningEvents()) {
+        if (!$result->has_test_triggered_phpunit_warning_events()) {
             return;
         }
-
-        $elements = $this->mapTestsWithIssuesEventsToElements($result->testTriggeredPhpunitWarningEvents());
-
-        $this->printListHeaderWithNumberOfTestsAndNumberOfIssues(
-            $elements['numberOfTestsWithIssues'],
-            $elements['numberOfIssues'],
-            'PHPUnit warning',
-        );
-
-        $this->printList($elements['elements']);
+        $elements = $this->map_tests_with_issues_events_to_elements($result->test_triggered_phpunit_warning_events());
+        $this->print_list_header_with_number_of_tests_and_number_of_issues($elements['numberOfTestsWithIssues'], $elements['numberOfIssues'], 'PHPUnit warning');
+        $this->print_list($elements['elements']);
     }
-
-    private function printTestsWithErrors(TestResult $result): void
+    private function print_tests_with_errors(Test_Result $result): void
     {
-        if (!$result->hasTestErroredEvents()) {
+        if (!$result->has_test_errored_events()) {
             return;
         }
-
         $elements = [];
-
-        foreach ($result->testErroredEvents() as $event) {
-            if ($event instanceof AfterLastTestMethodErrored || $event instanceof BeforeFirstTestMethodErrored) {
-                $title = $event->testClassName();
+        foreach ($result->test_errored_events() as $event) {
+            if ($event instanceof After_Last_Test_Method_Errored || $event instanceof Before_First_Test_Method_Errored) {
+                $title = $event->test_class_name();
             } else {
                 $title = $this->name($event->test());
             }
-
-            $elements[] = [
-                'title' => $title,
-                'body'  => $event->throwable()->asString(),
-            ];
+            $elements[] = ['title' => $title, 'body' => $event->throwable()->as_string()];
         }
-
-        $this->printListHeaderWithNumber(count($elements), 'error');
-        $this->printList($elements);
+        $this->print_list_header_with_number(count($elements), 'error');
+        $this->print_list($elements);
     }
-
-    private function printTestsWithFailedAssertions(TestResult $result): void
+    private function print_tests_with_failed_assertions(Test_Result $result): void
     {
-        if (!$result->hasTestFailedEvents()) {
+        if (!$result->has_test_failed_events()) {
             return;
         }
-
         $elements = [];
-
-        foreach ($result->testFailedEvents() as $event) {
-            $body = $event->throwable()->asString();
-
+        foreach ($result->test_failed_events() as $event) {
+            $body = $event->throwable()->as_string();
             if (str_starts_with($body, 'AssertionError: ')) {
                 $body = substr($body, strlen('AssertionError: '));
             }
-
-            $elements[] = [
-                'title' => $this->name($event->test()),
-                'body'  => $body,
-            ];
+            $elements[] = ['title' => $this->name($event->test()), 'body' => $body];
         }
-
-        $this->printListHeaderWithNumber(count($elements), 'failure');
-        $this->printList($elements);
+        $this->print_list_header_with_number(count($elements), 'failure');
+        $this->print_list($elements);
     }
-
-    private function printRiskyTests(TestResult $result): void
+    private function print_risky_tests(Test_Result $result): void
     {
-        if (!$result->hasTestConsideredRiskyEvents()) {
+        if (!$result->has_test_considered_risky_events()) {
             return;
         }
-
-        $elements = $this->mapTestsWithIssuesEventsToElements($result->testConsideredRiskyEvents());
-
-        $this->printListHeaderWithNumber($elements['numberOfTestsWithIssues'], 'risky test');
-        $this->printList($elements['elements']);
+        $elements = $this->map_tests_with_issues_events_to_elements($result->test_considered_risky_events());
+        $this->print_list_header_with_number($elements['numberOfTestsWithIssues'], 'risky test');
+        $this->print_list($elements['elements']);
     }
-
-    private function printIncompleteTests(TestResult $result): void
+    private function print_incomplete_tests(Test_Result $result): void
     {
-        if (!$result->hasTestMarkedIncompleteEvents()) {
+        if (!$result->has_test_marked_incomplete_events()) {
             return;
         }
-
         $elements = [];
-
-        foreach ($result->testMarkedIncompleteEvents() as $event) {
-            $elements[] = [
-                'title' => $this->name($event->test()),
-                'body'  => $event->throwable()->asString(),
-            ];
+        foreach ($result->test_marked_incomplete_events() as $event) {
+            $elements[] = ['title' => $this->name($event->test()), 'body' => $event->throwable()->as_string()];
         }
-
-        $this->printListHeaderWithNumber(count($elements), 'incomplete test');
-        $this->printList($elements);
+        $this->print_list_header_with_number(count($elements), 'incomplete test');
+        $this->print_list($elements);
     }
-
-    private function printSkippedTestSuites(TestResult $result): void
+    private function print_skipped_test_suites(Test_Result $result): void
     {
-        if (!$result->hasTestSuiteSkippedEvents()) {
+        if (!$result->has_test_suite_skipped_events()) {
             return;
         }
-
         $elements = [];
-
-        foreach ($result->testSuiteSkippedEvents() as $event) {
-            $elements[] = [
-                'title' => $event->testSuite()->name(),
-                'body'  => $event->message(),
-            ];
+        foreach ($result->test_suite_skipped_events() as $event) {
+            $elements[] = ['title' => $event->test_suite()->name(), 'body' => $event->message()];
         }
-
-        $this->printListHeaderWithNumber(count($elements), 'skipped test suite');
-        $this->printList($elements);
+        $this->print_list_header_with_number(count($elements), 'skipped test suite');
+        $this->print_list($elements);
     }
-
-    private function printSkippedTests(TestResult $result): void
+    private function print_skipped_tests(Test_Result $result): void
     {
-        if (!$result->hasTestSkippedEvents()) {
+        if (!$result->has_test_skipped_events()) {
             return;
         }
-
         $elements = [];
-
-        foreach ($result->testSkippedEvents() as $event) {
-            $elements[] = [
-                'title' => $this->name($event->test()),
-                'body'  => $event->message(),
-            ];
+        foreach ($result->test_skipped_events() as $event) {
+            $elements[] = ['title' => $this->name($event->test()), 'body' => $event->message()];
         }
-
-        $this->printListHeaderWithNumber(count($elements), 'skipped test');
-        $this->printList($elements);
+        $this->print_list_header_with_number(count($elements), 'skipped test');
+        $this->print_list($elements);
     }
-
     /**
      * @param non-empty-string $type
      * @param list<Issue>      $issues
      */
-    private function printIssueList(string $type, array $issues, bool $stackTrace = false): void
+    private function print_issue_list(string $type, array $issues, bool $stack_trace = false): void
     {
         if ($issues === []) {
             return;
         }
-
-        $numberOfUniqueIssues = count($issues);
-        $triggeringTests      = [];
-
+        $number_of_unique_issues = count($issues);
+        $triggering_tests = [];
         foreach ($issues as $issue) {
-            $triggeringTests = array_merge($triggeringTests, array_keys($issue->triggeringTests()));
+            $triggering_tests = array_merge($triggering_tests, array_keys($issue->triggering_tests()));
         }
-
-        $numberOfTests = count(array_unique($triggeringTests));
-        unset($triggeringTests);
-
-        $this->printListHeader(
-            sprintf(
-                '%d test%s triggered %d %s%s:' . PHP_EOL . PHP_EOL,
-                $numberOfTests,
-                $numberOfTests !== 1 ? 's' : '',
-                $numberOfUniqueIssues,
-                $type,
-                $numberOfUniqueIssues !== 1 ? 's' : '',
-            ),
-        );
-
+        $number_of_tests = count(array_unique($triggering_tests));
+        unset($triggering_tests);
+        $this->print_list_header(sprintf('%d test%s triggered %d %s%s:' . PHP_EOL . PHP_EOL, $number_of_tests, $number_of_tests !== 1 ? 's' : '', $number_of_unique_issues, $type, $number_of_unique_issues !== 1 ? 's' : ''));
         $i = 1;
-
         foreach ($issues as $issue) {
-            $title = sprintf(
-                '%s:%d',
-                $issue->file(),
-                $issue->line(),
-            );
-
+            $title = sprintf('%s:%d', $issue->file(), $issue->line());
             $body = trim($issue->description()) . PHP_EOL . PHP_EOL;
-
-            if ($stackTrace && $issue->hasStackTrace()) {
-                $body .= trim((string) $issue->stackTrace()) . PHP_EOL . PHP_EOL;
+            if ($stack_trace && $issue->has_stack_trace()) {
+                $body .= trim((string) $issue->stack_trace()) . PHP_EOL . PHP_EOL;
             }
-
-            if (!$issue->triggeredInTest()) {
+            if (!$issue->triggered_in_test()) {
                 $body .= 'Triggered by:';
-
-                $triggeringTests = $issue->triggeringTests();
-
-                ksort($triggeringTests);
-
-                foreach ($triggeringTests as $triggeringTest) {
-                    $body .= PHP_EOL . PHP_EOL . '* ' . $triggeringTest['test']->id();
-
-                    if ($triggeringTest['count'] > 1) {
-                        $body .= sprintf(
-                            ' (%d times)',
-                            $triggeringTest['count'],
-                        );
+                $triggering_tests = $issue->triggering_tests();
+                ksort($triggering_tests);
+                foreach ($triggering_tests as $triggering_test) {
+                    $body .= PHP_EOL . PHP_EOL . '* ' . $triggering_test['test']->id();
+                    if ($triggering_test['count'] > 1) {
+                        $body .= sprintf(' (%d times)', $triggering_test['count']);
                     }
-
-                    if ($triggeringTest['test']->isTestMethod()) {
-                        $body .= PHP_EOL . '  ' . $triggeringTest['test']->file() . ':' . $triggeringTest['test']->line();
+                    if ($triggering_test['test']->is_test_method()) {
+                        $body .= PHP_EOL . '  ' . $triggering_test['test']->file() . ':' . $triggering_test['test']->line();
                     }
                 }
             }
-
-            $this->printIssueListElement($i++, $title, $body);
-
+            $this->print_issue_list_element($i++, $title, $body);
             $this->printer->print(PHP_EOL);
         }
     }
-
-    private function printListHeaderWithNumberOfTestsAndNumberOfIssues(int $numberOfTestsWithIssues, int $numberOfIssues, string $type): void
+    private function print_list_header_with_number_of_tests_and_number_of_issues(int $number_of_tests_with_issues, int $number_of_issues, string $type): void
     {
-        $this->printListHeader(
-            sprintf(
-                "%d test%s triggered %d %s%s:\n\n",
-                $numberOfTestsWithIssues,
-                $numberOfTestsWithIssues !== 1 ? 's' : '',
-                $numberOfIssues,
-                $type,
-                $numberOfIssues !== 1 ? 's' : '',
-            ),
-        );
+        $this->print_list_header(sprintf("%d test%s triggered %d %s%s:\n\n", $number_of_tests_with_issues, $number_of_tests_with_issues !== 1 ? 's' : '', $number_of_issues, $type, $number_of_issues !== 1 ? 's' : ''));
     }
-
-    private function printListHeaderWithNumber(int $number, string $type): void
+    private function print_list_header_with_number(int $number, string $type): void
     {
-        $this->printListHeader(
-            sprintf(
-                "There %s %d %s%s:\n\n",
-                ($number === 1) ? 'was' : 'were',
-                $number,
-                $type,
-                ($number === 1) ? '' : 's',
-            ),
-        );
+        $this->print_list_header(sprintf("There %s %d %s%s:\n\n", $number === 1 ? 'was' : 'were', $number, $type, $number === 1 ? '' : 's'));
     }
-
-    private function printListHeader(string $header): void
+    private function print_list_header(string $header): void
     {
-        if ($this->listPrinted) {
+        if ($this->list_printed) {
             $this->printer->print("--\n\n");
         }
-
-        $this->listPrinted = true;
-
+        $this->list_printed = true;
         $this->printer->print($header);
     }
-
     /**
      * @param list<array{title: string, body: string}> $elements
      */
-    private function printList(array $elements): void
+    private function print_list(array $elements): void
     {
         $i = 1;
-
-        if ($this->displayDefectsInReverseOrder) {
+        if ($this->display_defects_in_reverse_order) {
             $elements = array_reverse($elements);
         }
-
         foreach ($elements as $element) {
-            $this->printListElement($i++, $element['title'], $element['body']);
+            $this->print_list_element($i++, $element['title'], $element['body']);
         }
-
         $this->printer->print("\n");
     }
-
-    private function printListElement(int $number, string $title, string $body): void
+    private function print_list_element(int $number, string $title, string $body): void
     {
         $body = trim($body);
-
-        $this->printer->print(
-            sprintf(
-                "%s%d) %s\n%s%s",
-                $number > 1 ? "\n" : '',
-                $number,
-                $title,
-                $body,
-                $body !== '' ? "\n" : '',
-            ),
-        );
+        $this->printer->print(sprintf("%s%d) %s\n%s%s", $number > 1 ? "\n" : '', $number, $title, $body, $body !== '' ? "\n" : ''));
     }
-
-    private function printIssueListElement(int $number, string $title, string $body): void
+    private function print_issue_list_element(int $number, string $title, string $body): void
     {
         $body = trim($body);
-
-        $this->printer->print(
-            sprintf(
-                "%d) %s\n%s%s",
-                $number,
-                $title,
-                $body,
-                $body !== '' ? "\n" : '',
-            ),
-        );
+        $this->printer->print(sprintf("%d) %s\n%s%s", $number, $title, $body, $body !== '' ? "\n" : ''));
     }
-
     private function name(Test $test): string
     {
-        if ($test->isTestMethod()) {
-            assert($test instanceof TestMethod);
-
-            if (!$test->testData()->hasDataFromDataProvider()) {
-                return $test->nameWithClass();
+        if ($test->is_test_method()) {
+            assert($test instanceof Test_Method);
+            if (!$test->test_data()->has_data_from_data_provider()) {
+                return $test->name_with_class();
             }
-
-            return $test->className() . '::' . $test->methodName() . $test->testData()->dataFromDataProvider()->dataAsStringForResultOutput();
+            return $test->class_name() . '::' . $test->method_name() . $test->test_data()->data_from_data_provider()->data_as_string_for_result_output();
         }
-
         return $test->name();
     }
-
     /**
      * @param array<string,list<ConsideredRisky|DeprecationTriggered|ErrorTriggered|NoticeTriggered|PhpDeprecationTriggered|PhpNoticeTriggered|PhpunitDeprecationTriggered|PhpunitErrorTriggered|PhpunitNoticeTriggered|PhpunitWarningTriggered|PhpWarningTriggered|WarningTriggered>> $events
      *
      * @return array{numberOfTestsWithIssues: int, numberOfIssues: int, elements: list<array{title: string, body: string}>}
      */
-    private function mapTestsWithIssuesEventsToElements(array $events): array
+    private function map_tests_with_issues_events_to_elements(array $events): array
     {
         $elements = [];
-        $issues   = 0;
-
+        $issues = 0;
         foreach ($events as $reasons) {
-            $test         = $reasons[0]->test();
-            $testLocation = $this->testLocation($test);
-            $title        = $this->name($test);
-            $body         = '';
-            $first        = true;
-            $single       = count($reasons) === 1;
-
+            $test = $reasons[0]->test();
+            $test_location = $this->test_location($test);
+            $title = $this->name($test);
+            $body = '';
+            $first = true;
+            $single = count($reasons) === 1;
             foreach ($reasons as $reason) {
                 if ($first) {
                     $first = false;
                 } else {
                     $body .= PHP_EOL;
                 }
-
-                $body .= $this->reasonMessage($reason, $single);
-                $body .= $this->reasonLocation($reason, $single);
-
+                $body .= $this->reason_message($reason, $single);
+                $body .= $this->reason_location($reason, $single);
                 $issues++;
             }
-
-            if ($testLocation !== '') {
-                $body .= $testLocation;
+            if ($test_location !== '') {
+                $body .= $test_location;
             }
-
-            $elements[] = [
-                'title' => $title,
-                'body'  => $body,
-            ];
+            $elements[] = ['title' => $title, 'body' => $body];
         }
-
-        return [
-            'numberOfTestsWithIssues' => count($events),
-            'numberOfIssues'          => $issues,
-            'elements'                => $elements,
-        ];
+        return ['numberOfTestsWithIssues' => count($events), 'numberOfIssues' => $issues, 'elements' => $elements];
     }
-
-    private function testLocation(Test $test): string
+    private function test_location(Test $test): string
     {
-        if (!$test->isTestMethod()) {
+        if (!$test->is_test_method()) {
             return '';
         }
-
-        assert($test instanceof TestMethod);
-
-        return sprintf(
-            '%s%s:%d%s',
-            PHP_EOL,
-            $test->file(),
-            $test->line(),
-            PHP_EOL,
-        );
+        assert($test instanceof Test_Method);
+        return sprintf('%s%s:%d%s', PHP_EOL, $test->file(), $test->line(), PHP_EOL);
     }
-
-    private function reasonMessage(ConsideredRisky|DeprecationTriggered|ErrorTriggered|NoticeTriggered|PhpDeprecationTriggered|PhpNoticeTriggered|PhpunitDeprecationTriggered|PhpunitErrorTriggered|PhpunitNoticeTriggered|PhpunitWarningTriggered|PhpWarningTriggered|WarningTriggered $reason, bool $single): string
+    private function reason_message(Considered_Risky|Deprecation_Triggered|Error_Triggered|Notice_Triggered|Php_Deprecation_Triggered|Php_Notice_Triggered|Phpunit_Deprecation_Triggered|Phpunit_Error_Triggered|Phpunit_Notice_Triggered|Phpunit_Warning_Triggered|Php_Warning_Triggered|Warning_Triggered $reason, bool $single): string
     {
         $message = trim($reason->message());
-
         if ($single) {
             return $message . PHP_EOL;
         }
-
-        $lines  = explode(PHP_EOL, $message);
+        $lines = explode(PHP_EOL, $message);
         $buffer = '* ' . $lines[0] . PHP_EOL;
-
         if (count($lines) > 1) {
             foreach (range(1, count($lines) - 1) as $line) {
                 $buffer .= '  ' . $lines[$line] . PHP_EOL;
             }
         }
-
         return $buffer;
     }
-
-    private function reasonLocation(ConsideredRisky|DeprecationTriggered|ErrorTriggered|NoticeTriggered|PhpDeprecationTriggered|PhpNoticeTriggered|PhpunitDeprecationTriggered|PhpunitErrorTriggered|PhpunitNoticeTriggered|PhpunitWarningTriggered|PhpWarningTriggered|WarningTriggered $reason, bool $single): string
+    private function reason_location(Considered_Risky|Deprecation_Triggered|Error_Triggered|Notice_Triggered|Php_Deprecation_Triggered|Php_Notice_Triggered|Phpunit_Deprecation_Triggered|Phpunit_Error_Triggered|Phpunit_Notice_Triggered|Phpunit_Warning_Triggered|Php_Warning_Triggered|Warning_Triggered $reason, bool $single): string
     {
-        if (!$reason instanceof DeprecationTriggered &&
-            !$reason instanceof PhpDeprecationTriggered &&
-            !$reason instanceof ErrorTriggered &&
-            !$reason instanceof NoticeTriggered &&
-            !$reason instanceof PhpNoticeTriggered &&
-            !$reason instanceof WarningTriggered &&
-            !$reason instanceof PhpWarningTriggered) {
+        if (!$reason instanceof Deprecation_Triggered && !$reason instanceof Php_Deprecation_Triggered && !$reason instanceof Error_Triggered && !$reason instanceof Notice_Triggered && !$reason instanceof Php_Notice_Triggered && !$reason instanceof Warning_Triggered && !$reason instanceof Php_Warning_Triggered) {
             return '';
         }
-
-        return sprintf(
-            '%s%s:%d%s',
-            $single ? '' : '  ',
-            $reason->file(),
-            $reason->line(),
-            PHP_EOL,
-        );
+        return sprintf('%s%s:%d%s', $single ? '' : '  ', $reason->file(), $reason->line(), PHP_EOL);
     }
 }

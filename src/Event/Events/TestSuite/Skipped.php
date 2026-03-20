@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,14 +9,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Event\Test_Suite;
 
-namespace PHPUnit\Event\TestSuite;
-
-use PHPUnit\Event\Event;
-use PHPUnit\Event\Telemetry;
-
+use Php_Unit\Event\Event;
+use Php_Unit\Event\Telemetry;
 use function sprintf;
-
 /**
  * @immutable
  *
@@ -24,34 +21,26 @@ use function sprintf;
  */
 final readonly class Skipped implements Event
 {
-    public function __construct(private Telemetry\Info $telemetryInfo, private TestSuite $testSuite, private string $message)
+    public function __construct(private Telemetry\Info $telemetry_info, private Test_Suite $test_suite, private string $message)
     {
     }
-
-    public function telemetryInfo(): Telemetry\Info
+    public function telemetry_info(): Telemetry\Info
     {
-        return $this->telemetryInfo;
+        return $this->telemetry_info;
     }
-
-    public function testSuite(): TestSuite
+    public function test_suite(): Test_Suite
     {
-        return $this->testSuite;
+        return $this->test_suite;
     }
-
     public function message(): string
     {
         return $this->message;
     }
-
     /**
      * @return non-empty-string
      */
-    public function asString(): string
+    public function as_string(): string
     {
-        return sprintf(
-            'Test Suite Skipped (%s, %s)',
-            $this->testSuite->name(),
-            $this->message,
-        );
+        return sprintf('Test Suite Skipped (%s, %s)', $this->test_suite->name(), $this->message);
     }
 }

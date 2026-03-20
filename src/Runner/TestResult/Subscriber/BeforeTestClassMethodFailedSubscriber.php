@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,21 +9,19 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Test_Runner\Test_Result;
 
-namespace PHPUnit\TestRunner\TestResult;
-
-use PHPUnit\Event\Test\BeforeFirstTestMethodFailed;
-use PHPUnit\Event\Test\BeforeFirstTestMethodFailedSubscriber;
-
+use Php_Unit\Event\Test\Before_First_Test_Method_Failed;
+use Php_Unit\Event\Test\Before_First_Test_Method_Failed_Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class BeforeTestClassMethodFailedSubscriber extends Subscriber implements BeforeFirstTestMethodFailedSubscriber
+final readonly class Before_Test_Class_Method_Failed_Subscriber extends Subscriber implements Before_First_Test_Method_Failed_Subscriber
 {
-    public function notify(BeforeFirstTestMethodFailed $event): void
+    public function notify(Before_First_Test_Method_Failed $event): void
     {
-        $this->collector()->beforeTestClassMethodFailed($event);
+        $this->collector()->before_test_class_method_failed($event);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,21 +9,18 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\Constraint;
+namespace Php_Unit\Framework\Constraint;
 
 use function array_any;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class LogicalOr extends BinaryOperator
+final class Logical_Or extends Binary_Operator
 {
-    public static function fromConstraints(mixed ...$constraints): self
+    public static function from_constraints(mixed ...$constraints): self
     {
         return new self(...$constraints);
     }
-
     /**
      * Returns the name of this operator.
      */
@@ -31,7 +28,6 @@ final class LogicalOr extends BinaryOperator
     {
         return 'or';
     }
-
     /**
      * Returns this operator's precedence.
      *
@@ -41,16 +37,12 @@ final class LogicalOr extends BinaryOperator
     {
         return 24;
     }
-
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      */
     public function matches(mixed $other): bool
     {
-        return array_any(
-            $this->constraints(),
-            static fn (Constraint $constraint): ?bool => $constraint->evaluate($other, '', true),
-        );
+        return array_any($this->constraints(), static fn(Constraint $constraint): ?bool => $constraint->evaluate($other, '', true));
     }
 }

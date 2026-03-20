@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\TestStatus;
+namespace Php_Unit\Framework\Test_Status;
 
 /**
  * @immutable
@@ -21,17 +20,15 @@ namespace PHPUnit\Framework\TestStatus;
  */
 final readonly class Deprecation extends Known
 {
-    public function isDeprecation(): true
+    public function is_deprecation(): true
     {
         return true;
     }
-
-    public function asInt(): int
+    public function as_int(): int
     {
         return 4;
     }
-
-    public function asString(): string
+    public function as_string(): string
     {
         return 'deprecation';
     }

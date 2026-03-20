@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,41 +9,37 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Runner;
+namespace Php_Unit\Runner;
 
 use function assert;
-
 use DateTimeImmutable;
-use PHPUnit\Event\Facade as EventFacade;
-use PHPUnit\Framework\TestCase;
-use PHPUnit\TextUI\Configuration\CodeCoverageFilterRegistry;
-use PHPUnit\TextUI\Configuration\Configuration;
-use PHPUnit\TextUI\Output\Printer;
-use PHPUnit\Util\Filesystem;
-use SebastianBergmann\CodeCoverage\Driver\Driver;
-use SebastianBergmann\CodeCoverage\Driver\Selector;
-use SebastianBergmann\CodeCoverage\Exception as CodeCoverageException;
-use SebastianBergmann\CodeCoverage\Filter;
-use SebastianBergmann\CodeCoverage\Report\Facade as ReportFacade;
-use SebastianBergmann\CodeCoverage\Report\Html\Colors;
-use SebastianBergmann\CodeCoverage\Report\Html\CustomCssFile;
-use SebastianBergmann\CodeCoverage\Report\Thresholds;
-use SebastianBergmann\CodeCoverage\Serialization\Serializer;
-use SebastianBergmann\CodeCoverage\StaticAnalysis\CacheWarmer;
-use SebastianBergmann\CodeCoverage\Test\Target\TargetCollection;
-use SebastianBergmann\CodeCoverage\Test\Target\ValidationFailure;
-use SebastianBergmann\CodeCoverage\Test\TestSize;
-use SebastianBergmann\CodeCoverage\Test\TestStatus;
-use SebastianBergmann\CodeCoverage\Version as CodeCoverageVersion;
-use SebastianBergmann\Comparator\Comparator;
-use SebastianBergmann\Environment\Runtime;
-use SebastianBergmann\Timer\NoActiveTimerException;
-use SebastianBergmann\Timer\Timer;
-
+use Php_Unit\Event\Facade as EventFacade;
+use Php_Unit\Framework\Test_Case;
+use Php_Unit\Text_Ui\Configuration\Code_Coverage_Filter_Registry;
+use Php_Unit\Text_Ui\Configuration\Configuration;
+use Php_Unit\Text_Ui\Output\Printer;
+use Php_Unit\Util\Filesystem;
+use Sebastian_Bergmann\Code_Coverage\Driver\Driver;
+use Sebastian_Bergmann\Code_Coverage\Driver\Selector;
+use Sebastian_Bergmann\Code_Coverage\Exception as CodeCoverageException;
+use Sebastian_Bergmann\Code_Coverage\Filter;
+use Sebastian_Bergmann\Code_Coverage\Report\Facade as ReportFacade;
+use Sebastian_Bergmann\Code_Coverage\Report\Html\Colors;
+use Sebastian_Bergmann\Code_Coverage\Report\Html\Custom_Css_File;
+use Sebastian_Bergmann\Code_Coverage\Report\Thresholds;
+use Sebastian_Bergmann\Code_Coverage\Serialization\Serializer;
+use Sebastian_Bergmann\Code_Coverage\Static_Analysis\Cache_Warmer;
+use Sebastian_Bergmann\Code_Coverage\Test\Target\Target_Collection;
+use Sebastian_Bergmann\Code_Coverage\Test\Target\Validation_Failure;
+use Sebastian_Bergmann\Code_Coverage\Test\Test_Size;
+use Sebastian_Bergmann\Code_Coverage\Test\Test_Status;
+use Sebastian_Bergmann\Code_Coverage\Version as CodeCoverageVersion;
+use Sebastian_Bergmann\Comparator\Comparator;
+use Sebastian_Bergmann\Environment\Runtime;
+use Sebastian_Bergmann\Timer\No_Active_Timer_Exception;
+use Sebastian_Bergmann\Timer\Timer;
 use function sprintf;
 use function sys_get_temp_dir;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -51,453 +47,275 @@ use function sys_get_temp_dir;
  *
  * @codeCoverageIgnore
  */
-final class CodeCoverage
+final class Code_Coverage
 {
-    private static ?self $instance                                      = null;
-    private ?\SebastianBergmann\CodeCoverage\CodeCoverage $codeCoverage = null;
-
+    private static ?self $instance = null;
+    private ?\Sebastian_Bergmann\Code_Coverage\Code_Coverage $code_coverage = null;
     /**
      * @phpstan-ignore property.internalClass
      */
-    private ?Driver $driver  = null;
+    private ?Driver $driver = null;
     private bool $collecting = false;
-    private ?TestCase $test  = null;
-    private ?Timer $timer    = null;
-
+    private ?Test_Case $test = null;
+    private ?Timer $timer = null;
     public static function instance(): self
     {
         if (self::$instance === null) {
             self::$instance = new self();
         }
-
         return self::$instance;
     }
-
-    public function init(Configuration $configuration, CodeCoverageFilterRegistry $codeCoverageFilterRegistry, bool $extensionRequiresCodeCoverageCollection): CodeCoverageInitializationStatus
+    public function init(Configuration $configuration, Code_Coverage_Filter_Registry $code_coverage_filter_registry, bool $extension_requires_code_coverage_collection): Code_Coverage_Initialization_Status
     {
-        $codeCoverageFilterRegistry->init($configuration);
-
-        if (!$configuration->hasCoverageReport() && !$extensionRequiresCodeCoverageCollection) {
-            return CodeCoverageInitializationStatus::NOT_REQUESTED;
+        $code_coverage_filter_registry->init($configuration);
+        if (!$configuration->has_coverage_report() && !$extension_requires_code_coverage_collection) {
+            return Code_Coverage_Initialization_Status::NOT_REQUESTED;
         }
-
-        $this->activate($codeCoverageFilterRegistry->get(), $configuration->pathCoverage());
-
-        if (!$this->isActive()) {
-            return CodeCoverageInitializationStatus::FAILED;
+        $this->activate($code_coverage_filter_registry->get(), $configuration->path_coverage());
+        if (!$this->is_active()) {
+            return Code_Coverage_Initialization_Status::FAILED;
         }
-
-        if ($configuration->hasCoverageCacheDirectory()) {
-            $coverageCacheDirectory = $configuration->coverageCacheDirectory();
+        if ($configuration->has_coverage_cache_directory()) {
+            $coverage_cache_directory = $configuration->coverage_cache_directory();
         } else {
             $candidate = sys_get_temp_dir() . '/phpunit-code-coverage-cache';
-
-            if (Filesystem::createDirectory($candidate)) {
-                $coverageCacheDirectory = $candidate;
+            if (Filesystem::create_directory($candidate)) {
+                $coverage_cache_directory = $candidate;
             }
         }
-
-        if (isset($coverageCacheDirectory)) {
-            $this->codeCoverage()->cacheStaticAnalysis($coverageCacheDirectory);
+        if (isset($coverage_cache_directory)) {
+            $this->code_coverage()->cache_static_analysis($coverage_cache_directory);
         }
-
-        $this->codeCoverage()->excludeSubclassesOfThisClassFromUnintentionallyCoveredCodeCheck(Comparator::class);
-
-        if ($configuration->strictCoverage()) {
-            $this->codeCoverage()->enableCheckForUnintentionallyCoveredCode();
+        $this->code_coverage()->exclude_subclasses_of_this_class_from_unintentionally_covered_code_check(Comparator::class);
+        if ($configuration->strict_coverage()) {
+            $this->code_coverage()->enable_check_for_unintentionally_covered_code();
         }
-
-        if ($configuration->ignoreDeprecatedCodeUnitsFromCodeCoverage()) {
-            $this->codeCoverage()->ignoreDeprecatedCode();
+        if ($configuration->ignore_deprecated_code_units_from_code_coverage()) {
+            $this->code_coverage()->ignore_deprecated_code();
         } else {
-            $this->codeCoverage()->doNotIgnoreDeprecatedCode();
+            $this->code_coverage()->do_not_ignore_deprecated_code();
         }
-
-        if ($configuration->disableCodeCoverageIgnore()) {
-            $this->codeCoverage()->disableAnnotationsForIgnoringCode();
+        if ($configuration->disable_code_coverage_ignore()) {
+            $this->code_coverage()->disable_annotations_for_ignoring_code();
         } else {
-            $this->codeCoverage()->enableAnnotationsForIgnoringCode();
+            $this->code_coverage()->enable_annotations_for_ignoring_code();
         }
-
-        if ($configuration->includeUncoveredFiles()) {
-            $this->codeCoverage()->includeUncoveredFiles();
+        if ($configuration->include_uncovered_files()) {
+            $this->code_coverage()->include_uncovered_files();
         } else {
-            $this->codeCoverage()->excludeUncoveredFiles();
+            $this->code_coverage()->exclude_uncovered_files();
         }
-
-        if ($codeCoverageFilterRegistry->get()->isEmpty()) {
-            if (!$codeCoverageFilterRegistry->configured()) {
-                EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
-                    'No filter is configured, code coverage will not be processed',
-                );
+        if ($code_coverage_filter_registry->get()->is_empty()) {
+            if (!$code_coverage_filter_registry->configured()) {
+                Event_Facade::emitter()->test_runner_triggered_phpunit_warning('No filter is configured, code coverage will not be processed');
             } else {
-                EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
-                    'Configured filter does not match any files, code coverage will not be processed',
-                );
+                Event_Facade::emitter()->test_runner_triggered_phpunit_warning('Configured filter does not match any files, code coverage will not be processed');
             }
-
             $this->deactivate();
         }
-
-        if (isset($coverageCacheDirectory) && $configuration->includeUncoveredFiles()) {
-            EventFacade::emitter()->testRunnerStartedStaticAnalysisForCodeCoverage();
-
+        if (isset($coverage_cache_directory) && $configuration->include_uncovered_files()) {
+            Event_Facade::emitter()->test_runner_started_static_analysis_for_code_coverage();
             /** @phpstan-ignore new.internalClass,method.internalClass */
-            $statistics = (new CacheWarmer())->warmCache(
-                $coverageCacheDirectory,
-                !$configuration->disableCodeCoverageIgnore(),
-                $configuration->ignoreDeprecatedCodeUnitsFromCodeCoverage(),
-                $codeCoverageFilterRegistry->get(),
-            );
-
-            EventFacade::emitter()->testRunnerFinishedStaticAnalysisForCodeCoverage(
-                $statistics['cacheHits'],
-                $statistics['cacheMisses'],
-            );
+            $statistics = (new Cache_Warmer())->warm_cache($coverage_cache_directory, !$configuration->disable_code_coverage_ignore(), $configuration->ignore_deprecated_code_units_from_code_coverage(), $code_coverage_filter_registry->get());
+            Event_Facade::emitter()->test_runner_finished_static_analysis_for_code_coverage($statistics['cacheHits'], $statistics['cacheMisses']);
         }
-
-        return CodeCoverageInitializationStatus::SUCCEEDED;
+        return Code_Coverage_Initialization_Status::SUCCEEDED;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->codeCoverage
      */
-    public function isActive(): bool
+    public function is_active(): bool
     {
-        return $this->codeCoverage !== null;
+        return $this->code_coverage !== null;
     }
-
-    public function codeCoverage(): \SebastianBergmann\CodeCoverage\CodeCoverage
+    public function code_coverage(): \Sebastian_Bergmann\Code_Coverage\Code_Coverage
     {
-        return $this->codeCoverage;
+        return $this->code_coverage;
     }
-
     /**
      * @return non-empty-string
      */
-    public function driverNameAndVersion(): string
+    public function driver_name_and_version(): string
     {
-        return $this->driver->nameAndVersion();
+        return $this->driver->name_and_version();
     }
-
-    public function start(TestCase $test): void
+    public function start(Test_Case $test): void
     {
         if ($this->collecting) {
             return;
         }
-
-        $size = TestSize::Unknown;
-
-        if ($test->size()->isSmall()) {
-            $size = TestSize::Small;
-        } elseif ($test->size()->isMedium()) {
-            $size = TestSize::Medium;
-        } elseif ($test->size()->isLarge()) {
-            $size = TestSize::Large;
+        $size = Test_Size::Unknown;
+        if ($test->size()->is_small()) {
+            $size = Test_Size::Small;
+        } elseif ($test->size()->is_medium()) {
+            $size = Test_Size::Medium;
+        } elseif ($test->size()->is_large()) {
+            $size = Test_Size::Large;
         }
-
         $this->test = $test;
-
-        $this->codeCoverage->start(
-            $test->valueObjectForEvents()->id(),
-            $size,
-        );
-
+        $this->code_coverage->start($test->value_object_for_events()->id(), $size);
         $this->collecting = true;
-
         $this->timer()->start();
     }
-
-    public function stop(bool $append, null|false|TargetCollection $covers = null, ?TargetCollection $uses = null): void
+    public function stop(bool $append, null|false|Target_Collection $covers = null, ?Target_Collection $uses = null): void
     {
         if (!$this->collecting) {
             return;
         }
-
-        $time             = $this->timer()->stop()->asSeconds();
-        $status           = TestStatus::Unknown;
+        $time = $this->timer()->stop()->as_seconds();
+        $status = Test_Status::Unknown;
         $this->collecting = false;
-
         if ($this->test !== null) {
-            if ($this->test->status()->isSuccess()) {
-                $status = TestStatus::Success;
+            if ($this->test->status()->is_success()) {
+                $status = Test_Status::Success;
             } else {
-                $status = TestStatus::Failure;
+                $status = Test_Status::Failure;
             }
         }
-
-        if ($covers instanceof TargetCollection) {
-            $result = $this->codeCoverage->validate($covers);
-
-            if ($result->isFailure()) {
-                assert($result instanceof ValidationFailure);
-
-                EventFacade::emitter()->testTriggeredPhpunitWarning(
-                    $this->test->valueObjectForEvents(),
-                    $result->message(),
-                );
-
+        if ($covers instanceof Target_Collection) {
+            $result = $this->code_coverage->validate($covers);
+            if ($result->is_failure()) {
+                assert($result instanceof Validation_Failure);
+                Event_Facade::emitter()->test_triggered_phpunit_warning($this->test->value_object_for_events(), $result->message());
                 $append = false;
             }
         }
-
-        if ($uses instanceof TargetCollection) {
-            $result = $this->codeCoverage->validate($uses);
-
-            if ($result->isFailure()) {
-                assert($result instanceof ValidationFailure);
-
-                EventFacade::emitter()->testTriggeredPhpunitWarning(
-                    $this->test->valueObjectForEvents(),
-                    $result->message(),
-                );
-
+        if ($uses instanceof Target_Collection) {
+            $result = $this->code_coverage->validate($uses);
+            if ($result->is_failure()) {
+                assert($result instanceof Validation_Failure);
+                Event_Facade::emitter()->test_triggered_phpunit_warning($this->test->value_object_for_events(), $result->message());
                 $append = false;
             }
         }
-
-        $this->codeCoverage->stop($append, $status, $covers, $uses, $time);
-
+        $this->code_coverage->stop($append, $status, $covers, $uses, $time);
         $this->test = null;
     }
-
     public function deactivate(): void
     {
-        $this->driver       = null;
-        $this->codeCoverage = null;
-        $this->test         = null;
+        $this->driver = null;
+        $this->code_coverage = null;
+        $this->test = null;
     }
-
-    public function generateReports(Printer $printer, Configuration $configuration): void
+    public function generate_reports(Printer $printer, Configuration $configuration): void
     {
-        if (!$this->isActive()) {
+        if (!$this->is_active()) {
             return;
         }
-
-        if ($configuration->hasCoveragePhp()) {
-            $this->codeCoverageGenerationStart($printer, 'PHP');
-
+        if ($configuration->has_coverage_php()) {
+            $this->code_coverage_generation_start($printer, 'PHP');
             $serializer = new Serializer();
-
-            $serializer->serialize($configuration->coveragePhp(), $this->codeCoverage(), $configuration->includeGitInformation());
-
-            $this->codeCoverageGenerationSucceeded($printer);
-
+            $serializer->serialize($configuration->coverage_php(), $this->code_coverage(), $configuration->include_git_information());
+            $this->code_coverage_generation_succeeded($printer);
             unset($serializer);
         }
-
-        $facade = ReportFacade::fromObject($this->codeCoverage());
-
-        if ($configuration->hasCoverageClover()) {
-            $this->codeCoverageGenerationStart($printer, 'Clover XML');
-
+        $facade = Report_Facade::from_object($this->code_coverage());
+        if ($configuration->has_coverage_clover()) {
+            $this->code_coverage_generation_start($printer, 'Clover XML');
             try {
-                $facade->renderClover($configuration->coverageClover(), 'Clover Coverage');
-
-                $this->codeCoverageGenerationSucceeded($printer);
-            } catch (CodeCoverageException $e) {
-                $this->codeCoverageGenerationFailed($printer, $e);
+                $facade->render_clover($configuration->coverage_clover(), 'Clover Coverage');
+                $this->code_coverage_generation_succeeded($printer);
+            } catch (Code_Coverage_Exception $e) {
+                $this->code_coverage_generation_failed($printer, $e);
             }
         }
-
-        if ($configuration->hasCoverageOpenClover()) {
-            $this->codeCoverageGenerationStart($printer, 'OpenClover XML');
-
+        if ($configuration->has_coverage_open_clover()) {
+            $this->code_coverage_generation_start($printer, 'OpenClover XML');
             try {
-                $facade->renderOpenClover($configuration->coverageOpenClover(), 'OpenClover Coverage');
-
-                $this->codeCoverageGenerationSucceeded($printer);
-            } catch (CodeCoverageException $e) {
-                $this->codeCoverageGenerationFailed($printer, $e);
+                $facade->render_open_clover($configuration->coverage_open_clover(), 'OpenClover Coverage');
+                $this->code_coverage_generation_succeeded($printer);
+            } catch (Code_Coverage_Exception $e) {
+                $this->code_coverage_generation_failed($printer, $e);
             }
         }
-
-        if ($configuration->hasCoverageCobertura()) {
-            $this->codeCoverageGenerationStart($printer, 'Cobertura XML');
-
+        if ($configuration->has_coverage_cobertura()) {
+            $this->code_coverage_generation_start($printer, 'Cobertura XML');
             try {
-                $facade->renderCobertura($configuration->coverageCobertura());
-
-                $this->codeCoverageGenerationSucceeded($printer);
-            } catch (CodeCoverageException $e) {
-                $this->codeCoverageGenerationFailed($printer, $e);
+                $facade->render_cobertura($configuration->coverage_cobertura());
+                $this->code_coverage_generation_succeeded($printer);
+            } catch (Code_Coverage_Exception $e) {
+                $this->code_coverage_generation_failed($printer, $e);
             }
         }
-
-        if ($configuration->hasCoverageCrap4j()) {
-            $this->codeCoverageGenerationStart($printer, 'Crap4J XML');
-
+        if ($configuration->has_coverage_crap4j()) {
+            $this->code_coverage_generation_start($printer, 'Crap4J XML');
             try {
-                $facade->renderCrap4j($configuration->coverageCrap4j(), $configuration->coverageCrap4jThreshold());
-
-                $this->codeCoverageGenerationSucceeded($printer);
-            } catch (CodeCoverageException $e) {
-                $this->codeCoverageGenerationFailed($printer, $e);
+                $facade->render_crap4j($configuration->coverage_crap4j(), $configuration->coverage_crap4j_threshold());
+                $this->code_coverage_generation_succeeded($printer);
+            } catch (Code_Coverage_Exception $e) {
+                $this->code_coverage_generation_failed($printer, $e);
             }
         }
-
-        if ($configuration->hasCoverageHtml()) {
-            $this->codeCoverageGenerationStart($printer, 'HTML');
-
+        if ($configuration->has_coverage_html()) {
+            $this->code_coverage_generation_start($printer, 'HTML');
             try {
-                $customCssFile = CustomCssFile::default();
-
-                if ($configuration->hasCoverageHtmlCustomCssFile()) {
-                    $customCssFile = CustomCssFile::from($configuration->coverageHtmlCustomCssFile());
+                $custom_css_file = Custom_Css_File::default();
+                if ($configuration->has_coverage_html_custom_css_file()) {
+                    $custom_css_file = Custom_Css_File::from($configuration->coverage_html_custom_css_file());
                 }
-
-                $facade->renderHtml(
-                    $configuration->coverageHtml(),
-                    sprintf(
-                        ' and <a href="https://phpunit.de/">PHPUnit %s</a>',
-                        Version::id(),
-                    ),
-                    Colors::from(
-                        $configuration->coverageHtmlColorSuccessLow(),
-                        $configuration->coverageHtmlColorSuccessLowDark(),
-                        $configuration->coverageHtmlColorSuccessMedium(),
-                        $configuration->coverageHtmlColorSuccessMediumDark(),
-                        $configuration->coverageHtmlColorSuccessHigh(),
-                        $configuration->coverageHtmlColorSuccessHighDark(),
-                        $configuration->coverageHtmlColorSuccessBar(),
-                        $configuration->coverageHtmlColorSuccessBarDark(),
-                        $configuration->coverageHtmlColorWarning(),
-                        $configuration->coverageHtmlColorWarningDark(),
-                        $configuration->coverageHtmlColorWarningBar(),
-                        $configuration->coverageHtmlColorWarningBarDark(),
-                        $configuration->coverageHtmlColorDanger(),
-                        $configuration->coverageHtmlColorDangerDark(),
-                        $configuration->coverageHtmlColorDangerBar(),
-                        $configuration->coverageHtmlColorDangerBarDark(),
-                        $configuration->coverageHtmlColorBreadcrumbs(),
-                        $configuration->coverageHtmlColorBreadcrumbsDark(),
-                    ),
-                    Thresholds::from(
-                        $configuration->coverageHtmlLowUpperBound(),
-                        $configuration->coverageHtmlHighLowerBound(),
-                    ),
-                    $customCssFile,
-                );
-
-                $this->codeCoverageGenerationSucceeded($printer);
-            } catch (CodeCoverageException $e) {
-                $this->codeCoverageGenerationFailed($printer, $e);
+                $facade->render_html($configuration->coverage_html(), sprintf(' and <a href="https://phpunit.de/">PHPUnit %s</a>', Version::id()), Colors::from($configuration->coverage_html_color_success_low(), $configuration->coverage_html_color_success_low_dark(), $configuration->coverage_html_color_success_medium(), $configuration->coverage_html_color_success_medium_dark(), $configuration->coverage_html_color_success_high(), $configuration->coverage_html_color_success_high_dark(), $configuration->coverage_html_color_success_bar(), $configuration->coverage_html_color_success_bar_dark(), $configuration->coverage_html_color_warning(), $configuration->coverage_html_color_warning_dark(), $configuration->coverage_html_color_warning_bar(), $configuration->coverage_html_color_warning_bar_dark(), $configuration->coverage_html_color_danger(), $configuration->coverage_html_color_danger_dark(), $configuration->coverage_html_color_danger_bar(), $configuration->coverage_html_color_danger_bar_dark(), $configuration->coverage_html_color_breadcrumbs(), $configuration->coverage_html_color_breadcrumbs_dark()), Thresholds::from($configuration->coverage_html_low_upper_bound(), $configuration->coverage_html_high_lower_bound()), $custom_css_file);
+                $this->code_coverage_generation_succeeded($printer);
+            } catch (Code_Coverage_Exception $e) {
+                $this->code_coverage_generation_failed($printer, $e);
             }
         }
-
-        if ($configuration->hasCoverageText()) {
-            if ($configuration->coverageText() === 'php://stdout') {
-                if (!$configuration->noOutput() && !$configuration->debug()) {
-                    $printer->print(
-                        $facade->renderText(
-                            null,
-                            Thresholds::default(),
-                            $configuration->coverageTextShowUncoveredFiles(),
-                            $configuration->coverageTextShowOnlySummary(),
-                            $configuration->colors(),
-                        ),
-                    );
+        if ($configuration->has_coverage_text()) {
+            if ($configuration->coverage_text() === 'php://stdout') {
+                if (!$configuration->no_output() && !$configuration->debug()) {
+                    $printer->print($facade->render_text(null, Thresholds::default(), $configuration->coverage_text_show_uncovered_files(), $configuration->coverage_text_show_only_summary(), $configuration->colors()));
                 }
             } else {
-                $facade->renderText(
-                    $configuration->coverageText(),
-                    Thresholds::default(),
-                    $configuration->coverageTextShowUncoveredFiles(),
-                    $configuration->coverageTextShowOnlySummary(),
-                    $configuration->colors(),
-                );
+                $facade->render_text($configuration->coverage_text(), Thresholds::default(), $configuration->coverage_text_show_uncovered_files(), $configuration->coverage_text_show_only_summary(), $configuration->colors());
             }
         }
-
-        if ($configuration->hasCoverageXml()) {
-            $this->codeCoverageGenerationStart($printer, 'PHPUnit XML');
-
+        if ($configuration->has_coverage_xml()) {
+            $this->code_coverage_generation_start($printer, 'PHPUnit XML');
             try {
-                $driverInformation = $this->codeCoverage->driverInformation();
-
-                $facade->renderXml(
-                    $configuration->coverageXml(),
-                    $configuration->coverageXmlIncludeSource(),
-                    new Runtime(),
-                    new DateTimeImmutable(),
-                    Version::id(),
-                    CodeCoverageVersion::id(),
-                    $driverInformation['name'],
-                    $driverInformation['version'],
-                );
-
-                $this->codeCoverageGenerationSucceeded($printer);
-            } catch (CodeCoverageException $e) {
-                $this->codeCoverageGenerationFailed($printer, $e);
+                $driver_information = $this->code_coverage->driver_information();
+                $facade->render_xml($configuration->coverage_xml(), $configuration->coverage_xml_include_source(), new Runtime(), new DateTimeImmutable(), Version::id(), Code_Coverage_Version::id(), $driver_information['name'], $driver_information['version']);
+                $this->code_coverage_generation_succeeded($printer);
+            } catch (Code_Coverage_Exception $e) {
+                $this->code_coverage_generation_failed($printer, $e);
             }
         }
     }
-
-    private function activate(Filter $filter, bool $pathCoverage): void
+    private function activate(Filter $filter, bool $path_coverage): void
     {
         try {
-            if ($pathCoverage) {
-                $this->driver = (new Selector())->forLineAndPathCoverage($filter);
+            if ($path_coverage) {
+                $this->driver = (new Selector())->for_line_and_path_coverage($filter);
             } else {
-                $this->driver = (new Selector())->forLineCoverage($filter);
+                $this->driver = (new Selector())->for_line_coverage($filter);
             }
-
-            $this->codeCoverage = new \SebastianBergmann\CodeCoverage\CodeCoverage(
-                $this->driver,
-                $filter,
-            );
-        } catch (CodeCoverageException $e) {
-            EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
-                $e->getMessage(),
-            );
+            $this->code_coverage = new \Sebastian_Bergmann\Code_Coverage\Code_Coverage($this->driver, $filter);
+        } catch (Code_Coverage_Exception $e) {
+            Event_Facade::emitter()->test_runner_triggered_phpunit_warning($e->get_message());
         }
     }
-
-    private function codeCoverageGenerationStart(Printer $printer, string $format): void
+    private function code_coverage_generation_start(Printer $printer, string $format): void
     {
-        $printer->print(
-            sprintf(
-                "\nGenerating code coverage report in %s format ... ",
-                $format,
-            ),
-        );
-
+        $printer->print(sprintf("\nGenerating code coverage report in %s format ... ", $format));
         $this->timer()->start();
     }
-
     /**
      * @throws NoActiveTimerException
      */
-    private function codeCoverageGenerationSucceeded(Printer $printer): void
+    private function code_coverage_generation_succeeded(Printer $printer): void
     {
-        $printer->print(
-            sprintf(
-                "done [%s]\n",
-                $this->timer()->stop()->asString(),
-            ),
-        );
+        $printer->print(sprintf("done [%s]\n", $this->timer()->stop()->as_string()));
     }
-
     /**
      * @throws NoActiveTimerException
      */
-    private function codeCoverageGenerationFailed(Printer $printer, CodeCoverageException $e): void
+    private function code_coverage_generation_failed(Printer $printer, Code_Coverage_Exception $e): void
     {
-        $printer->print(
-            sprintf(
-                "failed [%s]\n%s\n",
-                $this->timer()->stop()->asString(),
-                $e->getMessage(),
-            ),
-        );
+        $printer->print(sprintf("failed [%s]\n%s\n", $this->timer()->stop()->as_string(), $e->get_message()));
     }
-
     private function timer(): Timer
     {
         if ($this->timer === null) {
             $this->timer = new Timer();
         }
-
         return $this->timer;
     }
 }

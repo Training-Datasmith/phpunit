@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\TestSize;
+namespace Php_Unit\Framework\Test_Size;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -19,12 +18,11 @@ namespace PHPUnit\Framework\TestSize;
  *
  * @immutable
  */
-abstract readonly class Known extends TestSize
+abstract readonly class Known extends Test_Size
 {
-    public function isKnown(): true
+    public function is_known(): true
     {
         return true;
     }
-
-    abstract public function isGreaterThan(self $other): bool;
+    abstract public function is_greater_than(self $other): bool;
 }

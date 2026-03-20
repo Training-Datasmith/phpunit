@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,21 +9,19 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Text_Ui\Output\Default\Progress_Printer;
 
-namespace PHPUnit\TextUI\Output\Default\ProgressPrinter;
-
-use PHPUnit\Event\Test\NoticeTriggered;
-use PHPUnit\Event\Test\NoticeTriggeredSubscriber;
-
+use Php_Unit\Event\Test\Notice_Triggered;
+use Php_Unit\Event\Test\Notice_Triggered_Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestTriggeredNoticeSubscriber extends Subscriber implements NoticeTriggeredSubscriber
+final readonly class Test_Triggered_Notice_Subscriber extends Subscriber implements Notice_Triggered_Subscriber
 {
-    public function notify(NoticeTriggered $event): void
+    public function notify(Notice_Triggered $event): void
     {
-        $this->printer()->testTriggeredNotice($event);
+        $this->printer()->test_triggered_notice($event);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,59 +9,48 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Event\Test_Runner;
 
-namespace PHPUnit\Event\TestRunner;
-
-use PHPUnit\Event\Event;
-use PHPUnit\Event\Telemetry;
-
+use Php_Unit\Event\Event;
+use Php_Unit\Event\Telemetry;
 use function sprintf;
-
 /**
  * @immutable
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class StaticAnalysisForCodeCoverageFinished implements Event
+final readonly class Static_Analysis_For_Code_Coverage_Finished implements Event
 {
     /**
      * @param non-negative-int $cacheHits
      * @param non-negative-int $cacheMisses
      */
-    public function __construct(private Telemetry\Info $telemetryInfo, private int $cacheHits, private int $cacheMisses)
+    public function __construct(private Telemetry\Info $telemetry_info, private int $cache_hits, private int $cache_misses)
     {
     }
-
-    public function telemetryInfo(): Telemetry\Info
+    public function telemetry_info(): Telemetry\Info
     {
-        return $this->telemetryInfo;
+        return $this->telemetry_info;
     }
-
     /**
      * @return non-negative-int
      */
-    public function cacheHits(): int
+    public function cache_hits(): int
     {
-        return $this->cacheHits;
+        return $this->cache_hits;
     }
-
     /**
      * @return non-negative-int
      */
-    public function cacheMisses(): int
+    public function cache_misses(): int
     {
-        return $this->cacheMisses;
+        return $this->cache_misses;
     }
-
     /**
      * @return non-empty-string
      */
-    public function asString(): string
+    public function as_string(): string
     {
-        return sprintf(
-            'Static Analysis for Code Coverage Finished (%d cache hits, %d cache misses)',
-            $this->cacheHits,
-            $this->cacheMisses,
-        );
+        return sprintf('Static Analysis for Code Coverage Finished (%d cache hits, %d cache misses)', $this->cache_hits, $this->cache_misses);
     }
 }

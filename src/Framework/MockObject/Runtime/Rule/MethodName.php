@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,65 +9,55 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\MockObject\Rule;
+namespace Php_Unit\Framework\Mock_Object\Rule;
 
 use function is_string;
-
-use PHPUnit\Framework\Constraint\Constraint;
-use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit\Framework\InvalidArgumentException;
-use PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
-use PHPUnit\Framework\MockObject\MethodNameConstraint;
-
+use Php_Unit\Framework\Constraint\Constraint;
+use Php_Unit\Framework\Expectation_Failed_Exception;
+use Php_Unit\Framework\InvalidArgumentException;
+use Php_Unit\Framework\Mock_Object\Invocation as BaseInvocation;
+use Php_Unit\Framework\Mock_Object\Method_Name_Constraint;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class MethodName
+final readonly class Method_Name
 {
     private Constraint $constraint;
-
     /**
      * @throws InvalidArgumentException
      */
     public function __construct(Constraint|string $constraint)
     {
         if (is_string($constraint)) {
-            $constraint = new MethodNameConstraint($constraint);
+            $constraint = new Method_Name_Constraint($constraint);
         }
-
         $this->constraint = $constraint;
     }
-
-    public function toString(): string
+    public function to_string(): string
     {
-        return 'method name ' . $this->constraint->toString();
+        return 'method name ' . $this->constraint->to_string();
     }
-
-    public function failureDescription(): string
+    public function failure_description(): string
     {
-        if ($this->constraint instanceof MethodNameConstraint) {
-            return '"' . $this->constraint->methodName() . '()"';
+        if ($this->constraint instanceof Method_Name_Constraint) {
+            return '"' . $this->constraint->method_name() . '()"';
         }
-
-        return $this->toString();
+        return $this->to_string();
     }
-
     /**
      * @throws ExpectationFailedException
      */
-    public function matches(BaseInvocation $invocation): bool
+    public function matches(Base_Invocation $invocation): bool
     {
-        return $this->matchesName($invocation->methodName());
+        return $this->matches_name($invocation->method_name());
     }
-
     /**
      * @throws ExpectationFailedException
      */
-    public function matchesName(string $methodName): bool
+    public function matches_name(string $method_name): bool
     {
-        return (bool) $this->constraint->evaluate($methodName, '', true);
+        return (bool) $this->constraint->evaluate($method_name, '', true);
     }
 }

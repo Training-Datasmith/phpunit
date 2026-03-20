@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,33 +9,28 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Framework\Mock_Object;
 
-namespace PHPUnit\Framework\MockObject;
-
-interface InvocationMocker extends InvocationStubber
+interface Invocation_Mocker extends Invocation_Stubber
 {
     /**
      * @return $this
      */
     public function with(mixed ...$arguments): self;
-
     /**
      * @return $this
      */
-    public function withParameterSetsInOrder(mixed ...$arguments): self;
-
+    public function with_parameter_sets_in_order(mixed ...$arguments): self;
     /**
      * @return $this
      */
-    public function withParameterSetsInAnyOrder(mixed ...$arguments): self;
-
+    public function with_parameter_sets_in_any_order(mixed ...$arguments): self;
     /**
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @return $this
      */
-    public function withAnyParameters(): self;
-
+    public function with_any_parameters(): self;
     /**
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -46,7 +41,6 @@ interface InvocationMocker extends InvocationStubber
      * @deprecated https://github.com/sebastianbergmann/phpunit/issues/6537
      */
     public function id(string $id): self;
-
     /**
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *

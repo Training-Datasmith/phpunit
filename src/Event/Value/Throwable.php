@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,13 +9,10 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Event\Code;
+namespace Php_Unit\Event\Code;
 
 use const PHP_EOL;
-
-use PHPUnit\Event\NoPreviousThrowableException;
-
+use Php_Unit\Event\No_Previous_Throwable_Exception;
 /**
  * @immutable
  *
@@ -26,68 +23,57 @@ final readonly class Throwable
     /**
      * @param class-string $className
      */
-    public function __construct(private string $className, private string $message, private string $description, private string $stackTrace, private ?Throwable $previous)
+    public function __construct(private string $class_name, private string $message, private string $description, private string $stack_trace, private ?Throwable $previous)
     {
     }
-
     /**
      * @throws NoPreviousThrowableException
      */
-    public function asString(): string
+    public function as_string(): string
     {
         $buffer = $this->description();
-
-        if ($this->stackTrace() !== '') {
-            $buffer .= PHP_EOL . $this->stackTrace();
+        if ($this->stack_trace() !== '') {
+            $buffer .= PHP_EOL . $this->stack_trace();
         }
-
-        if ($this->hasPrevious()) {
-            $buffer .= PHP_EOL . 'Caused by' . PHP_EOL . $this->previous()->asString();
+        if ($this->has_previous()) {
+            $buffer .= PHP_EOL . 'Caused by' . PHP_EOL . $this->previous()->as_string();
         }
-
         return $buffer;
     }
-
     /**
      * @return class-string
      */
-    public function className(): string
+    public function class_name(): string
     {
-        return $this->className;
+        return $this->class_name;
     }
-
     public function message(): string
     {
         return $this->message;
     }
-
     public function description(): string
     {
         return $this->description;
     }
-
-    public function stackTrace(): string
+    public function stack_trace(): string
     {
-        return $this->stackTrace;
+        return $this->stack_trace;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->previous
      */
-    public function hasPrevious(): bool
+    public function has_previous(): bool
     {
         return $this->previous !== null;
     }
-
     /**
      * @throws NoPreviousThrowableException
      */
     public function previous(): self
     {
         if ($this->previous === null) {
-            throw new NoPreviousThrowableException();
+            throw new No_Previous_Throwable_Exception();
         }
-
         return $this->previous;
     }
 }

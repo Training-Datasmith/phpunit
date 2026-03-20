@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,23 +9,21 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Configuration;
+namespace Php_Unit\Text_Ui\Configuration;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @immutable
  */
-final readonly class FilterDirectory
+final readonly class Filter_Directory
 {
     /**
      * @param non-empty-string $path
      */
-    public function __construct(private string $path, private string $prefix, private string $suffix, private bool $includeInCodeCoverage = true)
+    public function __construct(private string $path, private string $prefix, private string $suffix, private bool $include_in_code_coverage = true)
     {
     }
-
     /**
      * @return non-empty-string
      */
@@ -33,19 +31,16 @@ final readonly class FilterDirectory
     {
         return $this->path;
     }
-
     public function prefix(): string
     {
         return $this->prefix;
     }
-
     public function suffix(): string
     {
         return $this->suffix;
     }
-
-    public function includeInCodeCoverage(): bool
+    public function include_in_code_coverage(): bool
     {
-        return $this->includeInCodeCoverage;
+        return $this->include_in_code_coverage;
     }
 }

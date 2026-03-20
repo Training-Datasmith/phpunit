@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,12 +9,10 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\Constraint;
+namespace Php_Unit\Framework\Constraint;
 
 use Closure;
 use ReflectionFunction;
-
 /**
  * @template CallbackInput of mixed
  *
@@ -26,7 +24,6 @@ final class Callback extends Constraint
      * @var callable(CallbackInput): bool
      */
     private readonly mixed $callback;
-
     /**
      * @param callable(CallbackInput $input): bool $callback
      */
@@ -34,20 +31,17 @@ final class Callback extends Constraint
     {
         $this->callback = $callback;
     }
-
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
+    public function to_string(): string
     {
         return 'is accepted by specified callback';
     }
-
-    public function isVariadic(): bool
+    public function is_variadic(): bool
     {
-        return new ReflectionFunction(Closure::fromCallable($this->callback))->isVariadic();
+        return (new ReflectionFunction(Closure::from_callable($this->callback)))->is_variadic();
     }
-
     /**
      * Evaluates the constraint for parameter $value. Returns true if the
      * constraint is met, false otherwise.
@@ -56,10 +50,9 @@ final class Callback extends Constraint
      */
     protected function matches(mixed $other): bool
     {
-        if ($this->isVariadic()) {
+        if ($this->is_variadic()) {
             return ($this->callback)(...$other);
         }
-
         return ($this->callback)($other);
     }
 }

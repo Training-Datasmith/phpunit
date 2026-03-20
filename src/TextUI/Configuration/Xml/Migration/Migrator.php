@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,15 +9,12 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\XmlConfiguration;
+namespace Php_Unit\Text_Ui\Xml_Configuration;
 
 use function assert;
-
-use PHPUnit\Runner\Version;
-use PHPUnit\Util\Xml\Loader as XmlLoader;
-use PHPUnit\Util\Xml\XmlException;
-
+use Php_Unit\Runner\Version;
+use Php_Unit\Util\Xml\Loader as XmlLoader;
+use Php_Unit\Util\Xml\Xml_Exception;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -32,29 +29,21 @@ final readonly class Migrator
      */
     public function migrate(string $filename): string
     {
-        $origin = (new SchemaDetector())->detect($filename);
-
+        $origin = (new Schema_Detector())->detect($filename);
         if (!$origin->detected()) {
             throw new Exception('The file does not validate against any known schema');
         }
-
         if ($origin->version() === Version::series()) {
             throw new Exception('The file does not need to be migrated');
         }
-
-        $configurationDocument = (new XmlLoader())->loadFile($filename);
-
-        foreach ((new MigrationBuilder())->build($origin->version()) as $migration) {
-            $migration->migrate($configurationDocument);
+        $configuration_document = (new Xml_Loader())->load_file($filename);
+        foreach ((new Migration_Builder())->build($origin->version()) as $migration) {
+            $migration->migrate($configuration_document);
         }
-
-        $configurationDocument->formatOutput       = true;
-        $configurationDocument->preserveWhiteSpace = false;
-
-        $xml = $configurationDocument->saveXML();
-
+        $configuration_document->format_output = true;
+        $configuration_document->preserve_white_space = false;
+        $xml = $configuration_document->save_xml();
         assert($xml !== false);
-
         return $xml;
     }
 }

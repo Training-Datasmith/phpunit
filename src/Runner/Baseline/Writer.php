@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,17 +9,14 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Runner\Baseline;
+namespace Php_Unit\Runner\Baseline;
 
 use function dirname;
 use function file_put_contents;
 use function is_dir;
 use function realpath;
 use function sprintf;
-
-use XMLWriter;
-
+use Xml_Writer;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -32,48 +29,36 @@ final readonly class Writer
      *
      * @throws CannotWriteBaselineException
      */
-    public function write(string $baselineFile, Baseline $baseline): void
+    public function write(string $baseline_file, Baseline $baseline): void
     {
-        $normalizedBaselineFile = realpath(dirname($baselineFile));
-
-        if ($normalizedBaselineFile === false || !is_dir($normalizedBaselineFile)) {
-            throw new CannotWriteBaselineException(sprintf('Cannot write baseline to "%s".', $baselineFile));
+        $normalized_baseline_file = realpath(dirname($baseline_file));
+        if ($normalized_baseline_file === false || !is_dir($normalized_baseline_file)) {
+            throw new Cannot_Write_Baseline_Exception(sprintf('Cannot write baseline to "%s".', $baseline_file));
         }
-
-        $pathCalculator = new RelativePathCalculator($normalizedBaselineFile);
-
-        $writer = new XMLWriter();
-
-        $writer->openMemory();
-        $writer->setIndent(true);
-        $writer->startDocument();
-
-        $writer->startElement('files');
-        $writer->writeAttribute('version', (string) Baseline::VERSION);
-
-        foreach ($baseline->groupedByFileAndLine() as $file => $lines) {
-            $writer->startElement('file');
-            $writer->writeAttribute('path', $pathCalculator->calculate($file));
-
+        $path_calculator = new Relative_Path_Calculator($normalized_baseline_file);
+        $writer = new Xml_Writer();
+        $writer->open_memory();
+        $writer->set_indent(true);
+        $writer->start_document();
+        $writer->start_element('files');
+        $writer->write_attribute('version', (string) Baseline::VERSION);
+        foreach ($baseline->grouped_by_file_and_line() as $file => $lines) {
+            $writer->start_element('file');
+            $writer->write_attribute('path', $path_calculator->calculate($file));
             foreach ($lines as $line => $issues) {
-                $writer->startElement('line');
-                $writer->writeAttribute('number', (string) $line);
-                $writer->writeAttribute('hash', $issues[0]->hash());
-
+                $writer->start_element('line');
+                $writer->write_attribute('number', (string) $line);
+                $writer->write_attribute('hash', $issues[0]->hash());
                 foreach ($issues as $issue) {
-                    $writer->startElement('issue');
-                    $writer->writeCdata($issue->description());
-                    $writer->endElement();
+                    $writer->start_element('issue');
+                    $writer->write_cdata($issue->description());
+                    $writer->end_element();
                 }
-
-                $writer->endElement();
+                $writer->end_element();
             }
-
-            $writer->endElement();
+            $writer->end_element();
         }
-
-        $writer->endElement();
-
-        file_put_contents($baselineFile, $writer->outputMemory());
+        $writer->end_element();
+        file_put_contents($baseline_file, $writer->output_memory());
     }
 }

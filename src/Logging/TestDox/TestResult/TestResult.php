@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,13 +9,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Logging\Test_Dox;
 
-namespace PHPUnit\Logging\TestDox;
-
-use PHPUnit\Event\Code\TestMethod;
-use PHPUnit\Event\Code\Throwable;
-use PHPUnit\Framework\TestStatus\TestStatus;
-
+use Php_Unit\Event\Code\Test_Method;
+use Php_Unit\Event\Code\Throwable;
+use Php_Unit\Framework\Test_Status\Test_Status;
 /**
  * @immutable
  *
@@ -23,30 +21,26 @@ use PHPUnit\Framework\TestStatus\TestStatus;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestResult
+final readonly class Test_Result
 {
-    public function __construct(private TestMethod $test, private TestStatus $status, private ?Throwable $throwable)
+    public function __construct(private Test_Method $test, private Test_Status $status, private ?Throwable $throwable)
     {
     }
-
-    public function test(): TestMethod
+    public function test(): Test_Method
     {
         return $this->test;
     }
-
-    public function status(): TestStatus
+    public function status(): Test_Status
     {
         return $this->status;
     }
-
     /**
      * @phpstan-assert-if-true !null $this->throwable
      */
-    public function hasThrowable(): bool
+    public function has_throwable(): bool
     {
         return $this->throwable !== null;
     }
-
     public function throwable(): ?Throwable
     {
         return $this->throwable;

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,93 +9,72 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Metadata\Parser;
+namespace Php_Unit\Metadata\Parser;
 
 use function assert;
 use function class_exists;
 use function method_exists;
-
-use PHPUnit\Metadata\MetadataCollection;
-
+use Php_Unit\Metadata\Metadata_Collection;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class CachingParser implements Parser
+final class Caching_Parser implements Parser
 {
     /**
      * @var array<class-string, MetadataCollection>
      */
-    private array $classCache = [];
-
+    private array $class_cache = [];
     /**
      * @var array<non-empty-string, MetadataCollection>
      */
-    private array $methodCache = [];
-
+    private array $method_cache = [];
     /**
      * @var array<non-empty-string, MetadataCollection>
      */
-    private array $classAndMethodCache = [];
-
+    private array $class_and_method_cache = [];
     public function __construct(private readonly Parser $reader)
     {
     }
-
     /**
      * @param class-string $className
      */
-    public function forClass(string $className): MetadataCollection
+    public function for_class(string $class_name): Metadata_Collection
     {
-        assert(class_exists($className));
-
-        if (isset($this->classCache[$className])) {
-            return $this->classCache[$className];
+        assert(class_exists($class_name));
+        if (isset($this->class_cache[$class_name])) {
+            return $this->class_cache[$class_name];
         }
-
-        $this->classCache[$className] = $this->reader->forClass($className);
-
-        return $this->classCache[$className];
+        $this->class_cache[$class_name] = $this->reader->for_class($class_name);
+        return $this->class_cache[$class_name];
     }
-
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function forMethod(string $className, string $methodName): MetadataCollection
+    public function for_method(string $class_name, string $method_name): Metadata_Collection
     {
-        assert(class_exists($className));
-        assert(method_exists($className, $methodName));
-
-        $key = $className . '::' . $methodName;
-
-        if (isset($this->methodCache[$key])) {
-            return $this->methodCache[$key];
+        assert(class_exists($class_name));
+        assert(method_exists($class_name, $method_name));
+        $key = $class_name . '::' . $method_name;
+        if (isset($this->method_cache[$key])) {
+            return $this->method_cache[$key];
         }
-
-        $this->methodCache[$key] = $this->reader->forMethod($className, $methodName);
-
-        return $this->methodCache[$key];
+        $this->method_cache[$key] = $this->reader->for_method($class_name, $method_name);
+        return $this->method_cache[$key];
     }
-
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function forClassAndMethod(string $className, string $methodName): MetadataCollection
+    public function for_class_and_method(string $class_name, string $method_name): Metadata_Collection
     {
-        $key = $className . '::' . $methodName;
-
-        if (isset($this->classAndMethodCache[$key])) {
-            return $this->classAndMethodCache[$key];
+        $key = $class_name . '::' . $method_name;
+        if (isset($this->class_and_method_cache[$key])) {
+            return $this->class_and_method_cache[$key];
         }
-
-        $this->classAndMethodCache[$key] = $this->forClass($className)->mergeWith(
-            $this->forMethod($className, $methodName),
-        );
-
-        return $this->classAndMethodCache[$key];
+        $this->class_and_method_cache[$key] = $this->for_class($class_name)->merge_with($this->for_method($class_name, $method_name));
+        return $this->class_and_method_cache[$key];
     }
 }

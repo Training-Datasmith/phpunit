@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,25 +9,23 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Logging\J_Unit;
 
-namespace PHPUnit\Logging\JUnit;
-
-use PHPUnit\Event\InvalidArgumentException;
-use PHPUnit\Event\Test\PreparationStarted;
-use PHPUnit\Event\Test\PreparationStartedSubscriber;
-
+use Php_Unit\Event\InvalidArgumentException;
+use Php_Unit\Event\Test\Preparation_Started;
+use Php_Unit\Event\Test\Preparation_Started_Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestPreparationStartedSubscriber extends Subscriber implements PreparationStartedSubscriber
+final readonly class Test_Preparation_Started_Subscriber extends Subscriber implements Preparation_Started_Subscriber
 {
     /**
      * @throws InvalidArgumentException
      */
-    public function notify(PreparationStarted $event): void
+    public function notify(Preparation_Started $event): void
     {
-        $this->logger()->testPreparationStarted($event);
+        $this->logger()->test_preparation_started($event);
     }
 }

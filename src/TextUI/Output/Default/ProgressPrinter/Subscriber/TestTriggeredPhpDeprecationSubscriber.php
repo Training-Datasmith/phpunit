@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,21 +9,19 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Text_Ui\Output\Default\Progress_Printer;
 
-namespace PHPUnit\TextUI\Output\Default\ProgressPrinter;
-
-use PHPUnit\Event\Test\PhpDeprecationTriggered;
-use PHPUnit\Event\Test\PhpDeprecationTriggeredSubscriber;
-
+use Php_Unit\Event\Test\Php_Deprecation_Triggered;
+use Php_Unit\Event\Test\Php_Deprecation_Triggered_Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestTriggeredPhpDeprecationSubscriber extends Subscriber implements PhpDeprecationTriggeredSubscriber
+final readonly class Test_Triggered_Php_Deprecation_Subscriber extends Subscriber implements Php_Deprecation_Triggered_Subscriber
 {
-    public function notify(PhpDeprecationTriggered $event): void
+    public function notify(Php_Deprecation_Triggered $event): void
     {
-        $this->printer()->testTriggeredPhpDeprecation($event);
+        $this->printer()->test_triggered_php_deprecation($event);
     }
 }

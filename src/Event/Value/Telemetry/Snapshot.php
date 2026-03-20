@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Event\Telemetry;
+namespace Php_Unit\Event\Telemetry;
 
 /**
  * @immutable
@@ -19,27 +18,23 @@ namespace PHPUnit\Event\Telemetry;
  */
 final readonly class Snapshot
 {
-    public function __construct(private HRTime $time, private MemoryUsage $memoryUsage, private MemoryUsage $peakMemoryUsage, private GarbageCollectorStatus $garbageCollectorStatus)
+    public function __construct(private Hr_Time $time, private Memory_Usage $memory_usage, private Memory_Usage $peak_memory_usage, private Garbage_Collector_Status $garbage_collector_status)
     {
     }
-
-    public function time(): HRTime
+    public function time(): Hr_Time
     {
         return $this->time;
     }
-
-    public function memoryUsage(): MemoryUsage
+    public function memory_usage(): Memory_Usage
     {
-        return $this->memoryUsage;
+        return $this->memory_usage;
     }
-
-    public function peakMemoryUsage(): MemoryUsage
+    public function peak_memory_usage(): Memory_Usage
     {
-        return $this->peakMemoryUsage;
+        return $this->peak_memory_usage;
     }
-
-    public function garbageCollectorStatus(): GarbageCollectorStatus
+    public function garbage_collector_status(): Garbage_Collector_Status
     {
-        return $this->garbageCollectorStatus;
+        return $this->garbage_collector_status;
     }
 }

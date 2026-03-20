@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,15 +9,13 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Event\Test_Runner;
 
-namespace PHPUnit\Event\TestRunner;
-
-use PHPUnit\Event\Subscriber;
-
+use Php_Unit\Event\Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-interface GarbageCollectionDisabledSubscriber extends Subscriber
+interface Garbage_Collection_Disabled_Subscriber extends Subscriber
 {
-    public function notify(GarbageCollectionDisabled $event): void;
+    public function notify(Garbage_Collection_Disabled $event): void;
 }

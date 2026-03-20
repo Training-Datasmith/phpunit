@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,21 +9,19 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Runner\Result_Cache;
 
-namespace PHPUnit\Runner\ResultCache;
-
-use PHPUnit\Event\Test\Errored;
-use PHPUnit\Event\Test\ErroredSubscriber;
-
+use Php_Unit\Event\Test\Errored;
+use Php_Unit\Event\Test\Errored_Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestErroredSubscriber extends Subscriber implements ErroredSubscriber
+final readonly class Test_Errored_Subscriber extends Subscriber implements Errored_Subscriber
 {
     public function notify(Errored $event): void
     {
-        $this->handler()->testErrored($event);
+        $this->handler()->test_errored($event);
     }
 }

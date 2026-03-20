@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,38 +9,35 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TestRunner\TestResult;
+namespace Php_Unit\Test_Runner\Test_Result;
 
 use function array_map;
 use function array_sum;
 use function count;
-
-use PHPUnit\Event\Test\AfterLastTestMethodErrored;
-use PHPUnit\Event\Test\AfterLastTestMethodFailed;
-use PHPUnit\Event\Test\BeforeFirstTestMethodErrored;
-use PHPUnit\Event\Test\BeforeFirstTestMethodFailed;
-use PHPUnit\Event\Test\ConsideredRisky;
-use PHPUnit\Event\Test\Errored;
-use PHPUnit\Event\Test\Failed;
-use PHPUnit\Event\Test\MarkedIncomplete;
-use PHPUnit\Event\Test\PhpunitDeprecationTriggered;
-use PHPUnit\Event\Test\PhpunitErrorTriggered;
-use PHPUnit\Event\Test\PhpunitNoticeTriggered;
-use PHPUnit\Event\Test\PhpunitWarningTriggered;
-use PHPUnit\Event\Test\Skipped as TestSkipped;
-use PHPUnit\Event\TestRunner\DeprecationTriggered as TestRunnerDeprecationTriggered;
-use PHPUnit\Event\TestRunner\NoticeTriggered as TestRunnerNoticeTriggered;
-use PHPUnit\Event\TestRunner\WarningTriggered as TestRunnerWarningTriggered;
-use PHPUnit\Event\TestSuite\Skipped as TestSuiteSkipped;
-use PHPUnit\TestRunner\TestResult\Issues\Issue;
-
+use Php_Unit\Event\Test\After_Last_Test_Method_Errored;
+use Php_Unit\Event\Test\After_Last_Test_Method_Failed;
+use Php_Unit\Event\Test\Before_First_Test_Method_Errored;
+use Php_Unit\Event\Test\Before_First_Test_Method_Failed;
+use Php_Unit\Event\Test\Considered_Risky;
+use Php_Unit\Event\Test\Errored;
+use Php_Unit\Event\Test\Failed;
+use Php_Unit\Event\Test\Marked_Incomplete;
+use Php_Unit\Event\Test\Phpunit_Deprecation_Triggered;
+use Php_Unit\Event\Test\Phpunit_Error_Triggered;
+use Php_Unit\Event\Test\Phpunit_Notice_Triggered;
+use Php_Unit\Event\Test\Phpunit_Warning_Triggered;
+use Php_Unit\Event\Test\Skipped as TestSkipped;
+use Php_Unit\Event\Test_Runner\Deprecation_Triggered as TestRunnerDeprecationTriggered;
+use Php_Unit\Event\Test_Runner\Notice_Triggered as TestRunnerNoticeTriggered;
+use Php_Unit\Event\Test_Runner\Warning_Triggered as TestRunnerWarningTriggered;
+use Php_Unit\Event\Test_Suite\Skipped as TestSuiteSkipped;
+use Php_Unit\Test_Runner\Test_Result\Issues\Issue;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestResult
+final readonly class Test_Result
 {
     /**
      * @param list<AfterLastTestMethodErrored|BeforeFirstTestMethodErrored|Errored> $testErroredEvents
@@ -65,300 +62,248 @@ final readonly class TestResult
      * @param list<Issue>                                                           $phpWarnings
      * @param non-negative-int                                                      $numberOfIssuesIgnoredByBaseline
      */
-    public function __construct(private int $numberOfTests, private int $numberOfTestsRun, private int $numberOfAssertions, private array $testErroredEvents, private array $testFailedEvents, private array $testConsideredRiskyEvents, private array $testSuiteSkippedEvents, private array $testSkippedEvents, private array $testMarkedIncompleteEvents, private array $testTriggeredPhpunitDeprecationEvents, private array $testTriggeredPhpunitErrorEvents, private array $testTriggeredPhpunitNoticeEvents, private array $testTriggeredPhpunitWarningEvents, private array $testRunnerTriggeredDeprecationEvents, private array $testRunnerTriggeredNoticeEvents, private array $testRunnerTriggeredWarningEvents, private array $errors, private array $deprecations, private array $notices, private array $warnings, private array $phpDeprecations, private array $phpNotices, private array $phpWarnings, private int $numberOfIssuesIgnoredByBaseline)
+    public function __construct(private int $number_of_tests, private int $number_of_tests_run, private int $number_of_assertions, private array $test_errored_events, private array $test_failed_events, private array $test_considered_risky_events, private array $test_suite_skipped_events, private array $test_skipped_events, private array $test_marked_incomplete_events, private array $test_triggered_phpunit_deprecation_events, private array $test_triggered_phpunit_error_events, private array $test_triggered_phpunit_notice_events, private array $test_triggered_phpunit_warning_events, private array $test_runner_triggered_deprecation_events, private array $test_runner_triggered_notice_events, private array $test_runner_triggered_warning_events, private array $errors, private array $deprecations, private array $notices, private array $warnings, private array $php_deprecations, private array $php_notices, private array $php_warnings, private int $number_of_issues_ignored_by_baseline)
     {
     }
-
-    public function numberOfTestsRun(): int
+    public function number_of_tests_run(): int
     {
-        return $this->numberOfTestsRun;
+        return $this->number_of_tests_run;
     }
-
-    public function numberOfAssertions(): int
+    public function number_of_assertions(): int
     {
-        return $this->numberOfAssertions;
+        return $this->number_of_assertions;
     }
-
     /**
      * @return list<AfterLastTestMethodErrored|BeforeFirstTestMethodErrored|Errored>
      */
-    public function testErroredEvents(): array
+    public function test_errored_events(): array
     {
-        return $this->testErroredEvents;
+        return $this->test_errored_events;
     }
-
-    public function numberOfTestErroredEvents(): int
+    public function number_of_test_errored_events(): int
     {
-        return count($this->testErroredEvents);
+        return count($this->test_errored_events);
     }
-
-    public function hasTestErroredEvents(): bool
+    public function has_test_errored_events(): bool
     {
-        return $this->numberOfTestErroredEvents() > 0;
+        return $this->number_of_test_errored_events() > 0;
     }
-
     /**
      * @return list<Failed>
      */
-    public function testFailedEvents(): array
+    public function test_failed_events(): array
     {
-        return $this->testFailedEvents;
+        return $this->test_failed_events;
     }
-
-    public function numberOfTestFailedEvents(): int
+    public function number_of_test_failed_events(): int
     {
-        return count($this->testFailedEvents);
+        return count($this->test_failed_events);
     }
-
-    public function hasTestFailedEvents(): bool
+    public function has_test_failed_events(): bool
     {
-        return $this->numberOfTestFailedEvents() > 0;
+        return $this->number_of_test_failed_events() > 0;
     }
-
     /**
      * @return array<string,list<ConsideredRisky>>
      */
-    public function testConsideredRiskyEvents(): array
+    public function test_considered_risky_events(): array
     {
-        return $this->testConsideredRiskyEvents;
+        return $this->test_considered_risky_events;
     }
-
-    public function numberOfTestsWithTestConsideredRiskyEvents(): int
+    public function number_of_tests_with_test_considered_risky_events(): int
     {
-        return count($this->testConsideredRiskyEvents);
+        return count($this->test_considered_risky_events);
     }
-
-    public function hasTestConsideredRiskyEvents(): bool
+    public function has_test_considered_risky_events(): bool
     {
-        return $this->numberOfTestsWithTestConsideredRiskyEvents() > 0;
+        return $this->number_of_tests_with_test_considered_risky_events() > 0;
     }
-
     /**
      * @return list<TestSuiteSkipped>
      */
-    public function testSuiteSkippedEvents(): array
+    public function test_suite_skipped_events(): array
     {
-        return $this->testSuiteSkippedEvents;
+        return $this->test_suite_skipped_events;
     }
-
-    public function numberOfTestSkippedByTestSuiteSkippedEvents(): int
+    public function number_of_test_skipped_by_test_suite_skipped_events(): int
     {
-        return array_sum(
-            array_map(
-                static fn (TestSuiteSkipped $event): int => $event->testSuite()->count(),
-                $this->testSuiteSkippedEvents,
-            ),
-        );
+        return array_sum(array_map(static fn(Test_Suite_Skipped $event): int => $event->test_suite()->count(), $this->test_suite_skipped_events));
     }
-
-    public function hasTestSuiteSkippedEvents(): bool
+    public function has_test_suite_skipped_events(): bool
     {
-        return $this->numberOfTestSkippedByTestSuiteSkippedEvents() > 0;
+        return $this->number_of_test_skipped_by_test_suite_skipped_events() > 0;
     }
-
     /**
      * @return list<TestSkipped>
      */
-    public function testSkippedEvents(): array
+    public function test_skipped_events(): array
     {
-        return $this->testSkippedEvents;
+        return $this->test_skipped_events;
     }
-
-    public function numberOfTestSkippedEvents(): int
+    public function number_of_test_skipped_events(): int
     {
-        return count($this->testSkippedEvents);
+        return count($this->test_skipped_events);
     }
-
-    public function hasTestSkippedEvents(): bool
+    public function has_test_skipped_events(): bool
     {
-        return $this->numberOfTestSkippedEvents() > 0;
+        return $this->number_of_test_skipped_events() > 0;
     }
-
     /**
      * @return list<MarkedIncomplete>
      */
-    public function testMarkedIncompleteEvents(): array
+    public function test_marked_incomplete_events(): array
     {
-        return $this->testMarkedIncompleteEvents;
+        return $this->test_marked_incomplete_events;
     }
-
-    public function numberOfTestMarkedIncompleteEvents(): int
+    public function number_of_test_marked_incomplete_events(): int
     {
-        return count($this->testMarkedIncompleteEvents);
+        return count($this->test_marked_incomplete_events);
     }
-
-    public function hasTestMarkedIncompleteEvents(): bool
+    public function has_test_marked_incomplete_events(): bool
     {
-        return $this->numberOfTestMarkedIncompleteEvents() > 0;
+        return $this->number_of_test_marked_incomplete_events() > 0;
     }
-
     /**
      * @return array<string,list<PhpunitDeprecationTriggered>>
      */
-    public function testTriggeredPhpunitDeprecationEvents(): array
+    public function test_triggered_phpunit_deprecation_events(): array
     {
-        return $this->testTriggeredPhpunitDeprecationEvents;
+        return $this->test_triggered_phpunit_deprecation_events;
     }
-
-    public function numberOfTestsWithTestTriggeredPhpunitDeprecationEvents(): int
+    public function number_of_tests_with_test_triggered_phpunit_deprecation_events(): int
     {
-        return count($this->testTriggeredPhpunitDeprecationEvents);
+        return count($this->test_triggered_phpunit_deprecation_events);
     }
-
-    public function hasTestTriggeredPhpunitDeprecationEvents(): bool
+    public function has_test_triggered_phpunit_deprecation_events(): bool
     {
-        return $this->numberOfTestsWithTestTriggeredPhpunitDeprecationEvents() > 0;
+        return $this->number_of_tests_with_test_triggered_phpunit_deprecation_events() > 0;
     }
-
     /**
      * @return array<string,list<PhpunitErrorTriggered>>
      */
-    public function testTriggeredPhpunitErrorEvents(): array
+    public function test_triggered_phpunit_error_events(): array
     {
-        return $this->testTriggeredPhpunitErrorEvents;
+        return $this->test_triggered_phpunit_error_events;
     }
-
-    public function numberOfTestsWithTestTriggeredPhpunitErrorEvents(): int
+    public function number_of_tests_with_test_triggered_phpunit_error_events(): int
     {
-        return count($this->testTriggeredPhpunitErrorEvents);
+        return count($this->test_triggered_phpunit_error_events);
     }
-
-    public function hasTestTriggeredPhpunitErrorEvents(): bool
+    public function has_test_triggered_phpunit_error_events(): bool
     {
-        return $this->numberOfTestsWithTestTriggeredPhpunitErrorEvents() > 0;
+        return $this->number_of_tests_with_test_triggered_phpunit_error_events() > 0;
     }
-
     /**
      * @return array<string,list<PhpunitNoticeTriggered>>
      */
-    public function testTriggeredPhpunitNoticeEvents(): array
+    public function test_triggered_phpunit_notice_events(): array
     {
-        return $this->testTriggeredPhpunitNoticeEvents;
+        return $this->test_triggered_phpunit_notice_events;
     }
-
-    public function numberOfTestsWithTestTriggeredPhpunitNoticeEvents(): int
+    public function number_of_tests_with_test_triggered_phpunit_notice_events(): int
     {
-        return count($this->testTriggeredPhpunitNoticeEvents);
+        return count($this->test_triggered_phpunit_notice_events);
     }
-
-    public function hasTestTriggeredPhpunitNoticeEvents(): bool
+    public function has_test_triggered_phpunit_notice_events(): bool
     {
-        return $this->numberOfTestsWithTestTriggeredPhpunitNoticeEvents() > 0;
+        return $this->number_of_tests_with_test_triggered_phpunit_notice_events() > 0;
     }
-
     /**
      * @return array<string,list<PhpunitWarningTriggered>>
      */
-    public function testTriggeredPhpunitWarningEvents(): array
+    public function test_triggered_phpunit_warning_events(): array
     {
-        return $this->testTriggeredPhpunitWarningEvents;
+        return $this->test_triggered_phpunit_warning_events;
     }
-
-    public function numberOfTestsWithTestTriggeredPhpunitWarningEvents(): int
+    public function number_of_tests_with_test_triggered_phpunit_warning_events(): int
     {
-        return count($this->testTriggeredPhpunitWarningEvents);
+        return count($this->test_triggered_phpunit_warning_events);
     }
-
-    public function hasTestTriggeredPhpunitWarningEvents(): bool
+    public function has_test_triggered_phpunit_warning_events(): bool
     {
-        return $this->numberOfTestsWithTestTriggeredPhpunitWarningEvents() > 0;
+        return $this->number_of_tests_with_test_triggered_phpunit_warning_events() > 0;
     }
-
     /**
      * @return list<TestRunnerDeprecationTriggered>
      */
-    public function testRunnerTriggeredDeprecationEvents(): array
+    public function test_runner_triggered_deprecation_events(): array
     {
-        return $this->testRunnerTriggeredDeprecationEvents;
+        return $this->test_runner_triggered_deprecation_events;
     }
-
-    public function numberOfTestRunnerTriggeredDeprecationEvents(): int
+    public function number_of_test_runner_triggered_deprecation_events(): int
     {
-        return count($this->testRunnerTriggeredDeprecationEvents);
+        return count($this->test_runner_triggered_deprecation_events);
     }
-
-    public function hasTestRunnerTriggeredDeprecationEvents(): bool
+    public function has_test_runner_triggered_deprecation_events(): bool
     {
-        return $this->numberOfTestRunnerTriggeredDeprecationEvents() > 0;
+        return $this->number_of_test_runner_triggered_deprecation_events() > 0;
     }
-
     /**
      * @return list<TestRunnerNoticeTriggered>
      */
-    public function testRunnerTriggeredNoticeEvents(): array
+    public function test_runner_triggered_notice_events(): array
     {
-        return $this->testRunnerTriggeredNoticeEvents;
+        return $this->test_runner_triggered_notice_events;
     }
-
-    public function numberOfTestRunnerTriggeredNoticeEvents(): int
+    public function number_of_test_runner_triggered_notice_events(): int
     {
-        return count($this->testRunnerTriggeredNoticeEvents);
+        return count($this->test_runner_triggered_notice_events);
     }
-
-    public function hasTestRunnerTriggeredNoticeEvents(): bool
+    public function has_test_runner_triggered_notice_events(): bool
     {
-        return $this->numberOfTestRunnerTriggeredNoticeEvents() > 0;
+        return $this->number_of_test_runner_triggered_notice_events() > 0;
     }
-
     /**
      * @return list<TestRunnerWarningTriggered>
      */
-    public function testRunnerTriggeredWarningEvents(): array
+    public function test_runner_triggered_warning_events(): array
     {
-        return $this->testRunnerTriggeredWarningEvents;
+        return $this->test_runner_triggered_warning_events;
     }
-
-    public function numberOfTestRunnerTriggeredWarningEvents(): int
+    public function number_of_test_runner_triggered_warning_events(): int
     {
-        return count($this->testRunnerTriggeredWarningEvents);
+        return count($this->test_runner_triggered_warning_events);
     }
-
-    public function hasTestRunnerTriggeredWarningEvents(): bool
+    public function has_test_runner_triggered_warning_events(): bool
     {
-        return $this->numberOfTestRunnerTriggeredWarningEvents() > 0;
+        return $this->number_of_test_runner_triggered_warning_events() > 0;
     }
-
-    public function wasSuccessful(): bool
+    public function was_successful(): bool
     {
-        return !$this->hasTestErroredEvents() &&
-               !$this->hasTestFailedEvents() &&
-               !$this->hasTestTriggeredPhpunitErrorEvents();
+        return !$this->has_test_errored_events() && !$this->has_test_failed_events() && !$this->has_test_triggered_phpunit_error_events();
     }
-
-    public function hasIssues(): bool
+    public function has_issues(): bool
     {
-        if ($this->hasTestsWithIssues()) {
+        if ($this->has_tests_with_issues()) {
             return true;
         }
-        return $this->hasTestRunnerTriggeredWarningEvents();
+        return $this->has_test_runner_triggered_warning_events();
     }
-
-    public function hasTestsWithIssues(): bool
+    public function has_tests_with_issues(): bool
     {
-        if ($this->hasRiskyTests()) {
+        if ($this->has_risky_tests()) {
             return true;
         }
-        if ($this->hasIncompleteTests()) {
+        if ($this->has_incomplete_tests()) {
             return true;
         }
-        if ($this->hasDeprecations()) {
+        if ($this->has_deprecations()) {
             return true;
         }
         if ($this->errors !== []) {
             return true;
         }
-        if ($this->hasNotices()) {
+        if ($this->has_notices()) {
             return true;
         }
-        if ($this->hasWarnings()) {
+        if ($this->has_warnings()) {
             return true;
         }
-        if ($this->hasPhpunitNotices()) {
+        if ($this->has_phpunit_notices()) {
             return true;
         }
-        return $this->hasPhpunitWarnings();
+        return $this->has_phpunit_warnings();
     }
-
     /**
      * @return list<Issue>
      */
@@ -366,7 +311,6 @@ final readonly class TestResult
     {
         return $this->errors;
     }
-
     /**
      * @return list<Issue>
      */
@@ -374,7 +318,6 @@ final readonly class TestResult
     {
         return $this->deprecations;
     }
-
     /**
      * @return list<Issue>
      */
@@ -382,7 +325,6 @@ final readonly class TestResult
     {
         return $this->notices;
     }
-
     /**
      * @return list<Issue>
      */
@@ -390,152 +332,116 @@ final readonly class TestResult
     {
         return $this->warnings;
     }
-
     /**
      * @return list<Issue>
      */
-    public function phpDeprecations(): array
+    public function php_deprecations(): array
     {
-        return $this->phpDeprecations;
+        return $this->php_deprecations;
     }
-
     /**
      * @return list<Issue>
      */
-    public function phpNotices(): array
+    public function php_notices(): array
     {
-        return $this->phpNotices;
+        return $this->php_notices;
     }
-
     /**
      * @return list<Issue>
      */
-    public function phpWarnings(): array
+    public function php_warnings(): array
     {
-        return $this->phpWarnings;
+        return $this->php_warnings;
     }
-
-    public function hasTests(): bool
+    public function has_tests(): bool
     {
-        return $this->numberOfTests > 0;
+        return $this->number_of_tests > 0;
     }
-
-    public function hasErrors(): bool
+    public function has_errors(): bool
     {
-        return $this->numberOfErrors() > 0;
+        return $this->number_of_errors() > 0;
     }
-
-    public function numberOfErrors(): int
+    public function number_of_errors(): int
     {
-        return $this->numberOfTestErroredEvents() +
-               count($this->errors) +
-               $this->numberOfTestsWithTestTriggeredPhpunitErrorEvents();
+        return $this->number_of_test_errored_events() + count($this->errors) + $this->number_of_tests_with_test_triggered_phpunit_error_events();
     }
-
-    public function hasDeprecations(): bool
+    public function has_deprecations(): bool
     {
-        return $this->numberOfDeprecations() > 0;
+        return $this->number_of_deprecations() > 0;
     }
-
-    public function hasPhpOrUserDeprecations(): bool
+    public function has_php_or_user_deprecations(): bool
     {
-        return $this->numberOfPhpOrUserDeprecations() > 0;
+        return $this->number_of_php_or_user_deprecations() > 0;
     }
-
-    public function numberOfPhpOrUserDeprecations(): int
+    public function number_of_php_or_user_deprecations(): int
     {
-        return count($this->deprecations) +
-               count($this->phpDeprecations);
+        return count($this->deprecations) + count($this->php_deprecations);
     }
-
-    public function hasPhpunitDeprecations(): bool
+    public function has_phpunit_deprecations(): bool
     {
-        return $this->numberOfPhpunitDeprecations() > 0;
+        return $this->number_of_phpunit_deprecations() > 0;
     }
-
-    public function numberOfPhpunitDeprecations(): int
+    public function number_of_phpunit_deprecations(): int
     {
-        return count($this->testTriggeredPhpunitDeprecationEvents) +
-               count($this->testRunnerTriggeredDeprecationEvents);
+        return count($this->test_triggered_phpunit_deprecation_events) + count($this->test_runner_triggered_deprecation_events);
     }
-
-    public function hasPhpunitWarnings(): bool
+    public function has_phpunit_warnings(): bool
     {
-        return $this->numberOfPhpunitWarnings() > 0;
+        return $this->number_of_phpunit_warnings() > 0;
     }
-
-    public function numberOfPhpunitWarnings(): int
+    public function number_of_phpunit_warnings(): int
     {
-        return count($this->testTriggeredPhpunitWarningEvents) +
-               count($this->testRunnerTriggeredWarningEvents);
+        return count($this->test_triggered_phpunit_warning_events) + count($this->test_runner_triggered_warning_events);
     }
-
-    public function numberOfDeprecations(): int
+    public function number_of_deprecations(): int
     {
-        return count($this->deprecations) +
-               count($this->phpDeprecations) +
-               count($this->testTriggeredPhpunitDeprecationEvents) +
-               count($this->testRunnerTriggeredDeprecationEvents);
+        return count($this->deprecations) + count($this->php_deprecations) + count($this->test_triggered_phpunit_deprecation_events) + count($this->test_runner_triggered_deprecation_events);
     }
-
-    public function hasNotices(): bool
+    public function has_notices(): bool
     {
-        return $this->numberOfNotices() > 0;
+        return $this->number_of_notices() > 0;
     }
-
-    public function numberOfNotices(): int
+    public function number_of_notices(): int
     {
-        return count($this->notices) +
-               count($this->phpNotices);
+        return count($this->notices) + count($this->php_notices);
     }
-
-    public function hasWarnings(): bool
+    public function has_warnings(): bool
     {
-        return $this->numberOfWarnings() > 0;
+        return $this->number_of_warnings() > 0;
     }
-
-    public function numberOfWarnings(): int
+    public function number_of_warnings(): int
     {
-        return count($this->warnings) +
-               count($this->phpWarnings);
+        return count($this->warnings) + count($this->php_warnings);
     }
-
-    public function hasIncompleteTests(): bool
+    public function has_incomplete_tests(): bool
     {
-        return $this->testMarkedIncompleteEvents !== [];
+        return $this->test_marked_incomplete_events !== [];
     }
-
-    public function hasRiskyTests(): bool
+    public function has_risky_tests(): bool
     {
-        return $this->testConsideredRiskyEvents !== [];
+        return $this->test_considered_risky_events !== [];
     }
-
-    public function hasSkippedTests(): bool
+    public function has_skipped_tests(): bool
     {
-        return $this->testSkippedEvents !== [];
+        return $this->test_skipped_events !== [];
     }
-
-    public function hasIssuesIgnoredByBaseline(): bool
+    public function has_issues_ignored_by_baseline(): bool
     {
-        return $this->numberOfIssuesIgnoredByBaseline > 0;
+        return $this->number_of_issues_ignored_by_baseline > 0;
     }
-
     /**
      * @return non-negative-int
      */
-    public function numberOfIssuesIgnoredByBaseline(): int
+    public function number_of_issues_ignored_by_baseline(): int
     {
-        return $this->numberOfIssuesIgnoredByBaseline;
+        return $this->number_of_issues_ignored_by_baseline;
     }
-
-    public function hasPhpunitNotices(): bool
+    public function has_phpunit_notices(): bool
     {
-        return $this->numberOfPhpunitNotices() > 0;
+        return $this->number_of_phpunit_notices() > 0;
     }
-
-    public function numberOfPhpunitNotices(): int
+    public function number_of_phpunit_notices(): int
     {
-        return $this->numberOfTestsWithTestTriggeredPhpunitNoticeEvents() +
-               $this->numberOfTestRunnerTriggeredNoticeEvents();
+        return $this->number_of_tests_with_test_triggered_phpunit_notice_events() + $this->number_of_test_runner_triggered_notice_events();
     }
 }

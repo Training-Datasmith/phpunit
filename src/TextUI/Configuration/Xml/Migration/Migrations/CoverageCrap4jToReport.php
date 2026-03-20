@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,30 +9,25 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Text_Ui\Xml_Configuration;
 
-namespace PHPUnit\TextUI\XmlConfiguration;
-
-use DOMElement;
-
+use Dom_Element;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class CoverageCrap4jToReport extends LogToReportMigration
+final readonly class Coverage_Crap4j_To_Report extends Log_To_Report_Migration
 {
-    protected function forType(): string
+    protected function for_type(): string
     {
         return 'coverage-crap4j';
     }
-
-    protected function toReportFormat(DOMElement $logNode): DOMElement
+    protected function to_report_format(Dom_Element $log_node): Dom_Element
     {
-        $crap4j = $logNode->ownerDocument->createElement('crap4j');
-        $crap4j->setAttribute('outputFile', $logNode->getAttribute('target'));
-
-        $this->migrateAttributes($logNode, $crap4j, ['threshold']);
-
+        $crap4j = $log_node->owner_document->create_element('crap4j');
+        $crap4j->set_attribute('outputFile', $log_node->get_attribute('target'));
+        $this->migrate_attributes($log_node, $crap4j, ['threshold']);
         return $crap4j;
     }
 }

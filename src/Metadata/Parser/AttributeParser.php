@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,1029 +9,603 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Metadata\Parser;
+namespace Php_Unit\Metadata\Parser;
 
 use function assert;
 use function class_exists;
-
 use Error;
-
 use function is_numeric;
 use function json_decode;
-
 use const JSON_THROW_ON_ERROR;
-
 use function method_exists;
-
-use PHPUnit\Event\Facade as EventFacade;
-use PHPUnit\Framework\Attributes\After;
-use PHPUnit\Framework\Attributes\AfterClass;
-use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
-use PHPUnit\Framework\Attributes\BackupGlobals;
-use PHPUnit\Framework\Attributes\BackupStaticProperties;
-use PHPUnit\Framework\Attributes\Before;
-use PHPUnit\Framework\Attributes\BeforeClass;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversClassesThatExtendClass;
-use PHPUnit\Framework\Attributes\CoversClassesThatImplementInterface;
-use PHPUnit\Framework\Attributes\CoversFunction;
-use PHPUnit\Framework\Attributes\CoversMethod;
-use PHPUnit\Framework\Attributes\CoversNamespace;
-use PHPUnit\Framework\Attributes\CoversNothing;
-use PHPUnit\Framework\Attributes\CoversTrait;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\DataProviderClosure;
-use PHPUnit\Framework\Attributes\DataProviderExternal;
-use PHPUnit\Framework\Attributes\Depends;
-use PHPUnit\Framework\Attributes\DependsExternal;
-use PHPUnit\Framework\Attributes\DependsExternalUsingDeepClone;
-use PHPUnit\Framework\Attributes\DependsExternalUsingShallowClone;
-use PHPUnit\Framework\Attributes\DependsOnClass;
-use PHPUnit\Framework\Attributes\DependsOnClassUsingDeepClone;
-use PHPUnit\Framework\Attributes\DependsOnClassUsingShallowClone;
-use PHPUnit\Framework\Attributes\DependsUsingDeepClone;
-use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
-use PHPUnit\Framework\Attributes\DisableReturnValueGenerationForTestDoubles;
-use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
-use PHPUnit\Framework\Attributes\ExcludeGlobalVariableFromBackup;
-use PHPUnit\Framework\Attributes\ExcludeStaticPropertyFromBackup;
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\Attributes\IgnoreDeprecations;
-use PHPUnit\Framework\Attributes\IgnorePhpunitDeprecations;
-use PHPUnit\Framework\Attributes\IgnorePhpunitWarnings;
-use PHPUnit\Framework\Attributes\Large;
-use PHPUnit\Framework\Attributes\Medium;
-use PHPUnit\Framework\Attributes\PostCondition;
-use PHPUnit\Framework\Attributes\PreCondition;
-use PHPUnit\Framework\Attributes\PreserveGlobalState;
-use PHPUnit\Framework\Attributes\RequiresEnvironmentVariable;
-use PHPUnit\Framework\Attributes\RequiresFunction;
-use PHPUnit\Framework\Attributes\RequiresMethod;
-use PHPUnit\Framework\Attributes\RequiresOperatingSystem;
-use PHPUnit\Framework\Attributes\RequiresOperatingSystemFamily;
-use PHPUnit\Framework\Attributes\RequiresPhp;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
-use PHPUnit\Framework\Attributes\RequiresPhpunit;
-use PHPUnit\Framework\Attributes\RequiresPhpunitExtension;
-use PHPUnit\Framework\Attributes\RequiresSetting;
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
-use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
-use PHPUnit\Framework\Attributes\Small;
-use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\Attributes\TestDox;
-use PHPUnit\Framework\Attributes\TestDoxFormatter;
-use PHPUnit\Framework\Attributes\TestDoxFormatterExternal;
-use PHPUnit\Framework\Attributes\TestWith;
-use PHPUnit\Framework\Attributes\TestWithJson;
-use PHPUnit\Framework\Attributes\Ticket;
-use PHPUnit\Framework\Attributes\UsesClass;
-use PHPUnit\Framework\Attributes\UsesClassesThatExtendClass;
-use PHPUnit\Framework\Attributes\UsesClassesThatImplementInterface;
-use PHPUnit\Framework\Attributes\UsesFunction;
-use PHPUnit\Framework\Attributes\UsesMethod;
-use PHPUnit\Framework\Attributes\UsesNamespace;
-use PHPUnit\Framework\Attributes\UsesTrait;
-use PHPUnit\Framework\Attributes\WithEnvironmentVariable;
-use PHPUnit\Framework\Attributes\WithoutErrorHandler;
-use PHPUnit\Metadata\InvalidAttributeException;
-use PHPUnit\Metadata\Metadata;
-use PHPUnit\Metadata\MetadataCollection;
-use PHPUnit\Metadata\Version\Requirement;
+use Php_Unit\Event\Facade as EventFacade;
+use Php_Unit\Framework\Attributes\After;
+use Php_Unit\Framework\Attributes\After_Class;
+use Php_Unit\Framework\Attributes\Allow_Mock_Objects_Without_Expectations;
+use Php_Unit\Framework\Attributes\Backup_Globals;
+use Php_Unit\Framework\Attributes\Backup_Static_Properties;
+use Php_Unit\Framework\Attributes\Before;
+use Php_Unit\Framework\Attributes\Before_Class;
+use Php_Unit\Framework\Attributes\Covers_Class;
+use Php_Unit\Framework\Attributes\Covers_Classes_That_Extend_Class;
+use Php_Unit\Framework\Attributes\Covers_Classes_That_Implement_Interface;
+use Php_Unit\Framework\Attributes\Covers_Function;
+use Php_Unit\Framework\Attributes\Covers_Method;
+use Php_Unit\Framework\Attributes\Covers_Namespace;
+use Php_Unit\Framework\Attributes\Covers_Nothing;
+use Php_Unit\Framework\Attributes\Covers_Trait;
+use Php_Unit\Framework\Attributes\Data_Provider;
+use Php_Unit\Framework\Attributes\Data_Provider_Closure;
+use Php_Unit\Framework\Attributes\Data_Provider_External;
+use Php_Unit\Framework\Attributes\Depends;
+use Php_Unit\Framework\Attributes\Depends_External;
+use Php_Unit\Framework\Attributes\Depends_External_Using_Deep_Clone;
+use Php_Unit\Framework\Attributes\Depends_External_Using_Shallow_Clone;
+use Php_Unit\Framework\Attributes\Depends_On_Class;
+use Php_Unit\Framework\Attributes\Depends_On_Class_Using_Deep_Clone;
+use Php_Unit\Framework\Attributes\Depends_On_Class_Using_Shallow_Clone;
+use Php_Unit\Framework\Attributes\Depends_Using_Deep_Clone;
+use Php_Unit\Framework\Attributes\Depends_Using_Shallow_Clone;
+use Php_Unit\Framework\Attributes\Disable_Return_Value_Generation_For_Test_Doubles;
+use Php_Unit\Framework\Attributes\Does_Not_Perform_Assertions;
+use Php_Unit\Framework\Attributes\Exclude_Global_Variable_From_Backup;
+use Php_Unit\Framework\Attributes\Exclude_Static_Property_From_Backup;
+use Php_Unit\Framework\Attributes\Group;
+use Php_Unit\Framework\Attributes\Ignore_Deprecations;
+use Php_Unit\Framework\Attributes\Ignore_Phpunit_Deprecations;
+use Php_Unit\Framework\Attributes\Ignore_Phpunit_Warnings;
+use Php_Unit\Framework\Attributes\Large;
+use Php_Unit\Framework\Attributes\Medium;
+use Php_Unit\Framework\Attributes\Post_Condition;
+use Php_Unit\Framework\Attributes\Pre_Condition;
+use Php_Unit\Framework\Attributes\Preserve_Global_State;
+use Php_Unit\Framework\Attributes\Requires_Environment_Variable;
+use Php_Unit\Framework\Attributes\Requires_Function;
+use Php_Unit\Framework\Attributes\Requires_Method;
+use Php_Unit\Framework\Attributes\Requires_Operating_System;
+use Php_Unit\Framework\Attributes\Requires_Operating_System_Family;
+use Php_Unit\Framework\Attributes\Requires_Php;
+use Php_Unit\Framework\Attributes\Requires_Php_Extension;
+use Php_Unit\Framework\Attributes\Requires_Phpunit;
+use Php_Unit\Framework\Attributes\Requires_Phpunit_Extension;
+use Php_Unit\Framework\Attributes\Requires_Setting;
+use Php_Unit\Framework\Attributes\Run_In_Separate_Process;
+use Php_Unit\Framework\Attributes\Run_Tests_In_Separate_Processes;
+use Php_Unit\Framework\Attributes\Small;
+use Php_Unit\Framework\Attributes\Test;
+use Php_Unit\Framework\Attributes\Test_Dox;
+use Php_Unit\Framework\Attributes\Test_Dox_Formatter;
+use Php_Unit\Framework\Attributes\Test_Dox_Formatter_External;
+use Php_Unit\Framework\Attributes\Test_With;
+use Php_Unit\Framework\Attributes\Test_With_Json;
+use Php_Unit\Framework\Attributes\Ticket;
+use Php_Unit\Framework\Attributes\Uses_Class;
+use Php_Unit\Framework\Attributes\Uses_Classes_That_Extend_Class;
+use Php_Unit\Framework\Attributes\Uses_Classes_That_Implement_Interface;
+use Php_Unit\Framework\Attributes\Uses_Function;
+use Php_Unit\Framework\Attributes\Uses_Method;
+use Php_Unit\Framework\Attributes\Uses_Namespace;
+use Php_Unit\Framework\Attributes\Uses_Trait;
+use Php_Unit\Framework\Attributes\With_Environment_Variable;
+use Php_Unit\Framework\Attributes\Without_Error_Handler;
+use Php_Unit\Metadata\Invalid_Attribute_Exception;
+use Php_Unit\Metadata\Metadata;
+use Php_Unit\Metadata\Metadata_Collection;
+use Php_Unit\Metadata\Version\Requirement;
 use ReflectionClass;
 use ReflectionMethod;
-
 use function sprintf;
 use function str_starts_with;
 use function strtolower;
 use function trim;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class AttributeParser implements Parser
+final readonly class Attribute_Parser implements Parser
 {
     /**
      * @param class-string $className
      */
-    public function forClass(string $className): MetadataCollection
+    public function for_class(string $class_name): Metadata_Collection
     {
-        assert(class_exists($className));
-
-        $reflector = new ReflectionClass($className);
-        $result    = [];
-
-        $small  = false;
+        assert(class_exists($class_name));
+        $reflector = new ReflectionClass($class_name);
+        $result = [];
+        $small = false;
         $medium = false;
-        $large  = false;
-
-        foreach ($reflector->getAttributes() as $attribute) {
-            if (!str_starts_with($attribute->getName(), 'PHPUnit\\Framework\\Attributes\\')) {
+        $large = false;
+        foreach ($reflector->get_attributes() as $attribute) {
+            if (!str_starts_with($attribute->get_name(), 'PHPUnit\Framework\Attributes\\')) {
                 continue;
             }
-
-            if (!class_exists($attribute->getName())) {
+            if (!class_exists($attribute->get_name())) {
                 continue;
             }
-
             try {
-                $attributeInstance = $attribute->newInstance();
+                $attribute_instance = $attribute->new_instance();
             } catch (Error $e) {
-                throw new InvalidAttributeException(
-                    $attribute->getName(),
-                    'class ' . $className,
-                    $reflector->getFileName(),
-                    $reflector->getStartLine(),
-                    $e->getMessage(),
-                );
+                throw new Invalid_Attribute_Exception($attribute->get_name(), 'class ' . $class_name, $reflector->get_file_name(), $reflector->get_start_line(), $e->get_message());
             }
-
-            switch ($attribute->getName()) {
-                case AllowMockObjectsWithoutExpectations::class:
-                    assert($attributeInstance instanceof AllowMockObjectsWithoutExpectations);
-
-                    $result[] = Metadata::allowMockObjectsWithoutExpectationsOnClass();
-
+            switch ($attribute->get_name()) {
+                case Allow_Mock_Objects_Without_Expectations::class:
+                    assert($attribute_instance instanceof Allow_Mock_Objects_Without_Expectations);
+                    $result[] = Metadata::allow_mock_objects_without_expectations_on_class();
                     break;
-
-                case BackupGlobals::class:
-                    assert($attributeInstance instanceof BackupGlobals);
-
-                    $result[] = Metadata::backupGlobalsOnClass($attributeInstance->enabled());
-
+                case Backup_Globals::class:
+                    assert($attribute_instance instanceof Backup_Globals);
+                    $result[] = Metadata::backup_globals_on_class($attribute_instance->enabled());
                     break;
-
-                case BackupStaticProperties::class:
-                    assert($attributeInstance instanceof BackupStaticProperties);
-
-                    $result[] = Metadata::backupStaticPropertiesOnClass($attributeInstance->enabled());
-
+                case Backup_Static_Properties::class:
+                    assert($attribute_instance instanceof Backup_Static_Properties);
+                    $result[] = Metadata::backup_static_properties_on_class($attribute_instance->enabled());
                     break;
-
-                case CoversNamespace::class:
-                    assert($attributeInstance instanceof CoversNamespace);
-
-                    $result[] = Metadata::coversNamespace($attributeInstance->namespace());
-
+                case Covers_Namespace::class:
+                    assert($attribute_instance instanceof Covers_Namespace);
+                    $result[] = Metadata::covers_namespace($attribute_instance->namespace());
                     break;
-
-                case CoversClass::class:
-                    assert($attributeInstance instanceof CoversClass);
-
-                    $result[] = Metadata::coversClass($attributeInstance->className());
-
+                case Covers_Class::class:
+                    assert($attribute_instance instanceof Covers_Class);
+                    $result[] = Metadata::covers_class($attribute_instance->class_name());
                     break;
-
-                case CoversClassesThatExtendClass::class:
-                    assert($attributeInstance instanceof CoversClassesThatExtendClass);
-
-                    $result[] = Metadata::coversClassesThatExtendClass($attributeInstance->className());
-
+                case Covers_Classes_That_Extend_Class::class:
+                    assert($attribute_instance instanceof Covers_Classes_That_Extend_Class);
+                    $result[] = Metadata::covers_classes_that_extend_class($attribute_instance->class_name());
                     break;
-
-                case CoversClassesThatImplementInterface::class:
-                    assert($attributeInstance instanceof CoversClassesThatImplementInterface);
-
-                    $result[] = Metadata::coversClassesThatImplementInterface($attributeInstance->interfaceName());
-
+                case Covers_Classes_That_Implement_Interface::class:
+                    assert($attribute_instance instanceof Covers_Classes_That_Implement_Interface);
+                    $result[] = Metadata::covers_classes_that_implement_interface($attribute_instance->interface_name());
                     break;
-
-                case CoversTrait::class:
-                    assert($attributeInstance instanceof CoversTrait);
-
-                    $result[] = Metadata::coversTrait($attributeInstance->traitName());
-
+                case Covers_Trait::class:
+                    assert($attribute_instance instanceof Covers_Trait);
+                    $result[] = Metadata::covers_trait($attribute_instance->trait_name());
                     break;
-
-                case CoversFunction::class:
-                    assert($attributeInstance instanceof CoversFunction);
-
-                    $result[] = Metadata::coversFunction($attributeInstance->functionName());
-
+                case Covers_Function::class:
+                    assert($attribute_instance instanceof Covers_Function);
+                    $result[] = Metadata::covers_function($attribute_instance->function_name());
                     break;
-
-                case CoversMethod::class:
-                    assert($attributeInstance instanceof CoversMethod);
-
-                    $result[] = Metadata::coversMethod(
-                        $attributeInstance->className(),
-                        $attributeInstance->methodName(),
-                    );
-
+                case Covers_Method::class:
+                    assert($attribute_instance instanceof Covers_Method);
+                    $result[] = Metadata::covers_method($attribute_instance->class_name(), $attribute_instance->method_name());
                     break;
-
-                case CoversNothing::class:
-                    $result[] = Metadata::coversNothingOnClass();
-
+                case Covers_Nothing::class:
+                    $result[] = Metadata::covers_nothing_on_class();
                     break;
-
-                case DisableReturnValueGenerationForTestDoubles::class:
-                    $result[] = Metadata::disableReturnValueGenerationForTestDoubles();
-
+                case Disable_Return_Value_Generation_For_Test_Doubles::class:
+                    $result[] = Metadata::disable_return_value_generation_for_test_doubles();
                     break;
-
-                case DoesNotPerformAssertions::class:
-                    $result[] = Metadata::doesNotPerformAssertionsOnClass();
-
+                case Does_Not_Perform_Assertions::class:
+                    $result[] = Metadata::does_not_perform_assertions_on_class();
                     break;
-
-                case ExcludeGlobalVariableFromBackup::class:
-                    assert($attributeInstance instanceof ExcludeGlobalVariableFromBackup);
-
-                    $result[] = Metadata::excludeGlobalVariableFromBackupOnClass($attributeInstance->globalVariableName());
-
+                case Exclude_Global_Variable_From_Backup::class:
+                    assert($attribute_instance instanceof Exclude_Global_Variable_From_Backup);
+                    $result[] = Metadata::exclude_global_variable_from_backup_on_class($attribute_instance->global_variable_name());
                     break;
-
-                case ExcludeStaticPropertyFromBackup::class:
-                    assert($attributeInstance instanceof ExcludeStaticPropertyFromBackup);
-
-                    $result[] = Metadata::excludeStaticPropertyFromBackupOnClass(
-                        $attributeInstance->className(),
-                        $attributeInstance->propertyName(),
-                    );
-
+                case Exclude_Static_Property_From_Backup::class:
+                    assert($attribute_instance instanceof Exclude_Static_Property_From_Backup);
+                    $result[] = Metadata::exclude_static_property_from_backup_on_class($attribute_instance->class_name(), $attribute_instance->property_name());
                     break;
-
                 case Group::class:
-                    assert($attributeInstance instanceof Group);
-
-                    if (!$this->isSizeGroup($attributeInstance->name(), $className)) {
-                        $result[] = Metadata::groupOnClass($attributeInstance->name());
+                    assert($attribute_instance instanceof Group);
+                    if (!$this->is_size_group($attribute_instance->name(), $class_name)) {
+                        $result[] = Metadata::group_on_class($attribute_instance->name());
                     }
-
                     break;
-
                 case Small::class:
                     if (!$medium && !$large) {
-                        $result[] = Metadata::groupOnClass('small');
-
+                        $result[] = Metadata::group_on_class('small');
                         $small = true;
                     } else {
-                        EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
-                            sprintf(
-                                '#[Small] cannot be combined with #[Medium] or #[Large] for %s',
-                                $this->testAsString($className),
-                            ),
-                        );
+                        Event_Facade::emitter()->test_runner_triggered_phpunit_warning(sprintf('#[Small] cannot be combined with #[Medium] or #[Large] for %s', $this->test_as_string($class_name)));
                     }
-
                     break;
-
                 case Medium::class:
                     if (!$small && !$large) {
-                        $result[] = Metadata::groupOnClass('medium');
-
+                        $result[] = Metadata::group_on_class('medium');
                         $medium = true;
                     } else {
-                        EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
-                            sprintf(
-                                '#[Medium] cannot be combined with #[Small] or #[Large] for %s',
-                                $this->testAsString($className),
-                            ),
-                        );
+                        Event_Facade::emitter()->test_runner_triggered_phpunit_warning(sprintf('#[Medium] cannot be combined with #[Small] or #[Large] for %s', $this->test_as_string($class_name)));
                     }
-
                     break;
-
                 case Large::class:
                     if (!$small && !$medium) {
-                        $result[] = Metadata::groupOnClass('large');
-
+                        $result[] = Metadata::group_on_class('large');
                         $large = true;
                     } else {
-                        EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
-                            sprintf(
-                                '#[Large] cannot be combined with #[Small] or #[Medium] for %s',
-                                $this->testAsString($className),
-                            ),
-                        );
+                        Event_Facade::emitter()->test_runner_triggered_phpunit_warning(sprintf('#[Large] cannot be combined with #[Small] or #[Medium] for %s', $this->test_as_string($class_name)));
                     }
-
                     break;
-
-                case IgnoreDeprecations::class:
-                    assert($attributeInstance instanceof IgnoreDeprecations);
-
-                    $result[] = Metadata::ignoreDeprecationsOnClass($attributeInstance->messagePattern());
-
+                case Ignore_Deprecations::class:
+                    assert($attribute_instance instanceof Ignore_Deprecations);
+                    $result[] = Metadata::ignore_deprecations_on_class($attribute_instance->message_pattern());
                     break;
-
-                case IgnorePhpunitDeprecations::class:
-                    assert($attributeInstance instanceof IgnorePhpunitDeprecations);
-
-                    $result[] = Metadata::ignorePhpunitDeprecationsOnClass();
-
+                case Ignore_Phpunit_Deprecations::class:
+                    assert($attribute_instance instanceof Ignore_Phpunit_Deprecations);
+                    $result[] = Metadata::ignore_phpunit_deprecations_on_class();
                     break;
-
-                case PreserveGlobalState::class:
-                    assert($attributeInstance instanceof PreserveGlobalState);
-
-                    $result[] = Metadata::preserveGlobalStateOnClass($attributeInstance->enabled());
-
+                case Preserve_Global_State::class:
+                    assert($attribute_instance instanceof Preserve_Global_State);
+                    $result[] = Metadata::preserve_global_state_on_class($attribute_instance->enabled());
                     break;
-
-                case RequiresMethod::class:
-                    assert($attributeInstance instanceof RequiresMethod);
-
-                    $result[] = Metadata::requiresMethodOnClass(
-                        $attributeInstance->className(),
-                        $attributeInstance->methodName(),
-                    );
-
+                case Requires_Method::class:
+                    assert($attribute_instance instanceof Requires_Method);
+                    $result[] = Metadata::requires_method_on_class($attribute_instance->class_name(), $attribute_instance->method_name());
                     break;
-
-                case RequiresFunction::class:
-                    assert($attributeInstance instanceof RequiresFunction);
-
-                    $result[] = Metadata::requiresFunctionOnClass($attributeInstance->functionName());
-
+                case Requires_Function::class:
+                    assert($attribute_instance instanceof Requires_Function);
+                    $result[] = Metadata::requires_function_on_class($attribute_instance->function_name());
                     break;
-
-                case RequiresOperatingSystem::class:
-                    assert($attributeInstance instanceof RequiresOperatingSystem);
-
-                    $result[] = Metadata::requiresOperatingSystemOnClass($attributeInstance->regularExpression());
-
+                case Requires_Operating_System::class:
+                    assert($attribute_instance instanceof Requires_Operating_System);
+                    $result[] = Metadata::requires_operating_system_on_class($attribute_instance->regular_expression());
                     break;
-
-                case RequiresOperatingSystemFamily::class:
-                    assert($attributeInstance instanceof RequiresOperatingSystemFamily);
-
-                    $result[] = Metadata::requiresOperatingSystemFamilyOnClass($attributeInstance->operatingSystemFamily());
-
+                case Requires_Operating_System_Family::class:
+                    assert($attribute_instance instanceof Requires_Operating_System_Family);
+                    $result[] = Metadata::requires_operating_system_family_on_class($attribute_instance->operating_system_family());
                     break;
-
-                case RequiresPhp::class:
-                    assert($attributeInstance instanceof RequiresPhp);
-
-                    $requirement = $this->requirement(
-                        $attributeInstance->versionRequirement(),
-                        $className,
-                    );
-
+                case Requires_Php::class:
+                    assert($attribute_instance instanceof Requires_Php);
+                    $requirement = $this->requirement($attribute_instance->version_requirement(), $class_name);
                     if ($requirement !== null) {
-                        $result[] = Metadata::requiresPhpOnClass($requirement);
+                        $result[] = Metadata::requires_php_on_class($requirement);
                     }
-
                     break;
-
-                case RequiresPhpExtension::class:
-                    assert($attributeInstance instanceof RequiresPhpExtension);
-
-                    $versionConstraint  = null;
-                    $versionRequirement = $attributeInstance->versionRequirement();
-
-                    if ($versionRequirement !== null) {
-                        $versionConstraint = $this->requirement(
-                            $versionRequirement,
-                            $className,
-                        );
+                case Requires_Php_Extension::class:
+                    assert($attribute_instance instanceof Requires_Php_Extension);
+                    $version_constraint = null;
+                    $version_requirement = $attribute_instance->version_requirement();
+                    if ($version_requirement !== null) {
+                        $version_constraint = $this->requirement($version_requirement, $class_name);
                     }
-
-                    $result[] = Metadata::requiresPhpExtensionOnClass(
-                        $attributeInstance->extension(),
-                        $versionConstraint,
-                    );
-
+                    $result[] = Metadata::requires_php_extension_on_class($attribute_instance->extension(), $version_constraint);
                     break;
-
-                case RequiresPhpunit::class:
-                    assert($attributeInstance instanceof RequiresPhpunit);
-
-                    $requirement = $this->requirement(
-                        $attributeInstance->versionRequirement(),
-                        $className,
-                    );
-
+                case Requires_Phpunit::class:
+                    assert($attribute_instance instanceof Requires_Phpunit);
+                    $requirement = $this->requirement($attribute_instance->version_requirement(), $class_name);
                     if ($requirement !== null) {
-                        $result[] = Metadata::requiresPhpunitOnClass($requirement);
+                        $result[] = Metadata::requires_phpunit_on_class($requirement);
                     }
-
                     break;
-
-                case RequiresPhpunitExtension::class:
-                    assert($attributeInstance instanceof RequiresPhpunitExtension);
-
-                    $result[] = Metadata::requiresPhpunitExtensionOnClass(
-                        $attributeInstance->extensionClass(),
-                    );
-
+                case Requires_Phpunit_Extension::class:
+                    assert($attribute_instance instanceof Requires_Phpunit_Extension);
+                    $result[] = Metadata::requires_phpunit_extension_on_class($attribute_instance->extension_class());
                     break;
-
-                case RequiresEnvironmentVariable::class:
-                    assert($attributeInstance instanceof RequiresEnvironmentVariable);
-
-                    $result[] = Metadata::requiresEnvironmentVariableOnClass(
-                        $attributeInstance->environmentVariableName(),
-                        $attributeInstance->value(),
-                    );
-
+                case Requires_Environment_Variable::class:
+                    assert($attribute_instance instanceof Requires_Environment_Variable);
+                    $result[] = Metadata::requires_environment_variable_on_class($attribute_instance->environment_variable_name(), $attribute_instance->value());
                     break;
-
-                case WithEnvironmentVariable::class:
-                    assert($attributeInstance instanceof WithEnvironmentVariable);
-
-                    $result[] = Metadata::withEnvironmentVariableOnClass(
-                        $attributeInstance->environmentVariableName(),
-                        $attributeInstance->value(),
-                    );
-
+                case With_Environment_Variable::class:
+                    assert($attribute_instance instanceof With_Environment_Variable);
+                    $result[] = Metadata::with_environment_variable_on_class($attribute_instance->environment_variable_name(), $attribute_instance->value());
                     break;
-
-                case RequiresSetting::class:
-                    assert($attributeInstance instanceof RequiresSetting);
-
-                    $result[] = Metadata::requiresSettingOnClass(
-                        $attributeInstance->setting(),
-                        $attributeInstance->value(),
-                    );
-
+                case Requires_Setting::class:
+                    assert($attribute_instance instanceof Requires_Setting);
+                    $result[] = Metadata::requires_setting_on_class($attribute_instance->setting(), $attribute_instance->value());
                     break;
-
-                case RunTestsInSeparateProcesses::class:
-                    $result[] = Metadata::runTestsInSeparateProcesses();
-
+                case Run_Tests_In_Separate_Processes::class:
+                    $result[] = Metadata::run_tests_in_separate_processes();
                     break;
-
-                case TestDox::class:
-                    assert($attributeInstance instanceof TestDox);
-
-                    $result[] = Metadata::testDoxOnClass($attributeInstance->text());
-
+                case Test_Dox::class:
+                    assert($attribute_instance instanceof Test_Dox);
+                    $result[] = Metadata::test_dox_on_class($attribute_instance->text());
                     break;
-
                 case Ticket::class:
-                    assert($attributeInstance instanceof Ticket);
-
-                    $result[] = Metadata::groupOnClass($attributeInstance->text());
-
+                    assert($attribute_instance instanceof Ticket);
+                    $result[] = Metadata::group_on_class($attribute_instance->text());
                     break;
-
-                case UsesNamespace::class:
-                    assert($attributeInstance instanceof UsesNamespace);
-
-                    $result[] = Metadata::usesNamespace($attributeInstance->namespace());
-
+                case Uses_Namespace::class:
+                    assert($attribute_instance instanceof Uses_Namespace);
+                    $result[] = Metadata::uses_namespace($attribute_instance->namespace());
                     break;
-
-                case UsesClass::class:
-                    assert($attributeInstance instanceof UsesClass);
-
-                    $result[] = Metadata::usesClass($attributeInstance->className());
-
+                case Uses_Class::class:
+                    assert($attribute_instance instanceof Uses_Class);
+                    $result[] = Metadata::uses_class($attribute_instance->class_name());
                     break;
-
-                case UsesClassesThatExtendClass::class:
-                    assert($attributeInstance instanceof UsesClassesThatExtendClass);
-
-                    $result[] = Metadata::usesClassesThatExtendClass($attributeInstance->className());
-
+                case Uses_Classes_That_Extend_Class::class:
+                    assert($attribute_instance instanceof Uses_Classes_That_Extend_Class);
+                    $result[] = Metadata::uses_classes_that_extend_class($attribute_instance->class_name());
                     break;
-
-                case UsesClassesThatImplementInterface::class:
-                    assert($attributeInstance instanceof UsesClassesThatImplementInterface);
-
-                    $result[] = Metadata::usesClassesThatImplementInterface($attributeInstance->interfaceName());
-
+                case Uses_Classes_That_Implement_Interface::class:
+                    assert($attribute_instance instanceof Uses_Classes_That_Implement_Interface);
+                    $result[] = Metadata::uses_classes_that_implement_interface($attribute_instance->interface_name());
                     break;
-
-                case UsesTrait::class:
-                    assert($attributeInstance instanceof UsesTrait);
-
-                    $result[] = Metadata::usesTrait($attributeInstance->traitName());
-
+                case Uses_Trait::class:
+                    assert($attribute_instance instanceof Uses_Trait);
+                    $result[] = Metadata::uses_trait($attribute_instance->trait_name());
                     break;
-
-                case UsesFunction::class:
-                    assert($attributeInstance instanceof UsesFunction);
-
-                    $result[] = Metadata::usesFunction($attributeInstance->functionName());
-
+                case Uses_Function::class:
+                    assert($attribute_instance instanceof Uses_Function);
+                    $result[] = Metadata::uses_function($attribute_instance->function_name());
                     break;
-
-                case UsesMethod::class:
-                    assert($attributeInstance instanceof UsesMethod);
-
-                    $result[] = Metadata::usesMethod(
-                        $attributeInstance->className(),
-                        $attributeInstance->methodName(),
-                    );
-
+                case Uses_Method::class:
+                    assert($attribute_instance instanceof Uses_Method);
+                    $result[] = Metadata::uses_method($attribute_instance->class_name(), $attribute_instance->method_name());
                     break;
             }
         }
-
-        return MetadataCollection::fromArray($result);
+        return Metadata_Collection::from_array($result);
     }
-
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function forMethod(string $className, string $methodName): MetadataCollection
+    public function for_method(string $class_name, string $method_name): Metadata_Collection
     {
-        assert(class_exists($className));
-        assert(method_exists($className, $methodName));
-
-        $reflector = new ReflectionMethod($className, $methodName);
-        $result    = [];
-
-        foreach ($reflector->getAttributes() as $attribute) {
-            if (!str_starts_with($attribute->getName(), 'PHPUnit\\Framework\\Attributes\\')) {
+        assert(class_exists($class_name));
+        assert(method_exists($class_name, $method_name));
+        $reflector = new ReflectionMethod($class_name, $method_name);
+        $result = [];
+        foreach ($reflector->get_attributes() as $attribute) {
+            if (!str_starts_with($attribute->get_name(), 'PHPUnit\Framework\Attributes\\')) {
                 continue;
             }
-
-            if (!class_exists($attribute->getName())) {
+            if (!class_exists($attribute->get_name())) {
                 continue;
             }
-
             try {
-                $attributeInstance = $attribute->newInstance();
+                $attribute_instance = $attribute->new_instance();
             } catch (Error $e) {
-                throw new InvalidAttributeException(
-                    $attribute->getName(),
-                    'method ' . $className . '::' . $methodName . '()',
-                    $reflector->getFileName(),
-                    $reflector->getStartLine(),
-                    $e->getMessage(),
-                );
+                throw new Invalid_Attribute_Exception($attribute->get_name(), 'method ' . $class_name . '::' . $method_name . '()', $reflector->get_file_name(), $reflector->get_start_line(), $e->get_message());
             }
-
-            switch ($attribute->getName()) {
+            switch ($attribute->get_name()) {
                 case After::class:
-                    assert($attributeInstance instanceof After);
-
-                    $result[] = Metadata::after($attributeInstance->priority());
-
+                    assert($attribute_instance instanceof After);
+                    $result[] = Metadata::after($attribute_instance->priority());
                     break;
-
-                case AfterClass::class:
-                    assert($attributeInstance instanceof AfterClass);
-
-                    $result[] = Metadata::afterClass($attributeInstance->priority());
-
+                case After_Class::class:
+                    assert($attribute_instance instanceof After_Class);
+                    $result[] = Metadata::after_class($attribute_instance->priority());
                     break;
-
-                case AllowMockObjectsWithoutExpectations::class:
-                    assert($attributeInstance instanceof AllowMockObjectsWithoutExpectations);
-
-                    $result[] = Metadata::allowMockObjectsWithoutExpectationsOnMethod();
-
+                case Allow_Mock_Objects_Without_Expectations::class:
+                    assert($attribute_instance instanceof Allow_Mock_Objects_Without_Expectations);
+                    $result[] = Metadata::allow_mock_objects_without_expectations_on_method();
                     break;
-
-                case BackupGlobals::class:
-                    assert($attributeInstance instanceof BackupGlobals);
-
-                    $result[] = Metadata::backupGlobalsOnMethod($attributeInstance->enabled());
-
+                case Backup_Globals::class:
+                    assert($attribute_instance instanceof Backup_Globals);
+                    $result[] = Metadata::backup_globals_on_method($attribute_instance->enabled());
                     break;
-
-                case BackupStaticProperties::class:
-                    assert($attributeInstance instanceof BackupStaticProperties);
-
-                    $result[] = Metadata::backupStaticPropertiesOnMethod($attributeInstance->enabled());
-
+                case Backup_Static_Properties::class:
+                    assert($attribute_instance instanceof Backup_Static_Properties);
+                    $result[] = Metadata::backup_static_properties_on_method($attribute_instance->enabled());
                     break;
-
                 case Before::class:
-                    assert($attributeInstance instanceof Before);
-
-                    $result[] = Metadata::before($attributeInstance->priority());
-
+                    assert($attribute_instance instanceof Before);
+                    $result[] = Metadata::before($attribute_instance->priority());
                     break;
-
-                case BeforeClass::class:
-                    assert($attributeInstance instanceof BeforeClass);
-
-                    $result[] = Metadata::beforeClass($attributeInstance->priority());
-
+                case Before_Class::class:
+                    assert($attribute_instance instanceof Before_Class);
+                    $result[] = Metadata::before_class($attribute_instance->priority());
                     break;
-
-                case CoversNothing::class:
-                    $result[] = Metadata::coversNothingOnMethod();
-
+                case Covers_Nothing::class:
+                    $result[] = Metadata::covers_nothing_on_method();
                     break;
-
-                case DataProvider::class:
-                    assert($attributeInstance instanceof DataProvider);
-
-                    $result[] = Metadata::dataProvider($className, $attributeInstance->methodName(), $attributeInstance->validateArgumentCount());
-
+                case Data_Provider::class:
+                    assert($attribute_instance instanceof Data_Provider);
+                    $result[] = Metadata::data_provider($class_name, $attribute_instance->method_name(), $attribute_instance->validate_argument_count());
                     break;
-
-                case DataProviderExternal::class:
-                    assert($attributeInstance instanceof DataProviderExternal);
-
-                    $result[] = Metadata::dataProvider($attributeInstance->className(), $attributeInstance->methodName(), $attributeInstance->validateArgumentCount());
-
+                case Data_Provider_External::class:
+                    assert($attribute_instance instanceof Data_Provider_External);
+                    $result[] = Metadata::data_provider($attribute_instance->class_name(), $attribute_instance->method_name(), $attribute_instance->validate_argument_count());
                     break;
-
-                case DataProviderClosure::class:
-                    assert($attributeInstance instanceof DataProviderClosure);
-
-                    $result[] = Metadata::dataProviderClosure($attributeInstance->closure(), $attributeInstance->validateArgumentCount());
-
+                case Data_Provider_Closure::class:
+                    assert($attribute_instance instanceof Data_Provider_Closure);
+                    $result[] = Metadata::data_provider_closure($attribute_instance->closure(), $attribute_instance->validate_argument_count());
                     break;
-
                 case Depends::class:
-                    assert($attributeInstance instanceof Depends);
-
-                    $result[] = Metadata::dependsOnMethod($className, $attributeInstance->methodName(), false, false);
-
+                    assert($attribute_instance instanceof Depends);
+                    $result[] = Metadata::depends_on_method($class_name, $attribute_instance->method_name(), false, false);
                     break;
-
-                case DependsUsingDeepClone::class:
-                    assert($attributeInstance instanceof DependsUsingDeepClone);
-
-                    $result[] = Metadata::dependsOnMethod($className, $attributeInstance->methodName(), true, false);
-
+                case Depends_Using_Deep_Clone::class:
+                    assert($attribute_instance instanceof Depends_Using_Deep_Clone);
+                    $result[] = Metadata::depends_on_method($class_name, $attribute_instance->method_name(), true, false);
                     break;
-
-                case DependsUsingShallowClone::class:
-                    assert($attributeInstance instanceof DependsUsingShallowClone);
-
-                    $result[] = Metadata::dependsOnMethod($className, $attributeInstance->methodName(), false, true);
-
+                case Depends_Using_Shallow_Clone::class:
+                    assert($attribute_instance instanceof Depends_Using_Shallow_Clone);
+                    $result[] = Metadata::depends_on_method($class_name, $attribute_instance->method_name(), false, true);
                     break;
-
-                case DependsExternal::class:
-                    assert($attributeInstance instanceof DependsExternal);
-
-                    $result[] = Metadata::dependsOnMethod($attributeInstance->className(), $attributeInstance->methodName(), false, false);
-
+                case Depends_External::class:
+                    assert($attribute_instance instanceof Depends_External);
+                    $result[] = Metadata::depends_on_method($attribute_instance->class_name(), $attribute_instance->method_name(), false, false);
                     break;
-
-                case DependsExternalUsingDeepClone::class:
-                    assert($attributeInstance instanceof DependsExternalUsingDeepClone);
-
-                    $result[] = Metadata::dependsOnMethod($attributeInstance->className(), $attributeInstance->methodName(), true, false);
-
+                case Depends_External_Using_Deep_Clone::class:
+                    assert($attribute_instance instanceof Depends_External_Using_Deep_Clone);
+                    $result[] = Metadata::depends_on_method($attribute_instance->class_name(), $attribute_instance->method_name(), true, false);
                     break;
-
-                case DependsExternalUsingShallowClone::class:
-                    assert($attributeInstance instanceof DependsExternalUsingShallowClone);
-
-                    $result[] = Metadata::dependsOnMethod($attributeInstance->className(), $attributeInstance->methodName(), false, true);
-
+                case Depends_External_Using_Shallow_Clone::class:
+                    assert($attribute_instance instanceof Depends_External_Using_Shallow_Clone);
+                    $result[] = Metadata::depends_on_method($attribute_instance->class_name(), $attribute_instance->method_name(), false, true);
                     break;
-
-                case DependsOnClass::class:
-                    assert($attributeInstance instanceof DependsOnClass);
-
-                    $result[] = Metadata::dependsOnClass($attributeInstance->className(), false, false);
-
+                case Depends_On_Class::class:
+                    assert($attribute_instance instanceof Depends_On_Class);
+                    $result[] = Metadata::depends_on_class($attribute_instance->class_name(), false, false);
                     break;
-
-                case DependsOnClassUsingDeepClone::class:
-                    assert($attributeInstance instanceof DependsOnClassUsingDeepClone);
-
-                    $result[] = Metadata::dependsOnClass($attributeInstance->className(), true, false);
-
+                case Depends_On_Class_Using_Deep_Clone::class:
+                    assert($attribute_instance instanceof Depends_On_Class_Using_Deep_Clone);
+                    $result[] = Metadata::depends_on_class($attribute_instance->class_name(), true, false);
                     break;
-
-                case DependsOnClassUsingShallowClone::class:
-                    assert($attributeInstance instanceof DependsOnClassUsingShallowClone);
-
-                    $result[] = Metadata::dependsOnClass($attributeInstance->className(), false, true);
-
+                case Depends_On_Class_Using_Shallow_Clone::class:
+                    assert($attribute_instance instanceof Depends_On_Class_Using_Shallow_Clone);
+                    $result[] = Metadata::depends_on_class($attribute_instance->class_name(), false, true);
                     break;
-
-                case DoesNotPerformAssertions::class:
-                    assert($attributeInstance instanceof DoesNotPerformAssertions);
-
-                    $result[] = Metadata::doesNotPerformAssertionsOnMethod();
-
+                case Does_Not_Perform_Assertions::class:
+                    assert($attribute_instance instanceof Does_Not_Perform_Assertions);
+                    $result[] = Metadata::does_not_perform_assertions_on_method();
                     break;
-
-                case ExcludeGlobalVariableFromBackup::class:
-                    assert($attributeInstance instanceof ExcludeGlobalVariableFromBackup);
-
-                    $result[] = Metadata::excludeGlobalVariableFromBackupOnMethod($attributeInstance->globalVariableName());
-
+                case Exclude_Global_Variable_From_Backup::class:
+                    assert($attribute_instance instanceof Exclude_Global_Variable_From_Backup);
+                    $result[] = Metadata::exclude_global_variable_from_backup_on_method($attribute_instance->global_variable_name());
                     break;
-
-                case ExcludeStaticPropertyFromBackup::class:
-                    assert($attributeInstance instanceof ExcludeStaticPropertyFromBackup);
-
-                    $result[] = Metadata::excludeStaticPropertyFromBackupOnMethod(
-                        $attributeInstance->className(),
-                        $attributeInstance->propertyName(),
-                    );
-
+                case Exclude_Static_Property_From_Backup::class:
+                    assert($attribute_instance instanceof Exclude_Static_Property_From_Backup);
+                    $result[] = Metadata::exclude_static_property_from_backup_on_method($attribute_instance->class_name(), $attribute_instance->property_name());
                     break;
-
                 case Group::class:
-                    assert($attributeInstance instanceof Group);
-
-                    if (!$this->isSizeGroup($attributeInstance->name(), $className, $methodName)) {
-                        $result[] = Metadata::groupOnMethod($attributeInstance->name());
+                    assert($attribute_instance instanceof Group);
+                    if (!$this->is_size_group($attribute_instance->name(), $class_name, $method_name)) {
+                        $result[] = Metadata::group_on_method($attribute_instance->name());
                     }
-
                     break;
-
-                case IgnoreDeprecations::class:
-                    assert($attributeInstance instanceof IgnoreDeprecations);
-
-                    $result[] = Metadata::ignoreDeprecationsOnMethod($attributeInstance->messagePattern());
-
+                case Ignore_Deprecations::class:
+                    assert($attribute_instance instanceof Ignore_Deprecations);
+                    $result[] = Metadata::ignore_deprecations_on_method($attribute_instance->message_pattern());
                     break;
-
-                case IgnorePhpunitDeprecations::class:
-                    assert($attributeInstance instanceof IgnorePhpunitDeprecations);
-
-                    $result[] = Metadata::ignorePhpunitDeprecationsOnMethod();
-
+                case Ignore_Phpunit_Deprecations::class:
+                    assert($attribute_instance instanceof Ignore_Phpunit_Deprecations);
+                    $result[] = Metadata::ignore_phpunit_deprecations_on_method();
                     break;
-
-                case PostCondition::class:
-                    assert($attributeInstance instanceof PostCondition);
-
-                    $result[] = Metadata::postCondition($attributeInstance->priority());
-
+                case Post_Condition::class:
+                    assert($attribute_instance instanceof Post_Condition);
+                    $result[] = Metadata::post_condition($attribute_instance->priority());
                     break;
-
-                case PreCondition::class:
-                    assert($attributeInstance instanceof PreCondition);
-
-                    $result[] = Metadata::preCondition($attributeInstance->priority());
-
+                case Pre_Condition::class:
+                    assert($attribute_instance instanceof Pre_Condition);
+                    $result[] = Metadata::pre_condition($attribute_instance->priority());
                     break;
-
-                case PreserveGlobalState::class:
-                    assert($attributeInstance instanceof PreserveGlobalState);
-
-                    $result[] = Metadata::preserveGlobalStateOnMethod($attributeInstance->enabled());
-
+                case Preserve_Global_State::class:
+                    assert($attribute_instance instanceof Preserve_Global_State);
+                    $result[] = Metadata::preserve_global_state_on_method($attribute_instance->enabled());
                     break;
-
-                case RequiresMethod::class:
-                    assert($attributeInstance instanceof RequiresMethod);
-
-                    $result[] = Metadata::requiresMethodOnMethod(
-                        $attributeInstance->className(),
-                        $attributeInstance->methodName(),
-                    );
-
+                case Requires_Method::class:
+                    assert($attribute_instance instanceof Requires_Method);
+                    $result[] = Metadata::requires_method_on_method($attribute_instance->class_name(), $attribute_instance->method_name());
                     break;
-
-                case RequiresFunction::class:
-                    assert($attributeInstance instanceof RequiresFunction);
-
-                    $result[] = Metadata::requiresFunctionOnMethod($attributeInstance->functionName());
-
+                case Requires_Function::class:
+                    assert($attribute_instance instanceof Requires_Function);
+                    $result[] = Metadata::requires_function_on_method($attribute_instance->function_name());
                     break;
-
-                case RequiresOperatingSystem::class:
-                    assert($attributeInstance instanceof RequiresOperatingSystem);
-
-                    $result[] = Metadata::requiresOperatingSystemOnMethod($attributeInstance->regularExpression());
-
+                case Requires_Operating_System::class:
+                    assert($attribute_instance instanceof Requires_Operating_System);
+                    $result[] = Metadata::requires_operating_system_on_method($attribute_instance->regular_expression());
                     break;
-
-                case RequiresOperatingSystemFamily::class:
-                    assert($attributeInstance instanceof RequiresOperatingSystemFamily);
-
-                    $result[] = Metadata::requiresOperatingSystemFamilyOnMethod($attributeInstance->operatingSystemFamily());
-
+                case Requires_Operating_System_Family::class:
+                    assert($attribute_instance instanceof Requires_Operating_System_Family);
+                    $result[] = Metadata::requires_operating_system_family_on_method($attribute_instance->operating_system_family());
                     break;
-
-                case RequiresPhp::class:
-                    assert($attributeInstance instanceof RequiresPhp);
-
-                    $requirement = $this->requirement(
-                        $attributeInstance->versionRequirement(),
-                        $className,
-                        $methodName,
-                    );
-
+                case Requires_Php::class:
+                    assert($attribute_instance instanceof Requires_Php);
+                    $requirement = $this->requirement($attribute_instance->version_requirement(), $class_name, $method_name);
                     if ($requirement !== null) {
-                        $result[] = Metadata::requiresPhpOnMethod($requirement);
+                        $result[] = Metadata::requires_php_on_method($requirement);
                     }
-
                     break;
-
-                case RequiresPhpExtension::class:
-                    assert($attributeInstance instanceof RequiresPhpExtension);
-
-                    $versionConstraint  = null;
-                    $versionRequirement = $attributeInstance->versionRequirement();
-
-                    if ($versionRequirement !== null) {
-                        $versionConstraint = $this->requirement(
-                            $versionRequirement,
-                            $className,
-                            $methodName,
-                        );
+                case Requires_Php_Extension::class:
+                    assert($attribute_instance instanceof Requires_Php_Extension);
+                    $version_constraint = null;
+                    $version_requirement = $attribute_instance->version_requirement();
+                    if ($version_requirement !== null) {
+                        $version_constraint = $this->requirement($version_requirement, $class_name, $method_name);
                     }
-
-                    $result[] = Metadata::requiresPhpExtensionOnMethod(
-                        $attributeInstance->extension(),
-                        $versionConstraint,
-                    );
-
+                    $result[] = Metadata::requires_php_extension_on_method($attribute_instance->extension(), $version_constraint);
                     break;
-
-                case RequiresPhpunit::class:
-                    assert($attributeInstance instanceof RequiresPhpunit);
-
-                    $requirement = $this->requirement(
-                        $attributeInstance->versionRequirement(),
-                        $className,
-                        $methodName,
-                    );
-
+                case Requires_Phpunit::class:
+                    assert($attribute_instance instanceof Requires_Phpunit);
+                    $requirement = $this->requirement($attribute_instance->version_requirement(), $class_name, $method_name);
                     if ($requirement !== null) {
-                        $result[] = Metadata::requiresPhpunitOnMethod($requirement);
+                        $result[] = Metadata::requires_phpunit_on_method($requirement);
                     }
-
                     break;
-
-                case RequiresPhpunitExtension::class:
-                    assert($attributeInstance instanceof RequiresPhpunitExtension);
-
-                    $result[] = Metadata::requiresPhpunitExtensionOnMethod(
-                        $attributeInstance->extensionClass(),
-                    );
-
+                case Requires_Phpunit_Extension::class:
+                    assert($attribute_instance instanceof Requires_Phpunit_Extension);
+                    $result[] = Metadata::requires_phpunit_extension_on_method($attribute_instance->extension_class());
                     break;
-
-                case RequiresEnvironmentVariable::class:
-                    assert($attributeInstance instanceof RequiresEnvironmentVariable);
-
-                    $result[] = Metadata::requiresEnvironmentVariableOnMethod(
-                        $attributeInstance->environmentVariableName(),
-                        $attributeInstance->value(),
-                    );
-
+                case Requires_Environment_Variable::class:
+                    assert($attribute_instance instanceof Requires_Environment_Variable);
+                    $result[] = Metadata::requires_environment_variable_on_method($attribute_instance->environment_variable_name(), $attribute_instance->value());
                     break;
-
-                case WithEnvironmentVariable::class:
-                    assert($attributeInstance instanceof WithEnvironmentVariable);
-
-                    $result[] = Metadata::withEnvironmentVariableOnMethod(
-                        $attributeInstance->environmentVariableName(),
-                        $attributeInstance->value(),
-                    );
-
+                case With_Environment_Variable::class:
+                    assert($attribute_instance instanceof With_Environment_Variable);
+                    $result[] = Metadata::with_environment_variable_on_method($attribute_instance->environment_variable_name(), $attribute_instance->value());
                     break;
-
-                case RequiresSetting::class:
-                    assert($attributeInstance instanceof RequiresSetting);
-
-                    $result[] = Metadata::requiresSettingOnMethod(
-                        $attributeInstance->setting(),
-                        $attributeInstance->value(),
-                    );
-
+                case Requires_Setting::class:
+                    assert($attribute_instance instanceof Requires_Setting);
+                    $result[] = Metadata::requires_setting_on_method($attribute_instance->setting(), $attribute_instance->value());
                     break;
-
-                case RunInSeparateProcess::class:
-                    $result[] = Metadata::runInSeparateProcess();
-
+                case Run_In_Separate_Process::class:
+                    $result[] = Metadata::run_in_separate_process();
                     break;
-
                 case Test::class:
                     $result[] = Metadata::test();
-
                     break;
-
-                case TestDox::class:
-                    assert($attributeInstance instanceof TestDox);
-
-                    $result[] = Metadata::testDoxOnMethod($attributeInstance->text());
-
+                case Test_Dox::class:
+                    assert($attribute_instance instanceof Test_Dox);
+                    $result[] = Metadata::test_dox_on_method($attribute_instance->text());
                     break;
-
-                case TestDoxFormatter::class:
-                    assert($attributeInstance instanceof TestDoxFormatter);
-
-                    $result[] = Metadata::testDoxFormatter($className, $attributeInstance->methodName());
-
+                case Test_Dox_Formatter::class:
+                    assert($attribute_instance instanceof Test_Dox_Formatter);
+                    $result[] = Metadata::test_dox_formatter($class_name, $attribute_instance->method_name());
                     break;
-
-                case TestDoxFormatterExternal::class:
-                    assert($attributeInstance instanceof TestDoxFormatterExternal);
-
-                    $result[] = Metadata::testDoxFormatter($attributeInstance->className(), $attributeInstance->methodName());
-
+                case Test_Dox_Formatter_External::class:
+                    assert($attribute_instance instanceof Test_Dox_Formatter_External);
+                    $result[] = Metadata::test_dox_formatter($attribute_instance->class_name(), $attribute_instance->method_name());
                     break;
-
-                case TestWith::class:
-                    assert($attributeInstance instanceof TestWith);
-
-                    $result[] = Metadata::testWith($attributeInstance->data(), $attributeInstance->name());
-
+                case Test_With::class:
+                    assert($attribute_instance instanceof Test_With);
+                    $result[] = Metadata::test_with($attribute_instance->data(), $attribute_instance->name());
                     break;
-
-                case TestWithJson::class:
-                    assert($attributeInstance instanceof TestWithJson);
-
-                    $result[] = Metadata::testWith(
-                        json_decode($attributeInstance->json(), true, 512, JSON_THROW_ON_ERROR),
-                        $attributeInstance->name(),
-                    );
-
+                case Test_With_Json::class:
+                    assert($attribute_instance instanceof Test_With_Json);
+                    $result[] = Metadata::test_with(json_decode($attribute_instance->json(), true, 512, JSON_THROW_ON_ERROR), $attribute_instance->name());
                     break;
-
                 case Ticket::class:
-                    assert($attributeInstance instanceof Ticket);
-
-                    $result[] = Metadata::groupOnMethod($attributeInstance->text());
-
+                    assert($attribute_instance instanceof Ticket);
+                    $result[] = Metadata::group_on_method($attribute_instance->text());
                     break;
-
-                case WithoutErrorHandler::class:
-                    assert($attributeInstance instanceof WithoutErrorHandler);
-
-                    $result[] = Metadata::withoutErrorHandler();
-
+                case Without_Error_Handler::class:
+                    assert($attribute_instance instanceof Without_Error_Handler);
+                    $result[] = Metadata::without_error_handler();
                     break;
-
-                case IgnorePhpunitWarnings::class:
-                    assert($attributeInstance instanceof IgnorePhpunitWarnings);
-
-                    $result[] = Metadata::ignorePhpunitWarnings($attributeInstance->messagePattern());
-
+                case Ignore_Phpunit_Warnings::class:
+                    assert($attribute_instance instanceof Ignore_Phpunit_Warnings);
+                    $result[] = Metadata::ignore_phpunit_warnings($attribute_instance->message_pattern());
                     break;
             }
         }
-
-        return MetadataCollection::fromArray($result);
+        return Metadata_Collection::from_array($result);
     }
-
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public function forClassAndMethod(string $className, string $methodName): MetadataCollection
+    public function for_class_and_method(string $class_name, string $method_name): Metadata_Collection
     {
-        return $this->forClass($className)->mergeWith(
-            $this->forMethod($className, $methodName),
-        );
+        return $this->for_class($class_name)->merge_with($this->for_method($class_name, $method_name));
     }
-
     /**
      * @param non-empty-string  $groupName
      * @param class-string      $testClassName
      * @param ?non-empty-string $testMethodName
      */
-    private function isSizeGroup(string $groupName, string $testClassName, ?string $testMethodName = null): bool
+    private function is_size_group(string $group_name, string $test_class_name, ?string $test_method_name = null): bool
     {
-        $_groupName = strtolower(trim($groupName));
-
-        if ($_groupName !== 'small' && $_groupName !== 'medium' && $_groupName !== 'large') {
+        $_group_name = strtolower(trim($group_name));
+        if ($_group_name !== 'small' && $_group_name !== 'medium' && $_group_name !== 'large') {
             return false;
         }
-
-        EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
-            sprintf(
-                'Group name "%s" is not allowed for %s',
-                $_groupName,
-                $this->testAsString($testClassName, $testMethodName),
-            ),
-        );
-
+        Event_Facade::emitter()->test_runner_triggered_phpunit_warning(sprintf('Group name "%s" is not allowed for %s', $_group_name, $this->test_as_string($test_class_name, $test_method_name)));
         return true;
     }
-
     /**
      * @param non-empty-string  $versionRequirement
      * @param class-string      $testClassName
      * @param ?non-empty-string $testMethodName
      */
-    private function requirement(string $versionRequirement, string $testClassName, ?string $testMethodName = null): ?Requirement
+    private function requirement(string $version_requirement, string $test_class_name, ?string $test_method_name = null): ?Requirement
     {
-        if (is_numeric(trim($versionRequirement))) {
-            EventFacade::emitter()->testRunnerTriggeredPhpunitWarning(
-                sprintf(
-                    'Test %s has attribute with version constraint string argument without explicit version comparison operator ("%s"), version constraint is ignored',
-                    $this->testAsString($testClassName, $testMethodName),
-                    $versionRequirement,
-                ),
-            );
-
+        if (is_numeric(trim($version_requirement))) {
+            Event_Facade::emitter()->test_runner_triggered_phpunit_warning(sprintf('Test %s has attribute with version constraint string argument without explicit version comparison operator ("%s"), version constraint is ignored', $this->test_as_string($test_class_name, $test_method_name), $version_requirement));
             return null;
         }
-
-        return Requirement::from($versionRequirement);
+        return Requirement::from($version_requirement);
     }
-
     /**
      * @param class-string      $testClassName
      * @param ?non-empty-string $testMethodName
      *
      * @return non-empty-string
      */
-    private function testAsString(string $testClassName, ?string $testMethodName = null): string
+    private function test_as_string(string $test_class_name, ?string $test_method_name = null): string
     {
-        return sprintf(
-            '%s %s%s%s',
-            $testMethodName !== null ? 'method' : 'class',
-            $testClassName,
-            $testMethodName !== null ? '::' : '',
-            $testMethodName ?? '',
-        );
+        return sprintf('%s %s%s%s', $test_method_name !== null ? 'method' : 'class', $test_class_name, $test_method_name !== null ? '::' : '', $test_method_name ?? '');
     }
 }

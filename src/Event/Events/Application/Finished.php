@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,14 +9,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Event\Application;
 
-namespace PHPUnit\Event\Application;
-
-use PHPUnit\Event\Event;
-use PHPUnit\Event\Telemetry;
-
+use Php_Unit\Event\Event;
+use Php_Unit\Event\Telemetry;
 use function sprintf;
-
 /**
  * @immutable
  *
@@ -24,28 +21,22 @@ use function sprintf;
  */
 final readonly class Finished implements Event
 {
-    public function __construct(private Telemetry\Info $telemetryInfo, private int $shellExitCode)
+    public function __construct(private Telemetry\Info $telemetry_info, private int $shell_exit_code)
     {
     }
-
-    public function telemetryInfo(): Telemetry\Info
+    public function telemetry_info(): Telemetry\Info
     {
-        return $this->telemetryInfo;
+        return $this->telemetry_info;
     }
-
-    public function shellExitCode(): int
+    public function shell_exit_code(): int
     {
-        return $this->shellExitCode;
+        return $this->shell_exit_code;
     }
-
     /**
      * @return non-empty-string
      */
-    public function asString(): string
+    public function as_string(): string
     {
-        return sprintf(
-            'PHPUnit Finished (Shell Exit Code: %d)',
-            $this->shellExitCode,
-        );
+        return sprintf('PHPUnit Finished (Shell Exit Code: %d)', $this->shell_exit_code);
     }
 }

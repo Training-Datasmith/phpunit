@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,12 +9,10 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Event\Test_Suite;
 
-namespace PHPUnit\Event\TestSuite;
-
-use PHPUnit\Event\Event;
-use PHPUnit\Event\Telemetry;
-
+use Php_Unit\Event\Event;
+use Php_Unit\Event\Telemetry;
 /**
  * @immutable
  *
@@ -22,34 +20,29 @@ use PHPUnit\Event\Telemetry;
  */
 final readonly class Sorted implements Event
 {
-    public function __construct(private Telemetry\Info $telemetryInfo, private int $executionOrder, private int $executionOrderDefects, private bool $resolveDependencies)
+    public function __construct(private Telemetry\Info $telemetry_info, private int $execution_order, private int $execution_order_defects, private bool $resolve_dependencies)
     {
     }
-
-    public function telemetryInfo(): Telemetry\Info
+    public function telemetry_info(): Telemetry\Info
     {
-        return $this->telemetryInfo;
+        return $this->telemetry_info;
     }
-
-    public function executionOrder(): int
+    public function execution_order(): int
     {
-        return $this->executionOrder;
+        return $this->execution_order;
     }
-
-    public function executionOrderDefects(): int
+    public function execution_order_defects(): int
     {
-        return $this->executionOrderDefects;
+        return $this->execution_order_defects;
     }
-
-    public function resolveDependencies(): bool
+    public function resolve_dependencies(): bool
     {
-        return $this->resolveDependencies;
+        return $this->resolve_dependencies;
     }
-
     /**
      * @return non-empty-string
      */
-    public function asString(): string
+    public function as_string(): string
     {
         return 'Test Suite Sorted';
     }

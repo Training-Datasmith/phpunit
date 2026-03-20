@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,20 +9,14 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Runner\Baseline;
+namespace Php_Unit\Runner\Baseline;
 
 use function assert;
 use function file;
-
 use const FILE_IGNORE_NEW_LINES;
-
 use function is_file;
-
-use PHPUnit\Runner\FileDoesNotExistException;
-
+use Php_Unit\Runner\File_Does_Not_Exist_Exception;
 use function sha1;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -42,12 +36,10 @@ final readonly class Issue
     public static function from(string $file, int $line, ?string $hash, string $description): self
     {
         if ($hash === null) {
-            $hash = self::calculateHash($file, $line);
+            $hash = self::calculate_hash($file, $line);
         }
-
         return new self($file, $line, $hash, $description);
     }
-
     /**
      * @param non-empty-string $file
      * @param positive-int     $line
@@ -57,7 +49,6 @@ final readonly class Issue
     private function __construct(private string $file, private int $line, private string $hash, private string $description)
     {
     }
-
     /**
      * @return non-empty-string
      */
@@ -65,7 +56,6 @@ final readonly class Issue
     {
         return $this->file;
     }
-
     /**
      * @return positive-int
      */
@@ -73,7 +63,6 @@ final readonly class Issue
     {
         return $this->line;
     }
-
     /**
      * @return non-empty-string
      */
@@ -81,7 +70,6 @@ final readonly class Issue
     {
         return $this->hash;
     }
-
     /**
      * @return non-empty-string
      */
@@ -89,15 +77,10 @@ final readonly class Issue
     {
         return $this->description;
     }
-
     public function equals(self $other): bool
     {
-        return $this->file() === $other->file() &&
-               $this->line() === $other->line() &&
-               $this->hash() === $other->hash() &&
-               $this->description() === $other->description();
+        return $this->file() === $other->file() && $this->line() === $other->line() && $this->hash() === $other->hash() && $this->description() === $other->description();
     }
-
     /**
      * @param non-empty-string $file
      * @param positive-int     $line
@@ -107,24 +90,18 @@ final readonly class Issue
      *
      * @return non-empty-string
      */
-    private static function calculateHash(string $file, int $line): string
+    private static function calculate_hash(string $file, int $line): string
     {
         $lines = @file($file, FILE_IGNORE_NEW_LINES);
-
         if ($lines === false && !is_file($file)) {
-            throw new FileDoesNotExistException($file);
+            throw new File_Does_Not_Exist_Exception($file);
         }
-
         $key = $line - 1;
-
         if (!isset($lines[$key])) {
-            throw new FileDoesNotHaveLineException($file, $line);
+            throw new File_Does_Not_Have_Line_Exception($file, $line);
         }
-
         $hash = sha1($lines[$key]);
-
         assert($hash !== '');
-
         return $hash;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,11 +9,9 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Event\Telemetry;
+namespace Php_Unit\Event\Telemetry;
 
 use function sprintf;
-
 /**
  * @immutable
  *
@@ -21,57 +19,43 @@ use function sprintf;
  */
 final readonly class Info
 {
-    public function __construct(private Snapshot $current, private Duration $durationSinceStart, private MemoryUsage $memorySinceStart, private Duration $durationSincePrevious, private MemoryUsage $memorySincePrevious)
+    public function __construct(private Snapshot $current, private Duration $duration_since_start, private Memory_Usage $memory_since_start, private Duration $duration_since_previous, private Memory_Usage $memory_since_previous)
     {
     }
-
-    public function time(): HRTime
+    public function time(): Hr_Time
     {
         return $this->current->time();
     }
-
-    public function memoryUsage(): MemoryUsage
+    public function memory_usage(): Memory_Usage
     {
-        return $this->current->memoryUsage();
+        return $this->current->memory_usage();
     }
-
-    public function peakMemoryUsage(): MemoryUsage
+    public function peak_memory_usage(): Memory_Usage
     {
-        return $this->current->peakMemoryUsage();
+        return $this->current->peak_memory_usage();
     }
-
-    public function durationSinceStart(): Duration
+    public function duration_since_start(): Duration
     {
-        return $this->durationSinceStart;
+        return $this->duration_since_start;
     }
-
-    public function memoryUsageSinceStart(): MemoryUsage
+    public function memory_usage_since_start(): Memory_Usage
     {
-        return $this->memorySinceStart;
+        return $this->memory_since_start;
     }
-
-    public function durationSincePrevious(): Duration
+    public function duration_since_previous(): Duration
     {
-        return $this->durationSincePrevious;
+        return $this->duration_since_previous;
     }
-
-    public function memoryUsageSincePrevious(): MemoryUsage
+    public function memory_usage_since_previous(): Memory_Usage
     {
-        return $this->memorySincePrevious;
+        return $this->memory_since_previous;
     }
-
-    public function garbageCollectorStatus(): GarbageCollectorStatus
+    public function garbage_collector_status(): Garbage_Collector_Status
     {
-        return $this->current->garbageCollectorStatus();
+        return $this->current->garbage_collector_status();
     }
-
-    public function asString(): string
+    public function as_string(): string
     {
-        return sprintf(
-            '[%s / %s] [%d bytes]',
-            $this->durationSinceStart()->asString(),
-            $this->durationSincePrevious()->asString(),
-            $this->peakMemoryUsage()->bytes(),
-        );
+        return sprintf('[%s / %s] [%d bytes]', $this->duration_since_start()->as_string(), $this->duration_since_previous()->as_string(), $this->peak_memory_usage()->bytes());
     }
 }

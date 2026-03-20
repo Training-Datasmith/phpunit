@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,23 +9,21 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Configuration;
+namespace Php_Unit\Text_Ui\Configuration;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @immutable
  */
-final readonly class TestSuite
+final readonly class Test_Suite
 {
     /**
      * @param non-empty-string $name
      */
-    public function __construct(private string $name, private TestDirectoryCollection $directories, private TestFileCollection $files, private FileCollection $exclude)
+    public function __construct(private string $name, private Test_Directory_Collection $directories, private Test_File_Collection $files, private File_Collection $exclude)
     {
     }
-
     /**
      * @return non-empty-string
      */
@@ -33,18 +31,15 @@ final readonly class TestSuite
     {
         return $this->name;
     }
-
-    public function directories(): TestDirectoryCollection
+    public function directories(): Test_Directory_Collection
     {
         return $this->directories;
     }
-
-    public function files(): TestFileCollection
+    public function files(): Test_File_Collection
     {
         return $this->files;
     }
-
-    public function exclude(): FileCollection
+    public function exclude(): File_Collection
     {
         return $this->exclude;
     }

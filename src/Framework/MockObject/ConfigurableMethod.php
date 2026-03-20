@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,30 +9,26 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Framework\Mock_Object;
 
-namespace PHPUnit\Framework\MockObject;
-
-use SebastianBergmann\Type\Type;
-
+use Sebastian_Bergmann\Type\Type;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class ConfigurableMethod
+final readonly class Configurable_Method
 {
-    private Type $returnType;
-
+    private Type $return_type;
     /**
      * @param non-empty-string  $name
      * @param array<int, mixed> $defaultParameterValues
      * @param non-negative-int  $numberOfParameters
      */
-    public function __construct(private string $name, private array $defaultParameterValues, private int $numberOfParameters, Type $returnType)
+    public function __construct(private string $name, private array $default_parameter_values, private int $number_of_parameters, Type $return_type)
     {
-        $this->returnType             = $returnType;
+        $this->return_type = $return_type;
     }
-
     /**
      * @return non-empty-string
      */
@@ -40,30 +36,26 @@ final readonly class ConfigurableMethod
     {
         return $this->name;
     }
-
     /**
      * @return array<int, mixed>
      */
-    public function defaultParameterValues(): array
+    public function default_parameter_values(): array
     {
-        return $this->defaultParameterValues;
+        return $this->default_parameter_values;
     }
-
     /**
      * @return non-negative-int
      */
-    public function numberOfParameters(): int
+    public function number_of_parameters(): int
     {
-        return $this->numberOfParameters;
+        return $this->number_of_parameters;
     }
-
-    public function mayReturn(mixed $value): bool
+    public function may_return(mixed $value): bool
     {
-        return $this->returnType->isAssignable(Type::fromValue($value, false));
+        return $this->return_type->is_assignable(Type::from_value($value, false));
     }
-
-    public function returnTypeDeclaration(): string
+    public function return_type_declaration(): string
     {
-        return $this->returnType->asString();
+        return $this->return_type->as_string();
     }
 }

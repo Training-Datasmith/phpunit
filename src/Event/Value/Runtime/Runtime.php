@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,11 +9,9 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Event\Runtime;
+namespace Php_Unit\Event\Runtime;
 
 use function sprintf;
-
 /**
  * @immutable
  *
@@ -21,41 +19,29 @@ use function sprintf;
  */
 final readonly class Runtime
 {
-    private OperatingSystem $operatingSystem;
+    private Operating_System $operating_system;
     private PHP $php;
-    private PHPUnit $phpunit;
-
+    private Php_Unit $phpunit;
     public function __construct()
     {
-        $this->operatingSystem = new OperatingSystem();
-        $this->php             = new PHP();
-        $this->phpunit         = new PHPUnit();
+        $this->operating_system = new Operating_System();
+        $this->php = new PHP();
+        $this->phpunit = new Php_Unit();
     }
-
-    public function asString(): string
+    public function as_string(): string
     {
         $php = $this->php();
-
-        return sprintf(
-            'PHPUnit %s using PHP %s (%s) on %s',
-            $this->phpunit()->versionId(),
-            $php->version(),
-            $php->sapi(),
-            $this->operatingSystem()->operatingSystem(),
-        );
+        return sprintf('PHPUnit %s using PHP %s (%s) on %s', $this->phpunit()->version_id(), $php->version(), $php->sapi(), $this->operating_system()->operating_system());
     }
-
-    public function operatingSystem(): OperatingSystem
+    public function operating_system(): Operating_System
     {
-        return $this->operatingSystem;
+        return $this->operating_system;
     }
-
     public function php(): PHP
     {
         return $this->php;
     }
-
-    public function phpunit(): PHPUnit
+    public function phpunit(): Php_Unit
     {
         return $this->phpunit;
     }

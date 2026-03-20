@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,21 +9,19 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Logging\Test_Dox;
 
-namespace PHPUnit\Logging\TestDox;
-
-use PHPUnit\Event\Test\PhpunitDeprecationTriggered;
-use PHPUnit\Event\Test\PhpunitDeprecationTriggeredSubscriber;
-
+use Php_Unit\Event\Test\Phpunit_Deprecation_Triggered;
+use Php_Unit\Event\Test\Phpunit_Deprecation_Triggered_Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestTriggeredPhpunitDeprecationSubscriber extends Subscriber implements PhpunitDeprecationTriggeredSubscriber
+final readonly class Test_Triggered_Phpunit_Deprecation_Subscriber extends Subscriber implements Phpunit_Deprecation_Triggered_Subscriber
 {
-    public function notify(PhpunitDeprecationTriggered $event): void
+    public function notify(Phpunit_Deprecation_Triggered $event): void
     {
-        $this->collector()->testTriggeredPhpunitDeprecation($event);
+        $this->collector()->test_triggered_phpunit_deprecation($event);
     }
 }

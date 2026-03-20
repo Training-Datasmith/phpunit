@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Util\PHP;
+namespace Php_Unit\Util\PHP;
 
 /**
  * @immutable
@@ -24,12 +23,10 @@ final readonly class Result
     public function __construct(private string $stdout, private string $stderr)
     {
     }
-
     public function stdout(): string
     {
         return $this->stdout;
     }
-
     public function stderr(): string
     {
         return $this->stderr;

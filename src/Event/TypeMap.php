@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Event;
+namespace Php_Unit\Event;
 
 use function array_any;
 use function array_key_exists;
@@ -19,19 +18,17 @@ use function class_implements;
 use function in_array;
 use function interface_exists;
 use function sprintf;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class TypeMap
+final class Type_Map
 {
     /**
      * @var array<class-string, class-string>
      */
     private array $mapping = [];
-
     /**
      * @param class-string $subscriberInterface
      * @param class-string $eventClass
@@ -43,31 +40,24 @@ final class TypeMap
      * @throws UnknownEventException
      * @throws UnknownSubscriberException
      */
-    public function addMapping(string $subscriberInterface, string $eventClass): void
+    public function add_mapping(string $subscriber_interface, string $event_class): void
     {
-        $this->ensureSubscriberInterfaceExists($subscriberInterface);
-        $this->ensureSubscriberInterfaceExtendsInterface($subscriberInterface);
-        $this->ensureEventClassExists($eventClass);
-        $this->ensureEventClassImplementsEventInterface($eventClass);
-        $this->ensureSubscriberWasNotAlreadyRegistered($subscriberInterface);
-        $this->ensureEventWasNotAlreadyAssigned($eventClass);
-
-        $this->mapping[$subscriberInterface] = $eventClass;
+        $this->ensure_subscriber_interface_exists($subscriber_interface);
+        $this->ensure_subscriber_interface_extends_interface($subscriber_interface);
+        $this->ensure_event_class_exists($event_class);
+        $this->ensure_event_class_implements_event_interface($event_class);
+        $this->ensure_subscriber_was_not_already_registered($subscriber_interface);
+        $this->ensure_event_was_not_already_assigned($event_class);
+        $this->mapping[$subscriber_interface] = $event_class;
     }
-
-    public function isKnownSubscriberType(Subscriber $subscriber): bool
+    public function is_known_subscriber_type(Subscriber $subscriber): bool
     {
-        return array_any(
-            class_implements($subscriber),
-            fn (string $interface): bool => array_key_exists($interface, $this->mapping),
-        );
+        return array_any(class_implements($subscriber), fn(string $interface): bool => array_key_exists($interface, $this->mapping));
     }
-
-    public function isKnownEventType(Event $event): bool
+    public function is_known_event_type(Event $event): bool
     {
         return in_array($event::class, $this->mapping, true);
     }
-
     /**
      * @throws MapError
      *
@@ -80,114 +70,72 @@ final class TypeMap
                 return $this->mapping[$interface];
             }
         }
-
-        throw new MapError(
-            sprintf(
-                'Subscriber "%s" does not implement a known interface',
-                $subscriber::class,
-            ),
-        );
+        throw new Map_Error(sprintf('Subscriber "%s" does not implement a known interface', $subscriber::class));
     }
-
     /**
      * @param class-string $subscriberInterface
      *
      * @throws UnknownSubscriberException
      */
-    private function ensureSubscriberInterfaceExists(string $subscriberInterface): void
+    private function ensure_subscriber_interface_exists(string $subscriber_interface): void
     {
-        if (!interface_exists($subscriberInterface)) {
-            throw new UnknownSubscriberException(
-                sprintf(
-                    'Subscriber "%s" does not exist or is not an interface',
-                    $subscriberInterface,
-                ),
-            );
+        if (!interface_exists($subscriber_interface)) {
+            throw new Unknown_Subscriber_Exception(sprintf('Subscriber "%s" does not exist or is not an interface', $subscriber_interface));
         }
     }
-
     /**
      * @param class-string $eventClass
      *
      * @throws UnknownEventException
      */
-    private function ensureEventClassExists(string $eventClass): void
+    private function ensure_event_class_exists(string $event_class): void
     {
-        if (!class_exists($eventClass)) {
-            throw new UnknownEventException(
-                sprintf(
-                    'Event class "%s" does not exist',
-                    $eventClass,
-                ),
-            );
+        if (!class_exists($event_class)) {
+            throw new Unknown_Event_Exception(sprintf('Event class "%s" does not exist', $event_class));
         }
     }
-
     /**
      * @param class-string $subscriberInterface
      *
      * @throws InvalidSubscriberException
      */
-    private function ensureSubscriberInterfaceExtendsInterface(string $subscriberInterface): void
+    private function ensure_subscriber_interface_extends_interface(string $subscriber_interface): void
     {
-        if (!in_array(Subscriber::class, class_implements($subscriberInterface), true)) {
-            throw new InvalidSubscriberException(
-                sprintf(
-                    'Subscriber "%s" does not extend Subscriber interface',
-                    $subscriberInterface,
-                ),
-            );
+        if (!in_array(Subscriber::class, class_implements($subscriber_interface), true)) {
+            throw new Invalid_Subscriber_Exception(sprintf('Subscriber "%s" does not extend Subscriber interface', $subscriber_interface));
         }
     }
-
     /**
      * @param class-string $eventClass
      *
      * @throws InvalidEventException
      */
-    private function ensureEventClassImplementsEventInterface(string $eventClass): void
+    private function ensure_event_class_implements_event_interface(string $event_class): void
     {
-        if (!in_array(Event::class, class_implements($eventClass), true)) {
-            throw new InvalidEventException(
-                sprintf(
-                    'Event "%s" does not implement Event interface',
-                    $eventClass,
-                ),
-            );
+        if (!in_array(Event::class, class_implements($event_class), true)) {
+            throw new Invalid_Event_Exception(sprintf('Event "%s" does not implement Event interface', $event_class));
         }
     }
-
     /**
      * @param class-string $subscriberInterface
      *
      * @throws SubscriberTypeAlreadyRegisteredException
      */
-    private function ensureSubscriberWasNotAlreadyRegistered(string $subscriberInterface): void
+    private function ensure_subscriber_was_not_already_registered(string $subscriber_interface): void
     {
-        if (array_key_exists($subscriberInterface, $this->mapping)) {
-            throw new SubscriberTypeAlreadyRegisteredException(
-                sprintf(
-                    'Subscriber type "%s" already registered',
-                    $subscriberInterface,
-                ),
-            );
+        if (array_key_exists($subscriber_interface, $this->mapping)) {
+            throw new Subscriber_Type_Already_Registered_Exception(sprintf('Subscriber type "%s" already registered', $subscriber_interface));
         }
     }
-
     /**
      * @param class-string $eventClass
      *
      * @throws EventAlreadyAssignedException
      */
-    private function ensureEventWasNotAlreadyAssigned(string $eventClass): void
+    private function ensure_event_was_not_already_assigned(string $event_class): void
     {
-        if (in_array($eventClass, $this->mapping, true)) {
-            throw new EventAlreadyAssignedException(
-                sprintf(
-                    'Event "%s" already assigned',
-                    $eventClass,
-                ),
-            );
+        if (in_array($event_class, $this->mapping, true)) {
+            throw new Event_Already_Assigned_Exception(sprintf('Event "%s" already assigned', $event_class));
         }
     }
 }

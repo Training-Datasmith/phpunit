@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,15 +9,13 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Runner\Deprecation_Collector;
 
-namespace PHPUnit\Runner\DeprecationCollector;
-
-use PHPUnit\Event\EventFacadeIsSealedException;
-use PHPUnit\Event\Facade as EventFacade;
-use PHPUnit\Event\UnknownSubscriberTypeException;
-use PHPUnit\TestRunner\IssueFilter;
-use PHPUnit\TextUI\Configuration\Registry as ConfigurationRegistry;
-
+use Php_Unit\Event\Event_Facade_Is_Sealed_Exception;
+use Php_Unit\Event\Facade as EventFacade;
+use Php_Unit\Event\Unknown_Subscriber_Type_Exception;
+use Php_Unit\Test_Runner\Issue_Filter;
+use Php_Unit\Text_Ui\Configuration\Registry as ConfigurationRegistry;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -25,21 +23,17 @@ use PHPUnit\TextUI\Configuration\Registry as ConfigurationRegistry;
  */
 final class Facade
 {
-    private static null|Collector|InIsolationCollector $collector = null;
-    private static bool $inIsolation                              = false;
-
+    private static null|Collector|In_Isolation_Collector $collector = null;
+    private static bool $in_isolation = false;
     public static function init(): void
     {
         self::collector();
     }
-
-    public static function initForIsolation(): void
+    public static function init_for_isolation(): void
     {
         self::collector();
-
-        self::$inIsolation = true;
+        self::$in_isolation = true;
     }
-
     /**
      * @return list<non-empty-string>
      */
@@ -47,42 +41,28 @@ final class Facade
     {
         return self::collector()->deprecations();
     }
-
     /**
      * @return list<non-empty-string>
      */
-    public static function filteredDeprecations(): array
+    public static function filtered_deprecations(): array
     {
-        return self::collector()->filteredDeprecations();
+        return self::collector()->filtered_deprecations();
     }
-
     /**
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public static function collector(): Collector|InIsolationCollector
+    public static function collector(): Collector|In_Isolation_Collector
     {
         if (self::$collector !== null) {
             return self::$collector;
         }
-
-        $issueFilter = new IssueFilter(
-            ConfigurationRegistry::get()->source(),
-        );
-
-        if (self::$inIsolation) {
-            self::$collector = new InIsolationCollector(
-                $issueFilter,
-            );
-
+        $issue_filter = new Issue_Filter(Configuration_Registry::get()->source());
+        if (self::$in_isolation) {
+            self::$collector = new In_Isolation_Collector($issue_filter);
             return self::$collector;
         }
-
-        self::$collector = new Collector(
-            EventFacade::instance(),
-            $issueFilter,
-        );
-
+        self::$collector = new Collector(Event_Facade::instance(), $issue_filter);
         return self::$collector;
     }
 }

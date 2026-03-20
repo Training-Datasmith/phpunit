@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,28 +9,24 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework;
+namespace Php_Unit\Framework;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class IsolatedTestRunnerRegistry
+final class Isolated_Test_Runner_Registry
 {
-    private static ?IsolatedTestRunner $runner = null;
-
-    public static function run(TestCase $test, bool $preserveGlobalState, bool $requiresXdebug): void
+    private static ?Isolated_Test_Runner $runner = null;
+    public static function run(Test_Case $test, bool $preserve_global_state, bool $requires_xdebug): void
     {
         if (self::$runner === null) {
-            self::$runner = new SeparateProcessTestRunner();
+            self::$runner = new Separate_Process_Test_Runner();
         }
-
-        self::$runner->run($test, $preserveGlobalState, $requiresXdebug);
+        self::$runner->run($test, $preserve_global_state, $requires_xdebug);
     }
-
-    public static function set(IsolatedTestRunner $runner): void
+    public static function set(Isolated_Test_Runner $runner): void
     {
         self::$runner = $runner;
     }

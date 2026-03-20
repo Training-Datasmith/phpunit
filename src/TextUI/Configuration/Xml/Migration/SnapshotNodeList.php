@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,18 +9,14 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\XmlConfiguration;
+namespace Php_Unit\Text_Ui\Xml_Configuration;
 
 use ArrayIterator;
-
 use function count;
-
 use Countable;
-use DOMNode;
-use DOMNodeList;
+use Dom_Node;
+use Dom_Node_List;
 use IteratorAggregate;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -28,32 +24,27 @@ use IteratorAggregate;
  *
  * @template-implements IteratorAggregate<int, DOMNode>
  */
-final class SnapshotNodeList implements Countable, IteratorAggregate
+final class Snapshot_Node_List implements Countable, IteratorAggregate
 {
     /**
      * @var list<DOMNode>
      */
     private array $nodes = [];
-
     /**
      * @param DOMNodeList<DOMNode> $list
      */
-    public static function fromNodeList(DOMNodeList $list): self
+    public static function from_node_list(Dom_Node_List $list): self
     {
         $snapshot = new self();
-
         foreach ($list as $node) {
             $snapshot->nodes[] = $node;
         }
-
         return $snapshot;
     }
-
     public function count(): int
     {
         return count($this->nodes);
     }
-
     /**
      * @return ArrayIterator<int, DOMNode>
      */

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,21 +9,19 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Logging\Test_Dox;
 
-namespace PHPUnit\Logging\TestDox;
-
-use PHPUnit\Event\Test\Failed;
-use PHPUnit\Event\Test\FailedSubscriber;
-
+use Php_Unit\Event\Test\Failed;
+use Php_Unit\Event\Test\Failed_Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestFailedSubscriber extends Subscriber implements FailedSubscriber
+final readonly class Test_Failed_Subscriber extends Subscriber implements Failed_Subscriber
 {
     public function notify(Failed $event): void
     {
-        $this->collector()->testFailed($event);
+        $this->collector()->test_failed($event);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,15 +9,13 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Framework\Mock_Object;
 
-namespace PHPUnit\Framework\MockObject;
-
-use PHPUnit\Framework\Constraint\Constraint;
-use PHPUnit\Framework\MockObject\Runtime\PropertyHook;
-use PHPUnit\Framework\MockObject\Stub\Stub;
+use Php_Unit\Framework\Constraint\Constraint;
+use Php_Unit\Framework\Mock_Object\Runtime\Property_Hook;
+use Php_Unit\Framework\Mock_Object\Stub\Stub;
 use Throwable;
-
-interface InvocationStubber
+interface Invocation_Stubber
 {
     /**
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -26,29 +24,25 @@ interface InvocationStubber
      *
      * @return $this
      */
-    public function method(Constraint|PropertyHook|string $constraint): self;
-
+    public function method(Constraint|Property_Hook|string $constraint): self;
     /**
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @return $this
      */
     public function will(Stub $stub): self;
-
     /**
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @return $this
      */
-    public function willReturn(mixed $value, mixed ...$nextValues): self;
-
+    public function will_return(mixed $value, mixed ...$next_values): self;
     /**
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @return $this
      */
-    public function willReturnReference(mixed &$reference): self;
-
+    public function will_return_reference(mixed &$reference): self;
     /**
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -56,42 +50,36 @@ interface InvocationStubber
      *
      * @return $this
      */
-    public function willReturnMap(array $valueMap): self;
-
+    public function will_return_map(array $value_map): self;
     /**
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @return $this
      */
-    public function willReturnArgument(int $argumentIndex): self;
-
+    public function will_return_argument(int $argument_index): self;
     /**
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @return $this
      */
-    public function willReturnCallback(callable $callback): self;
-
+    public function will_return_callback(callable $callback): self;
     /**
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @return $this
      */
-    public function willReturnSelf(): self;
-
+    public function will_return_self(): self;
     /**
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @return $this
      */
-    public function willReturnOnConsecutiveCalls(mixed ...$values): self;
-
+    public function will_return_on_consecutive_calls(mixed ...$values): self;
     /**
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @return $this
      */
-    public function willThrowException(Throwable $exception): self;
-
+    public function will_throw_exception(Throwable $exception): self;
     public function seal(): void;
 }

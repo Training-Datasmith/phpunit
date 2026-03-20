@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,32 +9,27 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\Constraint;
+namespace Php_Unit\Framework\Constraint;
 
 use function array_keys;
 use function array_values;
 use function is_array;
 use function ksort;
-
-use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit\Util\Exporter;
-use SebastianBergmann\Comparator\ComparisonFailure;
-
+use Php_Unit\Framework\Expectation_Failed_Exception;
+use Php_Unit\Util\Exporter;
+use Sebastian_Bergmann\Comparator\Comparison_Failure;
 use function sort;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-abstract class ArrayComparison extends Constraint
+abstract class Array_Comparison extends Constraint
 {
     /**
      * @param array<mixed> $expected
      */
-    public function __construct(protected readonly array $expected, protected readonly bool $keysMatter, protected readonly bool $orderMatters)
+    public function __construct(protected readonly array $expected, protected readonly bool $keys_matter, protected readonly bool $order_matters)
     {
     }
-
     /**
      * Evaluates the constraint for parameter $other.
      *
@@ -47,22 +42,19 @@ abstract class ArrayComparison extends Constraint
      *
      * @throws ExpectationFailedException
      */
-    public function evaluate(mixed $other, string $description = '', bool $returnResult = false): ?bool
+    public function evaluate(mixed $other, string $description = '', bool $return_result = false): ?bool
     {
         if (!is_array($other)) {
             return false;
         }
-
         $expected = $this->expected;
-        $actual   = $other;
-
-        if ($this->keysMatter && !$this->orderMatters) {
-            $expectedKeys = array_keys($expected);
-            $actualKeys   = array_keys($actual);
-            sort($expectedKeys);
-            sort($actualKeys);
-
-            if ($expectedKeys === $actualKeys) {
+        $actual = $other;
+        if ($this->keys_matter && !$this->order_matters) {
+            $expected_keys = array_keys($expected);
+            $actual_keys = array_keys($actual);
+            sort($expected_keys);
+            sort($actual_keys);
+            if ($expected_keys === $actual_keys) {
                 sort($expected);
                 sort($actual);
             } else {
@@ -70,79 +62,57 @@ abstract class ArrayComparison extends Constraint
                 ksort($actual);
             }
         }
-
-        if (!$this->keysMatter) {
+        if (!$this->keys_matter) {
             $expected = array_values($expected);
-            $actual   = array_values($actual);
-
-            if (!$this->orderMatters) {
+            $actual = array_values($actual);
+            if (!$this->order_matters) {
                 sort($expected);
                 sort($actual);
             }
         }
-
-        $success = $this->compareArrays($expected, $actual);
-
-        if ($returnResult) {
+        $success = $this->compare_arrays($expected, $actual);
+        if ($return_result) {
             return $success;
         }
-
         if (!$success) {
-            $this->fail(
-                $other,
-                $description,
-                new ComparisonFailure(
-                    $this->expected,
-                    $other,
-                    Exporter::export($this->expected),
-                    Exporter::export($other),
-                ),
-            );
+            $this->fail($other, $description, new Comparison_Failure($this->expected, $other, Exporter::export($this->expected), Exporter::export($other)));
         }
-
         // @codeCoverageIgnoreStart
         return null;
         // @codeCoverageIgnoreEnd
     }
-
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
+    public function to_string(): string
     {
-        if ($this->keysMatter && $this->orderMatters) {
-            return 'two arrays are ' . $this->comparisonType();
+        if ($this->keys_matter && $this->order_matters) {
+            return 'two arrays are ' . $this->comparison_type();
         }
-
-        if (!$this->keysMatter && !$this->orderMatters) {
-            return 'two arrays are ' . $this->comparisonType() . ' while ignoring keys and order';
+        if (!$this->keys_matter && !$this->order_matters) {
+            return 'two arrays are ' . $this->comparison_type() . ' while ignoring keys and order';
         }
-
-        if (!$this->keysMatter) {
-            return 'two arrays are ' . $this->comparisonType() . ' while ignoring keys';
+        if (!$this->keys_matter) {
+            return 'two arrays are ' . $this->comparison_type() . ' while ignoring keys';
         }
-
-        return 'two arrays are ' . $this->comparisonType() . ' while ignoring order';
+        return 'two arrays are ' . $this->comparison_type() . ' while ignoring order';
     }
-
     /**
      * Returns the description of the failure.
      *
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
      */
-    protected function failureDescription(mixed $other): string
+    protected function failure_description(mixed $other): string
     {
-        return $this->toString();
+        return $this->to_string();
     }
-
     /**
      * Compares two arrays using the appropriate comparison method.
      */
-    abstract protected function compareArrays(mixed $expected, mixed $actual): bool;
-
+    abstract protected function compare_arrays(mixed $expected, mixed $actual): bool;
     /**
      * @return 'equal'|'identical'
      */
-    abstract protected function comparisonType(): string;
+    abstract protected function comparison_type(): string;
 }

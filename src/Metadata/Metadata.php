@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,13 +9,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Metadata;
+namespace Php_Unit\Metadata;
 
 use Closure;
-use PHPUnit\Metadata\Version\Requirement;
-use PHPUnit\Runner\Extension\Extension;
-
+use Php_Unit\Metadata\Version\Requirement;
+use Php_Unit\Runner\Extension\Extension;
 /**
  * @immutable
  *
@@ -27,993 +25,858 @@ abstract readonly class Metadata
     {
         return new After(Level::METHOD_LEVEL, $priority);
     }
-
-    public static function afterClass(int $priority): AfterClass
+    public static function after_class(int $priority): After_Class
     {
-        return new AfterClass(Level::METHOD_LEVEL, $priority);
+        return new After_Class(Level::METHOD_LEVEL, $priority);
     }
-
-    public static function allowMockObjectsWithoutExpectationsOnClass(): AllowMockObjectsWithoutExpectations
+    public static function allow_mock_objects_without_expectations_on_class(): Allow_Mock_Objects_Without_Expectations
     {
-        return new AllowMockObjectsWithoutExpectations(Level::CLASS_LEVEL);
+        return new Allow_Mock_Objects_Without_Expectations(Level::CLASS_LEVEL);
     }
-
-    public static function allowMockObjectsWithoutExpectationsOnMethod(): AllowMockObjectsWithoutExpectations
+    public static function allow_mock_objects_without_expectations_on_method(): Allow_Mock_Objects_Without_Expectations
     {
-        return new AllowMockObjectsWithoutExpectations(Level::METHOD_LEVEL);
+        return new Allow_Mock_Objects_Without_Expectations(Level::METHOD_LEVEL);
     }
-
-    public static function backupGlobalsOnClass(bool $enabled): BackupGlobals
+    public static function backup_globals_on_class(bool $enabled): Backup_Globals
     {
-        return new BackupGlobals(Level::CLASS_LEVEL, $enabled);
+        return new Backup_Globals(Level::CLASS_LEVEL, $enabled);
     }
-
-    public static function backupGlobalsOnMethod(bool $enabled): BackupGlobals
+    public static function backup_globals_on_method(bool $enabled): Backup_Globals
     {
-        return new BackupGlobals(Level::METHOD_LEVEL, $enabled);
+        return new Backup_Globals(Level::METHOD_LEVEL, $enabled);
     }
-
-    public static function backupStaticPropertiesOnClass(bool $enabled): BackupStaticProperties
+    public static function backup_static_properties_on_class(bool $enabled): Backup_Static_Properties
     {
-        return new BackupStaticProperties(Level::CLASS_LEVEL, $enabled);
+        return new Backup_Static_Properties(Level::CLASS_LEVEL, $enabled);
     }
-
-    public static function backupStaticPropertiesOnMethod(bool $enabled): BackupStaticProperties
+    public static function backup_static_properties_on_method(bool $enabled): Backup_Static_Properties
     {
-        return new BackupStaticProperties(Level::METHOD_LEVEL, $enabled);
+        return new Backup_Static_Properties(Level::METHOD_LEVEL, $enabled);
     }
-
     public static function before(int $priority): Before
     {
         return new Before(Level::METHOD_LEVEL, $priority);
     }
-
-    public static function beforeClass(int $priority): BeforeClass
+    public static function before_class(int $priority): Before_Class
     {
-        return new BeforeClass(Level::METHOD_LEVEL, $priority);
+        return new Before_Class(Level::METHOD_LEVEL, $priority);
     }
-
     /**
      * @param non-empty-string $namespace
      */
-    public static function coversNamespace(string $namespace): CoversNamespace
+    public static function covers_namespace(string $namespace): Covers_Namespace
     {
-        return new CoversNamespace(Level::CLASS_LEVEL, $namespace);
+        return new Covers_Namespace(Level::CLASS_LEVEL, $namespace);
     }
-
     /**
      * @param class-string $className
      */
-    public static function coversClass(string $className): CoversClass
+    public static function covers_class(string $class_name): Covers_Class
     {
-        return new CoversClass(Level::CLASS_LEVEL, $className);
+        return new Covers_Class(Level::CLASS_LEVEL, $class_name);
     }
-
     /**
      * @param class-string $className
      */
-    public static function coversClassesThatExtendClass(string $className): CoversClassesThatExtendClass
+    public static function covers_classes_that_extend_class(string $class_name): Covers_Classes_That_Extend_Class
     {
-        return new CoversClassesThatExtendClass(Level::CLASS_LEVEL, $className);
+        return new Covers_Classes_That_Extend_Class(Level::CLASS_LEVEL, $class_name);
     }
-
     /**
      * @param class-string $interfaceName
      */
-    public static function coversClassesThatImplementInterface(string $interfaceName): CoversClassesThatImplementInterface
+    public static function covers_classes_that_implement_interface(string $interface_name): Covers_Classes_That_Implement_Interface
     {
-        return new CoversClassesThatImplementInterface(Level::CLASS_LEVEL, $interfaceName);
+        return new Covers_Classes_That_Implement_Interface(Level::CLASS_LEVEL, $interface_name);
     }
-
     /**
      * @param trait-string $traitName
      */
-    public static function coversTrait(string $traitName): CoversTrait
+    public static function covers_trait(string $trait_name): Covers_Trait
     {
-        return new CoversTrait(Level::CLASS_LEVEL, $traitName);
+        return new Covers_Trait(Level::CLASS_LEVEL, $trait_name);
     }
-
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public static function coversMethod(string $className, string $methodName): CoversMethod
+    public static function covers_method(string $class_name, string $method_name): Covers_Method
     {
-        return new CoversMethod(Level::CLASS_LEVEL, $className, $methodName);
+        return new Covers_Method(Level::CLASS_LEVEL, $class_name, $method_name);
     }
-
     /**
      * @param non-empty-string $functionName
      */
-    public static function coversFunction(string $functionName): CoversFunction
+    public static function covers_function(string $function_name): Covers_Function
     {
-        return new CoversFunction(Level::CLASS_LEVEL, $functionName);
+        return new Covers_Function(Level::CLASS_LEVEL, $function_name);
     }
-
-    public static function coversNothingOnClass(): CoversNothing
+    public static function covers_nothing_on_class(): Covers_Nothing
     {
-        return new CoversNothing(Level::CLASS_LEVEL);
+        return new Covers_Nothing(Level::CLASS_LEVEL);
     }
-
-    public static function coversNothingOnMethod(): CoversNothing
+    public static function covers_nothing_on_method(): Covers_Nothing
     {
-        return new CoversNothing(Level::METHOD_LEVEL);
+        return new Covers_Nothing(Level::METHOD_LEVEL);
     }
-
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public static function dataProvider(string $className, string $methodName, bool $validateArgumentCount): DataProvider
+    public static function data_provider(string $class_name, string $method_name, bool $validate_argument_count): Data_Provider
     {
-        return new DataProvider(Level::METHOD_LEVEL, $className, $methodName, $validateArgumentCount);
+        return new Data_Provider(Level::METHOD_LEVEL, $class_name, $method_name, $validate_argument_count);
     }
-
-    public static function dataProviderClosure(Closure $callable, bool $validateArgumentCount): DataProviderClosure
+    public static function data_provider_closure(Closure $callable, bool $validate_argument_count): Data_Provider_Closure
     {
-        return new DataProviderClosure(Level::METHOD_LEVEL, $callable, $validateArgumentCount);
+        return new Data_Provider_Closure(Level::METHOD_LEVEL, $callable, $validate_argument_count);
     }
-
     /**
      * @param class-string $className
      */
-    public static function dependsOnClass(string $className, bool $deepClone, bool $shallowClone): DependsOnClass
+    public static function depends_on_class(string $class_name, bool $deep_clone, bool $shallow_clone): Depends_On_Class
     {
-        return new DependsOnClass(Level::METHOD_LEVEL, $className, $deepClone, $shallowClone);
+        return new Depends_On_Class(Level::METHOD_LEVEL, $class_name, $deep_clone, $shallow_clone);
     }
-
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public static function dependsOnMethod(string $className, string $methodName, bool $deepClone, bool $shallowClone): DependsOnMethod
+    public static function depends_on_method(string $class_name, string $method_name, bool $deep_clone, bool $shallow_clone): Depends_On_Method
     {
-        return new DependsOnMethod(Level::METHOD_LEVEL, $className, $methodName, $deepClone, $shallowClone);
+        return new Depends_On_Method(Level::METHOD_LEVEL, $class_name, $method_name, $deep_clone, $shallow_clone);
     }
-
-    public static function disableReturnValueGenerationForTestDoubles(): DisableReturnValueGenerationForTestDoubles
+    public static function disable_return_value_generation_for_test_doubles(): Disable_Return_Value_Generation_For_Test_Doubles
     {
-        return new DisableReturnValueGenerationForTestDoubles(Level::CLASS_LEVEL);
+        return new Disable_Return_Value_Generation_For_Test_Doubles(Level::CLASS_LEVEL);
     }
-
-    public static function doesNotPerformAssertionsOnClass(): DoesNotPerformAssertions
+    public static function does_not_perform_assertions_on_class(): Does_Not_Perform_Assertions
     {
-        return new DoesNotPerformAssertions(Level::CLASS_LEVEL);
+        return new Does_Not_Perform_Assertions(Level::CLASS_LEVEL);
     }
-
-    public static function doesNotPerformAssertionsOnMethod(): DoesNotPerformAssertions
+    public static function does_not_perform_assertions_on_method(): Does_Not_Perform_Assertions
     {
-        return new DoesNotPerformAssertions(Level::METHOD_LEVEL);
+        return new Does_Not_Perform_Assertions(Level::METHOD_LEVEL);
     }
-
     /**
      * @param non-empty-string $globalVariableName
      */
-    public static function excludeGlobalVariableFromBackupOnClass(string $globalVariableName): ExcludeGlobalVariableFromBackup
+    public static function exclude_global_variable_from_backup_on_class(string $global_variable_name): Exclude_Global_Variable_From_Backup
     {
-        return new ExcludeGlobalVariableFromBackup(Level::CLASS_LEVEL, $globalVariableName);
+        return new Exclude_Global_Variable_From_Backup(Level::CLASS_LEVEL, $global_variable_name);
     }
-
     /**
      * @param non-empty-string $globalVariableName
      */
-    public static function excludeGlobalVariableFromBackupOnMethod(string $globalVariableName): ExcludeGlobalVariableFromBackup
+    public static function exclude_global_variable_from_backup_on_method(string $global_variable_name): Exclude_Global_Variable_From_Backup
     {
-        return new ExcludeGlobalVariableFromBackup(Level::METHOD_LEVEL, $globalVariableName);
+        return new Exclude_Global_Variable_From_Backup(Level::METHOD_LEVEL, $global_variable_name);
     }
-
     /**
      * @param class-string     $className
      * @param non-empty-string $propertyName
      */
-    public static function excludeStaticPropertyFromBackupOnClass(string $className, string $propertyName): ExcludeStaticPropertyFromBackup
+    public static function exclude_static_property_from_backup_on_class(string $class_name, string $property_name): Exclude_Static_Property_From_Backup
     {
-        return new ExcludeStaticPropertyFromBackup(Level::CLASS_LEVEL, $className, $propertyName);
+        return new Exclude_Static_Property_From_Backup(Level::CLASS_LEVEL, $class_name, $property_name);
     }
-
     /**
      * @param class-string     $className
      * @param non-empty-string $propertyName
      */
-    public static function excludeStaticPropertyFromBackupOnMethod(string $className, string $propertyName): ExcludeStaticPropertyFromBackup
+    public static function exclude_static_property_from_backup_on_method(string $class_name, string $property_name): Exclude_Static_Property_From_Backup
     {
-        return new ExcludeStaticPropertyFromBackup(Level::METHOD_LEVEL, $className, $propertyName);
+        return new Exclude_Static_Property_From_Backup(Level::METHOD_LEVEL, $class_name, $property_name);
     }
-
     /**
      * @param non-empty-string $groupName
      */
-    public static function groupOnClass(string $groupName): Group
+    public static function group_on_class(string $group_name): Group
     {
-        return new Group(Level::CLASS_LEVEL, $groupName);
+        return new Group(Level::CLASS_LEVEL, $group_name);
     }
-
     /**
      * @param non-empty-string $groupName
      */
-    public static function groupOnMethod(string $groupName): Group
+    public static function group_on_method(string $group_name): Group
     {
-        return new Group(Level::METHOD_LEVEL, $groupName);
+        return new Group(Level::METHOD_LEVEL, $group_name);
     }
-
     /**
      * @param null|non-empty-string $messagePattern
      */
-    public static function ignoreDeprecationsOnClass(?string $messagePattern = null): IgnoreDeprecations
+    public static function ignore_deprecations_on_class(?string $message_pattern = null): Ignore_Deprecations
     {
-        return new IgnoreDeprecations(Level::CLASS_LEVEL, $messagePattern);
+        return new Ignore_Deprecations(Level::CLASS_LEVEL, $message_pattern);
     }
-
     /**
      * @param null|non-empty-string $messagePattern
      */
-    public static function ignoreDeprecationsOnMethod(?string $messagePattern = null): IgnoreDeprecations
+    public static function ignore_deprecations_on_method(?string $message_pattern = null): Ignore_Deprecations
     {
-        return new IgnoreDeprecations(Level::METHOD_LEVEL, $messagePattern);
+        return new Ignore_Deprecations(Level::METHOD_LEVEL, $message_pattern);
     }
-
     /**
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
-    public static function ignorePhpunitDeprecationsOnClass(): IgnorePhpunitDeprecations
+    public static function ignore_phpunit_deprecations_on_class(): Ignore_Phpunit_Deprecations
     {
-        return new IgnorePhpunitDeprecations(Level::CLASS_LEVEL);
+        return new Ignore_Phpunit_Deprecations(Level::CLASS_LEVEL);
     }
-
     /**
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
-    public static function ignorePhpunitDeprecationsOnMethod(): IgnorePhpunitDeprecations
+    public static function ignore_phpunit_deprecations_on_method(): Ignore_Phpunit_Deprecations
     {
-        return new IgnorePhpunitDeprecations(Level::METHOD_LEVEL);
+        return new Ignore_Phpunit_Deprecations(Level::METHOD_LEVEL);
     }
-
-    public static function postCondition(int $priority): PostCondition
+    public static function post_condition(int $priority): Post_Condition
     {
-        return new PostCondition(Level::METHOD_LEVEL, $priority);
+        return new Post_Condition(Level::METHOD_LEVEL, $priority);
     }
-
-    public static function preCondition(int $priority): PreCondition
+    public static function pre_condition(int $priority): Pre_Condition
     {
-        return new PreCondition(Level::METHOD_LEVEL, $priority);
+        return new Pre_Condition(Level::METHOD_LEVEL, $priority);
     }
-
-    public static function preserveGlobalStateOnClass(bool $enabled): PreserveGlobalState
+    public static function preserve_global_state_on_class(bool $enabled): Preserve_Global_State
     {
-        return new PreserveGlobalState(Level::CLASS_LEVEL, $enabled);
+        return new Preserve_Global_State(Level::CLASS_LEVEL, $enabled);
     }
-
-    public static function preserveGlobalStateOnMethod(bool $enabled): PreserveGlobalState
+    public static function preserve_global_state_on_method(bool $enabled): Preserve_Global_State
     {
-        return new PreserveGlobalState(Level::METHOD_LEVEL, $enabled);
+        return new Preserve_Global_State(Level::METHOD_LEVEL, $enabled);
     }
-
     /**
      * @param non-empty-string $functionName
      */
-    public static function requiresFunctionOnClass(string $functionName): RequiresFunction
+    public static function requires_function_on_class(string $function_name): Requires_Function
     {
-        return new RequiresFunction(Level::CLASS_LEVEL, $functionName);
+        return new Requires_Function(Level::CLASS_LEVEL, $function_name);
     }
-
     /**
      * @param non-empty-string $functionName
      */
-    public static function requiresFunctionOnMethod(string $functionName): RequiresFunction
+    public static function requires_function_on_method(string $function_name): Requires_Function
     {
-        return new RequiresFunction(Level::METHOD_LEVEL, $functionName);
+        return new Requires_Function(Level::METHOD_LEVEL, $function_name);
     }
-
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public static function requiresMethodOnClass(string $className, string $methodName): RequiresMethod
+    public static function requires_method_on_class(string $class_name, string $method_name): Requires_Method
     {
-        return new RequiresMethod(Level::CLASS_LEVEL, $className, $methodName);
+        return new Requires_Method(Level::CLASS_LEVEL, $class_name, $method_name);
     }
-
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public static function requiresMethodOnMethod(string $className, string $methodName): RequiresMethod
+    public static function requires_method_on_method(string $class_name, string $method_name): Requires_Method
     {
-        return new RequiresMethod(Level::METHOD_LEVEL, $className, $methodName);
+        return new Requires_Method(Level::METHOD_LEVEL, $class_name, $method_name);
     }
-
     /**
      * @param non-empty-string $operatingSystem
      */
-    public static function requiresOperatingSystemOnClass(string $operatingSystem): RequiresOperatingSystem
+    public static function requires_operating_system_on_class(string $operating_system): Requires_Operating_System
     {
-        return new RequiresOperatingSystem(Level::CLASS_LEVEL, $operatingSystem);
+        return new Requires_Operating_System(Level::CLASS_LEVEL, $operating_system);
     }
-
     /**
      * @param non-empty-string $operatingSystem
      */
-    public static function requiresOperatingSystemOnMethod(string $operatingSystem): RequiresOperatingSystem
+    public static function requires_operating_system_on_method(string $operating_system): Requires_Operating_System
     {
-        return new RequiresOperatingSystem(Level::METHOD_LEVEL, $operatingSystem);
+        return new Requires_Operating_System(Level::METHOD_LEVEL, $operating_system);
     }
-
     /**
      * @param non-empty-string $operatingSystemFamily
      */
-    public static function requiresOperatingSystemFamilyOnClass(string $operatingSystemFamily): RequiresOperatingSystemFamily
+    public static function requires_operating_system_family_on_class(string $operating_system_family): Requires_Operating_System_Family
     {
-        return new RequiresOperatingSystemFamily(Level::CLASS_LEVEL, $operatingSystemFamily);
+        return new Requires_Operating_System_Family(Level::CLASS_LEVEL, $operating_system_family);
     }
-
     /**
      * @param non-empty-string $operatingSystemFamily
      */
-    public static function requiresOperatingSystemFamilyOnMethod(string $operatingSystemFamily): RequiresOperatingSystemFamily
+    public static function requires_operating_system_family_on_method(string $operating_system_family): Requires_Operating_System_Family
     {
-        return new RequiresOperatingSystemFamily(Level::METHOD_LEVEL, $operatingSystemFamily);
+        return new Requires_Operating_System_Family(Level::METHOD_LEVEL, $operating_system_family);
     }
-
-    public static function requiresPhpOnClass(Requirement $versionRequirement): RequiresPhp
+    public static function requires_php_on_class(Requirement $version_requirement): Requires_Php
     {
-        return new RequiresPhp(Level::CLASS_LEVEL, $versionRequirement);
+        return new Requires_Php(Level::CLASS_LEVEL, $version_requirement);
     }
-
-    public static function requiresPhpOnMethod(Requirement $versionRequirement): RequiresPhp
+    public static function requires_php_on_method(Requirement $version_requirement): Requires_Php
     {
-        return new RequiresPhp(Level::METHOD_LEVEL, $versionRequirement);
+        return new Requires_Php(Level::METHOD_LEVEL, $version_requirement);
     }
-
     /**
      * @param non-empty-string $extension
      */
-    public static function requiresPhpExtensionOnClass(string $extension, ?Requirement $versionRequirement): RequiresPhpExtension
+    public static function requires_php_extension_on_class(string $extension, ?Requirement $version_requirement): Requires_Php_Extension
     {
-        return new RequiresPhpExtension(Level::CLASS_LEVEL, $extension, $versionRequirement);
+        return new Requires_Php_Extension(Level::CLASS_LEVEL, $extension, $version_requirement);
     }
-
     /**
      * @param non-empty-string $extension
      */
-    public static function requiresPhpExtensionOnMethod(string $extension, ?Requirement $versionRequirement): RequiresPhpExtension
+    public static function requires_php_extension_on_method(string $extension, ?Requirement $version_requirement): Requires_Php_Extension
     {
-        return new RequiresPhpExtension(Level::METHOD_LEVEL, $extension, $versionRequirement);
+        return new Requires_Php_Extension(Level::METHOD_LEVEL, $extension, $version_requirement);
     }
-
-    public static function requiresPhpunitOnClass(Requirement $versionRequirement): RequiresPhpunit
+    public static function requires_phpunit_on_class(Requirement $version_requirement): Requires_Phpunit
     {
-        return new RequiresPhpunit(Level::CLASS_LEVEL, $versionRequirement);
+        return new Requires_Phpunit(Level::CLASS_LEVEL, $version_requirement);
     }
-
-    public static function requiresPhpunitOnMethod(Requirement $versionRequirement): RequiresPhpunit
+    public static function requires_phpunit_on_method(Requirement $version_requirement): Requires_Phpunit
     {
-        return new RequiresPhpunit(Level::METHOD_LEVEL, $versionRequirement);
+        return new Requires_Phpunit(Level::METHOD_LEVEL, $version_requirement);
     }
-
     /**
      * @param class-string<Extension> $extensionClass
      */
-    public static function requiresPhpunitExtensionOnClass(string $extensionClass): RequiresPhpunitExtension
+    public static function requires_phpunit_extension_on_class(string $extension_class): Requires_Phpunit_Extension
     {
-        return new RequiresPhpunitExtension(Level::CLASS_LEVEL, $extensionClass);
+        return new Requires_Phpunit_Extension(Level::CLASS_LEVEL, $extension_class);
     }
-
     /**
      * @param class-string<Extension> $extensionClass
      */
-    public static function requiresPhpunitExtensionOnMethod(string $extensionClass): RequiresPhpunitExtension
+    public static function requires_phpunit_extension_on_method(string $extension_class): Requires_Phpunit_Extension
     {
-        return new RequiresPhpunitExtension(Level::METHOD_LEVEL, $extensionClass);
+        return new Requires_Phpunit_Extension(Level::METHOD_LEVEL, $extension_class);
     }
-
-    public static function requiresEnvironmentVariableOnClass(string $environmentVariableName, null|string $value): RequiresEnvironmentVariable
+    public static function requires_environment_variable_on_class(string $environment_variable_name, null|string $value): Requires_Environment_Variable
     {
-        return new RequiresEnvironmentVariable(Level::CLASS_LEVEL, $environmentVariableName, $value);
+        return new Requires_Environment_Variable(Level::CLASS_LEVEL, $environment_variable_name, $value);
     }
-
-    public static function requiresEnvironmentVariableOnMethod(string $environmentVariableName, null|string $value): RequiresEnvironmentVariable
+    public static function requires_environment_variable_on_method(string $environment_variable_name, null|string $value): Requires_Environment_Variable
     {
-        return new RequiresEnvironmentVariable(Level::METHOD_LEVEL, $environmentVariableName, $value);
+        return new Requires_Environment_Variable(Level::METHOD_LEVEL, $environment_variable_name, $value);
     }
-
-    public static function withEnvironmentVariableOnClass(string $environmentVariableName, null|string $value): WithEnvironmentVariable
+    public static function with_environment_variable_on_class(string $environment_variable_name, null|string $value): With_Environment_Variable
     {
-        return new WithEnvironmentVariable(Level::CLASS_LEVEL, $environmentVariableName, $value);
+        return new With_Environment_Variable(Level::CLASS_LEVEL, $environment_variable_name, $value);
     }
-
-    public static function withEnvironmentVariableOnMethod(string $environmentVariableName, null|string $value): WithEnvironmentVariable
+    public static function with_environment_variable_on_method(string $environment_variable_name, null|string $value): With_Environment_Variable
     {
-        return new WithEnvironmentVariable(Level::METHOD_LEVEL, $environmentVariableName, $value);
+        return new With_Environment_Variable(Level::METHOD_LEVEL, $environment_variable_name, $value);
     }
-
     /**
      * @param non-empty-string $setting
      * @param non-empty-string $value
      */
-    public static function requiresSettingOnClass(string $setting, string $value): RequiresSetting
+    public static function requires_setting_on_class(string $setting, string $value): Requires_Setting
     {
-        return new RequiresSetting(Level::CLASS_LEVEL, $setting, $value);
+        return new Requires_Setting(Level::CLASS_LEVEL, $setting, $value);
     }
-
     /**
      * @param non-empty-string $setting
      * @param non-empty-string $value
      */
-    public static function requiresSettingOnMethod(string $setting, string $value): RequiresSetting
+    public static function requires_setting_on_method(string $setting, string $value): Requires_Setting
     {
-        return new RequiresSetting(Level::METHOD_LEVEL, $setting, $value);
+        return new Requires_Setting(Level::METHOD_LEVEL, $setting, $value);
     }
-
-    public static function runTestsInSeparateProcesses(): RunTestsInSeparateProcesses
+    public static function run_tests_in_separate_processes(): Run_Tests_In_Separate_Processes
     {
-        return new RunTestsInSeparateProcesses(Level::CLASS_LEVEL);
+        return new Run_Tests_In_Separate_Processes(Level::CLASS_LEVEL);
     }
-
-    public static function runInSeparateProcess(): RunInSeparateProcess
+    public static function run_in_separate_process(): Run_In_Separate_Process
     {
-        return new RunInSeparateProcess(Level::METHOD_LEVEL);
+        return new Run_In_Separate_Process(Level::METHOD_LEVEL);
     }
-
     public static function test(): Test
     {
         return new Test(Level::METHOD_LEVEL);
     }
-
     /**
      * @param non-empty-string $text
      */
-    public static function testDoxOnClass(string $text): TestDox
+    public static function test_dox_on_class(string $text): Test_Dox
     {
-        return new TestDox(Level::CLASS_LEVEL, $text);
+        return new Test_Dox(Level::CLASS_LEVEL, $text);
     }
-
     /**
      * @param non-empty-string $text
      */
-    public static function testDoxOnMethod(string $text): TestDox
+    public static function test_dox_on_method(string $text): Test_Dox
     {
-        return new TestDox(Level::METHOD_LEVEL, $text);
+        return new Test_Dox(Level::METHOD_LEVEL, $text);
     }
-
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public static function testDoxFormatter(string $className, string $methodName): TestDoxFormatter
+    public static function test_dox_formatter(string $class_name, string $method_name): Test_Dox_Formatter
     {
-        return new TestDoxFormatter(Level::METHOD_LEVEL, $className, $methodName);
+        return new Test_Dox_Formatter(Level::METHOD_LEVEL, $class_name, $method_name);
     }
-
     /**
      * @param ?non-empty-string $name
      */
-    public static function testWith(mixed $data, ?string $name = null): TestWith
+    public static function test_with(mixed $data, ?string $name = null): Test_With
     {
-        return new TestWith(Level::METHOD_LEVEL, $data, $name);
+        return new Test_With(Level::METHOD_LEVEL, $data, $name);
     }
-
     /**
      * @param non-empty-string $namespace
      */
-    public static function usesNamespace(string $namespace): UsesNamespace
+    public static function uses_namespace(string $namespace): Uses_Namespace
     {
-        return new UsesNamespace(Level::CLASS_LEVEL, $namespace);
+        return new Uses_Namespace(Level::CLASS_LEVEL, $namespace);
     }
-
     /**
      * @param class-string $className
      */
-    public static function usesClass(string $className): UsesClass
+    public static function uses_class(string $class_name): Uses_Class
     {
-        return new UsesClass(Level::CLASS_LEVEL, $className);
+        return new Uses_Class(Level::CLASS_LEVEL, $class_name);
     }
-
     /**
      * @param class-string $className
      */
-    public static function usesClassesThatExtendClass(string $className): UsesClassesThatExtendClass
+    public static function uses_classes_that_extend_class(string $class_name): Uses_Classes_That_Extend_Class
     {
-        return new UsesClassesThatExtendClass(Level::CLASS_LEVEL, $className);
+        return new Uses_Classes_That_Extend_Class(Level::CLASS_LEVEL, $class_name);
     }
-
     /**
      * @param class-string $interfaceName
      */
-    public static function usesClassesThatImplementInterface(string $interfaceName): UsesClassesThatImplementInterface
+    public static function uses_classes_that_implement_interface(string $interface_name): Uses_Classes_That_Implement_Interface
     {
-        return new UsesClassesThatImplementInterface(Level::CLASS_LEVEL, $interfaceName);
+        return new Uses_Classes_That_Implement_Interface(Level::CLASS_LEVEL, $interface_name);
     }
-
     /**
      * @param trait-string $traitName
      */
-    public static function usesTrait(string $traitName): UsesTrait
+    public static function uses_trait(string $trait_name): Uses_Trait
     {
-        return new UsesTrait(Level::CLASS_LEVEL, $traitName);
+        return new Uses_Trait(Level::CLASS_LEVEL, $trait_name);
     }
-
     /**
      * @param non-empty-string $functionName
      */
-    public static function usesFunction(string $functionName): UsesFunction
+    public static function uses_function(string $function_name): Uses_Function
     {
-        return new UsesFunction(Level::CLASS_LEVEL, $functionName);
+        return new Uses_Function(Level::CLASS_LEVEL, $function_name);
     }
-
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    public static function usesMethod(string $className, string $methodName): UsesMethod
+    public static function uses_method(string $class_name, string $method_name): Uses_Method
     {
-        return new UsesMethod(Level::CLASS_LEVEL, $className, $methodName);
+        return new Uses_Method(Level::CLASS_LEVEL, $class_name, $method_name);
     }
-
-    public static function withoutErrorHandler(): WithoutErrorHandler
+    public static function without_error_handler(): Without_Error_Handler
     {
-        return new WithoutErrorHandler(Level::METHOD_LEVEL);
+        return new Without_Error_Handler(Level::METHOD_LEVEL);
     }
-
     /**
      * @param null|non-empty-string $messagePattern
      */
-    public static function ignorePhpunitWarnings(?string $messagePattern): IgnorePhpunitWarnings
+    public static function ignore_phpunit_warnings(?string $message_pattern): Ignore_Phpunit_Warnings
     {
-        return new IgnorePhpunitWarnings(Level::METHOD_LEVEL, $messagePattern);
+        return new Ignore_Phpunit_Warnings(Level::METHOD_LEVEL, $message_pattern);
     }
-
     protected function __construct(private Level $level)
     {
     }
-
-    public function isClassLevel(): bool
+    public function is_class_level(): bool
     {
         return $this->level === Level::CLASS_LEVEL;
     }
-
-    public function isMethodLevel(): bool
+    public function is_method_level(): bool
     {
         return $this->level === Level::METHOD_LEVEL;
     }
-
     /**
      * @phpstan-assert-if-true After $this
      */
-    public function isAfter(): bool
+    public function is_after(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true AfterClass $this
      */
-    public function isAfterClass(): bool
+    public function is_after_class(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true AllowMockObjectsWithoutExpectations $this
      */
-    public function isAllowMockObjectsWithoutExpectations(): bool
+    public function is_allow_mock_objects_without_expectations(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true BackupGlobals $this
      */
-    public function isBackupGlobals(): bool
+    public function is_backup_globals(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true BackupStaticProperties $this
      */
-    public function isBackupStaticProperties(): bool
+    public function is_backup_static_properties(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true BeforeClass $this
      */
-    public function isBeforeClass(): bool
+    public function is_before_class(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true Before $this
      */
-    public function isBefore(): bool
+    public function is_before(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true CoversNamespace $this
      */
-    public function isCoversNamespace(): bool
+    public function is_covers_namespace(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true CoversClass $this
      */
-    public function isCoversClass(): bool
+    public function is_covers_class(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true CoversClassesThatExtendClass $this
      */
-    public function isCoversClassesThatExtendClass(): bool
+    public function is_covers_classes_that_extend_class(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true CoversClassesThatImplementInterface $this
      */
-    public function isCoversClassesThatImplementInterface(): bool
+    public function is_covers_classes_that_implement_interface(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true CoversTrait $this
      */
-    public function isCoversTrait(): bool
+    public function is_covers_trait(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true CoversFunction $this
      */
-    public function isCoversFunction(): bool
+    public function is_covers_function(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true CoversMethod $this
      */
-    public function isCoversMethod(): bool
+    public function is_covers_method(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true CoversNothing $this
      */
-    public function isCoversNothing(): bool
+    public function is_covers_nothing(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true DataProvider $this
      */
-    public function isDataProvider(): bool
+    public function is_data_provider(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true DataProviderClosure $this
      */
-    public function isDataProviderClosure(): bool
+    public function is_data_provider_closure(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true DependsOnClass $this
      */
-    public function isDependsOnClass(): bool
+    public function is_depends_on_class(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true DependsOnMethod $this
      */
-    public function isDependsOnMethod(): bool
+    public function is_depends_on_method(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true DisableReturnValueGenerationForTestDoubles $this
      */
-    public function isDisableReturnValueGenerationForTestDoubles(): bool
+    public function is_disable_return_value_generation_for_test_doubles(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true DoesNotPerformAssertions $this
      */
-    public function isDoesNotPerformAssertions(): bool
+    public function is_does_not_perform_assertions(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true ExcludeGlobalVariableFromBackup $this
      */
-    public function isExcludeGlobalVariableFromBackup(): bool
+    public function is_exclude_global_variable_from_backup(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true ExcludeStaticPropertyFromBackup $this
      */
-    public function isExcludeStaticPropertyFromBackup(): bool
+    public function is_exclude_static_property_from_backup(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true Group $this
      */
-    public function isGroup(): bool
+    public function is_group(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true IgnoreDeprecations $this
      */
-    public function isIgnoreDeprecations(): bool
+    public function is_ignore_deprecations(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true IgnorePhpunitDeprecations $this
      *
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
-    public function isIgnorePhpunitDeprecations(): bool
+    public function is_ignore_phpunit_deprecations(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true RunInSeparateProcess $this
      */
-    public function isRunInSeparateProcess(): bool
+    public function is_run_in_separate_process(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true RunTestsInSeparateProcesses $this
      */
-    public function isRunTestsInSeparateProcesses(): bool
+    public function is_run_tests_in_separate_processes(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true Test $this
      */
-    public function isTest(): bool
+    public function is_test(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true PreCondition $this
      */
-    public function isPreCondition(): bool
+    public function is_pre_condition(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true PostCondition $this
      */
-    public function isPostCondition(): bool
+    public function is_post_condition(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true PreserveGlobalState $this
      */
-    public function isPreserveGlobalState(): bool
+    public function is_preserve_global_state(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true RequiresMethod $this
      */
-    public function isRequiresMethod(): bool
+    public function is_requires_method(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true RequiresFunction $this
      */
-    public function isRequiresFunction(): bool
+    public function is_requires_function(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true RequiresOperatingSystem $this
      */
-    public function isRequiresOperatingSystem(): bool
+    public function is_requires_operating_system(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true RequiresOperatingSystemFamily $this
      */
-    public function isRequiresOperatingSystemFamily(): bool
+    public function is_requires_operating_system_family(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true RequiresPhp $this
      */
-    public function isRequiresPhp(): bool
+    public function is_requires_php(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true RequiresPhpExtension $this
      */
-    public function isRequiresPhpExtension(): bool
+    public function is_requires_php_extension(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true RequiresPhpunit $this
      */
-    public function isRequiresPhpunit(): bool
+    public function is_requires_phpunit(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true RequiresPhpunitExtension $this
      */
-    public function isRequiresPhpunitExtension(): bool
+    public function is_requires_phpunit_extension(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true RequiresEnvironmentVariable $this
      */
-    public function isRequiresEnvironmentVariable(): bool
+    public function is_requires_environment_variable(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true WithEnvironmentVariable $this
      */
-    public function isWithEnvironmentVariable(): bool
+    public function is_with_environment_variable(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true RequiresSetting $this
      */
-    public function isRequiresSetting(): bool
+    public function is_requires_setting(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true TestDox $this
      */
-    public function isTestDox(): bool
+    public function is_test_dox(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true TestDoxFormatter $this
      */
-    public function isTestDoxFormatter(): bool
+    public function is_test_dox_formatter(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true TestWith $this
      */
-    public function isTestWith(): bool
+    public function is_test_with(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true UsesNamespace $this
      */
-    public function isUsesNamespace(): bool
+    public function is_uses_namespace(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true UsesClass $this
      */
-    public function isUsesClass(): bool
+    public function is_uses_class(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true UsesClassesThatExtendClass $this
      */
-    public function isUsesClassesThatExtendClass(): bool
+    public function is_uses_classes_that_extend_class(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true UsesClassesThatImplementInterface $this
      */
-    public function isUsesClassesThatImplementInterface(): bool
+    public function is_uses_classes_that_implement_interface(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true UsesTrait $this
      */
-    public function isUsesTrait(): bool
+    public function is_uses_trait(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true UsesFunction $this
      */
-    public function isUsesFunction(): bool
+    public function is_uses_function(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true UsesMethod $this
      */
-    public function isUsesMethod(): bool
+    public function is_uses_method(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true WithoutErrorHandler $this
      */
-    public function isWithoutErrorHandler(): bool
+    public function is_without_error_handler(): bool
     {
         return false;
     }
-
     /**
      * @phpstan-assert-if-true IgnorePhpunitWarnings $this
      */
-    public function isIgnorePhpunitWarnings(): bool
+    public function is_ignore_phpunit_warnings(): bool
     {
         return false;
     }

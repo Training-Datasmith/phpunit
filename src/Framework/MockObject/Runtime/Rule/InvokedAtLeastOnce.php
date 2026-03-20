@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,24 +9,21 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Framework\Mock_Object\Rule;
 
-namespace PHPUnit\Framework\MockObject\Rule;
-
-use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
-
+use Php_Unit\Framework\Expectation_Failed_Exception;
+use Php_Unit\Framework\Mock_Object\Invocation as BaseInvocation;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class InvokedAtLeastOnce extends InvocationOrder
+final class Invoked_At_Least_Once extends Invocation_Order
 {
-    public function toString(): string
+    public function to_string(): string
     {
         return 'invoked at least once';
     }
-
     /**
      * Verifies that the current expectation is valid. If everything is OK the
      * code should just return, if not it must throw an exception.
@@ -35,16 +32,12 @@ final class InvokedAtLeastOnce extends InvocationOrder
      */
     public function verify(): void
     {
-        $count = $this->numberOfInvocations();
-
+        $count = $this->number_of_invocations();
         if ($count < 1) {
-            throw new ExpectationFailedException(
-                'Expected invocation at least once but it never occurred.',
-            );
+            throw new Expectation_Failed_Exception('Expected invocation at least once but it never occurred.');
         }
     }
-
-    public function matches(BaseInvocation $invocation): bool
+    public function matches(Base_Invocation $invocation): bool
     {
         return true;
     }

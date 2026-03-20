@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,26 +9,18 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\MockObject;
+namespace Php_Unit\Framework\Mock_Object;
 
 use function sprintf;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class CannotUseOnlyMethodsException extends \PHPUnit\Framework\Exception implements Exception
+final class Cannot_Use_Only_Methods_Exception extends \Php_Unit\Framework\Exception implements Exception
 {
-    public function __construct(string $type, string $methodName)
+    public function __construct(string $type, string $method_name)
     {
-        parent::__construct(
-            sprintf(
-                'Trying to configure method "%s" with onlyMethods(), but it does not exist in class "%s"',
-                $methodName,
-                $type,
-            ),
-        );
+        parent::__construct(sprintf('Trying to configure method "%s" with onlyMethods(), but it does not exist in class "%s"', $method_name, $type));
     }
 }

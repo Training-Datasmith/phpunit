@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,52 +9,44 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Event\Test_Suite;
 
-namespace PHPUnit\Event\TestSuite;
-
-use PHPUnit\Event\Code\TestCollection;
-
+use Php_Unit\Event\Code\Test_Collection;
 /**
  * @immutable
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestSuiteForTestClass extends TestSuite
+final readonly class Test_Suite_For_Test_Class extends Test_Suite
 {
     /**
      * @var class-string
      */
-    private string $className;
-
+    private string $class_name;
     /**
      * @param class-string $name
      */
-    public function __construct(string $name, int $size, TestCollection $tests, private string $file, private int $line)
+    public function __construct(string $name, int $size, Test_Collection $tests, private string $file, private int $line)
     {
         parent::__construct($name, $size, $tests);
-
-        $this->className = $name;
+        $this->class_name = $name;
     }
-
     /**
      * @return class-string
      */
-    public function className(): string
+    public function class_name(): string
     {
-        return $this->className;
+        return $this->class_name;
     }
-
     public function file(): string
     {
         return $this->file;
     }
-
     public function line(): int
     {
         return $this->line;
     }
-
-    public function isForTestClass(): true
+    public function is_for_test_class(): true
     {
         return true;
     }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,37 +9,31 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\MockObject\Rule;
+namespace Php_Unit\Framework\Mock_Object\Rule;
 
 use function array_shift;
 use function count;
 use function is_array;
-
-use PHPUnit\Framework\ExpectationFailedException;
-use PHPUnit\Framework\MockObject\Invocation as BaseInvocation;
-use PHPUnit\Framework\MockObject\NoMoreParameterSetsConfiguredException;
-
+use Php_Unit\Framework\Expectation_Failed_Exception;
+use Php_Unit\Framework\Mock_Object\Invocation as BaseInvocation;
+use Php_Unit\Framework\Mock_Object\No_More_Parameter_Sets_Configured_Exception;
 use function sprintf;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class OrderedParameterSets implements ParametersRule
+final class Ordered_Parameter_Sets implements Parameters_Rule
 {
     /**
      * @var list<Parameters>
      */
     private array $stack = [];
-
     /**
      * @var list<Parameters>
      */
     private array $applied = [];
-    private readonly int $numberOfConfiguredParameterSets;
-
+    private readonly int $number_of_configured_parameter_sets;
     /**
      * @param list<Parameters> $stack
      */
@@ -48,25 +42,17 @@ final class OrderedParameterSets implements ParametersRule
         foreach ($stack as $parameters) {
             $this->stack[] = new Parameters(is_array($parameters) ? $parameters : [$parameters]);
         }
-
-        $this->numberOfConfiguredParameterSets = count($stack);
+        $this->number_of_configured_parameter_sets = count($stack);
     }
-
-    public function apply(BaseInvocation $invocation): void
+    public function apply(Base_Invocation $invocation): void
     {
         if ($this->stack === []) {
-            throw new NoMoreParameterSetsConfiguredException(
-                $invocation,
-                $this->numberOfConfiguredParameterSets,
-            );
+            throw new No_More_Parameter_Sets_Configured_Exception($invocation, $this->number_of_configured_parameter_sets);
         }
-
-        $parameters      = array_shift($this->stack);
+        $parameters = array_shift($this->stack);
         $this->applied[] = $parameters;
-
         $parameters->apply($invocation);
     }
-
     /**
      * Checks if the invocation $invocation matches the current rules. If it
      * does the rule will get the invoked() method called which should check
@@ -76,19 +62,9 @@ final class OrderedParameterSets implements ParametersRule
      */
     public function verify(): void
     {
-        if (count($this->applied) !== $this->numberOfConfiguredParameterSets &&
-            count($this->stack) > 0) {
-            throw new ExpectationFailedException(
-                sprintf(
-                    'Too many parameter sets given, %d out of %d expected parameter set%s %s been called.',
-                    count($this->applied),
-                    $this->numberOfConfiguredParameterSets,
-                    $this->numberOfConfiguredParameterSets !== 1 ? 's' : '',
-                    count($this->applied) !== 1 ? 'have' : 'has',
-                ),
-            );
+        if (count($this->applied) !== $this->number_of_configured_parameter_sets && count($this->stack) > 0) {
+            throw new Expectation_Failed_Exception(sprintf('Too many parameter sets given, %d out of %d expected parameter set%s %s been called.', count($this->applied), $this->number_of_configured_parameter_sets, $this->number_of_configured_parameter_sets !== 1 ? 's' : '', count($this->applied) !== 1 ? 'have' : 'has'));
         }
-
         foreach ($this->applied as $parameters) {
             $parameters->verify();
         }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,27 +9,18 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework;
+namespace Php_Unit\Framework;
 
 use function sprintf;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class ComparisonMethodDoesNotAcceptParameterTypeException extends Exception
+final class Comparison_Method_Does_Not_Accept_Parameter_Type_Exception extends Exception
 {
-    public function __construct(string $className, string $methodName, string $type)
+    public function __construct(string $class_name, string $method_name, string $type)
     {
-        parent::__construct(
-            sprintf(
-                '%s is not an accepted argument type for comparison method %s::%s().',
-                $type,
-                $className,
-                $methodName,
-            ),
-        );
+        parent::__construct(sprintf('%s is not an accepted argument type for comparison method %s::%s().', $type, $class_name, $method_name));
     }
 }

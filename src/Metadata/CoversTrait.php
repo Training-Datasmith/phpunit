@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,34 +9,31 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Metadata;
+namespace Php_Unit\Metadata;
 
 /**
  * @immutable
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class CoversTrait extends Metadata
+final readonly class Covers_Trait extends Metadata
 {
     /**
      * @param trait-string $traitName
      */
-    protected function __construct(Level $level, private string $traitName)
+    protected function __construct(Level $level, private string $trait_name)
     {
         parent::__construct($level);
     }
-
-    public function isCoversTrait(): true
+    public function is_covers_trait(): true
     {
         return true;
     }
-
     /**
      * @return trait-string
      */
-    public function traitName(): string
+    public function trait_name(): string
     {
-        return $this->traitName;
+        return $this->trait_name;
     }
 }

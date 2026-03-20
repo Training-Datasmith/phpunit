@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,11 +9,9 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Logging\TestDox;
+namespace Php_Unit\Logging\Test_Dox;
 
 use IteratorAggregate;
-
 /**
  * @template-implements IteratorAggregate<non-negative-int, TestResult>
  *
@@ -23,36 +21,32 @@ use IteratorAggregate;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestResultCollection implements IteratorAggregate
+final readonly class Test_Result_Collection implements IteratorAggregate
 {
     /**
      * @var list<TestResult>
      */
-    private array $testResults;
-
+    private array $test_results;
     /**
      * @param list<TestResult> $testResults
      */
-    public static function fromArray(array $testResults): self
+    public static function from_array(array $test_results): self
     {
-        return new self(...$testResults);
+        return new self(...$test_results);
     }
-
-    private function __construct(TestResult ...$testResults)
+    private function __construct(Test_Result ...$test_results)
     {
-        $this->testResults = $testResults;
+        $this->test_results = $test_results;
     }
-
     /**
      * @return list<TestResult>
      */
-    public function asArray(): array
+    public function as_array(): array
     {
-        return $this->testResults;
+        return $this->test_results;
     }
-
-    public function getIterator(): TestResultCollectionIterator
+    public function getIterator(): Test_Result_Collection_Iterator
     {
-        return new TestResultCollectionIterator($this);
+        return new Test_Result_Collection_Iterator($this);
     }
 }

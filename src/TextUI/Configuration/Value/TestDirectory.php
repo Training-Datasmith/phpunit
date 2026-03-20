@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,26 +9,23 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Text_Ui\Configuration;
 
-namespace PHPUnit\TextUI\Configuration;
-
-use PHPUnit\Util\VersionComparisonOperator;
-
+use Php_Unit\Util\Version_Comparison_Operator;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @immutable
  */
-final readonly class TestDirectory
+final readonly class Test_Directory
 {
     /**
      * @param non-empty-string       $path
      * @param list<non-empty-string> $groups
      */
-    public function __construct(private string $path, private string $prefix, private string $suffix, private string $phpVersion, private VersionComparisonOperator $phpVersionOperator, private array $groups)
+    public function __construct(private string $path, private string $prefix, private string $suffix, private string $php_version, private Version_Comparison_Operator $php_version_operator, private array $groups)
     {
     }
-
     /**
      * @return non-empty-string
      */
@@ -36,27 +33,22 @@ final readonly class TestDirectory
     {
         return $this->path;
     }
-
     public function prefix(): string
     {
         return $this->prefix;
     }
-
     public function suffix(): string
     {
         return $this->suffix;
     }
-
-    public function phpVersion(): string
+    public function php_version(): string
     {
-        return $this->phpVersion;
+        return $this->php_version;
     }
-
-    public function phpVersionOperator(): VersionComparisonOperator
+    public function php_version_operator(): Version_Comparison_Operator
     {
-        return $this->phpVersionOperator;
+        return $this->php_version_operator;
     }
-
     /**
      * @return list<non-empty-string>
      */

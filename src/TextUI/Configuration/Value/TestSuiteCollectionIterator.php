@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,43 +9,36 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Configuration;
+namespace Php_Unit\Text_Ui\Configuration;
 
 use Iterator;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @template-implements Iterator<non-negative-int, TestSuite>
  */
-final class TestSuiteCollectionIterator implements Iterator
+final class Test_Suite_Collection_Iterator implements Iterator
 {
     /**
      * @var list<TestSuite>
      */
-    private readonly array $testSuites;
-
+    private readonly array $test_suites;
     /**
      * @var non-negative-int
      */
     private int $position = 0;
-
-    public function __construct(TestSuiteCollection $testSuites)
+    public function __construct(Test_Suite_Collection $test_suites)
     {
-        $this->testSuites = $testSuites->asArray();
+        $this->test_suites = $test_suites->as_array();
     }
-
     public function rewind(): void
     {
         $this->position = 0;
     }
-
     public function valid(): bool
     {
-        return isset($this->testSuites[$this->position]);
+        return isset($this->test_suites[$this->position]);
     }
-
     /**
      * @return non-negative-int
      */
@@ -53,12 +46,10 @@ final class TestSuiteCollectionIterator implements Iterator
     {
         return $this->position;
     }
-
-    public function current(): TestSuite
+    public function current(): Test_Suite
     {
-        return $this->testSuites[$this->position];
+        return $this->test_suites[$this->position];
     }
-
     public function next(): void
     {
         $this->position++;

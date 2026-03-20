@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,64 +9,50 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\MockObject;
+namespace Php_Unit\Framework\Mock_Object;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class TestDoubleState
+final class Test_Double_State
 {
-    private ?InvocationHandler $invocationHandler = null;
-
+    private ?Invocation_Handler $invocation_handler = null;
     /**
      * @param list<ConfigurableMethod> $configurableMethods
      */
-    public function __construct(private readonly array $configurableMethods, private readonly bool $generateReturnValues, private readonly bool $isMockObject = false)
+    public function __construct(private readonly array $configurable_methods, private readonly bool $generate_return_values, private readonly bool $is_mock_object = false)
     {
     }
-
-    public function invocationHandler(): InvocationHandler
+    public function invocation_handler(): Invocation_Handler
     {
-        if ($this->invocationHandler !== null) {
-            return $this->invocationHandler;
+        if ($this->invocation_handler !== null) {
+            return $this->invocation_handler;
         }
-
-        $this->invocationHandler = new InvocationHandler(
-            $this->configurableMethods,
-            $this->generateReturnValues,
-            $this->isMockObject,
-        );
-
-        return $this->invocationHandler;
+        $this->invocation_handler = new Invocation_Handler($this->configurable_methods, $this->generate_return_values, $this->is_mock_object);
+        return $this->invocation_handler;
     }
-
-    public function cloneInvocationHandler(): void
+    public function clone_invocation_handler(): void
     {
-        if ($this->invocationHandler === null) {
+        if ($this->invocation_handler === null) {
             return;
         }
-
-        $this->invocationHandler = clone $this->invocationHandler;
+        $this->invocation_handler = clone $this->invocation_handler;
     }
-
-    public function unsetInvocationHandler(): void
+    public function unset_invocation_handler(): void
     {
-        $this->invocationHandler = null;
+        $this->invocation_handler = null;
     }
-
     /**
      * @return list<ConfigurableMethod>
      */
-    public function configurableMethods(): array
+    public function configurable_methods(): array
     {
-        return $this->configurableMethods;
+        return $this->configurable_methods;
     }
-
-    public function generateReturnValues(): bool
+    public function generate_return_values(): bool
     {
-        return $this->generateReturnValues;
+        return $this->generate_return_values;
     }
 }

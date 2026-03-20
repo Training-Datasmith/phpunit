@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,36 +9,32 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Metadata;
 
-namespace PHPUnit\Metadata;
-
-use PHPUnit\Runner\Extension\Extension;
-
+use Php_Unit\Runner\Extension\Extension;
 /**
  * @immutable
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class RequiresPhpunitExtension extends Metadata
+final readonly class Requires_Phpunit_Extension extends Metadata
 {
     /**
      * @param class-string<Extension> $extensionClass
      */
-    protected function __construct(Level $level, private string $extensionClass)
+    protected function __construct(Level $level, private string $extension_class)
     {
         parent::__construct($level);
     }
-
-    public function isRequiresPhpunitExtension(): true
+    public function is_requires_phpunit_extension(): true
     {
         return true;
     }
-
     /**
      * @return class-string<Extension>
      */
-    public function extensionClass(): string
+    public function extension_class(): string
     {
-        return $this->extensionClass;
+        return $this->extension_class;
     }
 }

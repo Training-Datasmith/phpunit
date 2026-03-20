@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\Configuration;
+namespace Php_Unit\Text_Ui\Configuration;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -19,62 +18,51 @@ namespace PHPUnit\TextUI\Configuration;
  */
 final readonly class Php
 {
-    public function __construct(private DirectoryCollection $includePaths, private IniSettingCollection $iniSettings, private ConstantCollection $constants, private VariableCollection $globalVariables, private VariableCollection $envVariables, private VariableCollection $postVariables, private VariableCollection $getVariables, private VariableCollection $cookieVariables, private VariableCollection $serverVariables, private VariableCollection $filesVariables, private VariableCollection $requestVariables)
+    public function __construct(private Directory_Collection $include_paths, private Ini_Setting_Collection $ini_settings, private Constant_Collection $constants, private Variable_Collection $global_variables, private Variable_Collection $env_variables, private Variable_Collection $post_variables, private Variable_Collection $get_variables, private Variable_Collection $cookie_variables, private Variable_Collection $server_variables, private Variable_Collection $files_variables, private Variable_Collection $request_variables)
     {
     }
-
-    public function includePaths(): DirectoryCollection
+    public function include_paths(): Directory_Collection
     {
-        return $this->includePaths;
+        return $this->include_paths;
     }
-
-    public function iniSettings(): IniSettingCollection
+    public function ini_settings(): Ini_Setting_Collection
     {
-        return $this->iniSettings;
+        return $this->ini_settings;
     }
-
-    public function constants(): ConstantCollection
+    public function constants(): Constant_Collection
     {
         return $this->constants;
     }
-
-    public function globalVariables(): VariableCollection
+    public function global_variables(): Variable_Collection
     {
-        return $this->globalVariables;
+        return $this->global_variables;
     }
-
-    public function envVariables(): VariableCollection
+    public function env_variables(): Variable_Collection
     {
-        return $this->envVariables;
+        return $this->env_variables;
     }
-
-    public function postVariables(): VariableCollection
+    public function post_variables(): Variable_Collection
     {
-        return $this->postVariables;
+        return $this->post_variables;
     }
-
-    public function getVariables(): VariableCollection
+    public function get_variables(): Variable_Collection
     {
-        return $this->getVariables;
+        return $this->get_variables;
     }
-
-    public function cookieVariables(): VariableCollection
+    public function cookie_variables(): Variable_Collection
     {
-        return $this->cookieVariables;
+        return $this->cookie_variables;
     }
-
-    public function serverVariables(): VariableCollection
+    public function server_variables(): Variable_Collection
     {
-        return $this->serverVariables;
+        return $this->server_variables;
     }
-
-    public function filesVariables(): VariableCollection
+    public function files_variables(): Variable_Collection
     {
-        return $this->filesVariables;
+        return $this->files_variables;
     }
-
-    public function requestVariables(): VariableCollection
+    public function request_variables(): Variable_Collection
     {
-        return $this->requestVariables;
+        return $this->request_variables;
     }
 }

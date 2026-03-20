@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Runner\Baseline;
+namespace Php_Unit\Runner\Baseline;
 
 use function array_fill;
 use function array_merge;
@@ -23,7 +22,6 @@ use function str_replace;
 use function strpos;
 use function substr;
 use function trim;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -31,15 +29,14 @@ use function trim;
  *
  * @see Copied from https://github.com/phpstan/phpstan-src/blob/1.10.33/src/File/ParentDirectoryRelativePathHelper.php
  */
-final readonly class RelativePathCalculator
+final readonly class Relative_Path_Calculator
 {
     /**
      * @param non-empty-string $baselineDirectory
      */
-    public function __construct(private string $baselineDirectory)
+    public function __construct(private string $baseline_directory)
     {
     }
-
     /**
      * @param non-empty-string $filename
      *
@@ -48,12 +45,9 @@ final readonly class RelativePathCalculator
     public function calculate(string $filename): string
     {
         $result = implode('/', $this->parts($filename));
-
         assert($result !== '');
-
         return $result;
     }
-
     /**
      * @param non-empty-string $filename
      *
@@ -61,42 +55,31 @@ final readonly class RelativePathCalculator
      */
     public function parts(string $filename): array
     {
-        $schemePosition = strpos($filename, '://');
-
-        if ($schemePosition !== false) {
-            $filename = substr($filename, $schemePosition + 3);
-
+        $scheme_position = strpos($filename, '://');
+        if ($scheme_position !== false) {
+            $filename = substr($filename, $scheme_position + 3);
             assert($filename !== '');
         }
-
-        $parentParts        = explode('/', trim(str_replace('\\', '/', $this->baselineDirectory), '/'));
-        $parentPartsCount   = count($parentParts);
-        $filenameParts      = explode('/', trim(str_replace('\\', '/', $filename), '/'));
-        $filenamePartsCount = count($filenameParts);
-
+        $parent_parts = explode('/', trim(str_replace('\\', '/', $this->baseline_directory), '/'));
+        $parent_parts_count = count($parent_parts);
+        $filename_parts = explode('/', trim(str_replace('\\', '/', $filename), '/'));
+        $filename_parts_count = count($filename_parts);
         $i = 0;
-
-        for (; $i < $filenamePartsCount; $i++) {
-            if ($parentPartsCount < $i + 1) {
+        for (; $i < $filename_parts_count; $i++) {
+            if ($parent_parts_count < $i + 1) {
                 break;
             }
-
-            $parentPath   = implode('/', array_slice($parentParts, 0, $i + 1));
-            $filenamePath = implode('/', array_slice($filenameParts, 0, $i + 1));
-
-            if ($parentPath !== $filenamePath) {
+            $parent_path = implode('/', array_slice($parent_parts, 0, $i + 1));
+            $filename_path = implode('/', array_slice($filename_parts, 0, $i + 1));
+            if ($parent_path !== $filename_path) {
                 break;
             }
         }
-
         if ($i === 0) {
             return [$filename];
         }
-
-        $dotsCount = $parentPartsCount - $i;
-
-        assert($dotsCount >= 0);
-
-        return array_merge(array_fill(0, $dotsCount, '..'), array_slice($filenameParts, $i));
+        $dots_count = $parent_parts_count - $i;
+        assert($dots_count >= 0);
+        return array_merge(array_fill(0, $dots_count, '..'), array_slice($filename_parts, $i));
     }
 }

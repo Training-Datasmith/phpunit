@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,67 +9,57 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\MockObject;
+namespace Php_Unit\Framework\Mock_Object;
 
 use function array_map;
 use function implode;
-
-use PHPUnit\Framework\SelfDescribing;
-use PHPUnit\Util\Exporter;
-
+use Php_Unit\Framework\Self_Describing;
+use Php_Unit\Util\Exporter;
 use function sprintf;
 use function str_starts_with;
 use function strtolower;
 use function substr;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class Invocation implements SelfDescribing
+final readonly class Invocation implements Self_Describing
 {
-    private string $returnType;
-    private bool $isReturnTypeNullable;
-
+    private string $return_type;
+    private bool $is_return_type_nullable;
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      * @param array<mixed>     $parameters
      */
-    public function __construct(private string $className, private string $methodName, private array $parameters, string $returnType, private MockObjectInternal|StubInternal $object)
+    public function __construct(private string $class_name, private string $method_name, private array $parameters, string $return_type, private Mock_Object_Internal|Stub_Internal $object)
     {
-        if (strtolower($this->methodName) === '__tostring') {
-            $returnType = 'string';
+        if (strtolower($this->method_name) === '__tostring') {
+            $return_type = 'string';
         }
-
-        if (str_starts_with($returnType, '?')) {
-            $returnType                 = substr($returnType, 1);
-            $this->isReturnTypeNullable = true;
+        if (str_starts_with($return_type, '?')) {
+            $return_type = substr($return_type, 1);
+            $this->is_return_type_nullable = true;
         } else {
-            $this->isReturnTypeNullable = false;
+            $this->is_return_type_nullable = false;
         }
-
-        $this->returnType = $returnType;
+        $this->return_type = $return_type;
     }
-
     /**
      * @return class-string
      */
-    public function className(): string
+    public function class_name(): string
     {
-        return $this->className;
+        return $this->class_name;
     }
-
     /**
      * @return non-empty-string
      */
-    public function methodName(): string
+    public function method_name(): string
     {
-        return $this->methodName;
+        return $this->method_name;
     }
-
     /**
      * @return array<mixed>
      */
@@ -77,49 +67,24 @@ final readonly class Invocation implements SelfDescribing
     {
         return $this->parameters;
     }
-
     /**
      * @throws Exception
      */
-    public function generateReturnValue(): mixed
+    public function generate_return_value(): mixed
     {
-        if ($this->returnType === 'never') {
-            throw new NeverReturningMethodException(
-                $this->className,
-                $this->methodName,
-            );
+        if ($this->return_type === 'never') {
+            throw new Never_Returning_Method_Exception($this->class_name, $this->method_name);
         }
-
-        if ($this->isReturnTypeNullable) {
+        if ($this->is_return_type_nullable) {
             return null;
         }
-
-        return (new ReturnValueGenerator())->generate(
-            $this->className,
-            $this->methodName,
-            $this->object,
-            $this->returnType,
-        );
+        return (new Return_Value_Generator())->generate($this->class_name, $this->method_name, $this->object, $this->return_type);
     }
-
-    public function toString(): string
+    public function to_string(): string
     {
-        return sprintf(
-            '%s::%s(%s)%s',
-            $this->className,
-            $this->methodName,
-            implode(
-                ', ',
-                array_map(
-                    Exporter::shortenedExport(...),
-                    $this->parameters,
-                ),
-            ),
-            $this->returnType !== '' ? sprintf(': %s', $this->returnType) : '',
-        );
+        return sprintf('%s::%s(%s)%s', $this->class_name, $this->method_name, implode(', ', array_map(Exporter::shortened_export(...), $this->parameters)), $this->return_type !== '' ? sprintf(': %s', $this->return_type) : '');
     }
-
-    public function object(): MockObjectInternal|StubInternal
+    public function object(): Mock_Object_Internal|Stub_Internal
     {
         return $this->object;
     }

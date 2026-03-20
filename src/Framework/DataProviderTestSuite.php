@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,62 +9,52 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework;
+namespace Php_Unit\Framework;
 
 use function assert;
 use function class_exists;
 use function count;
 use function explode;
-
-use PHPUnit\Framework\TestSize\TestSize;
-use PHPUnit\Metadata\Api\Groups;
-
+use Php_Unit\Framework\Test_Size\Test_Size;
+use Php_Unit\Metadata\Api\Groups;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class DataProviderTestSuite extends TestSuite
+final class Data_Provider_Test_Suite extends Test_Suite
 {
     /**
      * @var list<ExecutionOrderDependency>
      */
     private array $dependencies = [];
-
     /**
      * @var ?non-empty-list<ExecutionOrderDependency>
      */
-    private ?array $providedTests = null;
-
+    private ?array $provided_tests = null;
     /**
      * @param list<ExecutionOrderDependency> $dependencies
      */
-    public function setDependencies(array $dependencies): void
+    public function set_dependencies(array $dependencies): void
     {
         $this->dependencies = $dependencies;
-
         foreach ($this->tests() as $test) {
-            if (!$test instanceof TestCase) {
+            if (!$test instanceof Test_Case) {
                 continue;
             }
-
-            $test->setDependencies($dependencies);
+            $test->set_dependencies($dependencies);
         }
     }
-
     /**
      * @return non-empty-list<ExecutionOrderDependency>
      */
     public function provides(): array
     {
-        if ($this->providedTests === null) {
-            $this->providedTests = [new ExecutionOrderDependency($this->name())];
+        if ($this->provided_tests === null) {
+            $this->provided_tests = [new Execution_Order_Dependency($this->name())];
         }
-
-        return $this->providedTests;
+        return $this->provided_tests;
     }
-
     /**
      * @return list<ExecutionOrderDependency>
      */
@@ -74,18 +64,15 @@ final class DataProviderTestSuite extends TestSuite
         // as these are inherited and cannot reference dataProvider rows directly
         return $this->dependencies;
     }
-
     /**
      * Returns the size of each test created using the data provider(s).
      */
-    public function size(): TestSize
+    public function size(): Test_Size
     {
         assert(count(explode('::', $this->name())) === 2);
-        [$className, $methodName] = explode('::', $this->name());
-
-        assert(class_exists($className));
-        assert($methodName !== '');
-
-        return (new Groups())->size($className, $methodName);
+        [$class_name, $method_name] = explode('::', $this->name());
+        assert(class_exists($class_name));
+        assert($method_name !== '');
+        return (new Groups())->size($class_name, $method_name);
     }
 }

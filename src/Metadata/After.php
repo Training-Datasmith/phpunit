@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Metadata;
+namespace Php_Unit\Metadata;
 
 /**
  * @immutable
@@ -23,12 +22,10 @@ final readonly class After extends Metadata
     {
         parent::__construct($level);
     }
-
-    public function isAfter(): true
+    public function is_after(): true
     {
         return true;
     }
-
     public function priority(): int
     {
         return $this->priority;

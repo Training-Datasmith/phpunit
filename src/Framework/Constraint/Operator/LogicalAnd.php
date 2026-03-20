@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,19 +9,17 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\Constraint;
+namespace Php_Unit\Framework\Constraint;
 
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class LogicalAnd extends BinaryOperator
+final class Logical_And extends Binary_Operator
 {
-    public static function fromConstraints(mixed ...$constraints): self
+    public static function from_constraints(mixed ...$constraints): self
     {
         return new self(...$constraints);
     }
-
     /**
      * Returns the name of this operator.
      */
@@ -29,7 +27,6 @@ final class LogicalAnd extends BinaryOperator
     {
         return 'and';
     }
-
     /**
      * Returns this operator's precedence.
      *
@@ -39,7 +36,6 @@ final class LogicalAnd extends BinaryOperator
     {
         return 22;
     }
-
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
@@ -51,7 +47,6 @@ final class LogicalAnd extends BinaryOperator
                 return false;
             }
         }
-
         return [] !== $this->constraints();
     }
 }

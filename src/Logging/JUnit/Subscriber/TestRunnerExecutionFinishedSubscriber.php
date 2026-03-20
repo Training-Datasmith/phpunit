@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,20 +9,18 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Logging\J_Unit;
 
-namespace PHPUnit\Logging\JUnit;
-
-use PHPUnit\Event\TestRunner\ExecutionFinished;
-use PHPUnit\Event\TestRunner\ExecutionFinishedSubscriber;
-
+use Php_Unit\Event\Test_Runner\Execution_Finished;
+use Php_Unit\Event\Test_Runner\Execution_Finished_Subscriber;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class TestRunnerExecutionFinishedSubscriber extends Subscriber implements ExecutionFinishedSubscriber
+final readonly class Test_Runner_Execution_Finished_Subscriber extends Subscriber implements Execution_Finished_Subscriber
 {
-    public function notify(ExecutionFinished $event): void
+    public function notify(Execution_Finished $event): void
     {
         $this->logger()->flush();
     }

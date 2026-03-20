@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,13 +9,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Text_Ui\Xml_Configuration\Logging;
 
-namespace PHPUnit\TextUI\XmlConfiguration\Logging;
-
-use PHPUnit\TextUI\XmlConfiguration\Exception;
-use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Html as TestDoxHtml;
-use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text as TestDoxText;
-
+use Php_Unit\Text_Ui\Xml_Configuration\Exception;
+use Php_Unit\Text_Ui\Xml_Configuration\Logging\Test_Dox\Html as TestDoxHtml;
+use Php_Unit\Text_Ui\Xml_Configuration\Logging\Test_Dox\Text as TestDoxText;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -25,15 +23,13 @@ use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text as TestDoxText;
  */
 final readonly class Logging
 {
-    public function __construct(private ?Junit $junit, private ?Otr $otr, private ?TeamCity $teamCity, private ?TestDoxHtml $testDoxHtml, private ?TestDoxText $testDoxText)
+    public function __construct(private ?Junit $junit, private ?Otr $otr, private ?Team_City $team_city, private ?Test_Dox_Html $test_dox_html, private ?Test_Dox_Text $test_dox_text)
     {
     }
-
-    public function hasJunit(): bool
+    public function has_junit(): bool
     {
         return $this->junit !== null;
     }
-
     /**
      * @throws Exception
      */
@@ -42,15 +38,12 @@ final readonly class Logging
         if ($this->junit === null) {
             throw new Exception('Logger "JUnit XML" is not configured');
         }
-
         return $this->junit;
     }
-
-    public function hasOtr(): bool
+    public function has_otr(): bool
     {
         return $this->otr !== null;
     }
-
     /**
      * @throws Exception
      */
@@ -59,58 +52,48 @@ final readonly class Logging
         if ($this->otr === null) {
             throw new Exception('Logger "Open Test Reporting XML" is not configured');
         }
-
         return $this->otr;
     }
-
-    public function hasTeamCity(): bool
+    public function has_team_city(): bool
     {
-        return $this->teamCity !== null;
+        return $this->team_city !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function teamCity(): TeamCity
+    public function team_city(): Team_City
     {
-        if ($this->teamCity === null) {
+        if ($this->team_city === null) {
             throw new Exception('Logger "Team City" is not configured');
         }
-
-        return $this->teamCity;
+        return $this->team_city;
     }
-
-    public function hasTestDoxHtml(): bool
+    public function has_test_dox_html(): bool
     {
-        return $this->testDoxHtml !== null;
+        return $this->test_dox_html !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function testDoxHtml(): TestDoxHtml
+    public function test_dox_html(): Test_Dox_Html
     {
-        if ($this->testDoxHtml === null) {
+        if ($this->test_dox_html === null) {
             throw new Exception('Logger "TestDox HTML" is not configured');
         }
-
-        return $this->testDoxHtml;
+        return $this->test_dox_html;
     }
-
-    public function hasTestDoxText(): bool
+    public function has_test_dox_text(): bool
     {
-        return $this->testDoxText !== null;
+        return $this->test_dox_text !== null;
     }
-
     /**
      * @throws Exception
      */
-    public function testDoxText(): TestDoxText
+    public function test_dox_text(): Test_Dox_Text
     {
-        if ($this->testDoxText === null) {
+        if ($this->test_dox_text === null) {
             throw new Exception('Logger "TestDox Text" is not configured');
         }
-
-        return $this->testDoxText;
+        return $this->test_dox_text;
     }
 }

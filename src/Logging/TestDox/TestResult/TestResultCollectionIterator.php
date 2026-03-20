@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,11 +9,9 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Logging\TestDox;
+namespace Php_Unit\Logging\Test_Dox;
 
 use Iterator;
-
 /**
  * @template-implements Iterator<non-negative-int, TestResult>
  *
@@ -21,33 +19,28 @@ use Iterator;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class TestResultCollectionIterator implements Iterator
+final class Test_Result_Collection_Iterator implements Iterator
 {
     /**
      * @var list<TestResult>
      */
-    private readonly array $testResults;
-
+    private readonly array $test_results;
     /**
      * @var non-negative-int
      */
     private int $position = 0;
-
-    public function __construct(TestResultCollection $testResults)
+    public function __construct(Test_Result_Collection $test_results)
     {
-        $this->testResults = $testResults->asArray();
+        $this->test_results = $test_results->as_array();
     }
-
     public function rewind(): void
     {
         $this->position = 0;
     }
-
     public function valid(): bool
     {
-        return isset($this->testResults[$this->position]);
+        return isset($this->test_results[$this->position]);
     }
-
     /**
      * @return non-negative-int
      */
@@ -55,12 +48,10 @@ final class TestResultCollectionIterator implements Iterator
     {
         return $this->position;
     }
-
-    public function current(): TestResult
+    public function current(): Test_Result
     {
-        return $this->testResults[$this->position];
+        return $this->test_results[$this->position];
     }
-
     public function next(): void
     {
         $this->position++;

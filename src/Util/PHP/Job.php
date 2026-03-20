@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Util\PHP;
+namespace Php_Unit\Util\PHP;
 
 /**
  * @immutable
@@ -28,10 +27,9 @@ final readonly class Job
      * @param list<non-empty-string> $arguments
      * @param ?non-empty-string      $input
      */
-    public function __construct(private string $code, private array $phpSettings = [], private array $environmentVariables = [], private array $arguments = [], private ?string $input = null, private bool $redirectErrors = false, private bool $requiresXdebug = false)
+    public function __construct(private string $code, private array $php_settings = [], private array $environment_variables = [], private array $arguments = [], private ?string $input = null, private bool $redirect_errors = false, private bool $requires_xdebug = false)
     {
     }
-
     /**
      * @return non-empty-string
      */
@@ -39,39 +37,34 @@ final readonly class Job
     {
         return $this->code;
     }
-
     /**
      * @return list<string>
      */
-    public function phpSettings(): array
+    public function php_settings(): array
     {
-        return $this->phpSettings;
+        return $this->php_settings;
     }
-
     /**
      * @phpstan-assert-if-true !empty $this->environmentVariables
      */
-    public function hasEnvironmentVariables(): bool
+    public function has_environment_variables(): bool
     {
-        return $this->environmentVariables !== [];
+        return $this->environment_variables !== [];
     }
-
     /**
      * @return array<string, string>
      */
-    public function environmentVariables(): array
+    public function environment_variables(): array
     {
-        return $this->environmentVariables;
+        return $this->environment_variables;
     }
-
     /**
      * @phpstan-assert-if-true !empty $this->arguments
      */
-    public function hasArguments(): bool
+    public function has_arguments(): bool
     {
         return $this->arguments !== [];
     }
-
     /**
      * @return list<non-empty-string>
      */
@@ -79,15 +72,13 @@ final readonly class Job
     {
         return $this->arguments;
     }
-
     /**
      * @phpstan-assert-if-true !empty $this->input
      */
-    public function hasInput(): bool
+    public function has_input(): bool
     {
         return $this->input !== null;
     }
-
     /**
      * @throws PhpProcessException
      *
@@ -96,19 +87,16 @@ final readonly class Job
     public function input(): string
     {
         if ($this->input === null) {
-            throw new PhpProcessException('No input specified');
+            throw new Php_Process_Exception('No input specified');
         }
-
         return $this->input;
     }
-
-    public function redirectErrors(): bool
+    public function redirect_errors(): bool
     {
-        return $this->redirectErrors;
+        return $this->redirect_errors;
     }
-
-    public function requiresXdebug(): bool
+    public function requires_xdebug(): bool
     {
-        return $this->requiresXdebug;
+        return $this->requires_xdebug;
     }
 }

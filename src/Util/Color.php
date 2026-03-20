@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,24 +9,19 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Util;
+namespace Php_Unit\Util;
 
 use function array_key_exists;
 use function array_map;
 use function array_walk;
 use function assert;
 use function count;
-
 use const DIRECTORY_SEPARATOR;
-
 use function explode;
 use function implode;
 use function max;
 use function min;
-
 use const PHP_EOL;
-
 use function preg_replace;
 use function preg_replace_callback;
 use function preg_split;
@@ -34,7 +29,6 @@ use function sprintf;
 use function str_pad;
 use function strtr;
 use function trim;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -45,50 +39,15 @@ final class Color
     /**
      * @var non-empty-array<non-empty-string, non-empty-string>
      */
-    private const array WHITESPACE_MAP = [
-        ' '  => '·',
-        "\t" => '⇥',
-    ];
-
+    private const array WHITESPACE_MAP = [' ' => '·', "\t" => '⇥'];
     /**
      * @var non-empty-array<non-empty-string, non-empty-string>
      */
-    private const array WHITESPACE_EOL_MAP = [
-        ' '  => '·',
-        "\t" => '⇥',
-        "\n" => '↵',
-        "\r" => '⟵',
-    ];
-
+    private const array WHITESPACE_EOL_MAP = [' ' => '·', "\t" => '⇥', "\n" => '↵', "\r" => '⟵'];
     /**
      * @var non-empty-array<non-empty-string, non-empty-string>
      */
-    private const array ANSI_CODES = [
-        'reset'      => '0',
-        'bold'       => '1',
-        'dim'        => '2',
-        'dim-reset'  => '22',
-        'underlined' => '4',
-        'fg-default' => '39',
-        'fg-black'   => '30',
-        'fg-red'     => '31',
-        'fg-green'   => '32',
-        'fg-yellow'  => '33',
-        'fg-blue'    => '34',
-        'fg-magenta' => '35',
-        'fg-cyan'    => '36',
-        'fg-white'   => '37',
-        'bg-default' => '49',
-        'bg-black'   => '40',
-        'bg-red'     => '41',
-        'bg-green'   => '42',
-        'bg-yellow'  => '43',
-        'bg-blue'    => '44',
-        'bg-magenta' => '45',
-        'bg-cyan'    => '46',
-        'bg-white'   => '47',
-    ];
-
+    private const array ANSI_CODES = ['reset' => '0', 'bold' => '1', 'dim' => '2', 'dim-reset' => '22', 'underlined' => '4', 'fg-default' => '39', 'fg-black' => '30', 'fg-red' => '31', 'fg-green' => '32', 'fg-yellow' => '33', 'fg-blue' => '34', 'fg-magenta' => '35', 'fg-cyan' => '36', 'fg-white' => '37', 'bg-default' => '49', 'bg-black' => '40', 'bg-red' => '41', 'bg-green' => '42', 'bg-yellow' => '43', 'bg-blue' => '44', 'bg-magenta' => '45', 'bg-cyan' => '46', 'bg-white' => '47'];
     /**
      * @param non-empty-string $color
      */
@@ -97,121 +56,77 @@ final class Color
         if (trim($buffer) === '') {
             return $buffer;
         }
-
         if (array_key_exists($color, self::ANSI_CODES)) {
-            return self::optimizeColor(sprintf("\x1b[%sm%s\x1b[0m", self::ANSI_CODES[$color], $buffer));
+            return self::optimize_color(sprintf("\x1b[%sm%s\x1b[0m", self::ANSI_CODES[$color], $buffer));
         }
-
         $styles = [];
-
         foreach (explode(',', $color) as $code) {
             $code = trim($code);
-
             if (array_key_exists($code, self::ANSI_CODES)) {
                 $styles[] = self::ANSI_CODES[$code];
             }
         }
-
         if ($styles === []) {
             return $buffer;
         }
-
-        return self::optimizeColor(sprintf("\x1b[%sm%s\x1b[0m", implode(';', $styles), $buffer));
+        return self::optimize_color(sprintf("\x1b[%sm%s\x1b[0m", implode(';', $styles), $buffer));
     }
-
     /**
      * @param non-empty-string  $color
      * @param ?non-negative-int $columns
      */
-    public static function colorizeTextBox(string $color, string $buffer, ?int $columns = null): string
+    public static function colorize_text_box(string $color, string $buffer, ?int $columns = null): string
     {
-        $lines       = preg_split('/\r\n|\r|\n/', $buffer);
-        $maxBoxWidth = max(array_map(\strlen(...), $lines));
-
+        $lines = preg_split('/\r\n|\r|\n/', $buffer);
+        $max_box_width = max(array_map(\strlen(...), $lines));
         if ($columns !== null) {
-            $maxBoxWidth = min($maxBoxWidth, $columns);
+            $max_box_width = min($max_box_width, $columns);
         }
-
-        array_walk($lines, static function (string &$line) use ($color, $maxBoxWidth): void {
-            $line = self::colorize($color, str_pad($line, $maxBoxWidth));
+        array_walk($lines, static function (string &$line) use ($color, $max_box_width): void {
+            $line = self::colorize($color, str_pad($line, $max_box_width));
         });
-
         return implode(PHP_EOL, $lines);
     }
-
     /**
      * @param non-empty-string  $path
      * @param ?non-empty-string $previousPath
      */
-    public static function colorizePath(string $path, ?string $previousPath = null, bool $colorizeFilename = false): string
+    public static function colorize_path(string $path, ?string $previous_path = null, bool $colorize_filename = false): string
     {
-        if ($previousPath === null) {
-            $previousPath = '';
+        if ($previous_path === null) {
+            $previous_path = '';
         }
-
-        $path         = explode(DIRECTORY_SEPARATOR, $path);
-        $previousPath = explode(DIRECTORY_SEPARATOR, $previousPath);
-
-        for ($i = 0; $i < min(count($path), count($previousPath)); $i++) {
-            if ($path[$i] === $previousPath[$i]) {
+        $path = explode(DIRECTORY_SEPARATOR, $path);
+        $previous_path = explode(DIRECTORY_SEPARATOR, $previous_path);
+        for ($i = 0; $i < min(count($path), count($previous_path)); $i++) {
+            if ($path[$i] === $previous_path[$i]) {
                 $path[$i] = self::dim($path[$i]);
             }
         }
-
-        if ($colorizeFilename) {
-            $last        = count($path) - 1;
-            $path[$last] = preg_replace_callback(
-                '/([\-_.]+|phpt$)/',
-                static fn (array $matches): string => self::dim($matches[0]),
-                $path[$last],
-            );
+        if ($colorize_filename) {
+            $last = count($path) - 1;
+            $path[$last] = preg_replace_callback('/([\-_.]+|phpt$)/', static fn(array $matches): string => self::dim($matches[0]), $path[$last]);
         }
-
-        return self::optimizeColor(implode(self::dim(DIRECTORY_SEPARATOR), $path));
+        return self::optimize_color(implode(self::dim(DIRECTORY_SEPARATOR), $path));
     }
-
     public static function dim(string $buffer): string
     {
         if (trim($buffer) === '') {
             return $buffer;
         }
-
-        return "\e[2m{$buffer}\e[22m";
+        return "\x1b[2m{$buffer}\x1b[22m";
     }
-
-    public static function visualizeWhitespace(string $buffer, bool $visualizeEOL = false): string
+    public static function visualize_whitespace(string $buffer, bool $visualize_eol = false): string
     {
-        $replaceMap = $visualizeEOL ? self::WHITESPACE_EOL_MAP : self::WHITESPACE_MAP;
-
-        $result = preg_replace_callback(
-            '/\s+/',
-            static fn (array $matches): string => self::dim(strtr($matches[0], $replaceMap)),
-            $buffer,
-        );
-
+        $replace_map = $visualize_eol ? self::WHITESPACE_EOL_MAP : self::WHITESPACE_MAP;
+        $result = preg_replace_callback('/\s+/', static fn(array $matches): string => self::dim(strtr($matches[0], $replace_map)), $buffer);
         assert($result !== null);
-
         return $result;
     }
-
-    private static function optimizeColor(string $buffer): string
+    private static function optimize_color(string $buffer): string
     {
-        $result = preg_replace(
-            [
-                "/\e\\[22m\e\\[2m/",
-                "/\e\\[([^m]*)m\e\\[([1-9][0-9;]*)m/",
-                "/(\e\\[[^m]*m)+(\e\\[0m)/",
-            ],
-            [
-                '',
-                "\e[$1;$2m",
-                '$2',
-            ],
-            $buffer,
-        );
-
+        $result = preg_replace(["/\x1b\\[22m\x1b\\[2m/", "/\x1b\\[([^m]*)m\x1b\\[([1-9][0-9;]*)m/", "/(\x1b\\[[^m]*m)+(\x1b\\[0m)/"], ['', "\x1b[\$1;\$2m", '$2'], $buffer);
         assert($result !== null);
-
         return $result;
     }
 }

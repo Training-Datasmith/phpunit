@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,72 +9,55 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\XmlConfiguration;
+namespace Php_Unit\Text_Ui\Xml_Configuration;
 
 use function assert;
-
-use DOMDocument;
-use DOMElement;
-
+use Dom_Document;
+use Dom_Element;
 use function in_array;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class MoveWhitelistExcludesToCoverage implements Migration
+final readonly class Move_Whitelist_Excludes_To_Coverage implements Migration
 {
     /**
      * @throws MigrationException
      */
-    public function migrate(DOMDocument $document): void
+    public function migrate(Dom_Document $document): void
     {
-        $whitelist = $document->getElementsByTagName('whitelist')->item(0);
-
+        $whitelist = $document->get_elements_by_tag_name('whitelist')->item(0);
         if ($whitelist === null) {
             return;
         }
-
-        $excludeNodes = SnapshotNodeList::fromNodeList($whitelist->getElementsByTagName('exclude'));
-
-        if ($excludeNodes->count() === 0) {
+        $exclude_nodes = Snapshot_Node_List::from_node_list($whitelist->get_elements_by_tag_name('exclude'));
+        if ($exclude_nodes->count() === 0) {
             return;
         }
-
-        $coverage = $document->getElementsByTagName('coverage')->item(0);
-
-        if (!$coverage instanceof DOMElement) {
-            throw new MigrationException('Unexpected state - No coverage element');
+        $coverage = $document->get_elements_by_tag_name('coverage')->item(0);
+        if (!$coverage instanceof Dom_Element) {
+            throw new Migration_Exception('Unexpected state - No coverage element');
         }
-
-        $targetExclude = $coverage->getElementsByTagName('exclude')->item(0);
-
-        if ($targetExclude === null) {
-            $targetExclude = $coverage->appendChild(
-                $document->createElement('exclude'),
-            );
+        $target_exclude = $coverage->get_elements_by_tag_name('exclude')->item(0);
+        if ($target_exclude === null) {
+            $target_exclude = $coverage->append_child($document->create_element('exclude'));
         }
-
-        foreach ($excludeNodes as $excludeNode) {
-            assert($excludeNode instanceof DOMElement);
-
-            foreach (SnapshotNodeList::fromNodeList($excludeNode->childNodes) as $child) {
-                if (!$child instanceof DOMElement) {
+        foreach ($exclude_nodes as $exclude_node) {
+            assert($exclude_node instanceof Dom_Element);
+            foreach (Snapshot_Node_List::from_node_list($exclude_node->child_nodes) as $child) {
+                if (!$child instanceof Dom_Element) {
                     continue;
                 }
-                if (!in_array($child->nodeName, ['directory', 'file'], true)) {
+                if (!in_array($child->node_name, ['directory', 'file'], true)) {
                     continue;
                 }
-                $targetExclude->appendChild($child);
+                $target_exclude->append_child($child);
             }
-
-            if ($excludeNode->getElementsByTagName('*')->count() !== 0) {
-                throw new MigrationException('Dangling child elements in exclude found.');
+            if ($exclude_node->get_elements_by_tag_name('*')->count() !== 0) {
+                throw new Migration_Exception('Dangling child elements in exclude found.');
             }
-
-            $whitelist->removeChild($excludeNode);
+            $whitelist->remove_child($exclude_node);
         }
     }
 }

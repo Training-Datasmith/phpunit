@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,64 +9,48 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\TextUI\XmlConfiguration;
+namespace Php_Unit\Text_Ui\Xml_Configuration;
 
 use function assert;
-
-use DOMDocument;
-use DOMElement;
-use DOMXPath;
-
+use Dom_Document;
+use Dom_Element;
+use Domx_Path;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class MoveCoverageDirectoriesToSource implements Migration
+final readonly class Move_Coverage_Directories_To_Source implements Migration
 {
     /**
      * @throws MigrationException
      */
-    public function migrate(DOMDocument $document): void
+    public function migrate(Dom_Document $document): void
     {
-        $source = $document->getElementsByTagName('source')->item(0);
-
+        $source = $document->get_elements_by_tag_name('source')->item(0);
         if ($source !== null) {
             return;
         }
-
-        $coverage = $document->getElementsByTagName('coverage')->item(0);
-
+        $coverage = $document->get_elements_by_tag_name('coverage')->item(0);
         if ($coverage === null) {
             return;
         }
-
-        $root = $document->documentElement;
-
-        assert($root instanceof DOMElement);
-
-        $source = $document->createElement('source');
-        $root->appendChild($source);
-
-        $xpath = new DOMXPath($document);
-
+        $root = $document->document_element;
+        assert($root instanceof Dom_Element);
+        $source = $document->create_element('source');
+        $root->append_child($source);
+        $xpath = new Domx_Path($document);
         foreach (['include', 'exclude'] as $element) {
             $nodes = $xpath->query('//coverage/' . $element);
-
             assert($nodes !== false);
-
-            foreach (SnapshotNodeList::fromNodeList($nodes) as $node) {
-                $source->appendChild($node);
+            foreach (Snapshot_Node_List::from_node_list($nodes) as $node) {
+                $source->append_child($node);
             }
         }
-
-        if ($coverage->childElementCount !== 0) {
+        if ($coverage->child_element_count !== 0) {
             return;
         }
-
-        assert($coverage->parentNode !== null);
-
-        $coverage->parentNode->removeChild($coverage);
+        assert($coverage->parent_node !== null);
+        $coverage->parent_node->remove_child($coverage);
     }
 }

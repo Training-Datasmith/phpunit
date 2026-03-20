@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,11 +9,9 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Text_Ui\Xml_Configuration;
 
-namespace PHPUnit\TextUI\XmlConfiguration;
-
-use PHPUnit\Util\Xml\XmlException;
-
+use Php_Unit\Util\Xml\Xml_Exception;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -21,7 +19,7 @@ use PHPUnit\Util\Xml\XmlException;
  *
  * @immutable
  */
-abstract readonly class SchemaDetectionResult
+abstract readonly class Schema_Detection_Result
 {
     /**
      * @phpstan-assert-if-true SuccessfulSchemaDetectionResult $this
@@ -30,12 +28,11 @@ abstract readonly class SchemaDetectionResult
     {
         return false;
     }
-
     /**
      * @throws XmlException
      */
     public function version(): string
     {
-        throw new XmlException('No supported schema was detected');
+        throw new Xml_Exception('No supported schema was detected');
     }
 }

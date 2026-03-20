@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,27 +9,20 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Util;
+namespace Php_Unit\Util;
 
 use function assert;
 use function is_object;
 use function is_scalar;
 use function json_decode;
 use function json_encode;
-
 use const JSON_ERROR_NONE;
-
 use function json_last_error;
-
 use const JSON_PRETTY_PRINT;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
-
 use function ksort;
-
 use const SORT_STRING;
-
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  *
@@ -42,19 +35,14 @@ final readonly class Json
      */
     public static function prettify(string $json): string
     {
-        $decodedJson = json_decode($json, false);
-
+        $decoded_json = json_decode($json, false);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new InvalidJsonException();
+            throw new Invalid_Json_Exception();
         }
-
-        $result = json_encode($decodedJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-
+        $result = json_encode($decoded_json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         assert($result !== false);
-
         return $result;
     }
-
     /**
      * Element 0 is true and element 1 is null when JSON decoding did not work.
      * * Element 0 is false and element 1 has the decoded value when JSON decoding did work.
@@ -64,34 +52,27 @@ final readonly class Json
      */
     public static function canonicalize(string $json): array
     {
-        $decodedJson = json_decode($json);
-
+        $decoded_json = json_decode($json);
         if (json_last_error() !== JSON_ERROR_NONE) {
             return [true, null];
         }
-
-        self::recursiveSort($decodedJson);
-
-        $reencodedJson = json_encode($decodedJson);
-
-        return [false, $reencodedJson];
+        self::recursive_sort($decoded_json);
+        $reencoded_json = json_encode($decoded_json);
+        return [false, $reencoded_json];
     }
-
     /**
      * JSON object keys are unordered while PHP array keys are ordered.
      *
      * Sort all array keys to ensure both the expected and actual values have
      * their keys in the same order.
      */
-    private static function recursiveSort(mixed &$json): void
+    private static function recursive_sort(mixed &$json): void
     {
         if ($json === null || $json === [] || is_scalar($json)) {
             return;
         }
-
-        $isObject = is_object($json);
-
-        if ($isObject) {
+        $is_object = is_object($json);
+        if ($is_object) {
             // Objects need to be sorted during canonicalization to ensure
             // correct comparsion since JSON objects are unordered. It must be
             // kept as an object so that the value correctly stays as a JSON
@@ -102,12 +83,10 @@ final readonly class Json
             $json = (array) $json;
             ksort($json, SORT_STRING);
         }
-
         foreach ($json as &$value) {
-            self::recursiveSort($value);
+            self::recursive_sort($value);
         }
-
-        if ($isObject) {
+        if ($is_object) {
             $json = (object) $json;
         }
     }

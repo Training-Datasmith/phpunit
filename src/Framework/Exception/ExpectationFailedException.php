@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,12 +9,10 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework;
+namespace Php_Unit\Framework;
 
 use Exception;
-use SebastianBergmann\Comparator\ComparisonFailure;
-
+use Sebastian_Bergmann\Comparator\Comparison_Failure;
 /**
  * Exception for expectations which failed their check.
  *
@@ -24,15 +22,14 @@ use SebastianBergmann\Comparator\ComparisonFailure;
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class ExpectationFailedException extends AssertionFailedError
+final class Expectation_Failed_Exception extends Assertion_Failed_Error
 {
-    public function __construct(string $message, protected ?ComparisonFailure $comparisonFailure = null, ?Exception $previous = null)
+    public function __construct(string $message, protected ?Comparison_Failure $comparison_failure = null, ?Exception $previous = null)
     {
         parent::__construct($message, 0, $previous);
     }
-
-    public function getComparisonFailure(): ?ComparisonFailure
+    public function get_comparison_failure(): ?Comparison_Failure
     {
-        return $this->comparisonFailure;
+        return $this->comparison_failure;
     }
 }

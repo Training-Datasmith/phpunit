@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,48 +9,43 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Metadata;
+namespace Php_Unit\Metadata;
 
 /**
  * @immutable
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final readonly class DataProvider extends Metadata
+final readonly class Data_Provider extends Metadata
 {
     /**
      * @param class-string     $className
      * @param non-empty-string $methodName
      */
-    protected function __construct(Level $level, private string $className, private string $methodName, private bool $validateArgumentCount)
+    protected function __construct(Level $level, private string $class_name, private string $method_name, private bool $validate_argument_count)
     {
         parent::__construct($level);
     }
-
-    public function isDataProvider(): true
+    public function is_data_provider(): true
     {
         return true;
     }
-
     /**
      * @return class-string
      */
-    public function className(): string
+    public function class_name(): string
     {
-        return $this->className;
+        return $this->class_name;
     }
-
     /**
      * @return non-empty-string
      */
-    public function methodName(): string
+    public function method_name(): string
     {
-        return $this->methodName;
+        return $this->method_name;
     }
-
-    public function validateArgumentCount(): bool
+    public function validate_argument_count(): bool
     {
-        return $this->validateArgumentCount;
+        return $this->validate_argument_count;
     }
 }

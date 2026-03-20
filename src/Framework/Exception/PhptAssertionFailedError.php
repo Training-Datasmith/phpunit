@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,8 +9,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework;
+namespace Php_Unit\Framework;
 
 /**
  * @immutable
@@ -19,34 +18,30 @@ namespace PHPUnit\Framework;
  *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
-final class PhptAssertionFailedError extends AssertionFailedError
+final class Phpt_Assertion_Failed_Error extends Assertion_Failed_Error
 {
     /**
      * @param list<array{file: string, line: int, function: string, type: string}> $syntheticTrace
      */
-    public function __construct(string $message, int $code, private readonly string $syntheticFile, private readonly int $syntheticLine, private readonly array $syntheticTrace, private readonly string $diff)
+    public function __construct(string $message, int $code, private readonly string $synthetic_file, private readonly int $synthetic_line, private readonly array $synthetic_trace, private readonly string $diff)
     {
         parent::__construct($message, $code);
     }
-
-    public function syntheticFile(): string
+    public function synthetic_file(): string
     {
-        return $this->syntheticFile;
+        return $this->synthetic_file;
     }
-
-    public function syntheticLine(): int
+    public function synthetic_line(): int
     {
-        return $this->syntheticLine;
+        return $this->synthetic_line;
     }
-
     /**
      * @return list<array{file: string, line: int, function: string, type: string}>
      */
-    public function syntheticTrace(): array
+    public function synthetic_trace(): array
     {
-        return $this->syntheticTrace;
+        return $this->synthetic_trace;
     }
-
     public function diff(): string
     {
         return $this->diff;

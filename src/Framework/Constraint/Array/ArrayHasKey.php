@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,34 +9,27 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\Constraint;
+namespace Php_Unit\Framework\Constraint;
 
 use function array_key_exists;
-
 use ArrayAccess;
-
 use function is_array;
-
-use PHPUnit\Util\Exporter;
-
+use Php_Unit\Util\Exporter;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class ArrayHasKey extends Constraint
+final class Array_Has_Key extends Constraint
 {
     public function __construct(private readonly mixed $key)
     {
     }
-
     /**
      * Returns a string representation of the constraint.
      */
-    public function toString(): string
+    public function to_string(): string
     {
         return 'has the key ' . Exporter::export($this->key);
     }
-
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
@@ -46,22 +39,19 @@ final class ArrayHasKey extends Constraint
         if (is_array($other)) {
             return array_key_exists($this->key, $other);
         }
-
         if ($other instanceof ArrayAccess) {
             return $other->offsetExists($this->key);
         }
-
         return false;
     }
-
     /**
      * Returns the description of the failure.
      *
      * The beginning of failure messages is "Failed asserting that" in most
      * cases. This method should return the second part of that sentence.
      */
-    protected function failureDescription(mixed $other): string
+    protected function failure_description(mixed $other): string
     {
-        return 'an array ' . $this->toString();
+        return 'an array ' . $this->to_string();
     }
 }

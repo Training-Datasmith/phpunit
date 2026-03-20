@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,88 +9,75 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace Php_Unit\Runner\Extension;
 
-namespace PHPUnit\Runner\Extension;
-
-use PHPUnit\Event\EventFacadeIsSealedException;
-use PHPUnit\Event\Facade as EventFacade;
-use PHPUnit\Event\Subscriber;
-use PHPUnit\Event\Tracer\Tracer;
-use PHPUnit\Event\UnknownSubscriberTypeException;
-
+use Php_Unit\Event\Event_Facade_Is_Sealed_Exception;
+use Php_Unit\Event\Facade as EventFacade;
+use Php_Unit\Event\Subscriber;
+use Php_Unit\Event\Tracer\Tracer;
+use Php_Unit\Event\Unknown_Subscriber_Type_Exception;
 /**
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
 final class Facade
 {
-    private bool $replacesOutput                 = false;
-    private bool $replacesProgressOutput         = false;
-    private bool $replacesResultOutput           = false;
-    private bool $requiresCodeCoverageCollection = false;
-
+    private bool $replaces_output = false;
+    private bool $replaces_progress_output = false;
+    private bool $replaces_result_output = false;
+    private bool $requires_code_coverage_collection = false;
     /**
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public function registerSubscribers(Subscriber ...$subscribers): void
+    public function register_subscribers(Subscriber ...$subscribers): void
     {
-        EventFacade::instance()->registerSubscribers(...$subscribers);
+        Event_Facade::instance()->register_subscribers(...$subscribers);
     }
-
     /**
      * @throws EventFacadeIsSealedException
      * @throws UnknownSubscriberTypeException
      */
-    public function registerSubscriber(Subscriber $subscriber): void
+    public function register_subscriber(Subscriber $subscriber): void
     {
-        EventFacade::instance()->registerSubscriber($subscriber);
+        Event_Facade::instance()->register_subscriber($subscriber);
     }
-
     /**
      * @throws EventFacadeIsSealedException
      */
-    public function registerTracer(Tracer $tracer): void
+    public function register_tracer(Tracer $tracer): void
     {
-        EventFacade::instance()->registerTracer($tracer);
+        Event_Facade::instance()->register_tracer($tracer);
     }
-
-    public function replaceOutput(): void
+    public function replace_output(): void
     {
-        $this->replacesOutput = true;
+        $this->replaces_output = true;
     }
-
-    public function replacesOutput(): bool
+    public function replaces_output(): bool
     {
-        return $this->replacesOutput;
+        return $this->replaces_output;
     }
-
-    public function replaceProgressOutput(): void
+    public function replace_progress_output(): void
     {
-        $this->replacesProgressOutput = true;
+        $this->replaces_progress_output = true;
     }
-
-    public function replacesProgressOutput(): bool
+    public function replaces_progress_output(): bool
     {
-        return $this->replacesOutput || $this->replacesProgressOutput;
+        return $this->replaces_output || $this->replaces_progress_output;
     }
-
-    public function replaceResultOutput(): void
+    public function replace_result_output(): void
     {
-        $this->replacesResultOutput = true;
+        $this->replaces_result_output = true;
     }
-
-    public function replacesResultOutput(): bool
+    public function replaces_result_output(): bool
     {
-        return $this->replacesOutput || $this->replacesResultOutput;
+        return $this->replaces_output || $this->replaces_result_output;
     }
-
-    public function requireCodeCoverageCollection(): void
+    public function require_code_coverage_collection(): void
     {
-        $this->requiresCodeCoverageCollection = true;
+        $this->requires_code_coverage_collection = true;
     }
-
-    public function requiresCodeCoverageCollection(): bool
+    public function requires_code_coverage_collection(): bool
     {
-        return $this->requiresCodeCoverageCollection;
+        return $this->requires_code_coverage_collection;
     }
 }

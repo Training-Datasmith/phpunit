@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
 /*
  * This file is part of PHPUnit.
  *
@@ -9,32 +9,28 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace PHPUnit\Framework\MockObject;
+namespace Php_Unit\Framework\Mock_Object;
 
 use function assert;
-
-use PHPUnit\Framework\MockObject\Generator\ClassIsEnumerationException;
-use PHPUnit\Framework\MockObject\Generator\ClassIsFinalException;
-use PHPUnit\Framework\MockObject\Generator\DuplicateMethodException;
-use PHPUnit\Framework\MockObject\Generator\InvalidMethodNameException;
-use PHPUnit\Framework\MockObject\Generator\NameAlreadyInUseException;
-use PHPUnit\Framework\MockObject\Generator\ReflectionException;
-use PHPUnit\Framework\MockObject\Generator\RuntimeException;
-use PHPUnit\Framework\MockObject\Generator\UnknownTypeException;
-
+use Php_Unit\Framework\Mock_Object\Generator\Class_Is_Enumeration_Exception;
+use Php_Unit\Framework\Mock_Object\Generator\Class_Is_Final_Exception;
+use Php_Unit\Framework\Mock_Object\Generator\Duplicate_Method_Exception;
+use Php_Unit\Framework\Mock_Object\Generator\Invalid_Method_Name_Exception;
+use Php_Unit\Framework\Mock_Object\Generator\Name_Already_In_Use_Exception;
+use Php_Unit\Framework\Mock_Object\Generator\Reflection_Exception;
+use Php_Unit\Framework\Mock_Object\Generator\RuntimeException;
+use Php_Unit\Framework\Mock_Object\Generator\Unknown_Type_Exception;
 /**
  * @template StubbedType
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
  */
-final class TestStubBuilder extends TestDoubleBuilder
+final class Test_Stub_Builder extends Test_Double_Builder
 {
     /**
      * @var ?class-string
      */
-    private ?string $stubClassName = null;
-
+    private ?string $stub_class_name = null;
     /**
      * Creates a test stub using a fluent interface.
      *
@@ -49,17 +45,14 @@ final class TestStubBuilder extends TestDoubleBuilder
      *
      * @return Stub&StubbedType
      */
-    public function getStub(): Stub
+    public function get_stub(): Stub
     {
-        $object = $this->getTestDouble($this->stubClassName, false);
-
+        $object = $this->get_test_double($this->stub_class_name, false);
         assert($object instanceof $this->type);
         assert($object instanceof Stub);
-        assert(!$object instanceof MockObject);
-
+        assert(!$object instanceof Mock_Object);
         return $object;
     }
-
     /**
      * Specifies the name for the mock class.
      *
@@ -67,10 +60,9 @@ final class TestStubBuilder extends TestDoubleBuilder
      *
      * @return $this
      */
-    public function setStubClassName(string $name): self
+    public function set_stub_class_name(string $name): self
     {
-        $this->stubClassName = $name;
-
+        $this->stub_class_name = $name;
         return $this;
     }
 }
