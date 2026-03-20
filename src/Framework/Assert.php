@@ -1917,9 +1917,24 @@ abstract class Assert
         self::assert_not_equals($expected, $actual, $message);
     }
     /**
-     * Evaluates a PHPUnit\Framework\Constraint matcher object.
+     * Evaluates a Constraint matcher object against a value.
      *
-     * @throws ExpectationFailedException
+     * This is the lowest-level assertion method. All other assertion methods
+     * ultimately delegate to this one. Use it directly when you have a custom
+     * {@see Constraint} object or need to compose constraints with
+     * {@see logicalAnd()}, {@see logicalOr()}, or {@see logicalNot()}.
+     *
+     * Example:
+     *   self::assertThat($value, self::logicalAnd(
+     *       self::greaterThan(0),
+     *       self::lessThan(100),
+     *   ));
+     *
+     * @param mixed      $value      The value to evaluate the constraint against
+     * @param Constraint $constraint The constraint to evaluate
+     * @param string     $message    Optional failure message prepended to the generated message
+     *
+     * @throws ExpectationFailedException when the constraint is not satisfied
      */
     final public static function assert_that(mixed $value, Constraint $constraint, string $message = ''): void
     {

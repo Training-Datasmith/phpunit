@@ -220,7 +220,17 @@ abstract class Test_Case extends Assert implements Reorderable, Self_Describing,
         }
     }
     /**
-     * This method is called before the first test of this test class is run.
+     * Called once before the first test method in this class is run.
+     *
+     * Use this hook to set up expensive shared fixtures that are read-only
+     * during the test run (e.g. database schema creation, external service
+     * connections). Avoid storing mutable state here — use {@see setUp()} for
+     * per-test state to prevent cross-test pollution.
+     *
+     * Throwing any exception from this method marks all tests in the class as
+     * errored and skips their execution.
+     *
+     * @since 4.0
      *
      * @codeCoverageIgnore
      */
@@ -228,7 +238,15 @@ abstract class Test_Case extends Assert implements Reorderable, Self_Describing,
     {
     }
     /**
-     * This method is called after the last test of this test class is run.
+     * Called once after the last test method in this class has run.
+     *
+     * Use this hook to release resources acquired in {@see setUpBeforeClass()}
+     * (e.g. close database connections, delete temporary files).
+     *
+     * This method is called even if one or more tests threw exceptions,
+     * so it is the right place for unconditional cleanup.
+     *
+     * @since 4.0
      *
      * @codeCoverageIgnore
      */
@@ -236,7 +254,13 @@ abstract class Test_Case extends Assert implements Reorderable, Self_Describing,
     {
     }
     /**
-     * This method is called before each test.
+     * Called before each individual test method.
+     *
+     * Use this hook to reset mutable state and create fresh collaborators for
+     * each test, ensuring full isolation. Any exception thrown here causes the
+     * test to error without running the test body or {@see tearDown()}.
+     *
+     * @since 4.0
      *
      * @codeCoverageIgnore
      */
@@ -244,9 +268,13 @@ abstract class Test_Case extends Assert implements Reorderable, Self_Describing,
     {
     }
     /**
-     * Performs assertions shared by all tests of a test case.
+     * Performs assertions shared by all tests in the class, run after setUp() and before the test body.
      *
-     * This method is called between setUp() and test.
+     * Override this method to assert invariants that must hold before every test
+     * executes — for example, verifying that a shared fixture is in a known state.
+     * Failures here are reported as assertion failures, not errors.
+     *
+     * @since 3.5
      *
      * @codeCoverageIgnore
      */
@@ -254,9 +282,14 @@ abstract class Test_Case extends Assert implements Reorderable, Self_Describing,
     {
     }
     /**
-     * Performs assertions shared by all tests of a test case.
+     * Performs assertions shared by all tests in the class, run after the test body and before tearDown().
      *
-     * This method is called between test and tearDown().
+     * Override this method to assert invariants that must hold after every test
+     * executes — for example, verifying that no unexpected output was produced
+     * or that a resource was properly released by the code under test.
+     * Failures here are reported as assertion failures, not errors.
+     *
+     * @since 3.5
      *
      * @codeCoverageIgnore
      */
@@ -264,7 +297,14 @@ abstract class Test_Case extends Assert implements Reorderable, Self_Describing,
     {
     }
     /**
-     * This method is called after each test.
+     * Called after each individual test method, even if the test threw an exception.
+     *
+     * Use this hook to release per-test resources allocated in {@see setUp()}
+     * (e.g. close file handles, reset singletons, restore global state).
+     * Exceptions thrown here are reported separately so the original test
+     * failure is not lost.
+     *
+     * @since 4.0
      *
      * @codeCoverageIgnore
      */
@@ -781,10 +821,16 @@ abstract class Test_Case extends Assert implements Reorderable, Self_Describing,
         return $this->was_prepared;
     }
     /**
-     * Returns a matcher that matches when the method is executed
-     * zero or more times.
+     * Returns a matcher that matches when the method is executed zero or more times.
      *
-     * @deprecated https://github.com/sebastianbergmann/phpunit/issues/6461
+     * Use this only when you genuinely do not care whether the method is called at all.
+     * In most cases, a test stub (via {@see createStub()}) or an explicit invocation
+     * count expectation is a clearer and safer alternative.
+     *
+     * @deprecated since PHPUnit 11 — Use a test stub or an explicit count expectation instead.
+     *             Will be removed in PHPUnit 14.
+     *
+     * @see https://github.com/sebastianbergmann/phpunit/issues/6461
      */
     final protected function any(): Any_Invoked_Count_Matcher
     {
@@ -848,41 +894,95 @@ abstract class Test_Case extends Assert implements Reorderable, Self_Describing,
         $this->output_retrieved_for_assertion = true;
         return $this->output();
     }
+    /**
+     * Asserts that output produced by the code under test matches a PCRE regular expression.
+     *
+     * Call this before executing the code that produces output. The assertion is
+     * evaluated after the test body and before {@see tearDown()}.
+     *
+     * @param non-empty-string $expected_regex PCRE pattern including delimiters (e.g. '/^Hello/')
+     */
     final protected function expect_output_regex(string $expected_regex): void
     {
         $this->output_expected_regex = $expected_regex;
     }
+    /**
+     * Asserts that output produced by the code under test equals the given string exactly.
+     *
+     * Call this before executing the code that produces output. The assertion is
+     * evaluated after the test body and before {@see tearDown()}.
+     *
+     * @param string $expected_string The exact string expected on stdout
+     */
     final protected function expect_output_string(string $expected_string): void
     {
         $this->output_expected_string = $expected_string;
     }
+    /**
+     * Asserts that the code under test writes to the PHP error log.
+     *
+     * Call this before executing the code. PHPUnit redirects error_log output
+     * during the test and verifies it was non-empty.
+     */
     final protected function expect_error_log(): void
     {
         $this->expect_error_log = true;
     }
     /**
-     * @param class-string<Throwable> $exception
+     * Asserts that the code under test throws an exception of the given class.
+     *
+     * Must be called before the code that is expected to throw. The test passes
+     * only if the exception is thrown; if no exception is thrown the test fails.
+     * Combine with {@see expectExceptionMessage()} and {@see expectExceptionCode()}
+     * for more precise assertions.
+     *
+     * @param class-string<Throwable> $exception Fully-qualified exception class name
      */
     final protected function expect_exception(string $exception): void
     {
         $this->expected_exception = $exception;
     }
+    /**
+     * Asserts that the thrown exception has the given code.
+     *
+     * Must be called after {@see expectException()} and before the throwing code.
+     *
+     * @param int|string $code Expected exception code (from Throwable::getCode())
+     */
     final protected function expect_exception_code(int|string $code): void
     {
         $this->expected_exception_code = $code;
     }
+    /**
+     * Asserts that the thrown exception message equals the given string.
+     *
+     * The comparison checks whether the actual message contains the expected
+     * string as a substring. For an exact regex match use
+     * {@see expectExceptionMessageMatches()} instead.
+     *
+     * @param string $message Expected substring of the exception message
+     */
     final protected function expect_exception_message(string $message): void
     {
         $this->expected_exception_message = $message;
     }
+    /**
+     * Asserts that the thrown exception message matches a PCRE regular expression.
+     *
+     * @param non-empty-string $regular_expression PCRE pattern including delimiters
+     */
     final protected function expect_exception_message_matches(string $regular_expression): void
     {
         $this->expected_exception_message_reg_exp = $regular_expression;
     }
     /**
      * Sets up an expectation for an exception to be raised by the code under test.
-     * Information for expected exception class, expected exception message, and
-     * expected exception code are retrieved from a given Exception object.
+     *
+     * Convenience wrapper that calls {@see expectException()},
+     * {@see expectExceptionMessage()}, and {@see expectExceptionCode()} using the
+     * class, message, and code of the provided exception object.
+     *
+     * @param Throwable $exception Template exception whose class, message, and code will be expected
      */
     final protected function expect_exception_object(Throwable $exception): void
     {
@@ -890,6 +990,13 @@ abstract class Test_Case extends Assert implements Reorderable, Self_Describing,
         $this->expect_exception_message($exception->get_message());
         $this->expect_exception_code($exception->get_code());
     }
+    /**
+     * Marks this test as intentionally not performing any assertions.
+     *
+     * By default, PHPUnit fails tests that perform zero assertions (the
+     * "risky test" check). Call this method in tests that only verify side
+     * effects (e.g. that no exception is thrown) to suppress that warning.
+     */
     final protected function expect_not_to_perform_assertions(): void
     {
         $this->does_not_perform_assertions = true;
@@ -937,15 +1044,26 @@ abstract class Test_Case extends Assert implements Reorderable, Self_Describing,
     /**
      * Creates a mock object for the specified interface or class.
      *
+     * The generated mock object:
+     *  - Does NOT call the original constructor.
+     *  - Does NOT call the original clone method.
+     *  - Stubs all methods to return a generated default value (null / 0 / '' etc.)
+     *    unless a specific expectation or return-value stub is configured.
+     *  - Verifies that all configured call expectations are met at the end of the test.
+     *
+     * Use {@see createStub()} when you do not need to assert call counts.
+     *
      * @template RealInstanceType of object
      *
-     * @param class-string<RealInstanceType> $type
+     * @param class-string<RealInstanceType> $type Fully-qualified interface or class name to mock
      *
-     * @throws InvalidArgumentException
-     * @throws MockObjectException
+     * @throws InvalidArgumentException   when $type is not a valid class or interface name
+     * @throws MockObjectException        when the mock cannot be generated
      * @throws NoPreviousThrowableException
      *
-     * @return MockObject&RealInstanceType
+     * @return MockObject&RealInstanceType A mock that also implements MockObject
+     *
+     * @since 9.0
      */
     final protected function create_mock(string $type): Mock_Object
     {
@@ -1815,15 +1933,29 @@ abstract class Test_Case extends Assert implements Reorderable, Self_Describing,
     /**
      * Creates a test stub for the specified interface or class.
      *
+     * A stub differs from a mock in that it does NOT track or verify call counts.
+     * Use a stub when you need a collaborator that returns specific values but you
+     * do not want to assert that particular methods were called.
+     *
+     * The generated stub:
+     *  - Does NOT call the original constructor.
+     *  - Does NOT call the original clone method.
+     *  - Returns generated default values (null / 0 / '' etc.) unless configured
+     *    with method()->willReturn(...).
+     *
+     * Use {@see createMock()} when you need to assert call expectations.
+     *
      * @template RealInstanceType of object
      *
-     * @param class-string<RealInstanceType> $type
+     * @param class-string<RealInstanceType> $type Fully-qualified interface or class name to stub
      *
-     * @throws InvalidArgumentException
-     * @throws MockObjectException
+     * @throws InvalidArgumentException   when $type is not a valid class or interface name
+     * @throws MockObjectException        when the stub cannot be generated
      * @throws NoPreviousThrowableException
      *
-     * @return RealInstanceType&Stub
+     * @return RealInstanceType&Stub A stub that also implements the target interface/class
+     *
+     * @since 9.3
      */
     final protected static function create_stub(string $type): Stub
     {
