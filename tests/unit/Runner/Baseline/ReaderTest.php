@@ -59,7 +59,7 @@ final class ReaderTest extends TestCase
     {
         return Issue::from(
             realpath(__DIR__ . '/../../../_files/baseline/FileWithIssues.php'),
-            10,
+            12,
             null,
             'Undefined variable $b',
         );
@@ -69,7 +69,7 @@ final class ReaderTest extends TestCase
     {
         return Issue::from(
             realpath(__DIR__ . '/../../../_files/baseline/FileWithIssues.php'),
-            11,
+            13,
             null,
             'Undefined variable $c',
         );
@@ -79,7 +79,7 @@ final class ReaderTest extends TestCase
     {
         return Issue::from(
             realpath(__DIR__ . '/../../../_files/baseline/FileWithIssues.php'),
-            10,
+            12,
             null,
             'yet another issue',
         );

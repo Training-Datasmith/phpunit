@@ -38,7 +38,7 @@ final class IssueTest extends TestCase
 
     public function testHasLine(): void
     {
-        $this->assertSame(10, $this->issue()->line());
+        $this->assertSame(12, $this->issue()->line());
     }
 
     public function testHasHash(): void
@@ -85,7 +85,7 @@ final class IssueTest extends TestCase
     {
         return Issue::from(
             realpath(__DIR__ . '/../../../_files/baseline/FileWithIssues.php'),
-            10,
+            12,
             null,
             'Undefined variable $b',
         );
@@ -95,7 +95,7 @@ final class IssueTest extends TestCase
     {
         return Issue::from(
             realpath(__DIR__ . '/../../../_files/baseline/FileWithIssues.php'),
-            11,
+            13,
             null,
             'Undefined variable $c',
         );

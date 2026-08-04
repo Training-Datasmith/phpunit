@@ -31,7 +31,7 @@ final class ReflectionTest extends TestCase
         $this->assertSame(
             [
                 'file' => realpath(__DIR__ . '/../../_files/BankAccountTest.php'),
-                'line' => 22,
+                'line' => 25,
             ],
             Reflection::sourceLocationFor(BankAccountTest::class, 'testBalanceIsInitiallyZero'),
         );
@@ -42,7 +42,7 @@ final class ReflectionTest extends TestCase
         $this->assertSame(
             [
                 'file' => realpath(__DIR__ . '/../../_files/abstract/without-test-suffix/AbstractTestCase.php'),
-                'line' => 16,
+                'line' => 19,
             ],
             Reflection::sourceLocationFor(ConcreteTestClassExtendingAbstractTestClassWithoutTestSuffixTest::class, 'testOne'),
         );
