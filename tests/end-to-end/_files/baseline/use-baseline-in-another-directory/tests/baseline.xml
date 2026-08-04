@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <files version="1">
- <file path="tests/Test.php">
+ <file path="Test.php">
   <line number="25" hash="a1022fb62c4705938dd2c6df5ff35b2621f9e97d">
    <issue><![CDATA[deprecation]]></issue>
   </line>

@@ -217,15 +217,4 @@ function syncBaselineFixtures(string $repoRoot): void
             file_put_contents($sharedBaseline, $match[1] . "\n");
         }
     }
-
-    $anotherDirBaseline = $repoRoot . '/tests/end-to-end/_files/baseline/use-baseline-in-another-directory/tests/baseline.xml';
-    $relativePhpt       = $repoRoot . '/tests/end-to-end/baseline/generate-baseline-with-relative-directory.phpt';
-
-    if (is_file($relativePhpt) && is_file($anotherDirBaseline)) {
-        $phptContent = file_get_contents($relativePhpt);
-
-        if (preg_match('/(<\?xml version="1\.0"\?>.*?<\/files>)/s', $phptContent, $match)) {
-            file_put_contents($anotherDirBaseline, $match[1] . "\n");
-        }
-    }
 }
