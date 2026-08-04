@@ -50,7 +50,7 @@ final readonly class WarningTriggered implements Event
     public function asString(): string
     {
         return sprintf(
-            'Test Runner Triggered Warning (%s)',
+            'Test Runner Triggered PHPUnit Warning (%s)',
             $this->message,
         );
     }
