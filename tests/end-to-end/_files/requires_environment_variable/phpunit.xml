@@ -10,7 +10,7 @@
     </testsuites>
 
     <php>
-        <env name="FOO" value="1"/>
-        <env name="BAR" value=""/>
+        <env name="FOO" value="1" force="true"/>
+        <env name="BAR" value="" force="true"/>
     </php>
 </phpunit>

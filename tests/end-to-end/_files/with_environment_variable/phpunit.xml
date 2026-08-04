@@ -11,7 +11,7 @@
     </testsuites>
 
     <php>
-        <env name="FOO" value="1"/>
-        <env name="BAR" value="2"/>
+        <env name="FOO" value="1" force="true"/>
+        <env name="BAR" value="2" force="true"/>
     </php>
 </phpunit>

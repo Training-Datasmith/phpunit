@@ -9,6 +9,11 @@ $_SERVER['argv'][] = '--display-skipped';
 
 require __DIR__ . '/../../bootstrap.php';
 
+foreach (['FOO', 'BAR', 'BAZ'] as $variable) {
+    putenv($variable);
+    unset($_ENV[$variable], $_SERVER[$variable]);
+}
+
 (new PHPUnit\TextUI\Application)->run($_SERVER['argv']);
 --EXPECTF--
 PHPUnit %s by Sebastian Bergmann and contributors.
