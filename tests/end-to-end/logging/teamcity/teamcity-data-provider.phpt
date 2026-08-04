@@ -21,7 +21,7 @@ Runtime: %s
 ##teamcity[testStarted name='testOne with data set #0' locationHint='php_qn://%sDataProviderTest.php::\PHPUnit\TestFixture\TeamCity\DataProviderTest::testOne with data set #0' flowId='%d']
 ##teamcity[testFinished name='testOne with data set #0' duration='%d' flowId='%d']
 ##teamcity[testStarted name='testOne with data set #1' locationHint='php_qn://%sDataProviderTest.php::\PHPUnit\TestFixture\TeamCity\DataProviderTest::testOne with data set #1' flowId='%d']
-##teamcity[testFailed name='testOne with data set #1' message='Failed asserting that false is true.' details='%sDataProviderTest.php:28|n' duration='%d' flowId='%d']
+##teamcity[testFailed name='testOne with data set #1' message='Failed asserting that false is true.' details='%sDataProviderTest.php:31|n' duration='%d' flowId='%d']
 ##teamcity[testFinished name='testOne with data set #1' duration='%d' flowId='%d']
 ##teamcity[testSuiteFinished name='testOne' flowId='%d']
 ##teamcity[testSuiteFinished name='PHPUnit\TestFixture\TeamCity\DataProviderTest' flowId='%d']
@@ -32,7 +32,7 @@ There was 1 failure:
 1) PHPUnit\TestFixture\TeamCity\DataProviderTest::testOne#1 with data (false)
 Failed asserting that false is true.
 
-%sDataProviderTest.php:28
+%sDataProviderTest.php:31
 
 FAILURES!
 Tests: 2, Assertions: 2, Failures: 1.

@@ -27,7 +27,7 @@ There was 1 risky test:
 1) PHPUnit\TestFixture\TestDox\RiskyTest::test_this_is_a_useless_test_that_does_not_test_anything
 This test did not perform any assertions
 
-%s:16
+%s:19
 
 [30;43mOK, but there were issues![0m
 [30;43mTests: 1[0m[30;43m, Assertions: 0[0m[30;43m, Risky: 1[0m[30;43m.[0m

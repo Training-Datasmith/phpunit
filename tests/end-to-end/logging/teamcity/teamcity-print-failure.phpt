@@ -16,7 +16,7 @@ require_once __DIR__ . '/../../../bootstrap.php';
 ##teamcity[testCount count='%d' flowId='%d']
 ##teamcity[testSuiteStarted name='PHPUnit\TestFixture\TestRunnerStopping\FailureTest' locationHint='%sFailureTest.php::\PHPUnit\TestFixture\TestRunnerStopping\FailureTest' flowId='%d']
 ##teamcity[testStarted name='testOne' locationHint='%sFailureTest.php::\PHPUnit\TestFixture\TestRunnerStopping\FailureTest::testOne' flowId='%d']
-##teamcity[testFailed name='testOne' message='Failed asserting that false is true.' details='%sFailureTest.php:18|n' duration='%d' flowId='%d']
+##teamcity[testFailed name='testOne' message='Failed asserting that false is true.' details='%sFailureTest.php:21|n' duration='%d' flowId='%d']
 ##teamcity[testFinished name='testOne' duration='%d' flowId='%d']
 ##teamcity[testStarted name='testTwo' locationHint='%sFailureTest.php::\PHPUnit\TestFixture\TestRunnerStopping\FailureTest::testTwo' flowId='%d']
 ##teamcity[testFinished name='testTwo' duration='%d' flowId='%d']

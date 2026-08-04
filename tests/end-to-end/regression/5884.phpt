@@ -29,7 +29,7 @@ Foo (PHPUnit\TestFixture\Issue5884\Foo)
 
 1 test triggered 1 deprecation:
 
-1) %sFooTest.php:31
+1) %sFooTest.php:39
 foo
 
 OK, but there were issues!

@@ -24,13 +24,13 @@ Time: %s, Memory: %s
 
 1 test triggered 2 warnings:
 
-1) %s%esrc%eSourceClass.php:23
+1) %s%esrc%eSourceClass.php:27
 warning
 
 Triggered by:
 
 * PHPUnit\TestFixture\FilterErrorHandler\SourceClassTest::testSomething
-  %s%etests%eSourceClassTest.php:16
+  %s%etests%eSourceClassTest.php:19
 
 2) %s%evendor%eVendorClass.php:10
 warning
@@ -38,19 +38,19 @@ warning
 Triggered by:
 
 * PHPUnit\TestFixture\FilterErrorHandler\SourceClassTest::testSomething
-  %s%etests%eSourceClassTest.php:16
+  %s%etests%eSourceClassTest.php:19
 
 --
 
 1 test triggered 2 notices:
 
-1) %s%esrc%eSourceClass.php:22
+1) %s%esrc%eSourceClass.php:26
 notice
 
 Triggered by:
 
 * PHPUnit\TestFixture\FilterErrorHandler\SourceClassTest::testSomething
-  %s%etests%eSourceClassTest.php:16
+  %s%etests%eSourceClassTest.php:19
 
 2) %s%evendor%eVendorClass.php:9
 notice
@@ -58,19 +58,19 @@ notice
 Triggered by:
 
 * PHPUnit\TestFixture\FilterErrorHandler\SourceClassTest::testSomething
-  %s%etests%eSourceClassTest.php:16
+  %s%etests%eSourceClassTest.php:19
 
 --
 
 1 test triggered 2 deprecations:
 
-1) %s%esrc%eSourceClass.php:21
+1) %s%esrc%eSourceClass.php:25
 deprecation
 
 Triggered by:
 
 * PHPUnit\TestFixture\FilterErrorHandler\SourceClassTest::testSomething
-  %s%etests%eSourceClassTest.php:16
+  %s%etests%eSourceClassTest.php:19
 
 2) %s%evendor%eVendorClass.php:8
 deprecation
@@ -78,7 +78,7 @@ deprecation
 Triggered by:
 
 * PHPUnit\TestFixture\FilterErrorHandler\SourceClassTest::testSomething
-  %s%etests%eSourceClassTest.php:16
+  %s%etests%eSourceClassTest.php:19
 
 OK, but there were issues!
 Tests: 1, Assertions: 1, Warnings: 2, Deprecations: 2, Notices: 2.

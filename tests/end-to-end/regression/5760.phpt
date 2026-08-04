@@ -24,7 +24,7 @@ Issue5760 (PHPUnit\TestFixture\Issue5760\Issue5760)
    │
    │ Exception: message
    │
-   │ %s:19
+   │ %s:22
    │
 
 ERRORS!

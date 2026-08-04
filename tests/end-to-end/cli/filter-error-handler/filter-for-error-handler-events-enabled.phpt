@@ -24,37 +24,37 @@ Time: %s, Memory: %s
 
 1 test triggered 1 warning:
 
-1) %s%esrc%eSourceClass.php:23
+1) %s%esrc%eSourceClass.php:27
 warning
 
 Triggered by:
 
 * PHPUnit\TestFixture\FilterErrorHandler\SourceClassTest::testSomething
-  %s%etests%eSourceClassTest.php:16
+  %s%etests%eSourceClassTest.php:19
 
 --
 
 1 test triggered 1 notice:
 
-1) %s%esrc%eSourceClass.php:22
+1) %s%esrc%eSourceClass.php:26
 notice
 
 Triggered by:
 
 * PHPUnit\TestFixture\FilterErrorHandler\SourceClassTest::testSomething
-  %s%etests%eSourceClassTest.php:16
+  %s%etests%eSourceClassTest.php:19
 
 --
 
 1 test triggered 1 deprecation:
 
-1) %s%esrc%eSourceClass.php:21
+1) %s%esrc%eSourceClass.php:25
 deprecation
 
 Triggered by:
 
 * PHPUnit\TestFixture\FilterErrorHandler\SourceClassTest::testSomething
-  %s%etests%eSourceClassTest.php:16
+  %s%etests%eSourceClassTest.php:19
 
 OK, but there were issues!
 Tests: 1, Assertions: 1, Warnings: 1, Deprecations: 1, Notices: 1.

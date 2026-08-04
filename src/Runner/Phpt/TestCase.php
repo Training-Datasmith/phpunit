@@ -316,7 +316,7 @@ final readonly class TestCase implements Reorderable, SelfDescribing, Test
             'EXPECTREGEX' => 'assertMatchesRegularExpression',
         ];
 
-        $actual = preg_replace('/\r\n/', "\n", trim($output));
+        $actual = OutputNormalizer::normalize(trim($output));
 
         foreach ($assertions as $sectionName => $sectionAssertion) {
             if (isset($sections[$sectionName])) {

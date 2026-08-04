@@ -22,12 +22,12 @@ There was 1 error:
 1) PHPUnit\TestFixture\Issue5574\Issue5574Test::testThrownWrappedThrowablesOutputsCorrectStackTraceForEach
 Exception: My exception
 
-%sIssue5574Test.php:22
+%sIssue5574Test.php:25
 
 Caused by
 Error: Inner Exception
 
-%sIssue5574Test.php:21
+%sIssue5574Test.php:24
 
 ERRORS!
 Tests: 1, Assertions: 0, Errors: 1.

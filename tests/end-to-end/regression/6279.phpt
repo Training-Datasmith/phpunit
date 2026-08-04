@@ -20,27 +20,27 @@ Time: %s, Memory: %s
 
 5 tests triggered 5 deprecations:
 
-1) %sTriggersDeprecationInDataProvider1Test.php:26
+1) %sTriggersDeprecationInDataProvider1Test.php:29
 some deprecation
 
 Triggered by:
 
 * PHPUnit\TestFixture\Issue6279\TriggersDeprecationInDataProvider1Test::method2#0
-  %sTriggersDeprecationInDataProvider1Test.php:48
+  %sTriggersDeprecationInDataProvider1Test.php:51
 
 * PHPUnit\TestFixture\Issue6279\TriggersDeprecationInDataProvider1Test::method4#0
-  %sTriggersDeprecationInDataProvider1Test.php:61
+  %sTriggersDeprecationInDataProvider1Test.php:64
 
-2) %sTriggersDeprecationInDataProvider1Test.php:33
+2) %sTriggersDeprecationInDataProvider1Test.php:36
 first
 
-3) %sTriggersDeprecationInDataProvider1Test.php:34
+3) %sTriggersDeprecationInDataProvider1Test.php:37
 second
 
-4) %sTriggersDeprecationInDataProviderUsingIgnoreDeprecationsTest.php:32
+4) %sTriggersDeprecationInDataProviderUsingIgnoreDeprecationsTest.php:35
 some deprecation 2
 
-5) %sTriggersDeprecationInDataProviderUsingIgnoreDeprecationsTest.php:39
+5) %sTriggersDeprecationInDataProviderUsingIgnoreDeprecationsTest.php:42
 some deprecation 3
 
 OK, but there were issues!

@@ -25,7 +25,7 @@ Notice (PHPUnit\TestFixture\TestDox\Notice)
 
 1 test triggered 1 notice:
 
-1) %sNoticeTest.php:20
+1) %sNoticeTest.php:25
 notice
 
 OK, but there were issues!

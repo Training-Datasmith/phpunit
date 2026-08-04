@@ -35,19 +35,19 @@ Outcome And Issues (PHPUnit\TestFixture\TestDox\OutcomeAndIssues)
    │
    │ Failed asserting that false is true.
    │
-   │ %sOutcomeAndIssuesTest.php:53
+   │ %sOutcomeAndIssuesTest.php:58
    │
  ✘ Error
    │
    │ Exception: message
    │
-   │ %sOutcomeAndIssuesTest.php:58
+   │ %sOutcomeAndIssuesTest.php:63
    │
  ∅ Incomplete
    │
    │ message
    │
-   │ %sOutcomeAndIssuesTest.php:63
+   │ %sOutcomeAndIssuesTest.php:68
    │
  ↩ Skipped
 
@@ -62,19 +62,19 @@ Outcome And Issues (PHPUnit\TestFixture\TestDox\OutcomeAndIssues)
    │
    │ Failed asserting that false is true.
    │
-   │ %sOutcomeAndIssuesTest.php:53
+   │ %sOutcomeAndIssuesTest.php:58
    │
  ✘ Error
    │
    │ Exception: message
    │
-   │ %sOutcomeAndIssuesTest.php:58
+   │ %sOutcomeAndIssuesTest.php:63
    │
  ∅ Incomplete
    │
    │ message
    │
-   │ %sOutcomeAndIssuesTest.php:63
+   │ %sOutcomeAndIssuesTest.php:68
    │
  ↩ Skipped
 
@@ -83,27 +83,27 @@ There was 1 risky test:
 1) PHPUnit\TestFixture\TestDox\OutcomeAndIssuesTest::testSuccessButRisky
 This test did not perform any assertions
 
-%sOutcomeAndIssuesTest.php:26
+%sOutcomeAndIssuesTest.php:31
 
 --
 
 1 test triggered 1 warning:
 
-1) %sOutcomeAndIssuesTest.php:48
+1) %sOutcomeAndIssuesTest.php:53
 message
 
 --
 
 1 test triggered 1 notice:
 
-1) %sOutcomeAndIssuesTest.php:41
+1) %sOutcomeAndIssuesTest.php:46
 message
 
 --
 
 1 test triggered 1 deprecation:
 
-1) %sOutcomeAndIssuesTest.php:34
+1) %sOutcomeAndIssuesTest.php:39
 message
 
 ERRORS!

@@ -25,7 +25,7 @@ Deprecation (PHPUnit\TestFixture\TestDox\Deprecation)
 
 1 test triggered 1 deprecation:
 
-1) %sDeprecationTest.php:20
+1) %sDeprecationTest.php:25
 deprecation
 
 OK, but there were issues!

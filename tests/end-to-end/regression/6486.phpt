@@ -26,7 +26,7 @@ There was 1 PHPUnit error:
 The data provider PHPUnit\TestFixture\Issue6486\Issue6486Test::Abracadabra specified for PHPUnit\TestFixture\Issue6486\Issue6486Test::testWithDataProviderThatDoesNotExist is invalid
 Method PHPUnit\TestFixture\Issue6486\Issue6486Test::Abracadabra() does not exist
 
-%sIssue6486Trait.php:22
+%sIssue6486Trait.php:25
 
 ERRORS!
 Tests: 1, Assertions: 1, Errors: 1.

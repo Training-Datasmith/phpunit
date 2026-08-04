@@ -23,7 +23,7 @@ There was 1 failure:
 1) PHPUnit\TestFixture\Issue6095\Issue6095Test::testOne
 PHPUnit\TestFixture\MockObject\AnInterface::doSomething(): bool was not expected to be called more than once.
 
-%sIssue6095Test.php:26
+%sIssue6095Test.php:29
 
 FAILURES!
 Tests: 1, Assertions: 1, Failures: 1.

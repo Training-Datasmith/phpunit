@@ -23,7 +23,7 @@ There was 1 error:
 1) PHPUnit\TestFixture\Issue6094\Issue6094Test
 Exception: message
 
-%sIssue6094Test.php:19
+%sIssue6094Test.php:22
 
 ERRORS!
 Tests: 1, Assertions: 1, Errors: 1.

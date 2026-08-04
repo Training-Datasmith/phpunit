@@ -25,7 +25,7 @@ Warning (PHPUnit\TestFixture\TestDox\Warning)
 
 1 test triggered 1 warning:
 
-1) %sWarningTest.php:20
+1) %sWarningTest.php:25
 warning
 
 OK, but there were issues!

@@ -23,7 +23,7 @@ There was 1 failure:
 1) PHPUnit\TestFixture\Issue5493\Issue5493Test::testOne
 Failed asserting that false is true.
 
-%sIssue5493Test.php:19
+%sIssue5493Test.php:22
 
 FAILURES!
 Tests: 1, Assertions: 1, Failures: 1.

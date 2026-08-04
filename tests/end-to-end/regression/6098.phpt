@@ -16,7 +16,7 @@ require_once __DIR__ . '/../../bootstrap.php';
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
   <testsuite name="PHPUnit\TestFixture\Issue6098\Issue6098Test" file="%sIssue6098Test.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="%f">
-    <testcase name="testOne" file="%sIssue6098Test.php" line="16" class="PHPUnit\TestFixture\Issue6098\Issue6098Test" classname="PHPUnit.TestFixture.Issue6098.Issue6098Test" assertions="1" time="%f">
+    <testcase name="testOne" file="%sIssue6098Test.php" line="19" class="PHPUnit\TestFixture\Issue6098\Issue6098Test" classname="PHPUnit.TestFixture.Issue6098.Issue6098Test" assertions="1" time="%f">
       <system-out>output</system-out>
     </testcase>
   </testsuite>
