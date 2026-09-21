@@ -5,6 +5,8 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$repo_root"
 
+export PHP_INI_SCAN_DIR="${repo_root}/.cursor/php-ini:/etc/php/8.5/cli/conf.d"
+
 junit="${1:-phpunit-remote-20260921.xml}"
 
 php ./phpunit --no-coverage --log-junit "$junit"

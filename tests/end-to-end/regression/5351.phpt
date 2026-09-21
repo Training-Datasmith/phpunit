@@ -31,7 +31,7 @@ Time: %s, Memory: %s MB
 1) PHPUnit\TestFixture\Issue5351\GreeterTest::testGreets
 Class PHPUnit\TestFixture\Issue5351\DoesNotExist is not a valid target for code coverage
 
-%sGreeterTest.php:18
+%s
 
 OK, but there were issues!
 Tests: 1, Assertions: 1, PHPUnit Warnings: 1.

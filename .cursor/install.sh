@@ -41,12 +41,9 @@ for ext in ctype curl dom json libxml mbstring openssl phar tokenizer xml xmlwri
   fi
 done
 
-export PHP_INI_SCAN_DIR="${repo_root}/.cursor/php-ini${PHP_INI_SCAN_DIR:+:${PHP_INI_SCAN_DIR}}"
+export PHP_INI_SCAN_DIR="${repo_root}/.cursor/php-ini:/etc/php/8.5/cli/conf.d"
 
-php -r 'echo "phpunit cloud PHP ".PHP_VERSION
- echo " memory_limit=".ini_get("memory_limit");
- echo " xdebug.mode=".ini_get("xdebug.mode");
- echo " pcov.enabled=".ini_get("pcov.enabled").PHP_EOL;'
+php -r 'echo "phpunit cloud PHP ".PHP_VERSION." memory_limit=".ini_get("memory_limit")." xdebug.mode=".ini_get("xdebug.mode")." pcov.enabled=".ini_get("pcov.enabled").PHP_EOL;'
 
 cd "$repo_root"
 php ./tools/composer install --no-ansi --no-interaction --no-progress

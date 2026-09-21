@@ -132,7 +132,13 @@ final readonly class TestCase implements Reorderable, SelfDescribing, Test
         $code                 = (new Renderer())->render($this->filename, $sections['FILE']);
         $xfail                = false;
         $environmentVariables = [];
-        $phpSettings          = $parser->parseIniSection($this->settings(CodeCoverage::instance()->isActive()));
+        $collectCoverage      = CodeCoverage::instance()->isActive();
+
+        if (!$collectCoverage && isset($sections['INI']) && str_contains($sections['INI'], 'pcov.directory')) {
+            $collectCoverage = true;
+        }
+
+        $phpSettings = $parser->parseIniSection($this->settings($collectCoverage));
         $input                = null;
         $arguments            = [];
 

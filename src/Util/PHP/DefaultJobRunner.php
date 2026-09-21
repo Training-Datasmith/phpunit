@@ -186,10 +186,12 @@ final readonly class DefaultJobRunner extends JobRunner
             assert($pcovSettings !== false);
 
             $phpSettings = array_merge(
-                $phpSettings,
-                $runtime->getCurrentSettings(
-                    array_keys($pcovSettings),
+                array_values(
+                    $runtime->getCurrentSettings(
+                        array_keys($pcovSettings),
+                    ),
                 ),
+                $phpSettings,
             );
         } elseif ($runtime->hasXdebug()) {
             assert(function_exists('xdebug_is_debugger_active'));
