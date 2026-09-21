@@ -5,7 +5,7 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$repo_root"
 
-junit="${1:-phpunit-remote-$(date +%Y%m%d).xml}"
+junit="${1:-phpunit-remote-20260921.xml}"
 
 php ./phpunit --no-coverage --log-junit "$junit"
 php -r '
